@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+  <ItemGroup>
+    <Compile Remove="ObservableData\**" />
+    <EmbeddedResource Remove="ObservableData\**" />
+    <None Remove="ObservableData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Contracts of BPUA</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PocoDataSet\PocoDataSet.IData\PocoDataSet.IData.csproj" />
+    <ProjectReference Include="..\BPUA.Core\BPUA.Core.csproj" />
+  </ItemGroup>
+</Project>

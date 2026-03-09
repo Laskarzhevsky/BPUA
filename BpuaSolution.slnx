@@ -1,0 +1,33 @@
+<Solution>
+  <Folder Name="/BPUA.Application/" />
+  <Folder Name="/BPUA.Application/FA/">
+    <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
+    <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
+    <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
+    <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />
+    <Project Path="BPUA.Application.EventArguments/BPUA.Application.EventArguments.csproj" />
+    <Project Path="BPUA.Application.RequestHandlers/BPUA.Application.RequestHandlers.csproj" />
+    <Project Path="BPUA.Application.Services/BPUA.Application.Services.csproj" />
+  </Folder>
+  <Folder Name="/BPUA.Application/NFA/">
+    <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />
+    <Project Path="BPUA.Application.EventHandlers/BPUA.Application.EventHandlers.csproj" />
+    <Project Path="BPUA.Application.Orchestration/BPUA.Application.Orchestration.csproj" />
+  </Folder>
+  <Folder Name="/Framework/">
+    <Project Path="BPUA.Application.Extensions.Services/BPUA.Application.Extensions.Services.csproj" />
+    <Project Path="BPUA.Core/BPUA.Core.csproj" />
+  </Folder>
+  <Folder Name="/Framework/PocoDataSet/">
+    <Project Path="../PocoDataSet/PocoDataSet.Data/PocoDataSet.Data.csproj" />
+    <Project Path="../PocoDataSet/PocoDataSet.Extensions/PocoDataSet.Extensions.csproj" />
+    <Project Path="../PocoDataSet/PocoDataSet.IData/PocoDataSet.IData.csproj" />
+    <Project Path="../PocoDataSet/PocoDataSet.IObservableData/PocoDataSet.IObservableData.csproj" />
+    <Project Path="../PocoDataSet/PocoDataSet.ObservableData/PocoDataSet.ObservableData.csproj" />
+    <Project Path="../PocoDataSet/PocoDataSet.ObservableExtensions/PocoDataSet.ObservableExtensions.csproj" />
+    <Project Path="PocoDataSet.BPUAExtensions/PocoDataSet.BPUAExtensions.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="SharedBuildSettings.props" />
+  </Folder>
+</Solution>

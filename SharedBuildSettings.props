@@ -1,0 +1,87 @@
+<Project>
+  <PropertyGroup>
+    <AssemblyCompany>Laskarzhevsky Software Inc</AssemblyCompany>
+    <Authors>Laskarzhevsky Software Inc</Authors>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+    <GenerateAssemblyDescriptionAttribute>true</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net9.0</TargetFramework>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <!-- keep these globals -->
+  <PropertyGroup>
+    <DomainName Condition="'$(DomainName)' == ''">BPUA</DomainName>
+    <BPUAOutDir>..\..\..\Build\</BPUAOutDir>
+    <PluginFolderSubdir Condition="'$(PluginFolderSubdir)' == ''"></PluginFolderSubdir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyProductAttribute">
+      <_Parameter1>Business Process Unit Architecture</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <Target Name="CopyOutputToShared" AfterTargets="Build">
+    <!-- compute per-build, after projects set UseCaseName -->
+    <PropertyGroup>
+      <_UseCasePrefix Condition="'$(UseCaseName)' != ''">$(DomainName).$(UseCaseName)</_UseCasePrefix>
+      <_PluginFolderName Condition="'$(_UseCasePrefix)' != ''">$(_UseCasePrefix)</_PluginFolderName>
+      <_PluginFolderPath
+      Condition="'$(_PluginFolderName)' != '' and '$(PluginFolderSubdir)' != ''">
+        $(BPUAOutDir)PluginFolder\$(PluginFolderSubdir)\$(_PluginFolderName)\
+      </_PluginFolderPath>
+      <_PluginFolderPath
+        Condition="'$(_PluginFolderName)' != '' and '$(PluginFolderSubdir)' == ''">
+        $(BPUAOutDir)PluginFolder\$(_PluginFolderName)\
+      </_PluginFolderPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <FilesToCopy Include="$(TargetDir)*.dll;$(TargetDir)*.exe;$(TargetDir)*.json" />
+
+      <UseCaseAssemblies Condition="'$(_UseCasePrefix)' != ''"
+        Include="
+          $(TargetDir)$(_UseCasePrefix).dll;
+          $(TargetDir)$(_UseCasePrefix).*.dll;
+          $(TargetDir)$(_UseCasePrefix).pdb;
+          $(TargetDir)$(_UseCasePrefix).*.pdb;
+          $(TargetDir)$(_UseCasePrefix).*.json" />
+
+      <UseCaseAssemblies Remove="@(UseCaseAssemblies)"
+        Condition="!Exists('%(UseCaseAssemblies.Identity)')" />
+
+      <FilesToCopy Condition="'$(_UseCasePrefix)' != ''"
+        Remove="@(UseCaseAssemblies)" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(BPUAOutDir)"
+          SkipUnchangedFiles="true" Retries="3" RetryDelayMilliseconds="100" />
+
+    <MakeDir Condition="'$(_PluginFolderPath)' != ''"
+              Directories="$(_PluginFolderPath)" />
+
+    <Copy Condition="'$(_PluginFolderPath)' != ''"
+          SourceFiles="@(UseCaseAssemblies)"
+          DestinationFolder="$(_PluginFolderPath)"
+          SkipUnchangedFiles="true" Retries="3" RetryDelayMilliseconds="100" />
+    
+    <!-- wwwroot and scoped css unchanged -->
+    <ItemGroup>
+      <WwwrootFiles Include="$(TargetDir)wwwroot\**\*" />
+      <ScopedCssFiles Include="$(ProjectDir)obj\$(Configuration)\$(TargetFramework)\scopedcss\bundle\**\*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(WwwrootFiles)"
+          DestinationFiles="@(WwwrootFiles->'$(BPUAOutDir)wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" Retries="3" RetryDelayMilliseconds="100" />
+
+    <Copy SourceFiles="@(ScopedCssFiles)"
+          DestinationFiles="@(ScopedCssFiles->'$(BPUAOutDir)wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" Retries="3" RetryDelayMilliseconds="100" />
+  </Target>
+</Project>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>POCO DataSet extensions for applications based on BPUA</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PocoDataSet\PocoDataSet.Extensions\PocoDataSet.Extensions.csproj" />
+    <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
