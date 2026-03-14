@@ -19,17 +19,11 @@ namespace BPUA.Application.Contracts
 
         #region Methods
         /// <summary>
-        /// Gets new data set
-        /// </summary>
-        /// <returns>New data set</returns>
-        IDataSet GetNewDataSet();
-
-        /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet);
+        /// <param name="transitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? transitionContext);
 
         /// <summary>
         /// Raises service request event

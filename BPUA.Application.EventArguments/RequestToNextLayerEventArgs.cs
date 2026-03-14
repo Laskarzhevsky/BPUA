@@ -1,6 +1,4 @@
-﻿using System;
-
-using PocoDataSet.IData;
+﻿using BPUA.Application.Contracts;
 
 namespace BPUA.Application.EventArguments
 {
@@ -13,18 +11,18 @@ namespace BPUA.Application.EventArguments
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="dataSet">Data set</param>
-        public RequestToNextLayerEventArgs(IDataSet? dataSet)
+        /// <param name="transitionContext">transition context</param>
+        public RequestToNextLayerEventArgs(ITransitionContext? transitionContext)
         {
-            DataSet = dataSet;
+            TransitionContext = transitionContext;
         }
         #endregion
 
         #region Public Properties
         /// <summary>
-        /// Gets or sets data set
+        /// Gets or sets transition context
         /// </summary>
-        public IDataSet? DataSet
+        public ITransitionContext? TransitionContext
         {
             get; set;
         }

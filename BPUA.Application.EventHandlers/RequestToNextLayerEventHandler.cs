@@ -6,7 +6,6 @@ using BPUA.Application.EventArguments;
 using BPUA.Application.Orchestration;
 using BPUA.Application.Services;
 using BPUA.Core;
-using PocoDataSet.BPUAExtensions;
 
 using PocoDataSet.IData;
 
@@ -36,34 +35,34 @@ namespace BPUA.Application.EventHandlers
         /// <param name="args">Event arguments</param>
         public override async Task HandleAsync(object? sender, RequestToNextLayerEventArgs args)
         {
-            IDataSet? requestDataSet = args.DataSet;
-            if (requestDataSet == null)
+            ITransitionContext? requestTransitionContext = args.TransitionContext;
+            if (requestTransitionContext == null)
             {
                 return;
             }
 
-            IBPUAIdentifier bpuaIdentifier = requestDataSet.GetBPUAIdentifierAsInterface();
+            IBPUAIdentifier bpuaIdentifier = requestTransitionContext.BPUAIdentifier;
             string? applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(bpuaIdentifier.ApplicationLayerName);
-            requestDataSet.AddRequestMetadata(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName, bpuaIdentifier.Breadcrumbs);
+            requestTransitionContext.AddRequestMetadata(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName, bpuaIdentifier.Breadcrumbs);
             string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
 
-            IDataSet? responseDataSet = null;
+            ITransitionContext? responseTransitionContext = null;
             ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
             if (transitionHandler != null)
             {
                 transitionHandler.BPUAApplication = BPUAApplication;
                 await using (transitionHandler as IAsyncDisposable)
                 {
-                    responseDataSet = await transitionHandler.HandleRequestAsync(requestDataSet);
-                    if (responseDataSet != null)
+                    responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
+                    if (responseTransitionContext != null)
                     {
-                        responseDataSet.RemoveCurrentRequestMetadata();
+                        responseTransitionContext.RemoveCurrentRequestMetadata();
                     }
                 }
             }
 
             BPUAApplication = null;
-            args.DataSet = responseDataSet;
+            args.TransitionContext = responseTransitionContext;
         }
         #endregion
     }

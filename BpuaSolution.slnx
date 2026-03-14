@@ -2,6 +2,7 @@
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/FA/">
     <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
+    <Project Path="BPUA.Application.Context/BPUA.Application.Context.csproj" Id="85f1927e-3fa8-4467-849f-1c10709506c3" />
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
     <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />
@@ -25,7 +26,6 @@
     <Project Path="../PocoDataSet/PocoDataSet.IObservableData/PocoDataSet.IObservableData.csproj" />
     <Project Path="../PocoDataSet/PocoDataSet.ObservableData/PocoDataSet.ObservableData.csproj" />
     <Project Path="../PocoDataSet/PocoDataSet.ObservableExtensions/PocoDataSet.ObservableExtensions.csproj" />
-    <Project Path="PocoDataSet.BPUAExtensions/PocoDataSet.BPUAExtensions.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="SharedBuildSettings.props" />

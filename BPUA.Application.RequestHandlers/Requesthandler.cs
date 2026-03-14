@@ -2,11 +2,9 @@
 using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
-using PocoDataSet.BPUAExtensions;
 using BPUA.Application.EventArguments;
 using BPUA.Core;
 
-using PocoDataSet.Extensions;
 using PocoDataSet.IData;
 
 namespace BPUA.Application.RequestHandlers
@@ -54,46 +52,34 @@ namespace BPUA.Application.RequestHandlers
 
         #region Public Methods
         /// <summary>
-        /// Gets new data set
-        /// IRequestHandler interface implementation
-        /// </summary>
-        /// <returns>New data set</returns>
-        public virtual IDataSet GetNewDataSet()
-        {
-            IDataSet dataSet = DataSetFactory.CreateDataSet();
-            dataSet.AddRequestMetadataTable();
-            return dataSet;
-        }
-
-        /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        public virtual async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        public virtual async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            RequestDataSet = requestDataSet;
-            ResponseDataSet = requestDataSet;
-            if (requestDataSet == null)
+            RequestTransitionContext = requestTransitionContext;
+            ResponseTransitionContext = requestTransitionContext;
+            if (requestTransitionContext == null)
             {
-                return ResponseDataSet;
+                return ResponseTransitionContext;
             }
 
             ProcessRequest();
             if (_terminateNextStepsOfTransitionHandling)
             {
-                return ResponseDataSet;
+                return ResponseTransitionContext;
             }
 
             await SendRequestToApplicationNextLayer();
-            if (ResponseDataSet == null)
+            if (ResponseTransitionContext == null)
             {
-                return ResponseDataSet;
+                return ResponseTransitionContext;
             }
 
             ProcessResponse();
             await ProcessResponseAsync();
-            return ResponseDataSet;
+            return ResponseTransitionContext;
         }
 
         /// <summary>
@@ -209,10 +195,10 @@ namespace BPUA.Application.RequestHandlers
         /// </summary>
         protected virtual async Task SendRequestToApplicationNextLayer()
         {
-            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(RequestDataSet);
+            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(RequestTransitionContext);
             await RaiseServiceRequestEventAsync(requestToNextLayerEventArgs);
 
-            ResponseDataSet = requestToNextLayerEventArgs.DataSet;
+            ResponseTransitionContext = requestToNextLayerEventArgs.TransitionContext;
         }
 
         /// <summary>
@@ -226,17 +212,17 @@ namespace BPUA.Application.RequestHandlers
 
         #region Protected Properties
         /// <summary>
-        /// Gets or sets request data set
+        /// Gets or sets request transition context
         /// </summary>
-        protected IDataSet? RequestDataSet
+        protected ITransitionContext? RequestTransitionContext
         {
             get; set;
         }
 
         /// <summary>
-        /// Gets or sets response data set
+        /// Gets or sets response transition context
         /// </summary>
-        protected IDataSet? ResponseDataSet
+        protected ITransitionContext? ResponseTransitionContext
         {
             get; set;
         }

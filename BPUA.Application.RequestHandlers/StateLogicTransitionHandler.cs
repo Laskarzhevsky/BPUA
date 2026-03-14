@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using BPUA.Application.Contracts;
-using PocoDataSet.BPUAExtensions;
-using BPUA.Core;
-
-using PocoDataSet.IData;
+﻿using BPUA.Application.Contracts;
 
 namespace BPUA.Application.RequestHandlers
 {

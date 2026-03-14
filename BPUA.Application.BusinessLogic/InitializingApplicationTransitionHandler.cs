@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
-
-using BPUA.Application.Contracts;
+﻿using BPUA.Application.Contracts;
 using BPUA.Application.EventArguments;
 using BPUA.Application.RequestHandlers;
 using BPUA.Core;
-using PocoDataSet.BPUAExtensions;
 
-using PocoDataSet.Extensions;
 using PocoDataSet.IData;
+
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BPUA.Application.BusinessLogic
 {
@@ -46,22 +46,22 @@ namespace BPUA.Application.BusinessLogic
         /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(requestDataSet);
+            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(requestTransitionContext);
             await RaiseServiceRequestEventAsync(requestToNextLayerEventArgs);
 
-            IDataSet? responseDataSet = requestToNextLayerEventArgs.DataSet;
-            IDataTable transitionMetadataTable = responseDataSet!.GetTransitionMetadataTable();
-            for (int i = 0; i < transitionMetadataTable.Rows.Count; i++)
+            ITransitionContext? responseTransitionContext = requestToNextLayerEventArgs.TransitionContext;
+            IReadOnlyList<ITransitionMetadata> transitionsMetadata = responseTransitionContext!.TransitionsMetadata;
+            for (int i = 0; i < transitionsMetadata.Count; i++)
             {
-                ITransitionMetadata transitionMetadata = DataRowExtensions.AsInterface<ITransitionMetadata>(transitionMetadataTable.Rows[i]);
+                ITransitionMetadata transitionMetadata = transitionsMetadata[i];
                 transitionMetadata.Available = true;
             }
 
-            return responseDataSet;
+            return responseTransitionContext;
         }
         #endregion
     }

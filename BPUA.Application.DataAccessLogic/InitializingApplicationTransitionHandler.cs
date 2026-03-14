@@ -1,12 +1,12 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-
+﻿using BPUA.Application.Context;
 using BPUA.Application.Contracts;
 using BPUA.Application.RequestHandlers;
 using BPUA.Core;
-using PocoDataSet.BPUAExtensions;
 
 using PocoDataSet.IData;
+
+using System.IO;
+using System.Threading.Tasks;
 
 namespace BPUA.Application.DataAccessLogic
 {
@@ -45,16 +45,16 @@ namespace BPUA.Application.DataAccessLogic
         /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            if (requestDataSet == null)
+            if (requestTransitionContext == null)
             {
-                return requestDataSet;
+                return requestTransitionContext;
             }
 
-            IRequestMetadata requestMetadata = requestDataSet.GetRequestMetadata();
+            IRequestMetadata requestMetadata = requestTransitionContext.RequestMetadata;
             string fullPath = BPUAApplication.PathToFolderWithDynamicAssemblies;
             if (!string.IsNullOrEmpty(requestMetadata.Breadcrumbs))
             {
@@ -69,26 +69,18 @@ namespace BPUA.Application.DataAccessLogic
                     DirectoryInfo directoryInfo = new DirectoryInfo(subdirectories[i]);
                     if (FolderContainsSubfolders(subdirectories[i]))
                     {
-                        ITransitionMetadata transitionMetadata = requestDataSet.GetNewTransitionMetadataAsInterface();
-                        transitionMetadata.DomainName = requestMetadata.DomainName;
-                        transitionMetadata.UseCaseName = requestMetadata.UseCaseName;
-                        transitionMetadata.StateName = requestMetadata.StateName;
-                        transitionMetadata.TransitionName = requestMetadata.TransitionName;
-                        transitionMetadata.Breadcrumbs = Breadcrumbs.Append(requestMetadata.Breadcrumbs, directoryInfo.Name);
+                        string breadcrumbs = Breadcrumbs.Append(requestMetadata.Breadcrumbs, directoryInfo.Name);
+                        requestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, requestMetadata.ApplicationLayerName, requestMetadata.StateName, requestMetadata.TransitionName, breadcrumbs);
                     }
                     else
                     {
-                        ITransitionMetadata transitionMetadata = requestDataSet.GetNewTransitionMetadataAsInterface();
-                        transitionMetadata.DomainName = requestMetadata.DomainName;
-                        transitionMetadata.UseCaseName = requestMetadata.UseCaseName;
-                        transitionMetadata.StateName = requestMetadata.StateName;
-                        transitionMetadata.TransitionName = BPUA.Application.Contracts.TransitionsNames.SWITCHING_TO_USE_CASE;
-                        transitionMetadata.Breadcrumbs = Breadcrumbs.Append(requestMetadata.Breadcrumbs, directoryInfo.Name);
+                        string breadcrumbs = Breadcrumbs.Append(requestMetadata.Breadcrumbs, directoryInfo.Name);
+                        requestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, requestMetadata.ApplicationLayerName, requestMetadata.StateName, BPUA.Application.Contracts.TransitionsNames.SWITCHING_TO_USE_CASE, breadcrumbs);
                     }
                 }
             }
 
-            return requestDataSet;
+            return requestTransitionContext;
         }
         #endregion
 

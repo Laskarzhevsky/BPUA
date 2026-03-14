@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BPUA.Application.Context\BPUA.Application.Context.csproj" />
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
     <ProjectReference Include="..\BPUA.Application.EventArguments\BPUA.Application.EventArguments.csproj" />
     <ProjectReference Include="..\BPUA.Core\BPUA.Core.csproj" />
-    <ProjectReference Include="..\PocoDataSet.BPUAExtensions\PocoDataSet.BPUAExtensions.csproj" />
   </ItemGroup>
 </Project>

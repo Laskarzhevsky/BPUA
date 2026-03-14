@@ -44,15 +44,16 @@ namespace BPUA.Application.DataProcessingLogic
         /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            RequestToNextLayerEventArgs requestDispatchingEventArgs = new RequestToNextLayerEventArgs(requestDataSet);
+            RequestToNextLayerEventArgs requestDispatchingEventArgs = new RequestToNextLayerEventArgs(requestTransitionContext);
             await RaiseServiceRequestEventAsync(requestDispatchingEventArgs);
 
-            IDataSet? responseDataSet = requestDispatchingEventArgs.DataSet;
-            return responseDataSet;
+            ITransitionContext? responseTransitionContext = requestDispatchingEventArgs.TransitionContext;
+
+            return responseTransitionContext;
         }
         #endregion
     }

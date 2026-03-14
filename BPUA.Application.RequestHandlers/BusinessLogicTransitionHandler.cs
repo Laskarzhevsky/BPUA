@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using BPUA.Application.Context;
 using BPUA.Application.Contracts;
-using PocoDataSet.BPUAExtensions;
 using BPUA.Core;
 
 using PocoDataSet.IData;
@@ -39,19 +39,24 @@ namespace BPUA.Application.RequestHandlers
         /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="requestDataSet">Request data set</param>
-        /// <returns>Response data set</returns>
-        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>Response transition context</returns>
+        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            IDataSet? responseDataSet = await base.HandleRequestAsync(requestDataSet);
-            IRequestMetadata requestMetadata = responseDataSet.GetRequestMetadata();
+            ITransitionContext? responseTransitionContext = await base.HandleRequestAsync(requestTransitionContext);
+            if (responseTransitionContext == null)
+            {
+                return requestTransitionContext;
+            }
+
+            IRequestMetadata requestMetadata = responseTransitionContext.RequestMetadata;
             if (string.IsNullOrEmpty(requestMetadata.StateName))
             {
                 requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
             }
             
             AddTransitionsMetadataToResponse();
-            return responseDataSet;
+            return responseTransitionContext;
         }
         #endregion
 
@@ -61,7 +66,7 @@ namespace BPUA.Application.RequestHandlers
         /// </summary>
         void AddTransitionsMetadataToResponse()
         {
-            IRequestMetadata requestMetadata = RequestDataSet.GetRequestMetadata();
+            IRequestMetadata requestMetadata = RequestTransitionContext!.RequestMetadata;
             string stateHandlerKey = KeyCompiler.CompileStateHandlerKey(requestMetadata.DomainName, requestMetadata.UseCaseName, requestMetadata.ApplicationLayerName, requestMetadata.StateName);
 
             IServiceRegistry serviceRegistry = BPUAApplication.ServiceRegistry;
@@ -71,7 +76,7 @@ namespace BPUA.Application.RequestHandlers
                 return;
             }
 
-            if (ResponseDataSet == null)
+            if (ResponseTransitionContext == null)
             {
                 return;
             }
@@ -83,7 +88,7 @@ namespace BPUA.Application.RequestHandlers
                     continue;
                 }
 
-                ITransitionMetadata newTransitionMetadata = ResponseDataSet.GetNewTransitionMetadataAsInterface();
+                ITransitionMetadata newTransitionMetadata = new TransitionMetadata();
                 newTransitionMetadata.DomainName = requestMetadata.DomainName;
                 newTransitionMetadata.UseCaseName = requestMetadata.UseCaseName;
                 newTransitionMetadata.StateName = requestMetadata.StateName;

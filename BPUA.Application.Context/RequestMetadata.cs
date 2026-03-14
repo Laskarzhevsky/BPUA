@@ -1,17 +1,18 @@
-﻿using BPUA.Core;
+﻿using BPUA.Application.Contracts;
+using BPUA.Core;
 
-namespace BPUA.Application.Contracts
+namespace BPUA.Application.Context
 {
     /// <summary>
     /// Defines request metadata data trasfer objet functionality
     /// </summary>
-    public interface IRequestMetadata : IBPUAIdentifier
+    public class RequestMetadata : BPUAIdentifier, IRequestMetadata
     {
-        #region Properties
+        #region Public Properties
         /// <summary>
         /// Gets or sets application layer full name
         /// </summary>
-        string? ApplicationLayerFullName
+        public string? ApplicationLayerFullName
         {
             get;
         }
@@ -19,7 +20,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets flag indicating whether request handled
         /// </summary>
-        bool RequestHandled
+        public bool RequestHandled
         {
             get; set;
         }
@@ -27,7 +28,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets full state name
         /// </summary>
-        string? StateFullName
+        public string? StateFullName
         {
             get;
         }
@@ -35,7 +36,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets flag indicating whether statistics needs to be traced
         /// </summary>
-        bool TraceStatistics
+        public bool TraceStatistics
         {
             get; set;
         }
@@ -43,7 +44,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets trace subject
         /// </summary>
-        string? TraceSubject
+        public string? TraceSubject
         {
             get;
             set;
