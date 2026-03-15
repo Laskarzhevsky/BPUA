@@ -18,7 +18,6 @@
     <ProjectReference Include="..\BPUA.Application.BusinessLogic\BPUA.Application.BusinessLogic.csproj" />
     <ProjectReference Include="..\BPUA.Application.DataAccessLogic\BPUA.Application.DataAccessLogic.csproj" />
     <ProjectReference Include="..\BPUA.Application.DataProcessingLogic\BPUA.Application.DataProcessingLogic.csproj" />
-    <ProjectReference Include="..\BPUA.Application.EventHandlers\BPUA.Application.EventHandlers.csproj" />
     <ProjectReference Include="..\BPUA.Application.Extensions.Services\BPUA.Application.Extensions.Services.csproj" />
     <ProjectReference Include="..\BPUA.Application.Orchestration\BPUA.Application.Orchestration.csproj" />
   </ItemGroup>

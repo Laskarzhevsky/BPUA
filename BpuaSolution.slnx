@@ -12,20 +12,11 @@
   </Folder>
   <Folder Name="/BPUA.Application/NFA/">
     <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />
-    <Project Path="BPUA.Application.EventHandlers/BPUA.Application.EventHandlers.csproj" />
     <Project Path="BPUA.Application.Orchestration/BPUA.Application.Orchestration.csproj" />
   </Folder>
   <Folder Name="/Framework/">
     <Project Path="BPUA.Application.Extensions.Services/BPUA.Application.Extensions.Services.csproj" />
     <Project Path="BPUA.Core/BPUA.Core.csproj" />
-  </Folder>
-  <Folder Name="/Framework/PocoDataSet/">
-    <Project Path="../PocoDataSet/PocoDataSet.Data/PocoDataSet.Data.csproj" />
-    <Project Path="../PocoDataSet/PocoDataSet.Extensions/PocoDataSet.Extensions.csproj" />
-    <Project Path="../PocoDataSet/PocoDataSet.IData/PocoDataSet.IData.csproj" />
-    <Project Path="../PocoDataSet/PocoDataSet.IObservableData/PocoDataSet.IObservableData.csproj" />
-    <Project Path="../PocoDataSet/PocoDataSet.ObservableData/PocoDataSet.ObservableData.csproj" />
-    <Project Path="../PocoDataSet/PocoDataSet.ObservableExtensions/PocoDataSet.ObservableExtensions.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="SharedBuildSettings.props" />

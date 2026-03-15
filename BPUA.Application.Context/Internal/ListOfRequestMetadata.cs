@@ -49,6 +49,7 @@ namespace BPUA.Application.Context
             requestMetadata.UseCaseName = useCaseName;
             requestMetadata.ApplicationLayerName = applicationLayerName;
             requestMetadata.StateName = stateName;
+            requestMetadata.TransitionName = transitionName;
             requestMetadata.Breadcrumbs = breadcrumbs;
 
             Add(requestMetadata);
@@ -69,12 +70,7 @@ namespace BPUA.Application.Context
         /// <returns>Request metadta</returns>
         public IRequestMetadata GetRequestMetadata()
         {
-            if (Count > 0)
-            {
-                return this[Count - 1];
-            }
-
-            return new RequestMetadata();
+            return this[Count - 1];
         }
 
         /// <summary>
@@ -116,6 +112,8 @@ namespace BPUA.Application.Context
                     currentRequestMetadata.UseCaseName = bpuaIdentifier.UseCaseName;
                 }
             }
+
+            RemoveAt(Count - 1);
         }
         #endregion
     }

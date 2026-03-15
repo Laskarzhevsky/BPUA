@@ -1,4 +1,4 @@
-﻿namespace PocoDataSet.BPUAExtensionsProcessingLogic
+﻿namespace BPUA.Application.DataProcessingLogic
 {
     /// <summary>
     /// Used to register assembly with BPUA.PlatformDependenciesAggregator

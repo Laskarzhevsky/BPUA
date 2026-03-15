@@ -3,19 +3,16 @@ using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
 using BPUA.Application.EventArguments;
-using BPUA.Application.Orchestration;
 using BPUA.Application.Services;
 using BPUA.Core;
 
-using PocoDataSet.IData;
-
-namespace BPUA.Application.EventHandlers
+namespace BPUA.Application.Orchestration
 {
     /// <summary>
     /// Provides request to the next layer event handler functionality
     /// </summary>
     [RegisterAsBPUAService]
-    public class RequestToNextLayerEventHandler : BPUAService<RequestToNextLayerEventArgs>
+    public class TransitionContextRouter : BPUAService<RequestToNextLayerEventArgs>
     {
         #region Public Methods
         /// <summary>
@@ -43,6 +40,12 @@ namespace BPUA.Application.EventHandlers
 
             IBPUAIdentifier bpuaIdentifier = requestTransitionContext.BPUAIdentifier;
             string? applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(bpuaIdentifier.ApplicationLayerName);
+            if (applicationNextLayerName == null) 
+            {
+                args.TransitionContext = requestTransitionContext;
+                return;
+            }
+
             requestTransitionContext.AddRequestMetadata(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName, bpuaIdentifier.Breadcrumbs);
             string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
 

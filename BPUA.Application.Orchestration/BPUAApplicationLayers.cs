@@ -36,7 +36,7 @@ namespace BPUA.Application.Orchestration
             BPUAApplicationLayersProgression.TryGetValue(currentLayerName, out string? nextLayerName);
             if (string.IsNullOrEmpty(nextLayerName))
             {
-                return currentLayerName;
+                return null;
             }
 
             return nextLayerName;

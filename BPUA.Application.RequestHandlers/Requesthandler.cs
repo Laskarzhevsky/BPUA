@@ -124,10 +124,10 @@ namespace BPUA.Application.RequestHandlers
         } = default!;
 
         /// <summary>
-        /// Gets or sets data set
+        /// Gets or sets transition context
         /// IRequestHandler interface implementation
         /// </summary>
-        public IDataSet? DataSet
+        public ITransitionContext? TransitionContext
         {
             get; set;
         }
@@ -249,7 +249,7 @@ namespace BPUA.Application.RequestHandlers
         {
             RequestServiceEvent = null;
             BPUAApplication = default!;
-            DataSet = null;
+            TransitionContext = null;
         }
         #endregion
     }

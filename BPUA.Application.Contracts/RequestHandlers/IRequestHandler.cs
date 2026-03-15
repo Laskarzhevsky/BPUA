@@ -50,9 +50,9 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets or sets data set
+        /// Gets or sets transition context
         /// </summary>
-        IDataSet? DataSet
+        ITransitionContext? TransitionContext
         {
             get; set;
         }

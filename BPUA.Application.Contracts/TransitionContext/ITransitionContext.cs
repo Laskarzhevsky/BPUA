@@ -36,6 +36,16 @@ namespace BPUA.Application.Contracts
         void AddRequestMetadata(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null);
 
         /// <summary>
+        /// Adds transition metadata
+        /// </summary>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">Transition name</param>
+        /// <param name="breadcrumbs">Breadcrumbs data</param>
+        void AddTransitionMetadata(string domainName, string useCaseName, string stateName, string transitionName, string? breadcrumbs = null);
+
+        /// <summary>
         /// Removes current request metadata
         /// </summary>
         void RemoveCurrentRequestMetadata();

@@ -16,16 +16,39 @@ namespace BPUA.Application.Context
         /// Holds list of request metadata
         /// </summary>
         ListOfRequestMetadata _listOfRequestMetadata = new ListOfRequestMetadata();
+
+        /// <summary>
+        /// Holds list of transition metadata
+        /// </summary>
+        ListOfTransitionMetadata _listOfTransitionMetadata = new ListOfTransitionMetadata();
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Default constructor
+        /// Creates instance of TransitionContext class
         /// </summary>
         /// <param name="dataSet">Data set</param>
-        public TransitionContext(IDataSet dataSet)
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        public TransitionContext(IDataSet dataSet, IBPUAIdentifier bpuaIdentifier)
         {
             DataSet = dataSet;
+            _listOfRequestMetadata.AddRequestMetadata(bpuaIdentifier);
+        }
+
+        /// <summary>
+        /// Creates instance of TransitionContext class
+        /// </summary>
+        /// <param name="dataSet">Data set</param>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="applicationLayerName">Application layer name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">Transition name</param>
+        /// <param name="breadcrumbs">Breadcrumbs string</param>
+        public TransitionContext(IDataSet dataSet, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName, string? breadcrumbs = null)
+        {
+            DataSet = dataSet;
+            _listOfRequestMetadata.AddRequestMetadata(domainName, useCaseName, applicationLayerName, stateName, transitionName, breadcrumbs);
         }
         #endregion
 
@@ -63,6 +86,20 @@ namespace BPUA.Application.Context
         public void AddRequestMetadata(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null)
         {
             _listOfRequestMetadata.AddRequestMetadata(domainName, useCaseName, applicationLayerName, stateName, transitionName, breadcrumbs);
+        }
+
+        /// <summary>
+        /// Adds transition metadata
+        /// ITransitionContext interface implementation
+        /// </summary>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">Transition name</param>
+        /// <param name="breadcrumbs">Breadcrumbs data</param>
+        public void AddTransitionMetadata(string domainName, string useCaseName, string stateName, string transitionName, string? breadcrumbs = null)
+        {
+            _listOfTransitionMetadata.AddTransitionMetadata(domainName, useCaseName, stateName, transitionName, breadcrumbs);
         }
 
         /// <summary>
@@ -115,7 +152,10 @@ namespace BPUA.Application.Context
         /// </summary>
         public IReadOnlyList<ITransitionMetadata> TransitionsMetadata
         {
-            get;
+            get
+            {
+                return _listOfTransitionMetadata;
+            }
         }
         #endregion
     }

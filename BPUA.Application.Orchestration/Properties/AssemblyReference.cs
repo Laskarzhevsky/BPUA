@@ -1,4 +1,4 @@
-﻿namespace BPUA.Application.EventHandlers
+﻿namespace BPUA.Application.Orchestration
 {
     /// <summary>
     /// Used to register assembly with BPUA.PlatformDependenciesAggregator

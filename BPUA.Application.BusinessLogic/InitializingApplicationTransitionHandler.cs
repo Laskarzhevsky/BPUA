@@ -50,11 +50,21 @@ namespace BPUA.Application.BusinessLogic
         /// <returns>Response transition context</returns>
         public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
+            if (requestTransitionContext == null)
+            {
+                return requestTransitionContext;
+            }
+
             RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(requestTransitionContext);
             await RaiseServiceRequestEventAsync(requestToNextLayerEventArgs);
 
             ITransitionContext? responseTransitionContext = requestToNextLayerEventArgs.TransitionContext;
-            IReadOnlyList<ITransitionMetadata> transitionsMetadata = responseTransitionContext!.TransitionsMetadata;
+            if (responseTransitionContext == null)
+            {
+                return responseTransitionContext;
+            }
+
+            IReadOnlyList<ITransitionMetadata> transitionsMetadata = responseTransitionContext.TransitionsMetadata;
             for (int i = 0; i < transitionsMetadata.Count; i++)
             {
                 ITransitionMetadata transitionMetadata = transitionsMetadata[i];
