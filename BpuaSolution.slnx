@@ -21,4 +21,7 @@
   <Folder Name="/Solution Items/">
     <File Path="SharedBuildSettings.props" />
   </Folder>
+  <Folder Name="/xUnitTesting/">
+    <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />
+  </Folder>
 </Solution>
