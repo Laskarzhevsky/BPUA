@@ -1,4 +1,7 @@
-﻿using BPUA.Application.Contracts;
+﻿using System;
+using System.IO;
+
+using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 
 using Microsoft.Extensions.Configuration;
@@ -11,6 +14,46 @@ namespace BPUA.Application.Boot
     public sealed partial class BPUAPlatformBootstrapper
     {
         #region Methods
+
+        /// <summary>
+        /// Throws when the platform has already been bootstrapped.
+        /// </summary>
+        void ThrowIfAlreadyBootstrapped()
+        {
+            IBPUAApplication application = BPUAApplication.GetInstance();
+            if (!string.IsNullOrWhiteSpace(application.PathToFolderWithDynamicAssemblies))
+            {
+                throw new InvalidOperationException("BPUA platform has already been bootstrapped.");
+            }
+        }
+
+        /// <summary>
+        /// Validates the executable folder path argument.
+        /// </summary>
+        /// <param name="pathToFolderWithExecutableFile">Path to folder with executable file.</param>
+        void ValidatePathToFolderWithExecutableFile(string pathToFolderWithExecutableFile)
+        {
+            if (pathToFolderWithExecutableFile == null)
+            {
+                throw new ArgumentNullException(nameof(pathToFolderWithExecutableFile));
+            }
+
+            if (string.IsNullOrWhiteSpace(pathToFolderWithExecutableFile))
+            {
+                throw new ArgumentException("Path to folder with executable file cannot be empty or whitespace.", nameof(pathToFolderWithExecutableFile));
+            }
+        }
+
+        /// <summary>
+        /// Validates that the dynamic assemblies directory exists.
+        /// </summary>
+        void ValidateDynamicAssembliesDirectoryExists()
+        {
+            if (!Directory.Exists(PathToFolderWithDynamicAssemblies))
+            {
+                throw new DirectoryNotFoundException("The plugin folder does not exist: " + PathToFolderWithDynamicAssemblies);
+            }
+        }
         void CalculatePathToFolderWithDynamicAssemblies()
         {
             PathToFolderWithDynamicAssemblies = AssemblyLoadingProcessConfigurator.CalculatePathToFolderWithDynamicAssemblies(ApplicationConfiguration, PathToFolderWithExecutableFile, IsDevelopmentEnvironment);

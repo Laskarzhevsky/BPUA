@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
-using BPUA.Application.EventArguments;
 using BPUA.Application.Services;
 using BPUA.Core;
 
@@ -12,7 +11,7 @@ namespace BPUA.Application.Orchestration
     /// Provides request to the next layer event handler functionality
     /// </summary>
     [RegisterAsBPUAService]
-    public class TransitionContextRouter : BPUAService<RequestToNextLayerEventArgs>
+    public class TransitionContextRouter : BPUAService<RouteTransitionContextEventArgs>
     {
         #region Public Methods
         /// <summary>
@@ -30,7 +29,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="sender">Event source</param>
         /// <param name="args">Event arguments</param>
-        public override async Task HandleAsync(object? sender, RequestToNextLayerEventArgs args)
+        public override async Task HandleAsync(object? sender, RouteTransitionContextEventArgs args)
         {
             ITransitionContext? requestTransitionContext = args.TransitionContext;
             if (requestTransitionContext == null)

@@ -18,16 +18,24 @@ namespace BPUA.Application.Boot
         /// <param name="isDevelopmentEnvironment">Flag indicating whether application runs in development environment</param>
         public void BootBPUAPlatform(string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
         {
+            ThrowIfAlreadyBootstrapped();
+            ValidatePathToFolderWithExecutableFile(pathToFolderWithExecutableFile);
             InitializeComponent(pathToFolderWithExecutableFile, isDevelopmentEnvironment);
 
-            LoadApplicationConfiguration();
-            CalculatePathToFolderWithDynamicAssemblies();
-            LoadStaticAssemblies();
-            LoadDynamicAssemblies();
-            InitializeApplication();
-            InitializeUseCaseActivator();
-
-            ReleaseResources();
+            try
+            {
+                LoadApplicationConfiguration();
+                CalculatePathToFolderWithDynamicAssemblies();
+                ValidateDynamicAssembliesDirectoryExists();
+                LoadStaticAssemblies();
+                LoadDynamicAssemblies();
+                InitializeApplication();
+                InitializeUseCaseActivator();
+            }
+            finally
+            {
+                ReleaseResources();
+            }
         }
         #endregion
 

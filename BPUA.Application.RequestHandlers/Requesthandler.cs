@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using BPUA.Application.Contracts;
-using BPUA.Application.EventArguments;
+﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
-using PocoDataSet.IData;
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace BPUA.Application.RequestHandlers
 {
@@ -16,7 +14,7 @@ namespace BPUA.Application.RequestHandlers
         /// Reqests service
         /// IRequestHandler interface implementation
         /// </summary>
-        public event Func<object?, EventArgs, Task>? RequestServiceEvent;
+        public event Func<object?, ServiceRequestEventArgs, Task>? ServiceRequestEvent;
         #endregion
 
         #region Data Fields
@@ -93,14 +91,19 @@ namespace BPUA.Application.RequestHandlers
 
         /// <summary>
         /// Raises service request event
+        /// IRequestHandler interface implementation
         /// </summary>
-        /// <param name="args">Event arguments</param>
-        public virtual async Task RaiseServiceRequestEventAsync(EventArgs args)
+        /// <param name="eventArguments">Event arguments</param>
+        /// <param name="eventName">Event name</param>
+        public virtual async Task RaiseServiceRequestEventAsync(EventArgs eventArguments, [CallerMemberName] string eventName = "")
         {
-            if (RequestServiceEvent != null)
+            if (ServiceRequestEvent == null)
             {
-                await RequestServiceEvent.Invoke(this, args);
+                return;
             }
+
+            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(GetType(), eventName, eventArguments);
+            await ServiceRequestEvent.Invoke(this, serviceRequestEventArgs);
         }
         #endregion
 
@@ -195,10 +198,10 @@ namespace BPUA.Application.RequestHandlers
         /// </summary>
         protected virtual async Task SendRequestToApplicationNextLayer()
         {
-            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(requestToNextLayerEventArgs);
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
-            ResponseTransitionContext = requestToNextLayerEventArgs.TransitionContext;
+            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
         }
 
         /// <summary>
@@ -247,7 +250,7 @@ namespace BPUA.Application.RequestHandlers
         /// </summary>
         protected override void ReleaseResources()
         {
-            RequestServiceEvent = null;
+            ServiceRequestEvent = null;
             BPUAApplication = default!;
             TransitionContext = null;
         }

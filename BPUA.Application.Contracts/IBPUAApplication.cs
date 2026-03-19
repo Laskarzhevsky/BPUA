@@ -82,7 +82,7 @@ namespace BPUA.Application.Contracts
         /// </summary>
         /// <param name="eventSource">Event source</param>
         /// <param name="args">Event arguments</param>
-        Task RequestHandler_RequestServiceEvent(object? eventSource, EventArgs args);
+        Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args);
         #endregion
     }
 }

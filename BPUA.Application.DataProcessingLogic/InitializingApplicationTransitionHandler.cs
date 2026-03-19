@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
-using BPUA.Application.EventArguments;
 using BPUA.Application.RequestHandlers;
 using BPUA.Core;
 
@@ -48,10 +47,10 @@ namespace BPUA.Application.DataProcessingLogic
         /// <returns>Response transition context</returns>
         public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
         {
-            RequestToNextLayerEventArgs requestDispatchingEventArgs = new RequestToNextLayerEventArgs(requestTransitionContext);
-            await RaiseServiceRequestEventAsync(requestDispatchingEventArgs);
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
-            ITransitionContext? responseTransitionContext = requestDispatchingEventArgs.TransitionContext;
+            ITransitionContext? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
 
             return responseTransitionContext;
         }

@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 using BPUA.Application.Boot;
 using BPUA.Application.BusinessLogic;
 using BPUA.Application.Contracts;
@@ -25,6 +28,8 @@ namespace BPUA.Application.BootTests
 
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
+            Directory.CreateDirectory(Path.Combine(scope.RootPath, "PluginsThatDoNotExistYet"));
+
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
@@ -41,7 +46,7 @@ namespace BPUA.Application.BootTests
             Assert.True(serviceRegistry.TryGetRegisteredType(initializingApplicationKey, out Type registeredTransitionType));
             Assert.Equal(typeof(InitializingApplicationTransitionHandler), registeredTransitionType);
 
-            string routerKey = "RequestToNextLayer/" + typeof(TransitionContextRouter).FullName;
+            string routerKey = "RouteTransitionContext/" + typeof(TransitionContextRouter).FullName;
             Assert.True(serviceRegistry.TryGetRegisteredType(routerKey, out Type registeredRouterType));
             Assert.Equal(typeof(TransitionContextRouter), registeredRouterType);
         }

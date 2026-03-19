@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
-using PocoDataSet.IData;
 
 namespace BPUA.Application.Contracts
 {
@@ -12,9 +11,9 @@ namespace BPUA.Application.Contracts
     {
         #region Events
         /// <summary>
-        /// Request service event
+        /// Request service
         /// </summary>
-        public event Func<object?, EventArgs, Task>? RequestServiceEvent;
+        public event Func<object?, ServiceRequestEventArgs, Task>? ServiceRequestEvent;
         #endregion
 
         #region Methods
@@ -29,7 +28,8 @@ namespace BPUA.Application.Contracts
         /// Raises service request event
         /// </summary>
         /// <param name="args">Event arguments</param>
-        Task RaiseServiceRequestEventAsync(EventArgs args);
+        /// <param name="eventName">Event name</param>
+        Task RaiseServiceRequestEventAsync(EventArgs args, [CallerMemberName] string eventName = "");
         #endregion
 
         #region Properties

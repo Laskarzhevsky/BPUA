@@ -5,7 +5,7 @@ namespace BPUA.Application.EventArguments
     /// <summary>
     /// Provides BPUA application event arguments functionality
     /// </summary>
-    public class BPUAApplicationEventArgs : EventArgs
+    public class BPUAApplicationEventArgs : ServiceRequestEventArgs
     {
         #region Public Methods
         /// <summary>

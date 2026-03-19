@@ -1,11 +1,7 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.EventArguments;
 using BPUA.Application.RequestHandlers;
 using BPUA.Core;
 
-using PocoDataSet.IData;
-
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -55,10 +51,10 @@ namespace BPUA.Application.BusinessLogic
                 return requestTransitionContext;
             }
 
-            RequestToNextLayerEventArgs requestToNextLayerEventArgs = new RequestToNextLayerEventArgs(requestTransitionContext);
-            await RaiseServiceRequestEventAsync(requestToNextLayerEventArgs);
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
-            ITransitionContext? responseTransitionContext = requestToNextLayerEventArgs.TransitionContext;
+            ITransitionContext? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
             if (responseTransitionContext == null)
             {
                 return responseTransitionContext;

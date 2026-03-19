@@ -1,12 +1,12 @@
 <Solution>
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/FA/">
+    <Project Path="BPUA.Application.ApplicationUseCaseLogic/BPUA.Application.ApplicationUseCaseLogic.csproj" Id="2b2e8f0a-d56b-4a7a-a029-bc7a2af32546" />
     <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
     <Project Path="BPUA.Application.Context/BPUA.Application.Context.csproj" Id="85f1927e-3fa8-4467-849f-1c10709506c3" />
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
     <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />
-    <Project Path="BPUA.Application.EventArguments/BPUA.Application.EventArguments.csproj" />
     <Project Path="BPUA.Application.RequestHandlers/BPUA.Application.RequestHandlers.csproj" />
     <Project Path="BPUA.Application.Services/BPUA.Application.Services.csproj" />
   </Folder>

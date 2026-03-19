@@ -118,7 +118,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="requestHandler">Request handler</param>
         public void SignInToRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
         {
-            requestHandler.RequestServiceEvent += RequestHandler_RequestServiceEvent;
+            requestHandler.ServiceRequestEvent += RequestHandler_RequestServiceEvent;
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="requestHandler">Request handler</param>
         public void SignOutFromRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
         {
-            requestHandler.RequestServiceEvent -= RequestHandler_RequestServiceEvent;
+            requestHandler.ServiceRequestEvent -= RequestHandler_RequestServiceEvent;
         }
         #endregion
 
@@ -167,7 +167,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="eventSource">Event source</param>
         /// <param name="args">Event arguments</param>
-        public async Task RequestHandler_RequestServiceEvent(object? eventSource, EventArgs args)
+        public async Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args)
         {
             IBPUAService? bppService = ServiceRegistry.GetBPUAService(args);
             if (bppService != null)

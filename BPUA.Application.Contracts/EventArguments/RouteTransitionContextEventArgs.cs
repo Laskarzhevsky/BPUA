@@ -1,18 +1,18 @@
-﻿using BPUA.Application.Contracts;
+﻿using System;
 
-namespace BPUA.Application.EventArguments
+namespace BPUA.Application.Contracts
 {
     /// <summary>
-    /// Provides request to the next layer event arguments functionality
+    /// Provides route transition context event arguments functionality
     /// </summary>
-    public class RequestToNextLayerEventArgs : BPUAApplicationEventArgs
+    public class RouteTransitionContextEventArgs : EventArgs
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
         /// <param name="transitionContext">transition context</param>
-        public RequestToNextLayerEventArgs(ITransitionContext? transitionContext)
+        public RouteTransitionContextEventArgs(ITransitionContext? transitionContext)
         {
             TransitionContext = transitionContext;
         }

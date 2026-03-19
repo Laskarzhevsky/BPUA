@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Application use case default logic components of BPUA Application</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+
+</Project>
