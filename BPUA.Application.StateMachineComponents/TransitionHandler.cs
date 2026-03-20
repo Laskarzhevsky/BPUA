@@ -1,7 +1,7 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
-namespace BPUA.Application.RequestHandlers
+namespace BPUA.Application.StateMachineComponents
 {
     /// <summary>
     /// Provides transition handler functionality

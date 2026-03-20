@@ -6,7 +6,7 @@ using BPUA.Application.Contracts;
 
 using PocoDataSet.IData;
 
-namespace BPUA.Application.RequestHandlers
+namespace BPUA.Application.StateMachineComponents
 {
     public abstract class SearchStateHandler : StateHandler, ISearchStateHandler
     {

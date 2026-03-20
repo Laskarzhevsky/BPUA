@@ -7,8 +7,8 @@
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
     <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />
-    <Project Path="BPUA.Application.RequestHandlers/BPUA.Application.RequestHandlers.csproj" />
     <Project Path="BPUA.Application.Services/BPUA.Application.Services.csproj" />
+    <Project Path="BPUA.Application.StateMachineComponents/BPUA.Application.StateMachineComponents.csproj" />
   </Folder>
   <Folder Name="/BPUA.Application/NFA/">
     <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />

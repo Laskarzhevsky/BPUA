@@ -3,7 +3,7 @@ using BPUA.Core;
 
 using PocoDataSet.IData;
 
-namespace BPUA.Application.RequestHandlers
+namespace BPUA.Application.StateMachineComponents
 {
     /// <summary>
     /// Provides state handler functionality

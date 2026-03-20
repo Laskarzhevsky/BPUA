@@ -1,6 +1,6 @@
 ﻿using BPUA.Application.Contracts;
 
-namespace BPUA.Application.RequestHandlers
+namespace BPUA.Application.StateMachineComponents
 {
     /// <summary>
     /// Provides application use case transition handler functionality
