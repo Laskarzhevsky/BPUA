@@ -5,7 +5,7 @@ namespace BPUA.Application
     /// <summary>
     /// Provides transition selection key functionality.
     /// </summary>
-    public class TransitionDefinitionKey : ITransitionDefinitionKey
+    public class TransitionKey : ITransitionKey
     {
         #region Constructors
         /// <summary>
@@ -14,7 +14,7 @@ namespace BPUA.Application
         /// <param name="requestorTypeFullName">Requestor type full name</param>
         /// <param name="eventName">Event name</param>
         /// <param name="requestedTransitionName">The name of the requested transition, if any.</param>
-        public TransitionDefinitionKey(string requestorTypeFullName, string eventName, string? requestedTransitionName = null)
+        public TransitionKey(string requestorTypeFullName, string eventName, string? requestedTransitionName = null)
         {
             RequestorTypeFullName = requestorTypeFullName;
             EventName = eventName;

@@ -39,12 +39,14 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
-        public RequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName)
+        /// <param name="transitionName">Transition name</param>
+        public RequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string? transitionName = null)
         {
-            DomainNameAtRuntime = domainName;
-            UseCaseNameAtRuntime = useCaseName;
-            ApplicationLayerNameAtRuntime = applicationLayerName;
-            StateNameAtRuntime = stateName;
+            BpuaIdentifier.DomainName = domainName;
+            BpuaIdentifier.UseCaseName = useCaseName;
+            BpuaIdentifier.ApplicationLayerName = applicationLayerName;
+            BpuaIdentifier.StateName = stateName;
+            BpuaIdentifier.TransitionName = transitionName;
         }
         #endregion
 
@@ -118,13 +120,13 @@ namespace BPUA.Application.StateMachineComponents
         } = default!;
 
         /// <summary>
-        /// Gets or sets application layer name
+        /// Gets BPUA identifier
+        /// IRequestHandler interface implementation
         /// </summary>
-        public string ApplicationLayerNameAtRuntime
+        public IBPUAIdentifier BpuaIdentifier
         {
-            get;
-            set;
-        } = default!;
+            get; private set;
+        } = new BPUAIdentifier();
 
         /// <summary>
         /// Gets or sets transition context
@@ -136,38 +138,12 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
-        /// Gets or sets domain name
-        /// </summary>
-        public string DomainNameAtRuntime
-        {
-            get; set;
-        } = default!;
-
-        /// <summary>
         /// Gets request handler key
         /// </summary>
-        public abstract string RequestHandlerKey
+        public abstract string ComponentIdentifier
         {
             get;
         }
-
-        /// <summary>
-        /// Gets or sets state name
-        /// </summary>
-        public string StateNameAtRuntime
-        {
-            get;
-            set;
-        } = default!;
-
-        /// <summary>
-        /// Gets or sets application layer name
-        /// </summary>
-        public string UseCaseNameAtRuntime
-        {
-            get;
-            set;
-        } = default!;
         #endregion
 
         #region Protected Methods

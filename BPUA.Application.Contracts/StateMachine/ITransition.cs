@@ -9,14 +9,6 @@ namespace BPUA.Application.Contracts
     {
         #region Properties
         /// <summary>
-        /// Gets application layer name
-        /// </summary>
-        public string ApplicationLayerName
-        {
-            get;
-        }
-
-        /// <summary>
         /// Gets allowed caller type full names
         /// </summary>
         IReadOnlyList<string> AllowedCallerTypeFullNames
@@ -25,9 +17,9 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets domain name
+        /// Gets component identifier
         /// </summary>
-        string DomainName
+        string ComponentIdentifier
         {
             get;
         }
@@ -36,22 +28,6 @@ namespace BPUA.Application.Contracts
         /// Gets inbound data contract
         /// </summary>
         ITransitionDataContract InboundDataContract
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets name
-        /// </summary>
-        string Name
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets source state name
-        /// </summary>
-        string SourceStateName
         {
             get;
         }
@@ -68,14 +44,6 @@ namespace BPUA.Application.Contracts
         /// Gets target state names
         /// </summary>
         IReadOnlyList<string> TargetStateNames
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets use case name
-        /// </summary>
-        string UseCaseName
         {
             get;
         }

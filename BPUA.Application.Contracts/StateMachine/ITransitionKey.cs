@@ -4,7 +4,7 @@
     /// Defines transition selection key functionality.
     /// The key identifies a transition definition that can be selected by the router.
     /// </summary>
-    public interface ITransitionDefinitionKey
+    public interface ITransitionKey
     {
         #region Properties
         /// <summary>

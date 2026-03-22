@@ -25,7 +25,6 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="transitionName">Transition name</param>
         public DataAccessLogicTransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
-            TransitionNameAtRuntime = transitionName;
         }
         #endregion
     }

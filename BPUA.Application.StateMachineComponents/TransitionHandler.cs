@@ -24,9 +24,8 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public TransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName)
+        public TransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
-            TransitionNameAtRuntime = transitionName;
         }
         #endregion
 
@@ -34,22 +33,13 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Gets request handler key
         /// </summary>
-        public override string RequestHandlerKey
+        public override string ComponentIdentifier
         {
             get
             {
-                return KeyCompiler.CompileTransitionHandlerKey(DomainNameAtRuntime, UseCaseNameAtRuntime, ApplicationLayerNameAtRuntime, StateNameAtRuntime, TransitionNameAtRuntime);
+                return KeyCompiler.CompileTransitionHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
             }
         }
-
-        /// <summary>
-        /// Gets or sets transition name
-        /// </summary>
-        public string TransitionNameAtRuntime
-        {
-            get;
-            set;
-        } = default!;
         #endregion
     }
 }

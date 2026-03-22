@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BPUA.Core;
+
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -42,9 +44,9 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets request handler key
+        /// Gets component identifier
         /// </summary>
-        string RequestHandlerKey
+        string ComponentIdentifier
         {
             get;
         }

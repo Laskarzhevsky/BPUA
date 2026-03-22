@@ -42,11 +42,11 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Gets request handler key
         /// </summary>
-        public override string RequestHandlerKey
+        public override string ComponentIdentifier
         {
             get
             {
-                return KeyCompiler.CompileStateHandlerKey(DomainNameAtRuntime, UseCaseNameAtRuntime, ApplicationLayerNameAtRuntime, StateNameAtRuntime);
+                return KeyCompiler.CompileStateHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName);
             }
         }
         #endregion

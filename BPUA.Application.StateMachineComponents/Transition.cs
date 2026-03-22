@@ -1,4 +1,5 @@
 using BPUA.Application.Contracts;
+using BPUA.Core;
 
 using System;
 using System.Collections.Generic;
@@ -27,18 +28,18 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="transitionName"></param>
-        /// <param name="domainName"></param>
-        /// <param name="useCaseName"></param>
-        /// <param name="applicationLayerName"></param>
-        /// <param name="stateName"></param>
-        public Transition(string transitionName, string domainName, string useCaseName, string applicationLayerName, string stateName)
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="applicationLayerName">Application layer name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">Transition name</param>
+        public Transition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
         {
-            Name = transitionName;
-            DomainName = domainName;
-            UseCaseName = useCaseName;
-            ApplicationLayerName = applicationLayerName;
-            SourceStateName = stateName;
+            BpuaIdentifier.DomainName = domainName;
+            BpuaIdentifier.UseCaseName = useCaseName;
+            BpuaIdentifier.ApplicationLayerName = applicationLayerName;
+            BpuaIdentifier.StateName = stateName;
+            BpuaIdentifier.TransitionName = transitionName;
 
             _allowedCallerTypeFullNames = new List<string>();
             InboundDataContract = new TransitionDataContract();
@@ -48,15 +49,6 @@ namespace BPUA.Application.StateMachineComponents
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets application layer name
-        /// ITransition interface implementation
-        /// </summary>
-        public string ApplicationLayerName
-        {
-            get; private set;
-        }
-
         /// <summary>
         /// Gets allowed caller type full names
         /// ITransition interface implementation
@@ -70,12 +62,23 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
-        /// Gets domain name
-        /// ITransition interface implementation
+        /// Gets BPUA identifier
+        /// IRequestHandler interface implementation
         /// </summary>
-        public string DomainName
+        public IBPUAIdentifier BpuaIdentifier
         {
             get; private set;
+        } = new BPUAIdentifier();
+
+        /// <summary>
+        /// Gets component identifier
+        /// </summary>
+        public string ComponentIdentifier
+        {
+            get
+            {
+                return KeyCompiler.CompileTransitionHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+            }
         }
 
         /// <summary>
@@ -83,24 +86,6 @@ namespace BPUA.Application.StateMachineComponents
         /// ITransition interface implementation
         /// </summary>
         public ITransitionDataContract InboundDataContract
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// Gets name
-        /// ITransition interface implementation
-        /// </summary>
-        public string Name
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// Gets source state name
-        /// ITransition interface implementation
-        /// </summary>
-        public string SourceStateName
         {
             get; private set;
         }
@@ -124,15 +109,6 @@ namespace BPUA.Application.StateMachineComponents
             {
                 return _targetStateNames;
             }
-        }
-
-        /// <summary>
-        /// Gets use case name
-        /// ITransition interface implementation
-        /// </summary>
-        public string UseCaseName
-        {
-            get; private set;
         }
         #endregion
 
@@ -190,57 +166,5 @@ namespace BPUA.Application.StateMachineComponents
             return false;
         }
         #endregion
-    }
-
-
-
-    /// <summary>
-    /// Provides transition definition registry extension methods.
-    /// </summary>
-    public static class TransitionDefinitionRegistryExtensions
-    {
-        public static Transition RegisterTransition(this ITransitionRegistry transitionDefinitionRegistry, string requestorTypeFullName, string eventName, string? requestedTransitionName, string transitionName, string domainName, string useCaseName, string applicationLayerName, string stateName)
-        {
-            TransitionDefinitionKey transitionDefinitionKey = new TransitionDefinitionKey( requestorTypeFullName, eventName, requestedTransitionName);
-
-            Transition transitionDefinition = new Transition(transitionName, domainName, useCaseName, applicationLayerName, stateName);
-            transitionDefinitionRegistry.RegisterTransition(transitionDefinition);
-
-            return transitionDefinition;
-        }
-
-        public static Transition AddInboundTable(this Transition transitionDefinition, string tableName, int minimumRowsCount, int? maximumRowsCount, bool isRequired)
-        {
-            TransitionDataTableContract transitionDataTableContract =
-                new TransitionDataTableContract(
-                    tableName,
-                    minimumRowsCount,
-                    maximumRowsCount,
-                    isRequired);
-
-            ((TransitionDataContract)transitionDefinition.InboundDataContract).AddTable(transitionDataTableContract);
-
-            return transitionDefinition;
-        }
-
-        public static Transition AddOutboundTable(this Transition transitionDefinition, string tableName, int minimumRowsCount, int? maximumRowsCount, bool isRequired)
-        {
-            TransitionDataTableContract transitionDataTableContract =
-                new TransitionDataTableContract(
-                    tableName,
-                    minimumRowsCount,
-                    maximumRowsCount,
-                    isRequired);
-
-            ((TransitionDataContract)transitionDefinition.OutboundDataContract).AddTable(transitionDataTableContract);
-
-            return transitionDefinition;
-        }
-
-        public static Transition AddAllowedCaller(this Transition transitionDefinition, string allowedCallerTypeFullName)
-        {
-            transitionDefinition.AddAllowedCaller(allowedCallerTypeFullName);
-            return transitionDefinition;
-        }
     }
 }
