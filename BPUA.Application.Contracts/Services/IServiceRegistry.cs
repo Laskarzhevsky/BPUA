@@ -24,7 +24,7 @@ namespace BPUA.Application.Contracts
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
         /// <returns>True if registry contains registered use case state transitions</returns>
-        bool ContainsUseCaseStateTransitions(string registrationKey);
+//        bool ContainsUseCaseStateTransitions(string registrationKey);
 
         /// <summary>
         /// Enumerates objects by prefix
@@ -54,7 +54,7 @@ namespace BPUA.Application.Contracts
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
         /// <returns>object of specified type</returns>
-        IList<string>? GetUseCaseStateTransitionNames(string registrationKey);
+//        IList<string>? GetUseCaseStateTransitionNames(string registrationKey);
 
         /// <summary>
         /// Registers object
@@ -108,7 +108,7 @@ namespace BPUA.Application.Contracts
         /// <param name="registrationKey">Registration key</param>
         /// <param name="transitionName">Transition name</param>
         /// <returns>True if type was registered, otherwise False</returns>
-        bool TryRegisterTransitionNameAgainstStateKey(string registrationKey, string transitionName);
+//        bool TryRegisterTransitionNameAgainstStateKey(string registrationKey, string transitionName);
 
         /// <summary>
         /// Tries to register type

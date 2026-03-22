@@ -55,11 +55,11 @@ namespace BPUA.Application.StateMachineComponents
                 requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
             }
             
-            AddTransitionsMetadataToResponse();
+//            AddTransitionsMetadataToResponse();
             return responseTransitionContext;
         }
         #endregion
-
+/*
         #region Private Methods
         /// <summary>
         /// Adds transitions metadata to response
@@ -96,5 +96,6 @@ namespace BPUA.Application.StateMachineComponents
             }
         }
         #endregion
+*/
     }
 }

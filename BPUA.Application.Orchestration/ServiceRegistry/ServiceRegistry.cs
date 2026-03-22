@@ -16,7 +16,7 @@ namespace BPUA.Application.Orchestration
         readonly Dictionary<string, Type> _registeredTypes = new Dictionary<string, Type>(StringComparer.Ordinal);
         readonly Dictionary<string, object> _registeredObjects = new Dictionary<string, object>(StringComparer.Ordinal);
         readonly Dictionary<string, AssemblyFacet> _assemblyIndex = new Dictionary<string, AssemblyFacet>(StringComparer.Ordinal);
-        readonly Dictionary<string, IList<string>> _registeredUseCaseStateTransitionNames = new Dictionary<string, IList<string>>(StringComparer.Ordinal);
+//        readonly Dictionary<string, IList<string>> _registeredUseCaseStateTransitionNames = new Dictionary<string, IList<string>>(StringComparer.Ordinal);
 
         #region Public Methods
         /// <summary>
@@ -42,7 +42,7 @@ namespace BPUA.Application.Orchestration
                 return false;
             }
         }
-
+/*
         /// <summary>
         /// Checks whether service registry contains registered use case state transitions
         /// IServiceRegistry interface implementation
@@ -61,7 +61,7 @@ namespace BPUA.Application.Orchestration
                 return false;
             }
         }
-
+*/
         /// <summary>
         /// Enumerates objects by prefix
         /// IServiceRegistry interface implementation
@@ -138,7 +138,7 @@ namespace BPUA.Application.Orchestration
                 return (T)_registeredObjects[registrationKey];
             }
         }
-
+/*
         /// <summary>
         /// Gets use case state transition names
         /// IServiceRegistry interface implementation
@@ -157,7 +157,7 @@ namespace BPUA.Application.Orchestration
                 return null;
             }
         }
-
+*/
         /// <summary>
         /// Registers object
         /// IServiceRegistry interface implementation
@@ -269,7 +269,7 @@ namespace BPUA.Application.Orchestration
                 return true;
             }
         }
-
+/*
         /// <summary>
         /// Tries to registers transition name against state key
         /// IServiceRegistry interface implementation
@@ -303,7 +303,7 @@ namespace BPUA.Application.Orchestration
                 return true;
             }
         }
-
+*/
         /// <summary>
         /// Tries to register type
         /// IServiceRegistry interface implementation
