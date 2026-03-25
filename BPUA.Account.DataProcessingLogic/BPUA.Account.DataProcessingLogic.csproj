@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Data processing logic components of Account use case based on BPUA</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DomainName>BPUA</DomainName>
+    <UseCaseName>Account</UseCaseName>
+    <PluginFolderSubdir>Libraries\Setup\Administration</PluginFolderSubdir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BPUA.Account.Contracts\BPUA.Account.Contracts.csproj" />
+    <ProjectReference Include="..\BPUA.Application.DataProcessingLogic\BPUA.Application.DataProcessingLogic.csproj" />
+  </ItemGroup>
+</Project>

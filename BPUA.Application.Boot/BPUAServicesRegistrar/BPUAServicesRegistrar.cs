@@ -37,6 +37,11 @@ namespace BPUA.Application.Boot
                     continue;
                 }
 
+                if (!type.IsDefined(typeof(RegisterAsBPUAServiceAttribute), inherit: false))
+                {
+                    continue;
+                }
+
                 string? resolvedServiceKey = ServiceKeyResolver.TryToResolveServiceKey(type);
                 if (string.IsNullOrEmpty(resolvedServiceKey))
                 {

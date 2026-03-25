@@ -3,7 +3,7 @@ using BPUA.Core;
 
 using PocoDataSet.IData;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.CommonComponents
 {
     /// <summary>
     /// Provides state handler functionality
@@ -34,7 +34,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Gets or sets data set
         /// </summary>
-        public new IDataSet? DataSet
+        public IDataSet? DataSet
         {
             get; set;
         }

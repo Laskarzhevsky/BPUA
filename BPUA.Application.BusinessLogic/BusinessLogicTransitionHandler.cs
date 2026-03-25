@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-using BPUA.Application.Context;
 using BPUA.Application.Contracts;
-using BPUA.Core;
+using BPUA.Application.StateMachineComponents;
 
-using PocoDataSet.IData;
-
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.BusinessLogic
 {
     /// <summary>
     /// Provides transition handler functionality

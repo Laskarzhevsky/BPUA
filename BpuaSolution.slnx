@@ -1,8 +1,8 @@
 <Solution>
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/FA/">
-    <Project Path="BPUA.Application.ApplicationUseCaseLogic/BPUA.Application.ApplicationUseCaseLogic.csproj" Id="2b2e8f0a-d56b-4a7a-a029-bc7a2af32546" />
     <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
+    <Project Path="BPUA.Application.CommonComponents/BPUA.Application.CommonComponents.csproj" Id="bf9505a7-0f04-4619-8b6e-ff153c183817" />
     <Project Path="BPUA.Application.Context/BPUA.Application.Context.csproj" Id="85f1927e-3fa8-4467-849f-1c10709506c3" />
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
@@ -20,6 +20,13 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="SharedBuildSettings.props" />
+  </Folder>
+  <Folder Name="/UseCases/" />
+  <Folder Name="/UseCases/Account/">
+    <Project Path="BPUA.Account.BusinessLogic/BPUA.Account.BusinessLogic.csproj" />
+    <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
+    <Project Path="BPUA.Account.DataAccessLogic/BPUA.Account.DataAccessLogic.csproj" />
+    <Project Path="BPUA.Account.DataProcessingLogic/BPUA.Account.DataProcessingLogic.csproj" />
   </Folder>
   <Folder Name="/xUnitTesting/">
     <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />

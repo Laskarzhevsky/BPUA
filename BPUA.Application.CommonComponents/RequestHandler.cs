@@ -5,7 +5,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.CommonComponents
 {
     public abstract class RequestHandler : AsyncDisposableObject, IRequestHandler, IBPUAService
     {
