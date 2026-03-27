@@ -1,22 +1,18 @@
-﻿using System.Threading.Tasks;
-
+﻿using BPUA.Application.BusinessLogic;
 using BPUA.Application.Contracts;
-using BPUA.Application.DataAccessLogic;
 using BPUA.Core;
 
-using PocoDataSet.IData;
-
-namespace BPUA.Account.DataAccessLogic
+namespace BPUA.Account.BL
 {
     [RegisterAsBPUAService]
-    public class InitializingUseCaseTransitionHandler : DataAccessLogicTransitionHandler, IDataAccessLogicTransitionHandler
+    public class SearchingTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
         public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
-        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
-        public static string StateName = default!;
-        public static string TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
+        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
+        public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+        public static string TransitionName = BPUA.Account.Contracts.TransitionsNames.SEARCHING;
 
         /// <summary>
         /// Gets service key
@@ -34,7 +30,7 @@ namespace BPUA.Account.DataAccessLogic
         /// <summary>
         /// Default constructor
         /// </summary>
-        public InitializingUseCaseTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public SearchingTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
         }
         #endregion
@@ -47,10 +43,10 @@ namespace BPUA.Account.DataAccessLogic
         /// <returns>Response data set</returns>
         public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestDataSet)
         {
-            SqlServerReadEventArgs sqlServerReadEventArgs = new SqlServerReadEventArgs("Employee.GetSearchCriteriaSchema", true, requestDataSet);
-            await RaiseServiceRequestEventAsync(sqlServerReadEventArgs);
+            RequestToNextLayerEventArgs requestDispatchingEventArgs = new RequestToNextLayerEventArgs(requestDataSet);
+            await RaiseServiceRequestEventAsync(requestDispatchingEventArgs);
 
-            IDataSet? responseDataSet = sqlServerReadEventArgs.DataSet;
+            IDataSet? responseDataSet = requestDispatchingEventArgs.DataSet;
             return responseDataSet;
         }
         #endregion

@@ -23,10 +23,10 @@
   </Folder>
   <Folder Name="/UseCases/" />
   <Folder Name="/UseCases/Account/">
-    <Project Path="BPUA.Account.BusinessLogic/BPUA.Account.BusinessLogic.csproj" />
+    <Project Path="BPUA.Account.BL/BPUA.Account.BL.csproj" />
     <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
-    <Project Path="BPUA.Account.DataAccessLogic/BPUA.Account.DataAccessLogic.csproj" />
-    <Project Path="BPUA.Account.DataProcessingLogic/BPUA.Account.DataProcessingLogic.csproj" />
+    <Project Path="BPUA.Account.DAL/BPUA.Account.DAL.csproj" />
+    <Project Path="BPUA.Account.DPL/BPUA.Account.DPL.csproj" />
   </Folder>
   <Folder Name="/xUnitTesting/">
     <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />

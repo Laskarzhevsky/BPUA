@@ -20,7 +20,7 @@ namespace BPUA.Application.BootTests
         [Fact]
         public void BootBPUAPlatform_Loads_AccountLayerAssemblies_FromBuildLayout()
         {
-            string accountPluginFolder = BuildLayoutResolver.ResolvePluginFolderForProject("BPUA.Account.BusinessLogic");
+            string accountPluginFolder = BuildLayoutResolver.ResolvePluginFolderForProject("BPUA.Account.BL");
 
             Assert.True(Directory.Exists(accountPluginFolder), "Account plugin folder was not found: " + accountPluginFolder);
 
@@ -43,7 +43,7 @@ namespace BPUA.Application.BootTests
 
             Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
             {
-                return assembly.GetName().Name == "BPUA.Account.BusinessLogic";
+                return assembly.GetName().Name == "BPUA.Account.BL";
             });
 
             Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)

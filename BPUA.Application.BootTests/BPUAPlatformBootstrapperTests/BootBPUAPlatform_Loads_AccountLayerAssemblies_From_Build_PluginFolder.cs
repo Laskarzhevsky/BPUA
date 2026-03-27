@@ -1,11 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-
-using BPUA.Application.Boot;
+﻿using BPUA.Application.Boot;
+using BPUA.Application.BootTests.TestInfrastructure;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
-using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Core;
+
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 using Xunit;
 
@@ -14,21 +16,31 @@ namespace BPUA.Application.BootTests
     public partial class BPUAPlatformBootstrapperTests
     {
         [Fact]
-        public void BootBPUAPlatform_Loads_AccountLayerAssemblies_From_Build_PluginFolder()
+        public async Task BootBPUAPlatform_Loads_AccountLayerAssemblies_From_Build_PluginFolder()
         {
             string buildFolder = FindBuildFolder();
-            string accountPluginFolder = Path.Combine(buildFolder, "PluginFolder", "BPUA.Account");
+            string appSettingsJson = "{ \"PluginFolder\": \"PluginFolder\" }";
+            string appSettingsJsonFilePath = Path.Combine(buildFolder, "appsettings.json");
+            File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
+            Directory.SetCurrentDirectory(buildFolder);
 
-            Assert.True(Directory.Exists(accountPluginFolder), "Account plugin folder was not found: " + accountPluginFolder);
-
-            string appSettingsJson ="{ \"PluginFolder\": \"" + Helpers.EscapeJson(accountPluginFolder) + "\" }";
-
-            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
+            //            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            bootstrapper.BootBPUAPlatform(buildFolder, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
+
+            IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
+            bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
+            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            bpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
+            bpuaIdentifier.StateName = default!;
+            bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
+            bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
+
+            UseCaseActivationResult useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+
             IServiceRegistry serviceRegistry = application.ServiceRegistry;
 
             object? registeredObject;
@@ -40,7 +52,7 @@ namespace BPUA.Application.BootTests
 
             Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
             {
-                return assembly.GetName().Name == "BPUA.Account.BusinessLogic";
+                return assembly.GetName().Name == "BPUA.Account.BL";
             });
 
             Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
