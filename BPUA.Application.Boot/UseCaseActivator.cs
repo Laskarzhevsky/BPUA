@@ -159,12 +159,27 @@ namespace BPUA.Application.Boot
                     return Failure("Use case folder does not exist: " + useCaseFolder);
                 }
 
+                string pathToDynamicAssembly = BuildPathToDynamicAssembly(useCaseFolder, identifier);
+                if (string.IsNullOrEmpty(pathToDynamicAssembly))
+                {
+                    return Failure("Unable to resolve assembly path for the requested use case layer.");
+                }
+
+                if (!File.Exists(pathToDynamicAssembly))
+                {
+                    return Failure("Use case assembly does not exist: " + pathToDynamicAssembly);
+                }
+
                 DynamicAssembliesLoader dynamicAssembliesLoader = new DynamicAssembliesLoader();
-                dynamicAssembliesLoader.LoadDynamicAssemblies(
-                    useCaseFolder,
+                Assembly? loadedAssembly = dynamicAssembliesLoader.LoadDynamicAssembly(
+                    pathToDynamicAssembly,
                     serviceRegistry,
                     ListOfLoadedAssemblies,
                     ListOfAssemblyProcessors);
+                if (loadedAssembly == null)
+                {
+                    return Failure("Failed to load use case assembly: " + pathToDynamicAssembly);
+                }
 
                 UseCaseActivationResult successResult = new UseCaseActivationResult();
                 successResult.Succeeded = true;
@@ -261,6 +276,56 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
+        /// Builds the full path to the layer-specific dynamic assembly requested by the identifier.
+        /// The expected assembly naming convention is DomainName.UseCaseName.ApplicationLayerName.dll.
+        /// </summary>
+        /// <param name="useCaseFolder">Resolved use-case folder.</param>
+        /// <param name="identifier">Identifier that supplies domain, use-case, and layer names.</param>
+        /// <returns>Full path to the requested assembly, or an empty string when required identifier data is missing.</returns>
+        static string BuildPathToDynamicAssembly(string useCaseFolder, IBPUAIdentifier identifier)
+        {
+            if (string.IsNullOrEmpty(useCaseFolder))
+            {
+                return string.Empty;
+            }
+
+            string assemblyFileName = BuildDynamicAssemblyFileName(identifier);
+            if (string.IsNullOrEmpty(assemblyFileName))
+            {
+                return string.Empty;
+            }
+
+            return Path.Combine(useCaseFolder, assemblyFileName);
+        }
+
+        /// <summary>
+        /// Builds the layer-specific assembly file name requested by the identifier.
+        /// </summary>
+        /// <param name="identifier">Identifier that supplies domain, use-case, and layer names.</param>
+        /// <returns>Assembly file name, or an empty string when required identifier data is missing.</returns>
+        static string BuildDynamicAssemblyFileName(IBPUAIdentifier identifier)
+        {
+            string folderLeaf = BuildUseCaseFolderLeaf(identifier);
+            if (string.IsNullOrEmpty(folderLeaf))
+            {
+                return string.Empty;
+            }
+
+            string applicationLayerName = string.Empty;
+            if (!string.IsNullOrEmpty(identifier.ApplicationLayerName))
+            {
+                applicationLayerName = identifier.ApplicationLayerName.Trim();
+            }
+
+            if (string.IsNullOrEmpty(applicationLayerName))
+            {
+                return string.Empty;
+            }
+
+            return folderLeaf + "." + applicationLayerName + ".dll";
+        }
+
+        /// <summary>
         /// Computes the default route for a use case.
         /// The use-case name is preferred unless it is empty or represents the generic Application node.
         /// In that case the last breadcrumbs segment is used instead.
@@ -285,11 +350,9 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Builds a stable normalized key used to serialize activation requests for the same use case layer.
-        /// The key combines domain, use-case, and application-layer information so activating one layer
-        /// does not incorrectly mark all other layers of the same use case as already activated.
-        /// The method still falls back to the last breadcrumbs segment when the use-case name is empty
-        /// or represents the generic Application node.
+        /// Builds a stable normalized key used to serialize activation requests for the same use case.
+        /// The key combines domain and use-case information and falls back to the last breadcrumbs segment
+        /// when the use-case name is empty or represents the generic Application node.
         /// </summary>
         /// <param name="identifier">The identifier from which the normalized activation key is derived.</param>
         /// <returns>A lower-cased normalized activation key.</returns>
@@ -298,13 +361,13 @@ namespace BPUA.Application.Boot
             string domainName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.DomainName))
             {
-                domainName = identifier.DomainName.Trim();
+                domainName = identifier.DomainName;
             }
 
             string useCaseName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.UseCaseName))
             {
-                useCaseName = identifier.UseCaseName.Trim();
+                useCaseName = identifier.UseCaseName;
             }
 
             if (string.IsNullOrEmpty(useCaseName) ||
@@ -321,12 +384,6 @@ namespace BPUA.Application.Boot
                 }
             }
 
-            string applicationLayerName = string.Empty;
-            if (!string.IsNullOrEmpty(identifier.ApplicationLayerName))
-            {
-                applicationLayerName = identifier.ApplicationLayerName.Trim();
-            }
-
             string combinedKey = string.Empty;
             if (string.IsNullOrEmpty(domainName))
             {
@@ -337,9 +394,15 @@ namespace BPUA.Application.Boot
                 combinedKey = domainName + "." + useCaseName;
             }
 
+            string applicationLayerName = string.Empty;
+            if (!string.IsNullOrEmpty(identifier.ApplicationLayerName))
+            {
+                applicationLayerName = identifier.ApplicationLayerName.Trim();
+            }
+
             if (!string.IsNullOrEmpty(applicationLayerName))
             {
-                combinedKey = combinedKey + "." + applicationLayerName;
+                combinedKey += "." + applicationLayerName;
             }
 
             return combinedKey.Trim().ToLowerInvariant();

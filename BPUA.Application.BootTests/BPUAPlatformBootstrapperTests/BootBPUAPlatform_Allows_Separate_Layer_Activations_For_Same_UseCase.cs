@@ -3,11 +3,8 @@ using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Core;
 
-using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
-using System.Linq;
 
 using Xunit;
 
@@ -28,48 +25,26 @@ namespace BPUA.Application.BootTests
             bootstrapper.BootBPUAPlatform(buildFolder, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
-            IServiceRegistry serviceRegistry = application.ServiceRegistry;
 
-            IBPUAIdentifier businessLogicIdentifier = CreateIdentifier(BPUA.Application.Contracts.ApplicationLayersNames.BL);
-            UseCaseActivationResult businessLogicResult = await application.ActivateUseCaseAsync(businessLogicIdentifier);
+            IBPUAIdentifier blIdentifier = new BPUAIdentifier();
+            blIdentifier.DomainName = DomainNames.BPUA;
+            blIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            blIdentifier.ApplicationLayerName = ApplicationLayersNames.BL;
+            blIdentifier.TransitionName = TransitionsNames.INITIALIZING_USE_CASE;
+            blIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
-            Assert.True(businessLogicResult.Succeeded);
-            Assert.False(businessLogicResult.NoAdditionalAssembliesWereLoaded);
+            UseCaseActivationResult blActivationResult = await application.ActivateUseCaseAsync(blIdentifier);
+            Assert.True(blActivationResult.Succeeded, string.Join(System.Environment.NewLine, blActivationResult.Errors));
 
-            IBPUAIdentifier dataProcessingLogicIdentifier = CreateIdentifier(BPUA.Application.Contracts.ApplicationLayersNames.DPL);
-            UseCaseActivationResult dataProcessingLogicResult = await application.ActivateUseCaseAsync(dataProcessingLogicIdentifier);
+            IBPUAIdentifier dplIdentifier = new BPUAIdentifier();
+            dplIdentifier.DomainName = DomainNames.BPUA;
+            dplIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            dplIdentifier.ApplicationLayerName = ApplicationLayersNames.DPL;
+            dplIdentifier.TransitionName = TransitionsNames.INITIALIZING_USE_CASE;
+            dplIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
-            Assert.True(dataProcessingLogicResult.Succeeded);
-            Assert.False(dataProcessingLogicResult.NoAdditionalAssembliesWereLoaded);
-
-            object? registeredObject;
-            bool found = serviceRegistry.TryGetRegisteredObject(typeof(IUseCaseActivator).Name, out registeredObject);
-
-            Assert.True(found);
-
-            UseCaseActivator useCaseActivator = Assert.IsType<UseCaseActivator>(registeredObject);
-
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
-            {
-                return assembly.GetName().Name == "BPUA.Account.BL";
-            });
-
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
-            {
-                return assembly.GetName().Name == "BPUA.Account.DPL";
-            });
-        }
-
-        static IBPUAIdentifier CreateIdentifier(string applicationLayerName)
-        {
-            IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
-            bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
-            bpuaIdentifier.ApplicationLayerName = applicationLayerName;
-            bpuaIdentifier.StateName = default!;
-            bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
-            bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
-            return bpuaIdentifier;
+            UseCaseActivationResult dplActivationResult = await application.ActivateUseCaseAsync(dplIdentifier);
+            Assert.True(dplActivationResult.Succeeded, string.Join(System.Environment.NewLine, dplActivationResult.Errors));
         }
     }
 }

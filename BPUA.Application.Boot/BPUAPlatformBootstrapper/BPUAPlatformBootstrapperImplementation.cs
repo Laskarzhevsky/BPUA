@@ -101,13 +101,12 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Loads dynamic assemblies
+        /// Loads dynamic assemblies.
+        /// Dynamic plugin assemblies are no longer loaded during platform boot.
+        /// They are loaded on demand by UseCaseActivator based on IBPUAIdentifier.
         /// </summary>
         void LoadDynamicAssemblies()
         {
-            IServiceRegistry serviceRegistry = BPUAApplication.GetInstance().ServiceRegistry;
-            DynamicAssembliesLoader smartAssemblyLoader = new DynamicAssembliesLoader();
-            smartAssemblyLoader.LoadDynamicAssemblies(PathToFolderWithDynamicAssemblies, serviceRegistry, ListOfLoadedAssemblies, ListOfAssemblyProcessors);
         }
 
         /// <summary>
@@ -120,6 +119,52 @@ namespace BPUA.Application.Boot
             ListOfLoadedAssemblies.Add(typeof(BPUA.Application.DataProcessingLogic.AssemblyReference).Assembly);
             ListOfLoadedAssemblies.Add(typeof(BPUA.Application.Orchestration.AssemblyReference).Assembly);
 //            ListOfLoadedAssemblies.Add(typeof(BPUA.SqlServer.EventHandlers.AssemblyReference).Assembly);
+        }
+
+
+
+        /// <summary>
+        /// Initializes the list of assembly processors required during platform boot.
+        /// The service assembly processor is needed so static platform assemblies marked
+        /// with RegisterAsBPUAServiceAssembly can register their built-in services.
+        /// </summary>
+        void InitializeAssemblyProcessors()
+        {
+            bool exists = false;
+            for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
+            {
+                if (ListOfAssemblyProcessors[i] is BPUAServiceAssemblyProcessor)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+            {
+                ListOfAssemblyProcessors.Add(new BPUAServiceAssemblyProcessor());
+            }
+        }
+
+        /// <summary>
+        /// Processes the already loaded static platform assemblies through all configured
+        /// assembly processors so that built-in handlers and routers are registered during boot.
+        /// Dynamic plugin assemblies are still loaded only on demand later by UseCaseActivator.
+        /// </summary>
+        void ProcessStaticAssemblies()
+        {
+            IServiceRegistry serviceRegistry = BPUAApplication.GetInstance().ServiceRegistry;
+
+            for (int i = 0; i < ListOfLoadedAssemblies.Count; i++)
+            {
+                System.Reflection.Assembly loadedAssembly = ListOfLoadedAssemblies[i];
+
+                for (int j = 0; j < ListOfAssemblyProcessors.Count; j++)
+                {
+                    IBPUAAssemblyProcessor assemblyProcessor = ListOfAssemblyProcessors[j];
+                    assemblyProcessor.Process(loadedAssembly, serviceRegistry);
+                }
+            }
         }
 
         /// <summary>

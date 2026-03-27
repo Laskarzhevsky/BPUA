@@ -24,6 +24,8 @@ namespace BPUA.Application.BootTests
             File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
             Directory.SetCurrentDirectory(buildFolder);
 
+            //            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
+
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             bootstrapper.BootBPUAPlatform(buildFolder, true);
 

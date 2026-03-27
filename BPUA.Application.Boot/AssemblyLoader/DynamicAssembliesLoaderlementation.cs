@@ -8,13 +8,13 @@ using BPUA.Application.Contracts;
 namespace BPUA.Application.Boot
 {
     /// <summary>
-    /// Provides dynamic assemblies loader functionality.
+    /// Provides dynamic assemblies loader functionality
     /// </summary>
     public partial class DynamicAssembliesLoader
     {
         #region Methods
         /// <summary>
-        /// Adds the built-in BPUA service assembly processor when it is not already present.
+        /// Adds static assembly processor to list of assembly processors
         /// </summary>
         void AddStaticAssemblyProcessorToListOfAssemblyProcessors()
         {
@@ -34,10 +34,50 @@ namespace BPUA.Application.Boot
             }
         }
 
+
         /// <summary>
-        /// Determines whether the currently loaded assembly has the LoadBPUAAssembly attribute.
+        /// Adds the currently loaded assembly to the list of loaded assemblies when it is not already present.
         /// </summary>
-        /// <returns>True when the assembly is marked for BPUA dynamic loading.</returns>
+        void AddLoadedAssemblyIfMissing()
+        {
+            if (LoadedAssembly == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ListOfLoadedAssemblies.Count; i++)
+            {
+                Assembly assembly = ListOfLoadedAssemblies[i];
+                if (string.Equals(assembly.FullName, LoadedAssembly.FullName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
+            }
+
+            ListOfLoadedAssemblies.Add(LoadedAssembly);
+        }
+
+        /// <summary>
+        /// Applies all configured assembly processors to the currently loaded assembly.
+        /// </summary>
+        void ProcessLoadedAssembly()
+        {
+            if (LoadedAssembly == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
+            {
+                IBPUAAssemblyProcessor bpuaAssemblyProcessor = ListOfAssemblyProcessors[i];
+                bpuaAssemblyProcessor.Process(LoadedAssembly, ServiceRegistry);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether loaded assembly has LoadBPUAAssembly attribute
+        /// </summary>
+        /// <returns>Flag indicating whether loaded assembly has LoadBPUAAssembly attribute</returns>
         bool HasLoadBPUAAssemblyAttribute()
         {
             bool hasLoadBPUAAssemblyAttribute = LoadedAssembly!.IsDefined(typeof(LoadBPUAAssemblyAttribute), inherit: false);
@@ -45,9 +85,9 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Determines whether the currently loaded assembly provides assembly processors.
+        /// Determines whether loaded assembly has ProvideBPUAProcessors attribute
         /// </summary>
-        /// <returns>True when the assembly is marked with ProvideBPUAProcessorsAttribute.</returns>
+        /// <returns>Flag indicating whether loaded assembly has ProvideBPUAProcessors attribute</returns>
         bool HasProvideBPUAProcessorsAttribute()
         {
             bool hasProvideBPUAProcessorsAttribute = LoadedAssembly!.IsDefined(typeof(ProvideBPUAProcessorsAttribute), inherit: false);
@@ -55,31 +95,22 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Initializes the loader for one loading run.
+        /// Initializes component
         /// </summary>
-        /// <param name="pathToFolderWithDynamicAssemblies">Path to folder with dynamic assemblies.</param>
-        /// <param name="serviceRegistry">Service registry.</param>
-        /// <param name="listOfLoadedAssemblies">List of loaded assemblies.</param>
-        /// <param name="listOfAssemblyProcessors">List of assembly processors.</param>
-        /// <param name="requestedAssemblyFileNames">Optional exact assembly file names to load.</param>
-        void InitializeComponent(
-            string pathToFolderWithDynamicAssemblies,
-            IServiceRegistry serviceRegistry,
-            List<Assembly> listOfLoadedAssemblies,
-            List<IBPUAAssemblyProcessor> listOfAssemblyProcessors,
-            IList<string>? requestedAssemblyFileNames)
+        /// <param name="pathToFolderWithDynamicAssemblies">Path to folder with dynamic assemblies</param>
+        /// <param name="serviceRegistry">Service registry</param>
+        /// <param name="listOfLoadedAssemblies">List of loaded assemblies</param>
+        /// <param name="listOfAssemblyProcessors">List of assembly processors</param>
+        void InitializeComponent(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
         {
             PathToFolderWithDynamicAssemblies = pathToFolderWithDynamicAssemblies;
             ServiceRegistry = serviceRegistry;
             ListOfLoadedAssemblies = listOfLoadedAssemblies;
             ListOfAssemblyProcessors = listOfAssemblyProcessors;
-            RequestedAssemblyFileNames = requestedAssemblyFileNames;
         }
 
         /// <summary>
-        /// Loads dynamic assemblies from the configured folder.
-        /// Only the explicitly requested file names are considered when the caller supplied them.
-        /// Otherwise all DLL files in the folder are considered.
+        /// Loads dynamic assemblies
         /// </summary>
         void LoadDynamicAssemblies()
         {
@@ -89,7 +120,7 @@ namespace BPUA.Application.Boot
                 return;
             }
 
-            string[] pathsToDynamicAssemblies = ResolveAssemblyPathsToLoad();
+            string[] pathsToDynamicAssemblies = Directory.GetFiles(PathToFolderWithDynamicAssemblies, "*.dll");
             for (int i = 0; i < pathsToDynamicAssemblies.Length; i++)
             {
                 LoadedAssembly = null;
@@ -109,48 +140,14 @@ namespace BPUA.Application.Boot
                     }
                     else
                     {
-                        ListOfLoadedAssemblies.Add(LoadedAssembly);
+                        AddLoadedAssemblyIfMissing();
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Resolves the physical assembly paths that should be loaded for the current run.
-        /// </summary>
-        /// <returns>Array of physical assembly paths to consider for loading.</returns>
-        string[] ResolveAssemblyPathsToLoad()
-        {
-            if (RequestedAssemblyFileNames == null || RequestedAssemblyFileNames.Count == 0)
-            {
-                return Directory.GetFiles(PathToFolderWithDynamicAssemblies, "*.dll");
-            }
-
-            List<string> resolvedPaths = new List<string>();
-            for (int i = 0; i < RequestedAssemblyFileNames.Count; i++)
-            {
-                string requestedAssemblyFileName = RequestedAssemblyFileNames[i];
-                if (string.IsNullOrWhiteSpace(requestedAssemblyFileName))
-                {
-                    continue;
-                }
-
-                string candidatePath = Path.Combine(PathToFolderWithDynamicAssemblies, requestedAssemblyFileName);
-                if (File.Exists(candidatePath))
-                {
-                    resolvedPaths.Add(candidatePath);
-                }
-                else
-                {
-                    Console.WriteLine($"[AssemblyLoader] Requested assembly was not found: {candidatePath}");
-                }
-            }
-
-            return resolvedPaths.ToArray();
-        }
-
-        /// <summary>
-        /// Loads assembly processors from the currently loaded assembly.
+        /// Loads assembly processors
         /// </summary>
         void LoadAssemblyProcessors()
         {
@@ -161,6 +158,7 @@ namespace BPUA.Application.Boot
             }
             catch (ReflectionTypeLoadException ex)
             {
+                // Partial load — use the successfully loaded types
                 types = ex.Types ?? Array.Empty<Type>();
             }
 
@@ -192,18 +190,20 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Releases loader state captured for the current run.
+        /// Releases resources
         /// </summary>
         void ReleaseResources()
         {
             LoadedAssembly = null;
+            PathToDynamicAssembly = default!;
+            PathToFolderWithDynamicAssemblies = default!;
             ServiceRegistry = default!;
             ListOfLoadedAssemblies = default!;
-            RequestedAssemblyFileNames = default!;
+            ListOfAssemblyProcessors = default!;
         }
 
         /// <summary>
-        /// Tries to load the current assembly file.
+        /// Tries to load assembly
         /// </summary>
         void TryToLoadAssembly()
         {
@@ -213,7 +213,7 @@ namespace BPUA.Application.Boot
             }
             catch (BadImageFormatException)
             {
-                // Not a valid .NET assembly — ignore.
+                // Not a valid .NET assembly — ignore
             }
             catch (Exception ex)
             {
@@ -224,7 +224,7 @@ namespace BPUA.Application.Boot
 
         #region Properties
         /// <summary>
-        /// Gets or sets list of assembly processors.
+        /// Gets or sets list of assembly processors
         /// </summary>
         List<IBPUAAssemblyProcessor> ListOfAssemblyProcessors
         {
@@ -232,7 +232,7 @@ namespace BPUA.Application.Boot
         } = default!;
 
         /// <summary>
-        /// Gets or sets loaded assembly.
+        /// Gets or sets loaded assembly
         /// </summary>
         Assembly? LoadedAssembly
         {
@@ -240,7 +240,7 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Gets or sets list of loaded assemblies.
+        /// Gets or sets list of loaded assemblies
         /// </summary>
         List<Assembly> ListOfLoadedAssemblies
         {
@@ -248,7 +248,7 @@ namespace BPUA.Application.Boot
         } = default!;
 
         /// <summary>
-        /// Gets or sets path to dynamic assembly.
+        /// Gets or sets path to dynamic assembly
         /// </summary>
         string PathToDynamicAssembly
         {
@@ -256,7 +256,7 @@ namespace BPUA.Application.Boot
         } = default!;
 
         /// <summary>
-        /// Gets or sets path to folder with dynamic assemblies.
+        /// Gets or sets path to folder with dynamic assemblies
         /// </summary>
         string PathToFolderWithDynamicAssemblies
         {
@@ -264,20 +264,12 @@ namespace BPUA.Application.Boot
         } = default!;
 
         /// <summary>
-        /// Gets or sets service registry.
+        /// Gets or sets service registry
         /// </summary>
         IServiceRegistry ServiceRegistry
         {
             get; set;
         } = default!;
-
-        /// <summary>
-        /// Gets or sets the optional list of exact assembly file names that should be loaded.
-        /// </summary>
-        IList<string>? RequestedAssemblyFileNames
-        {
-            get; set;
-        }
         #endregion
     }
 }

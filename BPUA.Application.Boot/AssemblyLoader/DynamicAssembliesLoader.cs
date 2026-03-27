@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -12,52 +13,62 @@ namespace BPUA.Application.Boot
     {
         #region Public Methods
         /// <summary>
-        /// Loads dynamic assemblies from the supplied folder.
-        /// When no explicit assembly file names are supplied, every DLL in the folder is considered.
+        /// Loads a single dynamic assembly and applies all configured assembly processors to it.
         /// </summary>
-        /// <param name="pathToFolderWithDynamicAssemblies">Path to folder with dynamic assemblies.</param>
+        /// <param name="pathToDynamicAssembly">Path to the dynamic assembly to load.</param>
         /// <param name="serviceRegistry">Service registry.</param>
         /// <param name="listOfLoadedAssemblies">List of loaded assemblies.</param>
         /// <param name="listOfAssemblyProcessors">List of assembly processors.</param>
-        /// <returns>List of loaded dynamic assemblies.</returns>
-        public List<Assembly> LoadDynamicAssemblies(
-            string pathToFolderWithDynamicAssemblies,
-            IServiceRegistry serviceRegistry,
-            List<Assembly> listOfLoadedAssemblies,
-            List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
+        /// <returns>The loaded assembly, or null when the file could not be loaded or was not eligible.</returns>
+        public Assembly? LoadDynamicAssembly(string pathToDynamicAssembly, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
         {
-            return LoadDynamicAssemblies(
-                pathToFolderWithDynamicAssemblies,
-                serviceRegistry,
-                listOfLoadedAssemblies,
-                listOfAssemblyProcessors,
-                null);
+            InitializeComponent(string.Empty, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
+            PathToDynamicAssembly = pathToDynamicAssembly;
+
+            AddStaticAssemblyProcessorToListOfAssemblyProcessors();
+            LoadedAssembly = null;
+            TryToLoadAssembly();
+            if (LoadedAssembly == null)
+            {
+                ReleaseResources();
+                return null;
+            }
+
+            if (!HasLoadBPUAAssemblyAttribute())
+            {
+                ReleaseResources();
+                return null;
+            }
+
+            if (HasProvideBPUAProcessorsAttribute())
+            {
+                LoadAssemblyProcessors();
+            }
+            else
+            {
+                AddLoadedAssemblyIfMissing();
+            }
+
+            ProcessLoadedAssembly();
+
+            Assembly loadedAssembly = LoadedAssembly;
+            ReleaseResources();
+            return loadedAssembly;
         }
 
         /// <summary>
-        /// Loads only the requested dynamic assemblies from the supplied folder.
-        /// When <paramref name="requestedAssemblyFileNames"/> is null or empty, every DLL in the folder is considered.
-        /// When it contains file names, only those exact DLL files are considered for loading.
+        /// Loads dynamic assemblies from a folder.
+        /// This method is retained for compatibility but should not be used by the current boot pipeline.
         /// </summary>
         /// <param name="pathToFolderWithDynamicAssemblies">Path to folder with dynamic assemblies.</param>
         /// <param name="serviceRegistry">Service registry.</param>
         /// <param name="listOfLoadedAssemblies">List of loaded assemblies.</param>
         /// <param name="listOfAssemblyProcessors">List of assembly processors.</param>
-        /// <param name="requestedAssemblyFileNames">Optional exact assembly file names to load.</param>
         /// <returns>List of loaded dynamic assemblies.</returns>
-        public List<Assembly> LoadDynamicAssemblies(
-            string pathToFolderWithDynamicAssemblies,
-            IServiceRegistry serviceRegistry,
-            List<Assembly> listOfLoadedAssemblies,
-            List<IBPUAAssemblyProcessor> listOfAssemblyProcessors,
-            IList<string>? requestedAssemblyFileNames)
+        [Obsolete("Use LoadDynamicAssembly for on-demand loading by identifier.")]
+        public List<Assembly> LoadDynamicAssemblies(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
         {
-            InitializeComponent(
-                pathToFolderWithDynamicAssemblies,
-                serviceRegistry,
-                listOfLoadedAssemblies,
-                listOfAssemblyProcessors,
-                requestedAssemblyFileNames);
+            InitializeComponent(pathToFolderWithDynamicAssemblies, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
 
             LoadDynamicAssemblies();
             AddStaticAssemblyProcessorToListOfAssemblyProcessors();
