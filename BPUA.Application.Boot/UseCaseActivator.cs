@@ -285,9 +285,11 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Builds a stable normalized key used to serialize activation requests for the same use case.
-        /// The key combines domain and use-case information and falls back to the last breadcrumbs segment
-        /// when the use-case name is empty or represents the generic Application node.
+        /// Builds a stable normalized key used to serialize activation requests for the same use case layer.
+        /// The key combines domain, use-case, and application-layer information so activating one layer
+        /// does not incorrectly mark all other layers of the same use case as already activated.
+        /// The method still falls back to the last breadcrumbs segment when the use-case name is empty
+        /// or represents the generic Application node.
         /// </summary>
         /// <param name="identifier">The identifier from which the normalized activation key is derived.</param>
         /// <returns>A lower-cased normalized activation key.</returns>
@@ -296,13 +298,13 @@ namespace BPUA.Application.Boot
             string domainName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.DomainName))
             {
-                domainName = identifier.DomainName;
+                domainName = identifier.DomainName.Trim();
             }
 
             string useCaseName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.UseCaseName))
             {
-                useCaseName = identifier.UseCaseName;
+                useCaseName = identifier.UseCaseName.Trim();
             }
 
             if (string.IsNullOrEmpty(useCaseName) ||
@@ -319,6 +321,12 @@ namespace BPUA.Application.Boot
                 }
             }
 
+            string applicationLayerName = string.Empty;
+            if (!string.IsNullOrEmpty(identifier.ApplicationLayerName))
+            {
+                applicationLayerName = identifier.ApplicationLayerName.Trim();
+            }
+
             string combinedKey = string.Empty;
             if (string.IsNullOrEmpty(domainName))
             {
@@ -327,6 +335,11 @@ namespace BPUA.Application.Boot
             else
             {
                 combinedKey = domainName + "." + useCaseName;
+            }
+
+            if (!string.IsNullOrEmpty(applicationLayerName))
+            {
+                combinedKey = combinedKey + "." + applicationLayerName;
             }
 
             return combinedKey.Trim().ToLowerInvariant();

@@ -24,8 +24,6 @@ namespace BPUA.Application.BootTests
             File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
             Directory.SetCurrentDirectory(buildFolder);
 
-            //            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
-
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             bootstrapper.BootBPUAPlatform(buildFolder, true);
 
@@ -40,6 +38,7 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
             UseCaseActivationResult useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+            Assert.True(useCaseActivationResult.Succeeded, string.Join(Environment.NewLine, useCaseActivationResult.Errors));
 
             IServiceRegistry serviceRegistry = application.ServiceRegistry;
 
@@ -55,14 +54,14 @@ namespace BPUA.Application.BootTests
                 return assembly.GetName().Name == "BPUA.Account.BL";
             });
 
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
+            Assert.DoesNotContain(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
             {
-                return assembly.GetName().Name == "BPUA.Account.DataAccessLogic";
+                return assembly.GetName().Name == "BPUA.Account.DAL";
             });
 
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
+            Assert.DoesNotContain(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
             {
-                return assembly.GetName().Name == "BPUA.Account.DataProcessingLogic";
+                return assembly.GetName().Name == "BPUA.Account.DPL";
             });
         }
 
