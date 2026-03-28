@@ -85,7 +85,6 @@ namespace BPUA.Application.Boot
         {
             UseCaseActivator useCaseActivator = new UseCaseActivator();
             useCaseActivator.ListOfAssemblyProcessors = ListOfAssemblyProcessors;
-            useCaseActivator.ListOfLoadedAssemblies = ListOfLoadedAssemblies;
             useCaseActivator.PathToFolderWithDynamicAssemblies = PathToFolderWithDynamicAssemblies;
 
             IServiceRegistry serviceRegistry = BPUAApplication.GetInstance().ServiceRegistry;

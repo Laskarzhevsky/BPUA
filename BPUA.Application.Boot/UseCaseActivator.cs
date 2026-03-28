@@ -171,10 +171,11 @@ namespace BPUA.Application.Boot
                 }
 
                 DynamicAssembliesLoader dynamicAssembliesLoader = new DynamicAssembliesLoader();
+                List<Assembly> localLoadedAssemblies = new List<Assembly>();
                 Assembly? loadedAssembly = dynamicAssembliesLoader.LoadDynamicAssembly(
                     pathToDynamicAssembly,
                     serviceRegistry,
-                    ListOfLoadedAssemblies,
+                    localLoadedAssemblies,
                     ListOfAssemblyProcessors);
                 if (loadedAssembly == null)
                 {
@@ -486,12 +487,6 @@ namespace BPUA.Application.Boot
         /// These processors register services, pages, and any other assembly-discovered runtime artifacts.
         /// </summary>
         public List<IBPUAAssemblyProcessor> ListOfAssemblyProcessors { get; set; } = default!;
-
-        /// <summary>
-        /// Gets or sets the list that tracks assemblies already loaded into the current BPUA application process.
-        /// The dynamic loader updates this list so subsequent activations can avoid unnecessary duplicate processing.
-        /// </summary>
-        public List<Assembly> ListOfLoadedAssemblies { get; set; } = default!;
 
         /// <summary>
         /// Gets or sets the root path to the folder that contains dynamically loadable assemblies.

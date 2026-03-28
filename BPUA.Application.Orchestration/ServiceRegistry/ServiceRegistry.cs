@@ -217,6 +217,32 @@ namespace BPUA.Application.Orchestration
         }
 
         /// <summary>
+        /// Determines whether the specified assembly has already been marked with the requested facet.
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <param name="assemblyFullName">Assembly full name</param>
+        /// <param name="facet">Assembly facet</param>
+        /// <returns>True when the assembly is known and already marked with the requested facet; otherwise False.</returns>
+        public bool HasAssemblyFacet(string assemblyFullName, AssemblyFacet facet)
+        {
+            if (string.IsNullOrEmpty(assemblyFullName))
+            {
+                return false;
+            }
+
+            lock (_sync)
+            {
+                AssemblyFacet current;
+                if (!_assemblyIndex.TryGetValue(assemblyFullName, out current))
+                {
+                    return false;
+                }
+
+                return (current & facet) == facet;
+            }
+        }
+
+        /// <summary>
         /// Tries to mark assembly facet
         /// IServiceRegistry interface implementation
         /// </summary>

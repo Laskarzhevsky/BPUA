@@ -1,9 +1,8 @@
-using System.Reflection;
-
 using BPUA.Application.Boot;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Core;
 
 using Xunit;
 
@@ -18,7 +17,7 @@ namespace BPUA.Application.BootTests
         /// dynamic use case activation begins.
         /// </summary>
         [Fact]
-        public void RegistersExpectedStaticAssembliesInUseCaseActivator()
+        public void RegistersExpectedStaticAssembliesInServiceRegistry()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins\"}";
 
@@ -30,29 +29,10 @@ namespace BPUA.Application.BootTests
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             IServiceRegistry serviceRegistry = application.ServiceRegistry;
-            object? registeredObject;
-            bool found = serviceRegistry.TryGetRegisteredObject(typeof(IUseCaseActivator).Name, out registeredObject);
-
-            Assert.True(found);
-            UseCaseActivator useCaseActivator = Assert.IsType<UseCaseActivator>(registeredObject);
-
-            Assert.Contains(typeof(BPUA.Application.BusinessLogic.AssemblyReference).Assembly, useCaseActivator.ListOfLoadedAssemblies);
-            Assert.Contains(typeof(BPUA.Application.DataAccessLogic.AssemblyReference).Assembly, useCaseActivator.ListOfLoadedAssemblies);
-            Assert.Contains(typeof(BPUA.Application.DataProcessingLogic.AssemblyReference).Assembly, useCaseActivator.ListOfLoadedAssemblies);
-            Assert.Contains(typeof(BPUA.Application.Orchestration.AssemblyReference).Assembly, useCaseActivator.ListOfLoadedAssemblies);
-
-            int distinctKnownAssemblies = useCaseActivator.ListOfLoadedAssemblies
-                .Where(delegate(Assembly assembly)
-                {
-                    return assembly == typeof(BPUA.Application.BusinessLogic.AssemblyReference).Assembly
-                        || assembly == typeof(BPUA.Application.DataAccessLogic.AssemblyReference).Assembly
-                        || assembly == typeof(BPUA.Application.DataProcessingLogic.AssemblyReference).Assembly
-                        || assembly == typeof(BPUA.Application.Orchestration.AssemblyReference).Assembly;
-                })
-                .Distinct()
-                .Count();
-
-            Assert.Equal(4, distinctKnownAssemblies);
+            Assert.True(serviceRegistry.HasAssemblyFacet(typeof(BPUA.Application.BusinessLogic.AssemblyReference).Assembly.FullName!, AssemblyFacet.Services));
+            Assert.True(serviceRegistry.HasAssemblyFacet(typeof(BPUA.Application.DataAccessLogic.AssemblyReference).Assembly.FullName!, AssemblyFacet.Services));
+            Assert.True(serviceRegistry.HasAssemblyFacet(typeof(BPUA.Application.DataProcessingLogic.AssemblyReference).Assembly.FullName!, AssemblyFacet.Services));
+            Assert.True(serviceRegistry.HasAssemblyFacet(typeof(BPUA.Application.Orchestration.AssemblyReference).Assembly.FullName!, AssemblyFacet.Services));
         }
     }
 }

@@ -86,6 +86,15 @@ namespace BPUA.Application.Contracts
         /// <returns>True if type retreived successfully, otherwise False</returns>
         bool TryGetRegisteredType(string key, out Type registeredType);
 
+
+        /// <summary>
+        /// Determines whether the specified assembly has already been marked with the requested facet.
+        /// </summary>
+        /// <param name="assemblyFullName">Assembly full name.</param>
+        /// <param name="facet">Assembly facet.</param>
+        /// <returns>True when the assembly is known and already marked with the requested facet; otherwise False.</returns>
+        bool HasAssemblyFacet(string assemblyFullName, AssemblyFacet facet);
+
         /// <summary>
         /// Tries to mark assembly facet
         /// </summary>

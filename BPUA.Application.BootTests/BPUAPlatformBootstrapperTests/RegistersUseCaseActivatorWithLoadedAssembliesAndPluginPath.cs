@@ -17,7 +17,7 @@ namespace BPUA.Application.BootTests
         /// exact runtime context established by the bootstrap phase.
         /// </summary>
         [Fact]
-        public void RegistersUseCaseActivatorWithLoadedAssembliesAndPluginPath()
+        public void RegistersUseCaseActivatorWithProcessorsAndPluginPath()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins\"}";
 
@@ -35,12 +35,7 @@ namespace BPUA.Application.BootTests
             Assert.True(found);
             UseCaseActivator useCaseActivator = Assert.IsType<UseCaseActivator>(registeredObject);
             Assert.NotNull(useCaseActivator.ListOfAssemblyProcessors);
-            Assert.NotNull(useCaseActivator.ListOfLoadedAssemblies);
-            Assert.NotEmpty(useCaseActivator.ListOfLoadedAssemblies);
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate(System.Reflection.Assembly assembly)
-            {
-                return assembly == typeof(BPUA.Application.BusinessLogic.AssemblyReference).Assembly;
-            });
+            Assert.NotEmpty(useCaseActivator.ListOfAssemblyProcessors);
             Assert.Equal(application.PathToFolderWithDynamicAssemblies, useCaseActivator.PathToFolderWithDynamicAssemblies);
         }
     }

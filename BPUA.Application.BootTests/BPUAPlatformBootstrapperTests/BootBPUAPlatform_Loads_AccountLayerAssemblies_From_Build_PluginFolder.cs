@@ -1,12 +1,8 @@
 ﻿using BPUA.Application.Boot;
-using BPUA.Application.BootTests.TestInfrastructure;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Core;
 
-using System;
-using System.IO;
-using System.Reflection;
 using System.Text;
 
 using Xunit;
@@ -24,8 +20,6 @@ namespace BPUA.Application.BootTests
             File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
             Directory.SetCurrentDirectory(buildFolder);
 
-            //            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
-
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             bootstrapper.BootBPUAPlatform(buildFolder, true);
 
@@ -40,31 +34,13 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
             UseCaseActivationResult useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
-            Assert.True(useCaseActivationResult.Succeeded, string.Join(Environment.NewLine, useCaseActivationResult.Errors));
+            Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
             IServiceRegistry serviceRegistry = application.ServiceRegistry;
 
-            object? registeredObject;
-            bool found = serviceRegistry.TryGetRegisteredObject(typeof(IUseCaseActivator).Name, out registeredObject);
-
-            Assert.True(found);
-
-            UseCaseActivator useCaseActivator = Assert.IsType<UseCaseActivator>(registeredObject);
-
-            Assert.Contains(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
-            {
-                return assembly.GetName().Name == "BPUA.Account.BL";
-            });
-
-            Assert.DoesNotContain(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
-            {
-                return assembly.GetName().Name == "BPUA.Account.DAL";
-            });
-
-            Assert.DoesNotContain(useCaseActivator.ListOfLoadedAssemblies, delegate (Assembly assembly)
-            {
-                return assembly.GetName().Name == "BPUA.Account.DPL";
-            });
+            Assert.True(serviceRegistry.HasAssemblyFacet("BPUA.Account.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
+            Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
+            Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DPL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
         }
 
         static string FindBuildFolder()
