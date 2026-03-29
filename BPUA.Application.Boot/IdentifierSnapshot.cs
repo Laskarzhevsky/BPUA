@@ -38,36 +38,70 @@ namespace BPUA.Application.Boot
             StateName = identifier.StateName;
             TransitionName = identifier.TransitionName;
             Breadcrumbs = identifier.Breadcrumbs;
+            RequestName = identifier.RequestName;
         }
 
         /// <summary>
         /// Gets or sets the application layer name captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? ApplicationLayerName { get; set; }
+        public string? ApplicationLayerName
+        {
+            get; set; 
+        }
 
         /// <summary>
         /// Gets or sets the breadcrumbs captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? Breadcrumbs { get; set; }
+        public string? Breadcrumbs 
+        {
+            get; set; 
+        }
 
         /// <summary>
         /// Gets or sets the domain name captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? DomainName { get; set; }
+        public string? DomainName 
+        {
+            get; set; 
+        }
+
+        /// <summary>
+        /// Gets or sets request name
+        /// IBPUAIdentifier interface implementation
+        /// </summary>
+        public string? RequestName
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Gets or sets the state name captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? StateName { get; set; }
+        public string? StateName 
+        {
+            get; set; 
+        }
 
         /// <summary>
         /// Gets or sets the transition name captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? TransitionName { get; set; }
+        public string? TransitionName 
+        {
+            get; set; 
+        }
 
         /// <summary>
         /// Gets or sets the use-case name captured from the original identifier.
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public string? UseCaseName { get; set; }
+        public string? UseCaseName 
+        {
+            get; set; 
+        }
     }
 }

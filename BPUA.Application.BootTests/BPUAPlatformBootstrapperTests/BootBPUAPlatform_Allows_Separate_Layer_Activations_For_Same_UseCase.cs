@@ -14,7 +14,7 @@ namespace BPUA.Application.BootTests
         [Fact]
         public async Task BootBPUAPlatform_Allows_Separate_Layer_Activations_For_Same_UseCase()
         {
-            string buildFolder = FindBuildFolder();
+            string buildFolder = Helpers.FindBuildFolder();
             string appSettingsJson = "{ \"PluginFolder\": \"PluginFolder\" }";
             string appSettingsJsonFilePath = Path.Combine(buildFolder, "appsettings.json");
             File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);

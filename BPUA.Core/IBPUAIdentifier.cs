@@ -31,6 +31,14 @@
         }
 
         /// <summary>
+        /// Gets or sets request name
+        /// </summary>
+        string? RequestName
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets state name
         /// </summary>
         string? StateName

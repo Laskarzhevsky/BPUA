@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/BPUA.Application/" />
+  <Folder Name="/BPUA.Application/ApplicationServer/">
+    <Project Path="BPUA.ApplicationServer.Configuration/BPUA.ApplicationServer.Configuration.csproj" />
+  </Folder>
   <Folder Name="/BPUA.Application/FA/">
     <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
     <Project Path="BPUA.Application.CommonComponents/BPUA.Application.CommonComponents.csproj" Id="bf9505a7-0f04-4619-8b6e-ff153c183817" />
@@ -13,7 +16,9 @@
   <Folder Name="/BPUA.Application/NFA/">
     <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />
     <Project Path="BPUA.Application.Orchestration/BPUA.Application.Orchestration.csproj" />
+    <Project Path="BPUA.Application.Registration/BPUA.Application.Registration.csproj" />
   </Folder>
+  <Folder Name="/BPUA.Application/UseCases/" />
   <Folder Name="/Framework/">
     <Project Path="BPUA.Application.Extensions.Services/BPUA.Application.Extensions.Services.csproj" />
     <Project Path="BPUA.Core/BPUA.Core.csproj" />
@@ -24,6 +29,7 @@
   <Folder Name="/UseCases/" />
   <Folder Name="/UseCases/Account/">
     <Project Path="BPUA.Account.BL/BPUA.Account.BL.csproj" />
+    <Project Path="BPUA.Account.BLSM/BPUA.Account.BLSM.csproj" Id="2aaac05e-e5b3-44f8-acac-1aa869ec4e1b" />
     <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
     <Project Path="BPUA.Account.DAL/BPUA.Account.DAL.csproj" />
     <Project Path="BPUA.Account.DPL/BPUA.Account.DPL.csproj" />

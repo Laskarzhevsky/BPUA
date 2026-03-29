@@ -33,13 +33,15 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public Transition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        /// <param name="requestName">Request name</param>
+        public Transition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName, string requestName)
         {
             BpuaIdentifier.DomainName = domainName;
             BpuaIdentifier.UseCaseName = useCaseName;
             BpuaIdentifier.ApplicationLayerName = applicationLayerName;
             BpuaIdentifier.StateName = stateName;
             BpuaIdentifier.TransitionName = transitionName;
+            BpuaIdentifier.RequestName = requestName;
 
             _allowedCallerTypeFullNames = new List<string>();
             InboundDataContract = new TransitionDataContract();
@@ -77,7 +79,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName, BpuaIdentifier.RequestName);
             }
         }
 

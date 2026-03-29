@@ -7,6 +7,21 @@
     {
         #region Public Methods
         /// <summary>
+        /// Compiles transition handler handler key
+        /// </summary>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="applicationLayerName">Application layer name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">transition name</param>
+        /// <param name="breadcrumbs">Breadcrumbs string</param>
+        /// <returns>Compiled transition handler handler key</returns>
+        public static string CompileHierarchicalTransitionHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs)
+        {
+            return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}_{breadcrumbs}";
+        }
+
+        /// <summary>
         /// Compiles state handler key
         /// </summary>
         /// <param name="domainName">Domain name</param>
@@ -81,7 +96,7 @@
         }
 
         /// <summary>
-        /// Compiles transition handler handler key
+        /// Compiles transition handler key
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
@@ -120,18 +135,18 @@
         }
 
         /// <summary>
-        /// Compiles transition handler handler key
+        /// Compiles transition key
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">transition name</param>
-        /// <param name="breadcrumbs">Breadcrumbs string</param>
+        /// <param name="requestName">Request name</param>
         /// <returns>Compiled transition handler handler key</returns>
-        public static string CompileHierarchicalTransitionHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs)
+        public static string CompileTransitionKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? requestName)
         {
-            return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}_{breadcrumbs}";
+            return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}_{requestName}";
         }
         #endregion
     }

@@ -5,14 +5,14 @@ using BPUA.Core;
 namespace BPUA.Account.BL
 {
     [RegisterAsBPUAService]
-    public class SearchingTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
+    public class LoggingInTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
         public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
         public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
-        public static string TransitionName = BPUA.Account.Contracts.TransitionsNames.SEARCHING;
+        public static string TransitionName = BPUA.Account.Contracts.TransitionsNames.LOGGING_IN;
 
         /// <summary>
         /// Gets service key
@@ -30,7 +30,7 @@ namespace BPUA.Account.BL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchingTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public LoggingInTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
         }
         #endregion

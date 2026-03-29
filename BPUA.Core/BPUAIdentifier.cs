@@ -40,7 +40,8 @@
         /// <param name="stateName">State nName</param>
         /// <param name="transitionName">Transition name</param>
         /// <param name="breadcrumbs">Breadcrumbs string</param>
-        public BPUAIdentifier(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null)
+        /// <param name="requestName">Request name</param>
+        public BPUAIdentifier(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null, string? requestName = null)
         {
             DomainName = domainName;
             UseCaseName = useCaseName;
@@ -48,6 +49,7 @@
             StateName = stateName;
             TransitionName = transitionName;
             Breadcrumbs = breadcrumbs;
+            RequestName = requestName;
         }
         #endregion
 
@@ -75,6 +77,15 @@
         /// IBPUAIdentifier interface implementation
         /// </summary>
         public string? DomainName
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets request name
+        /// IBPUAIdentifier interface implementation
+        /// </summary>
+        public string? RequestName
         {
             get; set;
         }
