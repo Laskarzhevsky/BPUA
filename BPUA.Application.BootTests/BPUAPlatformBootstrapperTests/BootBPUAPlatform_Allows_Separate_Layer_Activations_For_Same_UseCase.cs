@@ -2,8 +2,7 @@ using BPUA.Application.Boot;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Core;
-
-using System.Text;
+using BPUA.Application.BootTests.TestInfrastructure;
 
 using Xunit;
 
@@ -15,13 +14,13 @@ namespace BPUA.Application.BootTests
         public async Task BootBPUAPlatform_Allows_Separate_Layer_Activations_For_Same_UseCase()
         {
             string buildFolder = Helpers.FindBuildFolder();
-            string appSettingsJson = "{ \"PluginFolder\": \"PluginFolder\" }";
-            string appSettingsJsonFilePath = Path.Combine(buildFolder, "appsettings.json");
-            File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
-            Directory.SetCurrentDirectory(buildFolder);
+            string pluginFolderPath = Path.Combine(buildFolder, "PluginFolder");
+            string appSettingsJson = "{ \"PluginFolder\": \"" + Helpers.EscapeJson(pluginFolderPath) + "\" }";
+
+            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(buildFolder, true);
+            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
 
@@ -41,13 +40,12 @@ namespace BPUA.Application.BootTests
             Assert.True(serviceRegistry.HasAssemblyFacet("BPUA.Account.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DPL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
-
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
             bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
             bpuaIdentifier.ApplicationLayerName = ApplicationLayersNames.DPL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
-            bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
+            bpuaIdentifier.Breadcrumbs = @"Libraries\Setup\Administration";
 
             useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
@@ -63,7 +61,7 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.ApplicationLayerName = ApplicationLayersNames.DAL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
-            bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
+            bpuaIdentifier.Breadcrumbs = @"Libraries\Setup\Administration";
 
             useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));

@@ -1,9 +1,8 @@
-﻿using BPUA.Application.Boot;
+using BPUA.Application.Boot;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Core;
-
-using System.Text;
+using BPUA.Application.BootTests.TestInfrastructure;
 
 using Xunit;
 
@@ -15,13 +14,13 @@ namespace BPUA.Application.BootTests
         public async Task Loads_Account_StateLogic_Assembly()
         {
             string buildFolder = Helpers.FindBuildFolder();
-            string appSettingsJson = "{ \"PluginFolder\": \"PluginFolder\" }";
-            string appSettingsJsonFilePath = Path.Combine(buildFolder, "appsettings.json");
-            File.WriteAllText(appSettingsJsonFilePath, appSettingsJson, Encoding.UTF8);
-            Directory.SetCurrentDirectory(buildFolder);
+            string pluginFolderPath = Path.Combine(buildFolder, "PluginFolder");
+            string appSettingsJson = "{ \"PluginFolder\": \"" + Helpers.EscapeJson(pluginFolderPath) + "\" }";
+
+            using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(buildFolder, true);
+            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
 
@@ -40,7 +39,7 @@ namespace BPUA.Application.BootTests
             string stateHandlerKey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
             IStateHandler? stateHandler = BPUAApplication.GetInstance().GetRequestHandler(stateHandlerKey) as IStateHandler;
 
-
+            Assert.NotNull(stateHandler);
             Assert.True(serviceRegistry.HasAssemblyFacet("BPUA.Account.SL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
