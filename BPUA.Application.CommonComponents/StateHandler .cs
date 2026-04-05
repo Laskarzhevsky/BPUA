@@ -3,6 +3,8 @@ using BPUA.Core;
 
 using PocoDataSet.IData;
 
+using System.Threading.Tasks;
+
 namespace BPUA.Application.CommonComponents
 {
     /// <summary>
@@ -48,6 +50,15 @@ namespace BPUA.Application.CommonComponents
             {
                 return KeyCompiler.CompileStateHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName);
             }
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Initializes component
+        /// </summary>
+        public async Task InitializeComponent()
+        {
         }
         #endregion
     }

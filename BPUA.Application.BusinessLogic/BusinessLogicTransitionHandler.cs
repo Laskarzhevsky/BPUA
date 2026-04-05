@@ -3,6 +3,9 @@
 using BPUA.Application.Contracts;
 using BPUA.Application.StateMachineComponents;
 
+using PocoDataSet.BpuaExtensions;
+using PocoDataSet.IData;
+
 namespace BPUA.Application.BusinessLogic
 {
     /// <summary>
@@ -37,15 +40,20 @@ namespace BPUA.Application.BusinessLogic
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
+        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
-            ITransitionContext? responseTransitionContext = await base.HandleRequestAsync(requestTransitionContext);
+            IDataSet? responseTransitionContext = await base.HandleRequestAsync(requestTransitionContext);
             if (responseTransitionContext == null)
             {
                 return requestTransitionContext;
             }
 
-            IRequestMetadata requestMetadata = responseTransitionContext.RequestMetadata;
+            IRequestMetadata? requestMetadata = responseTransitionContext.GetRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new System.Exception("Request metadata is missing in data set.");
+            }
+
             if (string.IsNullOrEmpty(requestMetadata.StateName))
             {
                 requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;

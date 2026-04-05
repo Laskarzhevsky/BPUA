@@ -2,6 +2,9 @@
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
+using PocoDataSet.IData;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -44,7 +47,7 @@ namespace BPUA.Application.BusinessLogic
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
+        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
             if (requestTransitionContext == null)
             {
@@ -54,19 +57,13 @@ namespace BPUA.Application.BusinessLogic
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
-            ITransitionContext? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+            IDataSet? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
             if (responseTransitionContext == null)
             {
                 return responseTransitionContext;
             }
 
-            IReadOnlyList<ITransitionMetadata> transitionsMetadata = responseTransitionContext.TransitionsMetadata;
-            for (int i = 0; i < transitionsMetadata.Count; i++)
-            {
-                ITransitionMetadata transitionMetadata = transitionsMetadata[i];
-                transitionMetadata.Available = true;
-            }
-
+            responseTransitionContext.InitializeTransitions();
             return responseTransitionContext;
         }
         #endregion

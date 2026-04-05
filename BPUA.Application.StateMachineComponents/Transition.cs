@@ -79,7 +79,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName, BpuaIdentifier.RequestName);
+                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.RequestName, BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
             }
         }
 

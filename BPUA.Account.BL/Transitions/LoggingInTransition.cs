@@ -2,18 +2,18 @@
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
-namespace BPUA.Account.BLSM
+namespace BPUA.Account.BL
 {
     [RegisterAsBPUAService]
     public class LoggingInTransition : Transition
     {
         #region Identification
+        public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_APPLICATION_LAYER;
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
         public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
         public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
         public static string TransitionName = BPUA.Account.Contracts.TransitionsNames.LOGGING_IN;
-        public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_APPLICATION_LAYER;
 
         /// <summary>
         /// Gets service keys
@@ -22,7 +22,7 @@ namespace BPUA.Account.BLSM
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName, RequestName);
+                return KeyCompiler.CompileTransitionKey(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
             }
         }
         #endregion

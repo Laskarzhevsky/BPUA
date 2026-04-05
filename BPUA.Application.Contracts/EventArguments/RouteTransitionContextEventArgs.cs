@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PocoDataSet.IData;
+
+using System;
 
 namespace BPUA.Application.Contracts
 {
@@ -12,7 +14,7 @@ namespace BPUA.Application.Contracts
         /// Default constructor
         /// </summary>
         /// <param name="transitionContext">transition context</param>
-        public RouteTransitionContextEventArgs(ITransitionContext? transitionContext)
+        public RouteTransitionContextEventArgs(IDataSet? transitionContext)
         {
             TransitionContext = transitionContext;
         }
@@ -22,7 +24,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets transition context
         /// </summary>
-        public ITransitionContext? TransitionContext
+        public IDataSet? TransitionContext
         {
             get; set;
         }

@@ -137,16 +137,16 @@
         /// <summary>
         /// Compiles transition key
         /// </summary>
+        /// <param name="requestName">Request name</param>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">transition name</param>
-        /// <param name="requestName">Request name</param>
         /// <returns>Compiled transition handler handler key</returns>
-        public static string CompileTransitionKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? requestName)
+        public static string CompileTransitionKey(string? requestName, string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName)
         {
-            return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}_{requestName}";
+            return $"{requestName}_{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}";
         }
         #endregion
     }

@@ -3,17 +3,16 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
-      <_Parameter1>Orchestration components for applications based on BPUA</_Parameter1>
+      <_Parameter1>POCO DataSet extensions for BPUA</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.7" />
+    <PackageReference Include="PocoDataSet.Extensions" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
-    <ProjectReference Include="..\BPUA.Application.Services\BPUA.Application.Services.csproj" />
-    <ProjectReference Include="..\PocoDataSet.BpuaExtensions\PocoDataSet.BpuaExtensions.csproj" />
   </ItemGroup>
+
 </Project>

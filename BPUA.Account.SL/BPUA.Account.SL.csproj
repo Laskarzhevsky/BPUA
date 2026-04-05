@@ -3,13 +3,13 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
-      <_Parameter1>Business logic state machine components of Account use case based on BPUA</_Parameter1>
+      <_Parameter1>State logic components of Account use case based on BPUA</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BPUA.Account.Contracts\BPUA.Account.Contracts.csproj" />
-    <ProjectReference Include="..\BPUA.Application.StateMachineComponents\BPUA.Application.StateMachineComponents.csproj" />
+    <ProjectReference Include="..\BPUA.Application.CommonComponents\BPUA.Application.CommonComponents.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1,4 +1,4 @@
-﻿using BPUA.Core;
+﻿using PocoDataSet.IData;
 
 using System;
 using System.Runtime.CompilerServices;
@@ -24,7 +24,7 @@ namespace BPUA.Application.Contracts
         /// </summary>
         /// <param name="transitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? transitionContext);
+        Task<IDataSet?> HandleRequestAsync(IDataSet? transitionContext);
 
         /// <summary>
         /// Raises service request event
@@ -54,7 +54,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets transition context
         /// </summary>
-        ITransitionContext? TransitionContext
+        IDataSet? TransitionContext
         {
             get; set;
         }

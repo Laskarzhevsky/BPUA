@@ -1,6 +1,8 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.IData;
+
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -56,7 +58,7 @@ namespace BPUA.Application.CommonComponents
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        public virtual async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
+        public virtual async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
             RequestTransitionContext = requestTransitionContext;
             ResponseTransitionContext = requestTransitionContext;
@@ -132,7 +134,7 @@ namespace BPUA.Application.CommonComponents
         /// Gets or sets transition context
         /// IRequestHandler interface implementation
         /// </summary>
-        public ITransitionContext? TransitionContext
+        public IDataSet? TransitionContext
         {
             get; set;
         }
@@ -193,7 +195,7 @@ namespace BPUA.Application.CommonComponents
         /// <summary>
         /// Gets or sets request transition context
         /// </summary>
-        protected ITransitionContext? RequestTransitionContext
+        protected IDataSet? RequestTransitionContext
         {
             get; set;
         }
@@ -201,7 +203,7 @@ namespace BPUA.Application.CommonComponents
         /// <summary>
         /// Gets or sets response transition context
         /// </summary>
-        protected ITransitionContext? ResponseTransitionContext
+        protected IDataSet? ResponseTransitionContext
         {
             get; set;
         }

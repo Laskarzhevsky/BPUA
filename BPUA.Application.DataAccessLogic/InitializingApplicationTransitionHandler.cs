@@ -3,6 +3,7 @@ using BPUA.Application.Contracts;
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 using System.IO;
@@ -47,14 +48,19 @@ namespace BPUA.Application.DataAccessLogic
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
+        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
             if (requestTransitionContext == null)
             {
                 return requestTransitionContext;
             }
 
-            IRequestMetadata requestMetadata = requestTransitionContext.RequestMetadata;
+            IRequestMetadata? requestMetadata = requestTransitionContext.GetRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(requestMetadata));
+            }
+
             string fullPath = BPUAApplication.PathToFolderWithDynamicAssemblies;
             if (!string.IsNullOrEmpty(requestMetadata.Breadcrumbs))
             {

@@ -45,12 +45,12 @@ namespace BPUA.Application.DataProcessingLogic
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <returns>Response transition context</returns>
-        public override async Task<ITransitionContext?> HandleRequestAsync(ITransitionContext? requestTransitionContext)
+        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
-            ITransitionContext? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+            IDataSet? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
 
             return responseTransitionContext;
         }

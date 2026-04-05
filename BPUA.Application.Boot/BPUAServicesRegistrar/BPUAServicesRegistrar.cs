@@ -32,11 +32,6 @@ namespace BPUA.Application.Boot
                     continue;
                 }
 
-                if (!typeof(IBPUAService).IsAssignableFrom(type))
-                {
-                    continue;
-                }
-
                 if (!type.IsDefined(typeof(RegisterAsBPUAServiceAttribute), inherit: false))
                 {
                     continue;

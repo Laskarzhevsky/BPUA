@@ -12,7 +12,7 @@ namespace BPUA.Application.BootTests
     public partial class BPUAPlatformBootstrapperTests
     {
         [Fact]
-        public async Task BootBPUAPlatform_Loads_AccountLayerAssemblies_From_Build_PluginFolder()
+        public async Task Loads_Account_BusinessLogic_Assembly()
         {
             string buildFolder = Helpers.FindBuildFolder();
             string appSettingsJson = "{ \"PluginFolder\": \"PluginFolder\" }";

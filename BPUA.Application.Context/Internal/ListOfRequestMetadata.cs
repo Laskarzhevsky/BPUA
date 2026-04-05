@@ -13,7 +13,7 @@ namespace BPUA.Application.Context
         #region Public Methods
         /// <summary>
         /// Adds request metadata
-        /// ITransitionContext interface implementation
+        /// IDataSet interface implementation
         /// </summary>
         /// <param name="bpuaIdentifier">BPUA identifier</param>
         public void AddRequestMetadata(IBPUAIdentifier bpuaIdentifier)
@@ -23,7 +23,7 @@ namespace BPUA.Application.Context
 
         /// <summary>
         /// Adds request metadata
-        /// ITransitionContext interface implementation
+        /// IDataSet interface implementation
         /// </summary>
         /// <param name="requestMetadata">Request metadata</param>
         public void AddRequestMetadata(IRequestMetadata requestMetadata)
@@ -33,7 +33,7 @@ namespace BPUA.Application.Context
 
         /// <summary>
         /// Adds request metadata
-        /// ITransitionContext interface implementation
+        /// IDataSet interface implementation
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>

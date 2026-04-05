@@ -4,6 +4,9 @@ using BPUA.Core;
 
 namespace BPUA.Account.BL
 {
+    /// <summary>
+    /// Provides functionality of the transition handler for "Initializing use case" transition of the account use case in the business logic application layer
+    /// </summary>
     [RegisterAsBPUAService]
     public class InitializingUseCaseTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
     {

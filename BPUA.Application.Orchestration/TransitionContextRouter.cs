@@ -5,6 +5,9 @@ using BPUA.Application.Contracts;
 using BPUA.Application.Services;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
+using PocoDataSet.IData;
+
 namespace BPUA.Application.Orchestration
 {
     /// <summary>
@@ -31,13 +34,18 @@ namespace BPUA.Application.Orchestration
         /// <param name="args">Event arguments</param>
         public override async Task HandleAsync(object? sender, RouteTransitionContextEventArgs args)
         {
-            ITransitionContext? requestTransitionContext = args.TransitionContext;
+            IDataSet? requestTransitionContext = args.TransitionContext;
             if (requestTransitionContext == null)
             {
                 return;
             }
 
-            IBPUAIdentifier bpuaIdentifier = requestTransitionContext.BPUAIdentifier;
+            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetBpuaIdentifier();
+            if (bpuaIdentifier == null)
+            {
+                throw new System.Exception("BPUA identifier metadata is missing in data set.");
+            }
+
             string? applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(bpuaIdentifier.ApplicationLayerName);
             if (applicationNextLayerName == null) 
             {
@@ -48,7 +56,7 @@ namespace BPUA.Application.Orchestration
             requestTransitionContext.AddRequestMetadata(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName, bpuaIdentifier.Breadcrumbs);
             string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
 
-            ITransitionContext? responseTransitionContext = null;
+            IDataSet? responseTransitionContext = null;
             ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
             if (transitionHandler != null)
             {
@@ -58,7 +66,7 @@ namespace BPUA.Application.Orchestration
                     responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
                     if (responseTransitionContext != null)
                     {
-                        responseTransitionContext.RemoveCurrentRequestMetadata();
+                        responseTransitionContext.RemoveLastRequestMetadata();
                     }
                 }
             }
