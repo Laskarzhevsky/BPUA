@@ -1,5 +1,5 @@
 using BPUA.Application.Boot;
-using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Application.TestInfrastructure;
 
 using Xunit;
 

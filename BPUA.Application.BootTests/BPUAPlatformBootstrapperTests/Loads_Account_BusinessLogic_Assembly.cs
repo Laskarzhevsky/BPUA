@@ -2,7 +2,7 @@ using BPUA.Application.Boot;
 using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
 using BPUA.Core;
-using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Application.TestInfrastructure;
 
 using Xunit;
 

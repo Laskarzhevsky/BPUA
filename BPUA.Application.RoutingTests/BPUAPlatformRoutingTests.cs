@@ -1,6 +1,6 @@
-using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Application.TestInfrastructure;
 
-namespace BPUA.Application.BootTests
+namespace BPUA.Application.RoutingTests
 {
     /// <summary>
     /// Groups routing and use-case activation tests that verify dynamic layer loading

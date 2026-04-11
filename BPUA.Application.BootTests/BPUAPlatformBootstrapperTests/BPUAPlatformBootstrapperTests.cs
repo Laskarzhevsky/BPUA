@@ -1,4 +1,4 @@
-using BPUA.Application.BootTests.TestInfrastructure;
+using BPUA.Application.TestInfrastructure;
 
 namespace BPUA.Application.BootTests
 {

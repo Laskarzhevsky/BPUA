@@ -1,6 +1,9 @@
-﻿namespace BPUA.Application.BootTests
+﻿using System;
+using System.IO;
+
+namespace BPUA.Application.TestInfrastructure
 {
-    internal class Helpers
+    public class Helpers
     {
         public static string EscapeJson(string value)
         {

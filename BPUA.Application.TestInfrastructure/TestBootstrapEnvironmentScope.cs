@@ -1,7 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BPUA.Application.BootTests.TestInfrastructure
+namespace BPUA.Application.TestInfrastructure
 {
     /// <summary>
     /// Creates an isolated temporary bootstrap environment for a test case.
@@ -9,7 +11,7 @@ namespace BPUA.Application.BootTests.TestInfrastructure
     /// and manages environment variables so the bootstrapper reads from a
     /// deterministic sandbox instead of the real machine or solution state.
     /// </summary>
-    internal sealed class TestBootstrapEnvironmentScope : IDisposable
+    public sealed class TestBootstrapEnvironmentScope : IDisposable
     {
         readonly string _originalCurrentDirectory;
         readonly string? _originalAspNetCoreEnvironment;

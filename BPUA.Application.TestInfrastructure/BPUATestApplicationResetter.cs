@@ -1,10 +1,11 @@
+using System;
 using System.Reflection;
 
 using BPUA.Application.Orchestration;
 
-namespace BPUA.Application.BootTests.TestInfrastructure
+namespace BPUA.Application.TestInfrastructure
 {
-    internal static class BPUATestApplicationResetter
+    public static class BPUATestApplicationResetter
     {
         public static void ResetSingleton()
         {

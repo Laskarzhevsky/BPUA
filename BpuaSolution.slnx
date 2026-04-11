@@ -38,5 +38,7 @@
   </Folder>
   <Folder Name="/xUnitTesting/">
     <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />
+    <Project Path="BPUA.Application.RoutingTests/BPUA.Application.RoutingTests.csproj" Id="0ec6cf73-002d-4431-8c30-c94f1e124c5a" />
+    <Project Path="BPUA.Application.TestInfrastructure/BPUA.Application.TestInfrastructure.csproj" Id="d1726330-baea-49c8-8108-248a9f4f3529" />
   </Folder>
 </Solution>
