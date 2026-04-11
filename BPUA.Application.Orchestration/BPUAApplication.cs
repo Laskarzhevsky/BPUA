@@ -66,7 +66,6 @@ namespace BPUA.Application.Orchestration
         /// <returns>Request handler</returns>
         public IRequestHandler? GetRequestHandler(string requesthandlerKey)
         {
-            requesthandlerKey = requesthandlerKey.Trim('/');
             IRequestHandler? requestHandler = (IRequestHandler?)ServiceRegistry.GetBPUAService(requesthandlerKey);
             if (requestHandler != null)
             {
@@ -174,7 +173,7 @@ namespace BPUA.Application.Orchestration
             {
                 await using (bppService as IAsyncDisposable)
                 {
-                    bppService.InitializeComponent(this);
+                    await bppService.InitializeComponent(this);
 
                     // Seding BPUA application as an event source to BPUA serviced instance
                     await bppService.HandleAsync(this, args);

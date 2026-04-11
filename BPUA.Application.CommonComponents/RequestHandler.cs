@@ -89,7 +89,7 @@ namespace BPUA.Application.CommonComponents
         /// IBPUAService interface implementation
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public virtual void InitializeComponent(IBPUAApplication bppApplication)
+        public virtual async Task InitializeComponent(IBPUAApplication bppApplication)
         {
         }
 

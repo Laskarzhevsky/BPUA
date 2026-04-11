@@ -17,4 +17,8 @@
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
     <ProjectReference Include="..\BPUA.Core\BPUA.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StateComponents\" />
+  </ItemGroup>
 </Project>

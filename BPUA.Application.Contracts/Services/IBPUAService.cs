@@ -13,7 +13,7 @@ namespace BPUA.Application.Contracts
         /// Initializes component
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        void InitializeComponent(IBPUAApplication bppApplication);
+        Task InitializeComponent(IBPUAApplication bppApplication);
         #endregion
 
         #region Event Handlers

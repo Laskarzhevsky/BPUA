@@ -1,5 +1,8 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Application.Orchestration;
+using BPUA.Core;
+
+using System.Threading.Tasks;
 
 namespace BPUA.Application.Extensions.Services
 {
@@ -24,7 +27,7 @@ namespace BPUA.Application.Extensions.Services
         /// </summary>
         /// <param name="bpuaServicekey">BPUA service key</param>
         /// <returns>BPUA service</returns>
-        public static IBPUAService? GetBPUAService(string? bpuaServicekey)
+        public static async Task<IBPUAService?> GetBPUAServiceAsync(string? bpuaServicekey)
         {
             if (string.IsNullOrEmpty(bpuaServicekey))
             {
@@ -32,7 +35,16 @@ namespace BPUA.Application.Extensions.Services
             }
 
             IBPUAApplication bppApplication = BPUAApplication.GetInstance();
-            return bppApplication.GetRequestHandler(bpuaServicekey);
+
+            bpuaServicekey = bpuaServicekey.Trim('/');
+            IBPUAIdentifier bpuaAIdentifier = new BPUAIdentifier(bpuaServicekey);
+            UseCaseActivationResult useCaseActivationResult = await bppApplication.ActivateUseCaseAsync(bpuaAIdentifier);
+            if (useCaseActivationResult.Succeeded)
+            {
+                return bppApplication.GetRequestHandler(bpuaServicekey);
+            }
+
+            return null;
         }
         #endregion
     }

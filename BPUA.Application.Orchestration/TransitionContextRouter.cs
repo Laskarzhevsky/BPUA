@@ -21,7 +21,7 @@ namespace BPUA.Application.Orchestration
         /// Initializes component
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public override void InitializeComponent(IBPUAApplication bppApplication)
+        public override async Task InitializeComponent(IBPUAApplication bppApplication)
         {
         }
         #endregion

@@ -32,7 +32,7 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Public Properties
         /// <summary>
-        /// Gets request handler key
+        /// Gets component identifier
         /// </summary>
         public override string ComponentIdentifier
         {

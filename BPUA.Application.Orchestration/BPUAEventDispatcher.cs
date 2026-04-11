@@ -54,7 +54,7 @@ namespace BPUA.Application.Orchestration
                     continue;
                 }
 
-                handler.InitializeComponent(app);
+                await handler.InitializeComponent(app);
                 try
                 {
                     await handler.HandleAsync(app, e).ConfigureAwait(false);

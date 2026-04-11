@@ -28,7 +28,7 @@ namespace BPUA.Application.Services
         /// IBPUAService interface implementation
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public abstract void InitializeComponent(IBPUAApplication bppApplication);
+        public abstract Task InitializeComponent(IBPUAApplication bppApplication);
         #endregion
 
         #region Event handlers

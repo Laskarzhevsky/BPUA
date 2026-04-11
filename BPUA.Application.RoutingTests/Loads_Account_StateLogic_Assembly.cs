@@ -22,7 +22,12 @@ namespace BPUA.Application.RoutingTests
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
-            IBPUAApplication application = BPUAApplication.GetInstance();
+            IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
+
+            // Blazor application navigates to the /BPUA_Account_SL_Initial (current path) page
+            // During OnInitializedAsync handling, page get state handler by using BPUAServiceLocator.GetBPUAService(CurrentPath);
+            ContentPageMock contentPageMock = new ContentPageMock("/BPUA_Account_SL_Initial", bpuaApplication);
+            await contentPageMock.OnInitializedAsync();
 
             IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
@@ -31,10 +36,10 @@ namespace BPUA.Application.RoutingTests
             bpuaIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
             bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
-            UseCaseActivationResult useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
-            IServiceRegistry serviceRegistry = application.ServiceRegistry;
+            IServiceRegistry serviceRegistry = bpuaApplication.ServiceRegistry;
 
             string stateHandlerKey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
             IStateHandler? stateHandler = BPUAApplication.GetInstance().GetRequestHandler(stateHandlerKey) as IStateHandler;
