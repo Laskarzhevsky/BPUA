@@ -57,7 +57,7 @@ namespace BPUA.Application.TestInfrastructure
         /// <summary>
         /// Gets or sets view model
         /// </summary>
-        protected IStateHandler? StateHandler
+        public IStateHandler? StateHandler
         {
             get;
             set;

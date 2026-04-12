@@ -14,6 +14,14 @@ namespace BPUA.Application.Boot
     public sealed partial class BPUAPlatformBootstrapper
     {
         #region Methods
+        /// <summary>
+        /// Builds the dynamic assemblies path index
+        /// </summary>
+        void BuildDynamicAssembliesPathIndex()
+        {
+            IBPUAApplication application = BPUAApplication.GetInstance();
+            DynamicAssemblyPathIndexBuilder.BuildAssemblyPathIndex(application.PathToFolderWithDynamicAssemblies, application.ServiceRegistry);
+        }
 
         /// <summary>
         /// Throws when the platform has already been bootstrapped.

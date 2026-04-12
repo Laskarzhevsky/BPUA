@@ -29,6 +29,7 @@ namespace BPUA.Application.Boot
                 ValidateDynamicAssembliesDirectoryExists();
                 LoadStaticAssemblies();
                 InitializeApplication();
+                BuildDynamicAssembliesPathIndex();
                 InitializeAssemblyProcessors();
                 ProcessStaticAssemblies();
                 InitializeUseCaseActivator();

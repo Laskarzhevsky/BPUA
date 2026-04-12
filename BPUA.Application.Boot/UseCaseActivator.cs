@@ -91,6 +91,7 @@ namespace BPUA.Application.Boot
                         identifier,
                         string.Empty,
                         string.Empty,
+                        string.Empty,
                         normalizedActivationKey),
                     exception);
             }
@@ -127,7 +128,8 @@ namespace BPUA.Application.Boot
         /// <summary>
         /// Performs the actual activation work for a use case.
         /// The method resolves the plugin root from the already initialized application,
-        /// maps the identifier to a physical folder, and then invokes the dynamic assembly loader
+        /// uses the dynamic assemblies path index from the service registry to resolve the requested
+        /// layer-specific assembly path, and then invokes the dynamic assembly loader
         /// using the same assembly processor list and loaded-assembly list that are used by the main boot pipeline.
         /// The method is intentionally synchronous because assembly loading and registration are already synchronous.
         /// </summary>
@@ -138,6 +140,8 @@ namespace BPUA.Application.Boot
         {
             string pluginRoot = string.Empty;
             string useCaseFolder = string.Empty;
+            string relativeAssemblyPath = string.Empty;
+            string pathToDynamicAssembly = string.Empty;
 
             try
             {
@@ -148,22 +152,27 @@ namespace BPUA.Application.Boot
                     return Failure("Path to folder with dynamic assemblies is not configured.");
                 }
 
-                useCaseFolder = ResolveFolder(pluginRoot, identifier);
-                if (string.IsNullOrEmpty(useCaseFolder))
+                string assemblyFileName = BuildDynamicAssemblyFileName(identifier);
+                if (string.IsNullOrEmpty(assemblyFileName))
                 {
-                    return Failure("Unable to resolve folder for the requested use case.");
+                    return Failure("Unable to resolve assembly file name for the requested use case layer.");
                 }
 
-                if (!Directory.Exists(useCaseFolder))
+                string assemblyName = Path.GetFileNameWithoutExtension(assemblyFileName);
+                if (!serviceRegistry.TryGetRegisteredDynamicAssemblyPath(assemblyName, out relativeAssemblyPath))
                 {
-                    return Failure("Use case folder does not exist: " + useCaseFolder);
+                    return Failure(
+                        BuildActivationDiagnosticMessage(
+                            "Use case assembly is not registered in dynamic assemblies path index.",
+                            identifier,
+                            pluginRoot,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty));
                 }
 
-                string pathToDynamicAssembly = BuildPathToDynamicAssembly(useCaseFolder, identifier);
-                if (string.IsNullOrEmpty(pathToDynamicAssembly))
-                {
-                    return Failure("Unable to resolve assembly path for the requested use case layer.");
-                }
+                pathToDynamicAssembly = Path.Combine(pluginRoot, relativeAssemblyPath);
+                useCaseFolder = Path.GetDirectoryName(pathToDynamicAssembly) ?? string.Empty;
 
                 if (!File.Exists(pathToDynamicAssembly))
                 {
@@ -196,6 +205,7 @@ namespace BPUA.Application.Boot
                         identifier,
                         pluginRoot,
                         useCaseFolder,
+                        relativeAssemblyPath,
                         string.Empty));
             }
         }
@@ -428,6 +438,7 @@ namespace BPUA.Application.Boot
         /// <param name="identifier">The identifier associated with the activation request.</param>
         /// <param name="pluginRoot">The resolved plugin root, if known.</param>
         /// <param name="useCaseFolder">The resolved use-case folder, if known.</param>
+        /// <param name="relativeAssemblyPath">The relative assembly path from the registry, if known.</param>
         /// <param name="normalizedActivationKey">The normalized activation key, if known.</param>
         /// <returns>A composed diagnostic message.</returns>
         static string BuildActivationDiagnosticMessage(
@@ -435,6 +446,7 @@ namespace BPUA.Application.Boot
             IBPUAIdentifier identifier,
             string pluginRoot,
             string useCaseFolder,
+            string relativeAssemblyPath,
             string normalizedActivationKey)
         {
             string message = prefix;
@@ -458,6 +470,11 @@ namespace BPUA.Application.Boot
             if (!string.IsNullOrEmpty(useCaseFolder))
             {
                 message += " UseCaseFolder='" + useCaseFolder + "'.";
+            }
+
+            if (!string.IsNullOrEmpty(relativeAssemblyPath))
+            {
+                message += " RelativeAssemblyPath='" + relativeAssemblyPath + "'.";
             }
 
             return message;
