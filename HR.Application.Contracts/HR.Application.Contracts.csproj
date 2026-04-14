@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Contracts of Application use case of HR application</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DomainName>HR</DomainName>
+    <UseCaseName>Application</UseCaseName>
+    <PluginFolderSubdir>HR</PluginFolderSubdir>
+  </PropertyGroup>
+</Project>

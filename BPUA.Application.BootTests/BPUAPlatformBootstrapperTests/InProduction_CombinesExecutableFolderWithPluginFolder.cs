@@ -16,7 +16,7 @@ namespace BPUA.Application.BootTests
         /// or underneath, the deployed application rather than the source content root.
         /// </summary>
         [Fact]
-        public void InProduction_CombinesExecutableFolderWithPluginFolder()
+        public async Task InProduction_CombinesExecutableFolderWithPluginFolder()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins\\\\Runtime\"}";
 
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             Directory.CreateDirectory(Path.Combine(executableRoot, "Plugins", "Runtime"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(executableRoot, false);
+            await bootstrapper.BootBPUAPlatform(executableRoot, false);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(executableRoot, "Plugins", "Runtime"));

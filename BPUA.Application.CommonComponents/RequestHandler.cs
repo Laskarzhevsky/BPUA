@@ -1,6 +1,7 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 using System;
@@ -176,10 +177,20 @@ namespace BPUA.Application.CommonComponents
         /// </summary>
         protected virtual async Task SendRequestToApplicationNextLayer()
         {
+            IRequestMetadata? requestMetadata = RequestTransitionContext.GetRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new InvalidOperationException("Request transition context does not coatain request metadata");
+            }
+
+            string applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(requestMetadata.ApplicationLayerName);
+            RequestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, applicationNextLayerName, requestMetadata.StateName, requestMetadata.TransitionName, requestMetadata.Breadcrumbs);
+
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
             ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+            ResponseTransitionContext.RemoveLastRequestMetadata();
         }
 
         /// <summary>

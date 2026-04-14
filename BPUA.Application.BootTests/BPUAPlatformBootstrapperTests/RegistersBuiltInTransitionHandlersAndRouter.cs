@@ -22,7 +22,7 @@ namespace BPUA.Application.BootTests
         /// required for the rest of the platform to function.
         /// </summary>
         [Fact]
-        public void RegistersBuiltInTransitionHandlersAndRouter()
+        public async Task RegistersBuiltInTransitionHandlersAndRouter()
         {
             string appSettingsJson = "{\"PluginFolder\": \"PluginsThatDoNotExistYet\"}";
 
@@ -31,7 +31,7 @@ namespace BPUA.Application.BootTests
             Directory.CreateDirectory(Path.Combine(scope.RootPath, "PluginsThatDoNotExistYet"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             IServiceRegistry serviceRegistry = application.ServiceRegistry;

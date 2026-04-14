@@ -17,7 +17,7 @@ namespace BPUA.Application.BootTests
         /// or web application root during local execution.
         /// </summary>
         [Fact]
-        public void InDevelopment_UsesPluginFolderAsConfigured()
+        public async Task InDevelopment_UsesPluginFolderAsConfigured()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins/DevRoot\"}";
 
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory(Path.Combine("Plugins", "DevRoot"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(scope.RootPath, "Plugins", "DevRoot"));

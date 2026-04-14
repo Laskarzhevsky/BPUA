@@ -6,6 +6,8 @@ using BPUA.Application.TestInfrastructure;
 
 using Xunit;
 
+using System.Text;
+
 namespace BPUA.Application.RoutingTests
 {
     public partial class BPUAPlatformRoutingTests
@@ -15,12 +17,28 @@ namespace BPUA.Application.RoutingTests
         {
             string buildFolder = Helpers.FindBuildFolder();
             string pluginFolderPath = Path.Combine(buildFolder, "PluginFolder");
-            string appSettingsJson = "{ \"PluginFolder\": \"" + Helpers.EscapeJson(pluginFolderPath) + "\" }";
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine("{");
+            stringBuilder.AppendLine("  \"PluginFolder\": \"" + Helpers.EscapeJson(pluginFolderPath) + "\",");
+            stringBuilder.AppendLine("  \"ApplicationStartupTransitions\":");
+            stringBuilder.AppendLine("  [");
+            stringBuilder.AppendLine("    {");
+            stringBuilder.AppendLine("      \"DomainName\": \"HR\",");
+            stringBuilder.AppendLine("      \"UseCaseName\": \"Application\",");
+            stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\",");
+            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
+            stringBuilder.AppendLine("      \"TransitionName\": \"InitializingApplication\"");
+            stringBuilder.AppendLine("    }");
+            stringBuilder.AppendLine("  ]");
+            stringBuilder.AppendLine("}");
+
+            string appSettingsJson = stringBuilder.ToString();
 
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
 

@@ -16,7 +16,7 @@ namespace BPUA.Application.BootTests
         /// to interpret every relative variant on its own.
         /// </summary>
         [Fact]
-        public void BootBPUAPlatform_NormalizesRelativePluginFolderPath()
+        public async Task BootBPUAPlatform_NormalizesRelativePluginFolderPath()
         {
             string appSettingsJson = """{"PluginFolder": "./Plugins/../Plugins/Normalized"}""";
 
@@ -24,7 +24,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory(Path.Combine("Plugins", "Normalized"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(scope.RootPath, "Plugins", "Normalized"));

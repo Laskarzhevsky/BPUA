@@ -1,6 +1,8 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
+using PocoDataSet.Extensions;
 using PocoDataSet.IData;
 
 using System.Threading.Tasks;
@@ -54,6 +56,19 @@ namespace BPUA.Application.CommonComponents
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Handles request
+        /// </summary>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <returns>Response transition context</returns>
+        public async Task<IDataSet?> HandleRequestAsync(IBPUAIdentifier bpuaIdentifier)
+        {
+            IDataSet dataSet = DataSetFactory.CreateDataSet();
+            dataSet.AddRequestMetadata(bpuaIdentifier);
+
+            return await HandleRequestAsync(dataSet);
+        }
+
         /// <summary>
         /// Initializes component
         /// </summary>

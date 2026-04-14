@@ -18,16 +18,16 @@ namespace BPUA.Application.BootTests
         [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public void BootBPUAPlatform_Throws_WhenExecutablePathIsNullEmptyOrWhitespace(string? pathToFolderWithExecutableFile)
+        public async Task BootBPUAPlatform_Throws_WhenExecutablePathIsNullEmptyOrWhitespace(string? pathToFolderWithExecutableFile)
         {
             string appSettingsJson = """{"PluginFolder": "Plugins"}""";
 
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
 
-            Assert.ThrowsAny<ArgumentException>(delegate
+            await Assert.ThrowsAnyAsync<ArgumentException>(async () =>
             {
-                bootstrapper.BootBPUAPlatform(pathToFolderWithExecutableFile!, false);
+                await bootstrapper.BootBPUAPlatform(pathToFolderWithExecutableFile!, false);
             });
         }
     }

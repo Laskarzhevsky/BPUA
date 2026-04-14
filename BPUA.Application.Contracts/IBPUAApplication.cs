@@ -43,6 +43,11 @@ namespace BPUA.Application.Contracts
         void Initialize(IConfiguration applicationConfiguration, string pathToFolderWithDynamicAssemblies);
 
         /// <summary>
+        /// Initializes business applications asynchronously
+        /// </summary>
+        Task InitializeBusinessApplicationsAsync();
+
+        /// <summary>
         /// Gets flag indicating whether use case activated
         /// </summary>
         /// <param name="useCaseKey">Use case key</param>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
 
@@ -16,7 +17,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="pathToFolderWithExecutableFile">Path to folder with excutable file</param>
         /// <param name="isDevelopmentEnvironment">Flag indicating whether application runs in development environment</param>
-        public void BootBPUAPlatform(string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
+        public async Task BootBPUAPlatform(string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
         {
             ThrowIfAlreadyBootstrapped();
             ValidatePathToFolderWithExecutableFile(pathToFolderWithExecutableFile);
@@ -33,6 +34,7 @@ namespace BPUA.Application.Boot
                 InitializeAssemblyProcessors();
                 ProcessStaticAssemblies();
                 InitializeUseCaseActivator();
+                await InitializeBusinessApplications();
             }
             finally
             {

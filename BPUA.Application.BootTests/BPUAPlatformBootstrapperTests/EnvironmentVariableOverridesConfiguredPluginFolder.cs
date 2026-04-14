@@ -16,7 +16,7 @@ namespace BPUA.Application.BootTests
         /// and the bootstrapper relies on <c>AddEnvironmentVariables()</c> for that last-mile override.
         /// </summary>
         [Fact]
-        public void EnvironmentVariableOverridesConfiguredPluginFolder()
+        public async Task EnvironmentVariableOverridesConfiguredPluginFolder()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins/Base\"}";
 
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory(Path.Combine("Plugins", "EnvOverride"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(scope.RootPath, "Plugins", "EnvOverride"));

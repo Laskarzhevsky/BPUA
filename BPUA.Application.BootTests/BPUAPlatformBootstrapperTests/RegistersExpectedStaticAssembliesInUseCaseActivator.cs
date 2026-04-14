@@ -17,7 +17,7 @@ namespace BPUA.Application.BootTests
         /// dynamic use case activation begins.
         /// </summary>
         [Fact]
-        public void RegistersExpectedStaticAssembliesInServiceRegistry()
+        public async Task RegistersExpectedStaticAssembliesInServiceRegistry()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins\"}";
 
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory("Plugins");
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             IServiceRegistry serviceRegistry = application.ServiceRegistry;

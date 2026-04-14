@@ -14,7 +14,7 @@ namespace BPUA.Application.BootTests
         /// so this test documents the intended contract that a second boot attempt must fail fast.
         /// </summary>
         [Fact]
-        public void BootBPUAPlatform_Throws_WhenCalledMoreThanOnce()
+        public async Task BootBPUAPlatform_Throws_WhenCalledMoreThanOnce()
         {
             string appSettingsJson = """{"PluginFolder": "Plugins"}""";
 
@@ -22,11 +22,11 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory("Plugins");
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
-            Assert.ThrowsAny<InvalidOperationException>(delegate
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
-                bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+                await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
             });
         }
     }

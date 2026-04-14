@@ -16,6 +16,33 @@ namespace PocoDataSet.BpuaExtensions
         /// Adds request metadata
         /// </summary>
         /// <param name="dataSet">Data set</param>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <returns>Added request metadata</returns>
+        public static IRequestMetadata AddRequestMetadata(this IDataSet? dataSet, IBPUAIdentifier bpuaIdentifier)
+        {
+            if (dataSet == null)
+            {
+                return default!;
+            }
+
+            IDataTable requestMetadataDataTable = dataSet.GetRequestMetadataDataTable();
+            IDataRow requestMetadataDataRow = requestMetadataDataTable.AddNewRow();
+
+            IRequestMetadata? requestMetadata = requestMetadataDataRow.AsInterface<IRequestMetadata>();
+            requestMetadata.DomainName = bpuaIdentifier.DomainName;
+            requestMetadata.UseCaseName = bpuaIdentifier.UseCaseName;
+            requestMetadata.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
+            requestMetadata.StateName = bpuaIdentifier.StateName;
+            requestMetadata.TransitionName = bpuaIdentifier.TransitionName;
+            requestMetadata.Breadcrumbs = bpuaIdentifier.Breadcrumbs;
+
+            return requestMetadata;
+        }
+
+        /// <summary>
+        /// Adds request metadata
+        /// </summary>
+        /// <param name="dataSet">Data set</param>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>

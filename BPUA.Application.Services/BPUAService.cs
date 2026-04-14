@@ -12,16 +12,6 @@ namespace BPUA.Application.Services
     /// <typeparam name="TArgs">Type of event arguments</typeparam>
     public abstract class BPUAService<TArgs> : AsyncDisposableObject, IBPUAService where TArgs : EventArgs
     {
-        #region Protected Properties
-        /// <summary>
-        /// Gets strongly-typed event arguments
-        /// </summary>
-        protected TArgs? TypedEventArgs
-        {
-            get; set;
-        }
-        #endregion
-
         #region Public Methods
         /// <summary>
         /// Initializes component
@@ -54,7 +44,6 @@ namespace BPUA.Application.Services
             }
 
             BPUAApplication = sender as IBPUAApplication;
-            TypedEventArgs = typedEventArgs;
             await HandleAsync(sender, typedEventArgs);
         }
         #endregion

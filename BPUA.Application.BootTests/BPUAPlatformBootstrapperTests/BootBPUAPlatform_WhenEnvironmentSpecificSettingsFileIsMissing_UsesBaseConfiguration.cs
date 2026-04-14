@@ -16,7 +16,7 @@ namespace BPUA.Application.BootTests
         /// This protects simple deployments that rely only on the base configuration file.
         /// </summary>
         [Fact]
-        public void BootBPUAPlatform_WhenEnvironmentSpecificSettingsFileIsMissing_UsesBaseConfiguration()
+        public async Task BootBPUAPlatform_WhenEnvironmentSpecificSettingsFileIsMissing_UsesBaseConfiguration()
         {
             string appSettingsJson = """{"PluginFolder": "Plugins/BaseOnly"}""";
 
@@ -24,7 +24,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory(Path.Combine("Plugins", "BaseOnly"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(scope.RootPath, "Plugins", "BaseOnly"));

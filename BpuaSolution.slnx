@@ -1,4 +1,19 @@
 <Solution>
+  <Folder Name="/Applications/" />
+  <Folder Name="/Applications/HR/" />
+  <Folder Name="/Applications/HR/UseCases/" />
+  <Folder Name="/Applications/HR/UseCases/Account/">
+    <Project Path="BPUA.Account.BL/BPUA.Account.BL.csproj" />
+    <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
+    <Project Path="BPUA.Account.DAL/BPUA.Account.DAL.csproj" />
+    <Project Path="BPUA.Account.DPL/BPUA.Account.DPL.csproj" />
+    <Project Path="BPUA.Account.SL/BPUA.Account.SL.csproj" Id="6ba2b5a0-7e40-4cbd-989d-2501a32404c0" />
+  </Folder>
+  <Folder Name="/Applications/HR/UseCases/Application/">
+    <Project Path="HR.Application.BL/HR.Application.BL.csproj" Id="7a4f9388-6ec7-4d5a-a639-5d3e08b8c0b2" />
+    <Project Path="HR.Application.Contracts/HR.Application.Contracts.csproj" Id="d93a7ab9-9519-4b1d-96ba-0a71c6a1b4ac" />
+    <Project Path="HR.Application.SL/HR.Application.SL.csproj" Id="dcda8b45-3ca6-457e-9894-4c17de7d0156" />
+  </Folder>
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/ApplicationServer/">
     <Project Path="BPUA.ApplicationServer.Configuration/BPUA.ApplicationServer.Configuration.csproj" />
@@ -27,14 +42,6 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="SharedBuildSettings.props" />
-  </Folder>
-  <Folder Name="/UseCases/" />
-  <Folder Name="/UseCases/Account/">
-    <Project Path="BPUA.Account.BL/BPUA.Account.BL.csproj" />
-    <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
-    <Project Path="BPUA.Account.DAL/BPUA.Account.DAL.csproj" />
-    <Project Path="BPUA.Account.DPL/BPUA.Account.DPL.csproj" />
-    <Project Path="BPUA.Account.SL/BPUA.Account.SL.csproj" Id="6ba2b5a0-7e40-4cbd-989d-2501a32404c0" />
   </Folder>
   <Folder Name="/xUnitTesting/">
     <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />

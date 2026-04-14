@@ -99,6 +99,16 @@ namespace BPUA.Application.Orchestration
             PathToFolderWithDynamicAssemblies = pathToFolderWithDynamicAssemblies;
         }
 
+
+        /// <summary>
+        /// Initializes business applications asynchronously
+        /// IBPUAApplication interface implementation
+        /// </summary>
+        public async Task InitializeBusinessApplicationsAsync()
+        {
+            await ApplicationStartupTransitionsRunner.CreateAndActivateAsync(this);
+        }
+
         /// <summary>
         /// Gets flag indicating whether use case activated
         /// IBPUAApplication interface implementation
@@ -168,7 +178,8 @@ namespace BPUA.Application.Orchestration
         /// <param name="args">Event arguments</param>
         public async Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args)
         {
-            IBPUAService? bppService = ServiceRegistry.GetBPUAService(args);
+            EventArgs eventArguments = args.EventArguments;
+            IBPUAService? bppService = ServiceRegistry.GetBPUAService(eventArguments);
             if (bppService != null)
             {
                 await using (bppService as IAsyncDisposable)
@@ -176,7 +187,7 @@ namespace BPUA.Application.Orchestration
                     await bppService.InitializeComponent(this);
 
                     // Seding BPUA application as an event source to BPUA serviced instance
-                    await bppService.HandleAsync(this, args);
+                    await bppService.HandleAsync(this, eventArguments);
                 }
             }
         }

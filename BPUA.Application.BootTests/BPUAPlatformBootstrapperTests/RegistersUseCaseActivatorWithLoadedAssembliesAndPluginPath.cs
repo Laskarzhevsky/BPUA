@@ -17,7 +17,7 @@ namespace BPUA.Application.BootTests
         /// exact runtime context established by the bootstrap phase.
         /// </summary>
         [Fact]
-        public void RegistersUseCaseActivatorWithProcessorsAndPluginPath()
+        public async Task RegistersUseCaseActivatorWithProcessorsAndPluginPath()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins\"}";
 
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory("Plugins");
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             IServiceRegistry serviceRegistry = application.ServiceRegistry;

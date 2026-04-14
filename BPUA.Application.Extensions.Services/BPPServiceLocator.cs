@@ -37,8 +37,8 @@ namespace BPUA.Application.Extensions.Services
             IBPUAApplication bppApplication = BPUAApplication.GetInstance();
 
             bpuaServicekey = bpuaServicekey.Trim('/');
-            IBPUAIdentifier bpuaAIdentifier = new BPUAIdentifier(bpuaServicekey);
-            UseCaseActivationResult useCaseActivationResult = await bppApplication.ActivateUseCaseAsync(bpuaAIdentifier);
+            IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier(bpuaServicekey);
+            UseCaseActivationResult useCaseActivationResult = await bppApplication.ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
                 return bppApplication.GetRequestHandler(bpuaServicekey);

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Business logic components of Application use case of HR application</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BPUA.Application.BusinessLogic\BPUA.Application.BusinessLogic.csproj" />
+    <ProjectReference Include="..\HR.Application.Contracts\HR.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DomainName>HR</DomainName>
+    <UseCaseName>Application</UseCaseName>
+    <PluginFolderSubdir>HR</PluginFolderSubdir>
+  </PropertyGroup>
+</Project>

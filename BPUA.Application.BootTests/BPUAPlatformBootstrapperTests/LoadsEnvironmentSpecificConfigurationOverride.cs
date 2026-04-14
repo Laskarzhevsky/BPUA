@@ -16,7 +16,7 @@ namespace BPUA.Application.BootTests
         /// which is important when plugin locations differ across local, test, staging, and production.
         /// </summary>
         [Fact]
-        public void LoadsEnvironmentSpecificConfigurationOverride()
+        public async Task LoadsEnvironmentSpecificConfigurationOverride()
         {
             string appSettingsJson = "{\"PluginFolder\": \"Plugins/Base\"}";
             string environmentSpecificJson = "{\"PluginFolder\": \"Plugins/Tests\"}";
@@ -25,7 +25,7 @@ namespace BPUA.Application.BootTests
             scope.CreateDirectory(Path.Combine("Plugins", "Tests"));
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
             IBPUAApplication application = BPUAApplication.GetInstance();
             string expectedPath = Path.GetFullPath(Path.Combine(scope.RootPath, "Plugins", "Tests"));

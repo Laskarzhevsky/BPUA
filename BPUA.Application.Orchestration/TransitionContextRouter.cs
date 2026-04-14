@@ -46,29 +46,25 @@ namespace BPUA.Application.Orchestration
                 throw new System.Exception("BPUA identifier metadata is missing in data set.");
             }
 
-            string? applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(bpuaIdentifier.ApplicationLayerName);
-            if (applicationNextLayerName == null) 
-            {
-                args.TransitionContext = requestTransitionContext;
-                return;
-            }
-
-            requestTransitionContext.AddRequestMetadata(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName, bpuaIdentifier.Breadcrumbs);
-            string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, applicationNextLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
+            string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
 
             IDataSet? responseTransitionContext = null;
-            ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
-            if (transitionHandler != null)
+            UseCaseActivationResult useCaseActivationResult = await BPUAApplication!.ActivateUseCaseAsync(bpuaIdentifier);
+            if (useCaseActivationResult.Succeeded)
             {
-                transitionHandler.BPUAApplication = BPUAApplication;
-                await using (transitionHandler as IAsyncDisposable)
+                ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
+                if (transitionHandler != null)
                 {
-                    responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
-                    if (responseTransitionContext != null)
+                    transitionHandler.BPUAApplication = BPUAApplication;
+                    await using (transitionHandler as IAsyncDisposable)
                     {
-                        responseTransitionContext.RemoveLastRequestMetadata();
+                        responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
                     }
                 }
+            }
+            else
+            {
+                responseTransitionContext = requestTransitionContext;
             }
 
             BPUAApplication = null;

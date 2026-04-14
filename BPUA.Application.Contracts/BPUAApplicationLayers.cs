@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace BPUA.Application.Orchestration
+namespace BPUA.Application.Contracts
 {
     /// <summary>
     /// Provides BPUA application layers progression
@@ -26,7 +27,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="currentLayerName">Current layer name</param>
         /// <returns>Next layer name</returns>
-        public static string? GetNextLayerName(string? currentLayerName)
+        public static string GetNextLayerName(string? currentLayerName)
         {
             if (string.IsNullOrWhiteSpace(currentLayerName))
             {
@@ -36,7 +37,7 @@ namespace BPUA.Application.Orchestration
             BPUAApplicationLayersProgression.TryGetValue(currentLayerName, out string? nextLayerName);
             if (string.IsNullOrEmpty(nextLayerName))
             {
-                return null;
+                throw new InvalidOperationException($"No next layer found for the current layer: {currentLayerName}");
             }
 
             return nextLayerName;

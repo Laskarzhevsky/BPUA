@@ -14,14 +14,14 @@ namespace BPUA.Application.BootTests
         /// documents that this configuration value is mandatory.
         /// </summary>
         [Fact]
-        public void BootBPUAPlatform_Throws_WhenPluginFolderSettingIsMissing()
+        public async Task BootBPUAPlatform_Throws_WhenPluginFolderSettingIsMissing()
         {
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope("{}");
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
 
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(delegate
+            ArgumentOutOfRangeException exception = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                bootstrapper.BootBPUAPlatform(scope.RootPath, false);
+                await bootstrapper.BootBPUAPlatform(scope.RootPath, false);
             });
 
             Assert.Contains("PluginFolder", exception.Message, StringComparison.Ordinal);

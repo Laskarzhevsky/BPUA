@@ -14,16 +14,16 @@ namespace BPUA.Application.BootTests
         /// not continue in a partially booted state that hides the deployment problem.
         /// </summary>
         [Fact]
-        public void BootBPUAPlatform_Throws_WhenResolvedPluginDirectoryDoesNotExist()
+        public async Task BootBPUAPlatform_Throws_WhenResolvedPluginDirectoryDoesNotExist()
         {
             string appSettingsJson = """{"PluginFolder": "Plugins/Missing"}""";
 
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
 
-            DirectoryNotFoundException exception = Assert.Throws<DirectoryNotFoundException>(delegate
+            DirectoryNotFoundException exception = await Assert.ThrowsAsync<DirectoryNotFoundException>(async () =>
             {
-                bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+                await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
             });
 
             Assert.Contains("Plugins", exception.Message, StringComparison.OrdinalIgnoreCase);
