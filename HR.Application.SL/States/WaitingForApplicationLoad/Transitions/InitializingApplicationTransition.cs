@@ -2,19 +2,20 @@
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
-namespace BPUA.Account.SL
+namespace HR.Application.SL
 {
     /// <summary>
     /// Provides functionality of the state handler for "Initial" state of the account use case in the state logic application layer
     /// </summary>
     [RegisterAsBPUAService]
-    public class InitialStateHandler : StateHandler
+    public class InitializingApplicationTransition : Transition
     {
         #region Identification
-        public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+        public static string DomainName = HR.Application.Contracts.Contract.HR;
+        public static string UseCaseName = HR.Application.Contracts.UseCaseNames.APPLICATION;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
-        public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+        public static string StateName = HR.Application.Contracts.StateNames.WAITING_FOR_APPLICATION_LOAD;
+        public static string TransitionName = HR.Application.Contracts.TransitionsNames.INITIALIZING_APPLICATION;
 
         /// <summary>
         /// Gets service keys
@@ -23,7 +24,7 @@ namespace BPUA.Account.SL
         {
             get
             {
-                return KeyCompiler.CompileStateHandlerKey(DomainName, UseCaseName, ApplicationLayerName, StateName);
+                return KeyCompiler.CompileTransitionKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
             }
         }
         #endregion
@@ -32,7 +33,7 @@ namespace BPUA.Account.SL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public InitialStateHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName)
+        public InitializingApplicationTransition() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
         }
         #endregion

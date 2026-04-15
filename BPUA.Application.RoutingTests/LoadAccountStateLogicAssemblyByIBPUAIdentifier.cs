@@ -21,14 +21,13 @@ namespace BPUA.Application.RoutingTests
 
             stringBuilder.AppendLine("{");
             stringBuilder.AppendLine("  \"PluginFolder\": \"" + Helpers.EscapeJson(pluginFolderPath) + "\",");
-            stringBuilder.AppendLine("  \"ApplicationStartupTransitions\":");
+            stringBuilder.AppendLine("  \"HostedApplicationLayers\":");
             stringBuilder.AppendLine("  [");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("      \"DomainName\": \"HR\",");
             stringBuilder.AppendLine("      \"UseCaseName\": \"Application\",");
             stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\",");
             stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
-            stringBuilder.AppendLine("      \"TransitionName\": \"InitializingApplication\"");
             stringBuilder.AppendLine("    }");
             stringBuilder.AppendLine("  ]");
             stringBuilder.AppendLine("}");

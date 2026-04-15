@@ -1,6 +1,4 @@
-﻿using BPUA.Core;
-
-using PocoDataSet.IData;
+﻿using PocoDataSet.IData;
 
 using System.Threading.Tasks;
 
@@ -14,8 +12,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Handles request
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
         /// <returns>Response transition context</returns>
-        Task<IDataSet?> HandleRequestAsync(IBPUAIdentifier bpuaIdentifier);
+        Task<IDataSet?> HandleRequestAsync();
     }
 }

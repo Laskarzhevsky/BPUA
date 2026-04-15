@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BPUA.Account.Contracts\BPUA.Account.Contracts.csproj" />
-    <ProjectReference Include="..\BPUA.Application.CommonComponents\BPUA.Application.CommonComponents.csproj" />
+    <ProjectReference Include="..\BPUA.Application.StateMachineComponents\BPUA.Application.StateMachineComponents.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

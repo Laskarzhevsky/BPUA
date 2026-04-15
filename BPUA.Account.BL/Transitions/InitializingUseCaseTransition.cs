@@ -22,7 +22,7 @@ namespace BPUA.Account.BL
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
+                return KeyCompiler.CompileTransitionKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
             }
         }
         #endregion
@@ -36,8 +36,7 @@ namespace BPUA.Account.BL
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        /// <param name="requestName">Request name</param>
-        public InitializingUseCaseTransition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName, string requestName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName, requestName)
+        public InitializingUseCaseTransition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
             AddTargetStateName(BPUA.Application.Contracts.StateNames.INITIAL);
         }

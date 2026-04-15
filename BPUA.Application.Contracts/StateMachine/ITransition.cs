@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BPUA.Core;
+
+using System.Collections.Generic;
 
 namespace BPUA.Application.Contracts
 {
@@ -17,6 +19,14 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
+        /// Gets BPUA identifier
+        /// </summary>
+        IBPUAIdentifier BpuaIdentifier
+        {
+            get;
+        }
+
+        /// <summary>
         /// Gets component identifier
         /// </summary>
         string ComponentIdentifier
@@ -30,6 +40,14 @@ namespace BPUA.Application.Contracts
         ITransitionDataContract InboundDataContract
         {
             get;
+        }
+
+        /// <summary>
+        /// Gets  rosets flag indicating whether this is the default transition which starts from the specified state
+        /// </summary>
+        bool IsDefaultForState
+        {
+            get; set;
         }
 
         /// <summary>

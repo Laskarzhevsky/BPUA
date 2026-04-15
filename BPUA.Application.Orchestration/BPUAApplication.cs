@@ -106,7 +106,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         public async Task InitializeBusinessApplicationsAsync()
         {
-            await ApplicationStartupTransitionsRunner.CreateAndActivateAsync(this);
+            await HostedApplicationLayersStarter.CreateAndActivateAsync(this);
         }
 
         /// <summary>

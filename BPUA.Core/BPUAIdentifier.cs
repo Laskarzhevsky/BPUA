@@ -53,6 +53,29 @@
         }
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Clones BPUA identifier
+        /// IBPUAIdentifier interface implementation
+        /// </summary>
+        /// <param name="bpuaIdentifier">BPUA identifier to clone</param>
+        /// <returns>Cloned BPUA identifier</returns>
+        public IBPUAIdentifier Clone(IBPUAIdentifier bpuaIdentifier)
+        {
+            IBPUAIdentifier clonedBpuaIdentifier = new BPUAIdentifier();
+
+            clonedBpuaIdentifier.DomainName = DomainName;
+            clonedBpuaIdentifier.UseCaseName = UseCaseName;
+            clonedBpuaIdentifier.ApplicationLayerName = ApplicationLayerName;
+            clonedBpuaIdentifier.StateName = StateName;
+            clonedBpuaIdentifier.TransitionName = TransitionName;
+            clonedBpuaIdentifier.Breadcrumbs = Breadcrumbs;
+            clonedBpuaIdentifier.RequestName = RequestName;
+
+            return clonedBpuaIdentifier;
+        }
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets or sets application layer name

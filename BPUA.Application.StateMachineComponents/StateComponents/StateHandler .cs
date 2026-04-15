@@ -2,9 +2,12 @@
 using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.Extensions;
 using PocoDataSet.IData;
 
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BPUA.Application.StateMachineComponents
@@ -14,6 +17,13 @@ namespace BPUA.Application.StateMachineComponents
     /// </summary>
     public abstract class StateHandler : RequestHandler, IStateHandler
     {
+        #region Data Fields
+        /// <summary>
+        /// Holds transitions of the state handler, where key is transition name and value is transition
+        /// </summary>
+        List<ITransition> _transitions = new List<ITransition>();
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Default constructor
@@ -47,16 +57,54 @@ namespace BPUA.Application.StateMachineComponents
         }
         #endregion
 
+        #region Public Methods
         /// <summary>
         /// Handles request
+        /// IStateHandler interface implementation
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
         /// <returns>Response transition context</returns>
-        public async Task<IDataSet?> HandleRequestAsync(IBPUAIdentifier bpuaIdentifier)
+        public async Task<IDataSet?> HandleRequestAsync()
         {
+            ITransition? defaultTransition = _transitions.Find(t => t.IsDefaultForState);
             IDataSet dataSet = DataSetFactory.CreateDataSet();
+            if (defaultTransition == null)
+            {
+                return dataSet;
+            }
+
+            IBPUAIdentifier? transitionBpuaIdentifier = defaultTransition.BpuaIdentifier.Clone();
+            if (transitionBpuaIdentifier == null)
+            {
+                return dataSet;
+            }
+
+            dataSet.AddRequestMetadata(transitionBpuaIdentifier);
 
             return await HandleRequestAsync(dataSet);
         }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Adds transition
+        /// </summary>
+        /// <param name="transition">Transition for addition</param>
+        /// <param name="isDefaultForState">Flag indicating whether transition is default one for the state</param>
+        protected void AddTransition(ITransition transition, bool? isDefaultForState = false)
+        {
+            string transitionIdentifier = transition.ComponentIdentifier;
+            if (_transitions.Exists(t => t.ComponentIdentifier == transitionIdentifier))
+            {
+                return;
+            }
+
+            if (isDefaultForState.HasValue)
+            {
+                transition.IsDefaultForState = isDefaultForState.Value;
+            }
+
+            _transitions.Add(transition);
+        }
+        #endregion
     }
 }

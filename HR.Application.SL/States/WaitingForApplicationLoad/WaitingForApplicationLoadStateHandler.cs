@@ -1,5 +1,5 @@
-﻿using BPUA.Application.CommonComponents;
-using BPUA.Application.Contracts;
+﻿using BPUA.Application.Contracts;
+using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
 namespace HR.Application.SL
@@ -34,6 +34,7 @@ namespace HR.Application.SL
         /// </summary>
         public WaitingForApplicationLoadStateHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName)
         {
+            AddTransition(new InitializingApplicationTransition(), true);
         }
         #endregion
     }

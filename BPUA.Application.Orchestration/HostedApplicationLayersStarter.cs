@@ -1,13 +1,9 @@
 using BPUA.Application.Contracts;
-using BPUA.Application.Services;
 using BPUA.Core;
 
 using Microsoft.Extensions.Configuration;
 
-using PocoDataSet.IData;
-
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +12,7 @@ namespace BPUA.Application.Orchestration
     /// <summary>
     /// Provides functionality to prepare application startup transitions from configuration.
     /// </summary>
-    public static class ApplicationStartupTransitionsRunner
+    public static class HostedApplicationLayersStarter
     {
         #region Public Methods
         /// <summary>
@@ -27,13 +23,13 @@ namespace BPUA.Application.Orchestration
         /// <param name="bpuaApplication">BPUA application instance</param>
         public static async Task CreateAndActivateAsync(IBPUAApplication bpuaApplication)
         {
-            IConfigurationSection applicationStartupTransitionsSection = bpuaApplication.ApplicationConfiguration.GetSection("ApplicationStartupTransitions");
-            if (!applicationStartupTransitionsSection.Exists())
+            IConfigurationSection HostedApplicationLayersSection = bpuaApplication.ApplicationConfiguration.GetSection("HostedApplicationLayers");
+            if (!HostedApplicationLayersSection.Exists())
             {
                 return;
             }
 
-            foreach (IConfigurationSection startupTransitionSection in applicationStartupTransitionsSection.GetChildren())
+            foreach (IConfigurationSection startupTransitionSection in HostedApplicationLayersSection.GetChildren())
             {
                 IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
                 UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
@@ -44,7 +40,7 @@ namespace BPUA.Application.Orchestration
                     if (bpuaService != null && bpuaService is IStateHandler)
                     {
                         IStateHandler stateHandler = (IStateHandler)bpuaService;
-                        await stateHandler.HandleRequestAsync(bpuaIdentifier);
+                        await stateHandler.HandleRequestAsync();
                     }
                 }
             }
@@ -96,7 +92,6 @@ namespace BPUA.Application.Orchestration
             bpuaIdentifier.UseCaseName = GetRequiredValue(startupTransitionSection, "UseCaseName");
             bpuaIdentifier.ApplicationLayerName = GetRequiredValue(startupTransitionSection, "ApplicationLayerName");
             bpuaIdentifier.StateName = GetOptionalValue(startupTransitionSection, "StateName");
-            bpuaIdentifier.TransitionName = GetRequiredValue(startupTransitionSection, "TransitionName");
 
             return bpuaIdentifier;
         }
@@ -129,7 +124,7 @@ namespace BPUA.Application.Orchestration
             string? value = section[key];
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new InvalidOperationException("Required configuration value '" + key + "' is missing in ApplicationStartupTransitions.");
+                throw new InvalidOperationException("Required configuration value '" + key + "' is missing in HostedApplicationLayers.");
             }
 
             return value;
