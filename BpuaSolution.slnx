@@ -20,8 +20,6 @@
   </Folder>
   <Folder Name="/BPUA.Application/FA/">
     <Project Path="BPUA.Application.BusinessLogic/BPUA.Application.BusinessLogic.csproj" />
-    <Project Path="BPUA.Application.CommonComponents/BPUA.Application.CommonComponents.csproj" Id="bf9505a7-0f04-4619-8b6e-ff153c183817" />
-    <Project Path="BPUA.Application.Context/BPUA.Application.Context.csproj" Id="85f1927e-3fa8-4467-849f-1c10709506c3" />
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
     <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />

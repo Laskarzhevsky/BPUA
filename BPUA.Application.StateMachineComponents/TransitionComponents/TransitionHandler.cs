@@ -1,5 +1,4 @@
-﻿using BPUA.Application.CommonComponents;
-using BPUA.Application.Contracts;
+﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
 namespace BPUA.Application.StateMachineComponents
