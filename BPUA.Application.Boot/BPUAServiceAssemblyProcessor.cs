@@ -7,6 +7,8 @@ namespace BPUA.Application.Boot
 {
     /// <summary>
     /// Processes assembly decorated by RegisterAsBPUAServiceAssemblyAttribute
+    /// Marks the assembly as processed by the service-assembly registration pipeline.
+    /// This pipeline currently registers both BPUA services and transition definitions.
     /// </summary>
     public sealed class BPUAServiceAssemblyProcessor : IBPUAAssemblyProcessor
     {
@@ -22,6 +24,7 @@ namespace BPUA.Application.Boot
             if (CanProcess(loadedAssembly) && NotProcessed(loadedAssembly, serviceRegistry))
             {
                 BPUAServicesRegistrar.RegisterServicesFromAssembly(loadedAssembly, serviceRegistry);
+                TransitionsRegistrar.RegisterTransitionsFromAssembly(loadedAssembly, serviceRegistry);
             }
         }
         #endregion

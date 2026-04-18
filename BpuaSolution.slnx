@@ -12,6 +12,8 @@
   <Folder Name="/Applications/HR/UseCases/Application/">
     <Project Path="HR.Application.BL/HR.Application.BL.csproj" Id="7a4f9388-6ec7-4d5a-a639-5d3e08b8c0b2" />
     <Project Path="HR.Application.Contracts/HR.Application.Contracts.csproj" Id="d93a7ab9-9519-4b1d-96ba-0a71c6a1b4ac" />
+    <Project Path="HR.Application.DAL/HR.Application.DAL.csproj" Id="ee9ba8f9-7ddb-444c-888f-c54119b6bad9" />
+    <Project Path="HR.Application.DPL/HR.Application.DPL.csproj" Id="6b56d34e-a040-459d-9f04-23a0602c6f8b" />
     <Project Path="HR.Application.SL/HR.Application.SL.csproj" Id="dcda8b45-3ca6-457e-9894-4c17de7d0156" />
   </Folder>
   <Folder Name="/BPUA.Application/" />

@@ -6,6 +6,11 @@
     public class TableNames
     {
         /// <summary>
+        /// Message table
+        /// </summary>
+        public static string MESSAGE = "__Message";
+
+        /// <summary>
         /// Request suffix
         /// </summary>
         public static string _REQUEST = "Request";

@@ -14,8 +14,9 @@ namespace BPUA.Application.Orchestration
     public sealed class ServiceRegistry : IServiceRegistry
     {
         readonly ConcurrentDictionary<string, string> _dynamicAssembliesPathIndex = new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        readonly ConcurrentDictionary<string, Type> _registeredTypes = new ConcurrentDictionary<string, Type>(StringComparer.Ordinal);
         readonly ConcurrentDictionary<string, object> _registeredObjects = new ConcurrentDictionary<string, object>(StringComparer.Ordinal);
+        readonly ConcurrentDictionary<string, Type> _registeredTransitions = new ConcurrentDictionary<string, Type>(StringComparer.Ordinal);
+        readonly ConcurrentDictionary<string, Type> _registeredTypes = new ConcurrentDictionary<string, Type>(StringComparer.Ordinal);
         readonly ConcurrentDictionary<string, AssemblyFacet> _assemblyIndex = new ConcurrentDictionary<string, AssemblyFacet>(StringComparer.Ordinal);
 
         #region Public Methods
@@ -28,6 +29,17 @@ namespace BPUA.Application.Orchestration
         public bool ContainsDynamicAssemblyName(string assemblyName)
         {
             return _dynamicAssembliesPathIndex.ContainsKey(assemblyName);
+        }
+
+        /// <summary>
+        /// Checks whether service registry contains registered transition type
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <returns>True if registry contains registered transition type, otherwise False</returns>
+        public bool ContainsTransitionType(string registrationKey)
+        {
+            return _registeredTransitions.ContainsKey(registrationKey);
         }
 
         /// <summary>
@@ -160,6 +172,17 @@ namespace BPUA.Application.Orchestration
         }
 
         /// <summary>
+        /// Registers transition type
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="transitionType">Transition type</param>
+        public void RegisterTransitionType(string registrationKey, Type transitionType)
+        {
+            _registeredTransitions[registrationKey] = transitionType;
+        }
+
+        /// <summary>
         /// Registers type
         /// IServiceRegistry interface implementation
         /// </summary>
@@ -192,6 +215,18 @@ namespace BPUA.Application.Orchestration
         public bool TryGetRegisteredObject(string registrationKey, out object? value)
         {
             return _registeredObjects.TryGetValue(registrationKey, out value);
+        }
+
+        /// <summary>
+        /// Tries to get registered transition type
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="registeredTransitionType">Registered transition type</param>
+        /// <returns>True if type retreived successfully, otherwise False</returns>
+        public bool TryGetRegisteredTransitionType(string key, out Type registeredTransitionType)
+        {
+            return _registeredTransitions.TryGetValue(key, out registeredTransitionType!);
         }
 
         /// <summary>
@@ -267,6 +302,18 @@ namespace BPUA.Application.Orchestration
         public bool TryRegisterObject(string registrationKey, object value)
         {
             return _registeredObjects.TryAdd(registrationKey, value);
+        }
+
+        /// <summary>
+        /// Tries to register transition type
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="transitionType">Transition type</param>
+        /// <returns>True if transition type was registered, otherwise False</returns>
+        public bool TryRegisterTransitionType(string registrationKey, Type transitionType)
+        {
+            return _registeredTransitions.TryAdd(registrationKey, transitionType);
         }
 
         /// <summary>

@@ -4,6 +4,9 @@ using BPUA.Core;
 
 using PocoDataSet.BpuaExtensions;
 
+using System.Collections.Generic;
+using System.Reflection.Metadata;
+
 namespace HR.Application.BL
 {
     /// <summary>
@@ -46,13 +49,39 @@ namespace HR.Application.BL
         /// </summary>
         protected override void ProcessResponse()
         {
-            IRequestMetadata? requestMetadata = ResponseTransitionContext.GetRequestMetadata();
-            if (requestMetadata == null)
+            if (ResponseTransitionContext.HasError())
             {
-                throw new System.Exception("Request metadata is missing in data set.");
+                // TODO: send data context to BPUA Infrastructure Server for logging
+                return;
             }
+            else
+            {
+                IList<IMessage> messages = ResponseTransitionContext.GetMessages();
+                int initializedApplicationLayersCount = 0;
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    IMessage message = messages[i];
+                    if (message.MessageType == MessageType.Information && message.MessageText == BPUA.Application.Contracts.TextResources.ApplicationLayerInitialized)
+                    {
+                        initializedApplicationLayersCount++;
+                    }
+                }
 
-            requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+                IRequestMetadata? requestMetadata = ResponseTransitionContext.GetRequestMetadata();
+                if (requestMetadata == null)
+                {
+                    throw new System.ApplicationException("Request metadata is missing in data set.");
+                }
+
+                if (initializedApplicationLayersCount == 2)
+                {
+                    requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+                }
+                else
+                {
+                    // TODO: send data context to BPUA Infrastructure Server for logging
+                }
+            }
         }
         #endregion
     }

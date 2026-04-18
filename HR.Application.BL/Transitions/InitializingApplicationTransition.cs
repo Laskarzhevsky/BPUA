@@ -2,7 +2,7 @@
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
-namespace HR.Application.SL
+namespace HR.Application.BL
 {
     /// <summary>
     /// Provides functionality of the state handler for "Initial" state of the account use case in the state logic application layer
@@ -13,7 +13,7 @@ namespace HR.Application.SL
         #region Identification
         public static string DomainName = HR.Application.Contracts.Contract.HR;
         public static string UseCaseName = HR.Application.Contracts.UseCaseNames.APPLICATION;
-        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
+        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
         public static string StateName = HR.Application.Contracts.StateNames.WAITING_FOR_APPLICATION_LOAD;
         public static string TransitionName = HR.Application.Contracts.TransitionsNames.INITIALIZING_APPLICATION;
 

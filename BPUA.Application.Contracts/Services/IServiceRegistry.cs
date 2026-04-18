@@ -27,11 +27,11 @@ namespace BPUA.Application.Contracts
         bool ContainsTypeOrObject(string registrationKey);
 
         /// <summary>
-        /// Checks whether service registry contains registered use case state transitions
+        /// Checks whether service registry contains registered transition type
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <returns>True if registry contains registered use case state transitions</returns>
-//        bool ContainsUseCaseStateTransitions(string registrationKey);
+        /// <returns>True if registry contains registered transition type, otherwise False</returns>
+        bool ContainsTransitionType(string registrationKey);
 
         /// <summary>
         /// Enumerates objects by prefix
@@ -71,14 +71,6 @@ namespace BPUA.Application.Contracts
         bool HasAssemblyFacet(string assemblyFullName, AssemblyFacet facet);
 
         /// <summary>
-        /// Gets use case state transition names
-        /// IServiceRegistry interface implementation
-        /// </summary>
-        /// <param name="registrationKey">Registration key</param>
-        /// <returns>object of specified type</returns>
-//        IList<string>? GetUseCaseStateTransitionNames(string registrationKey);
-
-        /// <summary>
         /// Registers dynamic assembly path
         /// </summary>
         /// <param name="assemblyName">Assembly name</param>
@@ -91,6 +83,13 @@ namespace BPUA.Application.Contracts
         /// <param name="registrationKey">Registration key</param>
         /// <param name="value">Object to register</param>
         void RegisterObject(string registrationKey, object value);
+
+        /// <summary>
+        /// Registers transition type
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="transitionType">Transition type</param>
+        void RegisterTransitionType(string registrationKey, Type transitionType);
 
         /// <summary>
         /// Registers type
@@ -114,6 +113,14 @@ namespace BPUA.Application.Contracts
         /// <param name="value">Retreived object</param>
         /// <returns>True if object retreived successully, otherwise False</returns>
         bool TryGetRegisteredObject(string registrationKey, out object? value);
+
+        /// <summary>
+        /// Tries to get registered transition type
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="registeredTransitionType">Registered transition type</param>
+        /// <returns>True if type retreived successfully, otherwise False</returns>
+        bool TryGetRegisteredTransitionType(string key, out Type registeredTransitionType);
 
         /// <summary>
         /// Tries to get registered type
@@ -146,6 +153,14 @@ namespace BPUA.Application.Contracts
         /// <param name="value">Object to register</param>
         /// <returns>True if object was registered, otherwise False</returns>
         public bool TryRegisterObject(string registrationKey, object value);
+
+        /// <summary>
+        /// Tries to register transition type
+        /// </summary>
+        /// <param name="registrationKey">Registration key</param>
+        /// <param name="transitionType">Transition type</param>
+        /// <returns>True if transition type was registered, otherwise False</returns>
+        bool TryRegisterTransitionType(string registrationKey, Type transitionType);
 
         /// <summary>
         /// Tries to register type

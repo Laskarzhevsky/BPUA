@@ -65,7 +65,6 @@ namespace BPUA.Application.Boot
                         {
                             serviceRegistry.RegisterType(resolvedServiceKeys[j], type);
                             Console.WriteLine($"[RegisterServicesFromAssembly] Registered service {resolvedServiceKeys[j]}: {type.FullName}");
-//                            UseCaseStateTransitionNamesRegistrar.RegisterUseCaseStateTransitionNames(resolvedServiceKeys[j], serviceRegistry);
                         }
                     }
                 }
@@ -73,7 +72,6 @@ namespace BPUA.Application.Boot
                 {
                     serviceRegistry.RegisterType(resolvedServiceKey, type);
                     Console.WriteLine($"[RegisterServicesFromAssembly] Registered service {resolvedServiceKey}: {type.FullName}");
-//                    UseCaseStateTransitionNamesRegistrar.RegisterUseCaseStateTransitionNames(resolvedServiceKey, serviceRegistry);
                 }
             }
         }
