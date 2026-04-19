@@ -58,14 +58,16 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Public Methods
         /// <summary>
-        /// Handles request
+        /// Initializes the state handler
         /// IStateHandler interface implementation
         /// </summary>
         /// <returns>Response transition context</returns>
-        public async Task<IDataSet?> HandleRequestAsync()
+        public async Task<IDataSet?> Initialize()
         {
-            ITransition? defaultTransition = _transitions.Find(t => t.IsDefaultForState);
+//            ITransition? defaultTransition = _transitions.Find(t => t.IsDefaultForState);
             IDataSet dataSet = DataSetFactory.CreateDataSet();
+            dataSet.AddRequestMetadata(BpuaIdentifier);
+/*
             if (defaultTransition == null)
             {
                 return dataSet;
@@ -78,7 +80,7 @@ namespace BPUA.Application.StateMachineComponents
             }
 
             dataSet.AddRequestMetadata(transitionBpuaIdentifier);
-
+*/
             return await HandleRequestAsync(dataSet);
         }
         #endregion
@@ -88,18 +90,12 @@ namespace BPUA.Application.StateMachineComponents
         /// Adds transition
         /// </summary>
         /// <param name="transition">Transition for addition</param>
-        /// <param name="isDefaultForState">Flag indicating whether transition is default one for the state</param>
-        protected void AddTransition(ITransition transition, bool? isDefaultForState = false)
+        protected void AddTransition(ITransition transition)
         {
             string transitionIdentifier = transition.ComponentIdentifier;
             if (_transitions.Exists(t => t.ComponentIdentifier == transitionIdentifier))
             {
                 return;
-            }
-
-            if (isDefaultForState.HasValue)
-            {
-                transition.IsDefaultForState = isDefaultForState.Value;
             }
 
             _transitions.Add(transition);

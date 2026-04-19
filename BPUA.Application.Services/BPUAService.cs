@@ -27,7 +27,7 @@ namespace BPUA.Application.Services
         /// </summary>
         /// <param name="sender">Event source</param>
         /// <param name="args">Strongly-typed event arguments</param>
-        public abstract Task HandleAsync(object? sender, TArgs args);
+        public abstract Task HandleAsync(object? sender, EventArgs args);
 
         /// <summary>
         /// Handles event asynchronously
@@ -37,14 +37,20 @@ namespace BPUA.Application.Services
         /// <param name="args">Event arguments</param>
         async Task IBPUAService.HandleAsync(object? sender, EventArgs args)
         {
-            TArgs? typedEventArgs = args as TArgs;
+            ServiceRequestEventArgs? serviceRequestEventArgs = args as ServiceRequestEventArgs;
+            if (serviceRequestEventArgs == null)
+            {
+                return;
+            }
+
+            TArgs? typedEventArgs = serviceRequestEventArgs.EventArguments as TArgs;
             if (typedEventArgs == null)
             {
                 return;
             }
 
             BPUAApplication = sender as IBPUAApplication;
-            await HandleAsync(sender, typedEventArgs);
+            await HandleAsync(sender, args);
         }
         #endregion
 

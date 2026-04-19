@@ -32,9 +32,11 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="sender">Event source</param>
         /// <param name="args">Event arguments</param>
-        public override async Task HandleAsync(object? sender, RouteTransitionContextEventArgs args)
+        public override async Task HandleAsync(object? sender, EventArgs args)
         {
-            IDataSet? requestTransitionContext = args.TransitionContext;
+            ServiceRequestEventArgs serviceRequestEventArgs = (ServiceRequestEventArgs)args;
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = (RouteTransitionContextEventArgs)serviceRequestEventArgs.EventArguments;
+            IDataSet? requestTransitionContext = routeTransitionContextEventArgs.TransitionContext;
             if (requestTransitionContext == null)
             {
                 return;
@@ -46,19 +48,47 @@ namespace BPUA.Application.Orchestration
                 throw new System.Exception("BPUA identifier metadata is missing in data set.");
             }
 
-            string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
-
+            bpuaIdentifier.RequestName = serviceRequestEventArgs.EventName;
             IDataSet? responseTransitionContext = null;
             UseCaseActivationResult useCaseActivationResult = await BPUAApplication!.ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
-                ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
-                if (transitionHandler != null)
+                ITransition transition = PrepareRequestTransitionContext(requestTransitionContext, BPUAApplication.ServiceRegistry, bpuaIdentifier);
+                if (requestTransitionContext.HasError())
                 {
-                    transitionHandler.BPUAApplication = BPUAApplication;
-                    await using (transitionHandler as IAsyncDisposable)
+                    responseTransitionContext = requestTransitionContext;
+                }
+                else
+                {
+                    bpuaIdentifier = requestTransitionContext.GetBpuaIdentifier();
+                    if (bpuaIdentifier == null)
                     {
-                        responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
+                        throw new System.Exception("BPUA identifier metadata is missing in data set.");
+                    }
+
+                    useCaseActivationResult = await BPUAApplication!.ActivateUseCaseAsync(bpuaIdentifier);
+                    if (useCaseActivationResult.Succeeded)
+                    {
+                        string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
+                        ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
+                        if (transitionHandler != null)
+                        {
+                            transitionHandler.BPUAApplication = BPUAApplication;
+                            await using (transitionHandler as IAsyncDisposable)
+                            {
+                                responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
+                                if (responseTransitionContext == null)
+                                {
+                                    throw new System.Exception("Transition handler did not return a response transition context.");
+                                }
+
+                                transition.ProcessResponseTransitionContext(responseTransitionContext);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        responseTransitionContext = requestTransitionContext;
                     }
                 }
             }
@@ -68,7 +98,35 @@ namespace BPUA.Application.Orchestration
             }
 
             BPUAApplication = null;
-            args.TransitionContext = responseTransitionContext;
+            routeTransitionContextEventArgs.TransitionContext = responseTransitionContext;
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Prepares request transition context
+        /// </summary>
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <param name="serviceRegistry">Service registry</param>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        ITransition PrepareRequestTransitionContext(IDataSet requestTransitionContext, IServiceRegistry serviceRegistry, IBPUAIdentifier bpuaIdentifier)
+        {
+            Type? transitionType = null;
+            serviceRegistry.TryGetRegisteredTransitionType(bpuaIdentifier, out transitionType);
+            if (transitionType == null)
+            {
+                throw new ApplicationException($"Transition is not registered for {bpuaIdentifier.RequestName}_{bpuaIdentifier.DomainName}_{bpuaIdentifier.UseCaseName}_{bpuaIdentifier.ApplicationLayerName}_{bpuaIdentifier.StateName}_{bpuaIdentifier.TransitionName}");
+            }
+
+            ITransition? transition = Activator.CreateInstance(transitionType) as ITransition;
+            if (transition == null)
+            {
+                throw new ApplicationException($"Transition {bpuaIdentifier.RequestName}_{bpuaIdentifier.DomainName}_{bpuaIdentifier.UseCaseName}_{bpuaIdentifier.ApplicationLayerName}_{bpuaIdentifier.StateName}_{bpuaIdentifier.TransitionName} could not be instantiated.");
+            }
+
+            transition.ProcessRequestTransitionContext(requestTransitionContext, bpuaIdentifier);
+
+            return transition;
         }
         #endregion
     }

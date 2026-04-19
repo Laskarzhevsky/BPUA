@@ -10,9 +10,9 @@ namespace BPUA.Application.Contracts
     public interface IStateHandler : IRequestHandler
     {
         /// <summary>
-        /// Handles request
+        /// Initializes the state handler
         /// </summary>
         /// <returns>Response transition context</returns>
-        Task<IDataSet?> HandleRequestAsync();
+        Task<IDataSet?> Initialize();
     }
 }

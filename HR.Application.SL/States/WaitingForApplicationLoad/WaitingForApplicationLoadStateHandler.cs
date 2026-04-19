@@ -34,7 +34,6 @@ namespace HR.Application.SL
         /// </summary>
         public WaitingForApplicationLoadStateHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName)
         {
-            AddTransition(new InitializingApplicationTransition(), true);
         }
         #endregion
     }

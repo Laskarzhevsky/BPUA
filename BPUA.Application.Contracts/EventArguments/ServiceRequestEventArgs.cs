@@ -14,7 +14,7 @@ namespace BPUA.Application.Contracts
         /// <param name="eventSourceType">Event source type</param>
         /// <param name="eventName">Event name</param>
         /// <param name="eventArguments">Event arguments</param>
-        public ServiceRequestEventArgs(Type? eventSourceType, string eventName, EventArgs eventArguments)
+        public ServiceRequestEventArgs(Type eventSourceType, string eventName, EventArgs eventArguments)
         {
             EventName = eventName;
             EventArguments = eventArguments;
@@ -42,7 +42,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets event source type
         /// </summary>
-        public Type? EventSourceType
+        public Type EventSourceType
         {
             get; private set;
         }

@@ -1,5 +1,7 @@
 ﻿using BPUA.Core;
 
+using PocoDataSet.IData;
+
 using System.Collections.Generic;
 
 namespace BPUA.Application.Contracts
@@ -43,14 +45,6 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets  rosets flag indicating whether this is the default transition which starts from the specified state
-        /// </summary>
-        bool IsDefaultForState
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Gets outbound data contract
         /// </summary>
         ITransitionDataContract OutboundDataContract
@@ -65,6 +59,21 @@ namespace BPUA.Application.Contracts
         {
             get;
         }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Processes the request transition context
+        /// </summary>
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier);
+
+        /// <summary>
+        /// Processes the response transition context
+        /// </summary>
+        /// <param name="responseTransitionContext">Response transition context</param>
+        void ProcessResponseTransitionContext(IDataSet responseTransitionContext);
         #endregion
     }
 }

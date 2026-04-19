@@ -4,6 +4,7 @@ using BPUA.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace BPUA.Application.Orchestration
 {
@@ -221,12 +222,59 @@ namespace BPUA.Application.Orchestration
         /// Tries to get registered transition type
         /// IServiceRegistry interface implementation
         /// </summary>
-        /// <param name="registrationKey">Registration key</param>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
         /// <param name="registeredTransitionType">Registered transition type</param>
         /// <returns>True if type retreived successfully, otherwise False</returns>
-        public bool TryGetRegisteredTransitionType(string key, out Type registeredTransitionType)
+        public bool TryGetRegisteredTransitionType(IBPUAIdentifier bpuaIdentifier, out Type registeredTransitionType)
         {
-            return _registeredTransitions.TryGetValue(key, out registeredTransitionType!);
+            if (string.IsNullOrEmpty(bpuaIdentifier.TransitionName))
+            {
+                string statePrefix = KeyCompiler.CompileStatePrefixKey(
+                    bpuaIdentifier.RequestName,
+                    bpuaIdentifier.DomainName,
+                    bpuaIdentifier.UseCaseName,
+                    bpuaIdentifier.ApplicationLayerName,
+                    bpuaIdentifier.StateName);
+
+                Type? found = null;
+
+                foreach (KeyValuePair<string, Type> pair in _registeredTransitions)
+                {
+                    string key = pair.Key;
+
+                    if (!key.StartsWith(statePrefix, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    if (!IsDefaultTransition(pair.Value))
+                    {
+                        continue;
+                    }
+
+                    if (found != null)
+                    {
+                        throw new InvalidOperationException(
+                            "Multiple default transitions found for state: " + statePrefix);
+                    }
+
+                    found = pair.Value;
+                }
+
+                if (found != null)
+                {
+                    registeredTransitionType = found;
+                    return true;
+                }
+
+                registeredTransitionType = null!;
+                return false;
+            }
+            else
+            {
+                string transitionTypeKey = KeyCompiler.CompileTransitionKey(bpuaIdentifier.RequestName, bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
+                return _registeredTransitions.TryGetValue(transitionTypeKey, out registeredTransitionType!);
+            }
         }
 
         /// <summary>
@@ -326,6 +374,23 @@ namespace BPUA.Application.Orchestration
         public bool TryRegisterType(string registrationKey, Type type)
         {
             return _registeredTypes.TryAdd(registrationKey, type);
+        }
+        #endregion
+
+        #region Private Methods
+        static bool IsDefaultTransition(Type type)
+        {
+            PropertyInfo? property = type.GetProperty("IsDefaultForState", BindingFlags.Public | BindingFlags.Static);
+            if (property?.PropertyType == typeof(bool))
+            {
+                object? value = property.GetValue(null);
+                if (value is bool isDefaultForState)
+                {
+                    return isDefaultForState;
+                }
+            }
+
+            return false;
         }
         #endregion
     }

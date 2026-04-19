@@ -6,8 +6,8 @@
     public class RequestNames
     {
         /// <summary>
-        /// Send request to next application layer
+        /// Send request to application next layer
         /// </summary>
-        public static string SEND_REQUEST_TO_NEXT_APPLICATION_LAYER = "SendRequestToNextApplicationLayer";
+        public static string SEND_REQUEST_TO_APPLICATION_NEXT_LAYER = "SendRequestToApplicationNextLayer";
     }
 }

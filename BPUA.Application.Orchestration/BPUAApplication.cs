@@ -187,7 +187,7 @@ namespace BPUA.Application.Orchestration
                     await bppService.InitializeComponent(this);
 
                     // Seding BPUA application as an event source to BPUA serviced instance
-                    await bppService.HandleAsync(this, eventArguments);
+                    await bppService.HandleAsync(this, args);
                 }
             }
         }

@@ -20,13 +20,6 @@ namespace BPUA.Application.StateMachineComponents
         public event Func<object?, ServiceRequestEventArgs, Task>? ServiceRequestEvent;
         #endregion
 
-        #region Data Fields
-        /// <summary>
-        /// Flag indicating whether next steps of transition handling process needs to be terminated
-        /// </summary>
-        protected bool _terminateNextStepsOfTransitionHandling;
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Default constructor
@@ -69,7 +62,7 @@ namespace BPUA.Application.StateMachineComponents
             }
 
             ProcessRequest();
-            if (_terminateNextStepsOfTransitionHandling)
+            if (DoNotSendRequestToApplicationNextLayer)
             {
                 return ResponseTransitionContext;
             }
@@ -183,26 +176,26 @@ namespace BPUA.Application.StateMachineComponents
                 throw new InvalidOperationException("Request transition context does not coatain request metadata");
             }
 
-            string applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(requestMetadata.ApplicationLayerName);
-            RequestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, applicationNextLayerName, requestMetadata.StateName, requestMetadata.TransitionName, requestMetadata.Breadcrumbs);
+//            string applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(requestMetadata.ApplicationLayerName);
+//            RequestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, applicationNextLayerName, requestMetadata.StateName, requestMetadata.TransitionName, requestMetadata.Breadcrumbs);
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
             ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
-            ResponseTransitionContext.RemoveLastRequestMetadata();
-        }
-
-        /// <summary>
-        /// Sets flag indicating whether next steps of transition handling process needs to be terminated
-        /// </summary>
-        protected void TerminateNextStepsOfTransitionHandling()
-        {
-            _terminateNextStepsOfTransitionHandling = true;
+ //           ResponseTransitionContext.RemoveLastRequestMetadata();
         }
         #endregion
 
         #region Protected Properties
+        /// <summary>
+        /// Get or sets flag indicating whether request should not be sent to application next layer
+        /// </summary>
+        protected bool DoNotSendRequestToApplicationNextLayer
+        {
+            get; set;
+        }
+
         /// <summary>
         /// Gets or sets request transition context
         /// </summary>

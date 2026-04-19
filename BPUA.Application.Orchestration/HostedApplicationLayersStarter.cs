@@ -32,15 +32,18 @@ namespace BPUA.Application.Orchestration
             foreach (IConfigurationSection startupTransitionSection in HostedApplicationLayersSection.GetChildren())
             {
                 IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
-                UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
-                if (useCaseActivationResult.Succeeded)
+                if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
                 {
-                    string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
-                    IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
-                    if (bpuaService != null && bpuaService is IStateHandler)
+                    UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
+                    if (useCaseActivationResult.Succeeded)
                     {
-                        IStateHandler stateHandler = (IStateHandler)bpuaService;
-                        await stateHandler.HandleRequestAsync();
+                        string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
+                        IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
+                        if (bpuaService != null && bpuaService is IStateHandler)
+                        {
+                            IStateHandler stateHandler = (IStateHandler)bpuaService;
+                            await stateHandler.Initialize();
+                        }
                     }
                 }
             }

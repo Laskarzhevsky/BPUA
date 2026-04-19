@@ -1,6 +1,8 @@
 using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.IData;
+
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +12,7 @@ namespace BPUA.Application.StateMachineComponents
     /// <summary>
     /// Provides transition definition functionality.
     /// </summary>
-    public class Transition : ITransition
+    public abstract class Transition : ITransition
     {
         #region Data Fields
         /// <summary>
@@ -28,13 +30,15 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Default constructor
         /// </summary>
+        /// <param name="requestName">Request name</param>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public Transition(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        public Transition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
         {
+            BpuaIdentifier.RequestName = requestName;
             BpuaIdentifier.DomainName = domainName;
             BpuaIdentifier.UseCaseName = useCaseName;
             BpuaIdentifier.ApplicationLayerName = applicationLayerName;
@@ -77,7 +81,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.RequestName, BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
             }
         }
 
@@ -88,15 +92,6 @@ namespace BPUA.Application.StateMachineComponents
         public ITransitionDataContract InboundDataContract
         {
             get; private set;
-        }
-
-        /// <summary>
-        /// Gets flag indicating whether this is the default transition which starts from the specified state
-        /// ITransition interface implementation
-        /// </summary>
-        public bool IsDefaultForState
-        {
-            get; set;
         }
 
         /// <summary>
@@ -174,6 +169,20 @@ namespace BPUA.Application.StateMachineComponents
 
             return false;
         }
+
+        /// <summary>
+        /// Processes the request transition context
+        /// ITransition interface implementation
+        /// </summary>
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        public abstract void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier);
+
+        /// <summary>
+        /// Processes the response transition context
+        /// </summary>
+        /// <param name="responseTransitionContext">Response transition context</param>
+        public abstract void ProcessResponseTransitionContext(IDataSet responseTransitionContext);
         #endregion
     }
 }
