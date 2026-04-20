@@ -56,31 +56,13 @@ namespace HR.Application.BL
             }
             else
             {
-                IList<IMessage> messages = ResponseTransitionContext.GetMessages();
-                int initializedApplicationLayersCount = 0;
-                for (int i = 0; i < messages.Count; i++)
-                {
-                    IMessage message = messages[i];
-                    if (message.MessageType == MessageType.Information && message.MessageText == BPUA.Application.Contracts.TextResources.ApplicationLayerInitialized)
-                    {
-                        initializedApplicationLayersCount++;
-                    }
-                }
-
                 IRequestMetadata? requestMetadata = ResponseTransitionContext.GetRequestMetadata();
                 if (requestMetadata == null)
                 {
                     throw new System.ApplicationException("Request metadata is missing in data set.");
                 }
 
-                if (initializedApplicationLayersCount == 2)
-                {
-                    requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
-                }
-                else
-                {
-                    // TODO: send data context to BPUA Infrastructure Server for logging
-                }
+                requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
             }
         }
         #endregion

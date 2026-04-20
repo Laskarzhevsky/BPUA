@@ -3,6 +3,9 @@ using BPUA.Core;
 
 using Microsoft.Extensions.Configuration;
 
+using PocoDataSet.BpuaExtensions;
+using PocoDataSet.IData;
+
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +35,13 @@ namespace BPUA.Application.Orchestration
             foreach (IConfigurationSection startupTransitionSection in HostedApplicationLayersSection.GetChildren())
             {
                 IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
+                string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
+                HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
+                hostedApplicationLayer.BPUAIdentifier = bpuaIdentifier;
+
                 if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
                 {
+                    bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer);
                     UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
                     if (useCaseActivationResult.Succeeded)
                     {
@@ -42,8 +50,34 @@ namespace BPUA.Application.Orchestration
                         if (bpuaService != null && bpuaService is IStateHandler)
                         {
                             IStateHandler stateHandler = (IStateHandler)bpuaService;
-                            await stateHandler.Initialize();
+                            IDataSet? dataSet = await stateHandler.Initialize();
+                            IRequestMetadata? requestMetadata = dataSet.GetRequestMetadata();
+                            if (requestMetadata == null)
+                            {
+                                throw new InvalidOperationException("Request metadata is missing in the data set returned by state handler initialization. " + DescribeIdentifier(bpuaIdentifier));
+                            }
+
+                            if (requestMetadata.StateName == BPUA.Application.Contracts.StateNames.INITIAL)
+                            {
+                                hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                            }
+                            else
+                            {
+                                hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                            }
                         }
+                    }
+                }
+                else
+                {
+                    if (bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer))
+                    {
+                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                    }
+                    else
+                    {
+                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                        return;
                     }
                 }
             }

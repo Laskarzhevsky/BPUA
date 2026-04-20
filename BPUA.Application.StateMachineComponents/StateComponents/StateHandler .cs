@@ -64,24 +64,24 @@ namespace BPUA.Application.StateMachineComponents
         /// <returns>Response transition context</returns>
         public async Task<IDataSet?> Initialize()
         {
-//            ITransition? defaultTransition = _transitions.Find(t => t.IsDefaultForState);
             IDataSet dataSet = DataSetFactory.CreateDataSet();
             dataSet.AddRequestMetadata(BpuaIdentifier);
-/*
-            if (defaultTransition == null)
+            await HandleRequestAsync(dataSet);
+
+            if (ResponseTransitionContext.HasError())
             {
-                return dataSet;
+                return ResponseTransitionContext;
             }
 
-            IBPUAIdentifier? transitionBpuaIdentifier = defaultTransition.BpuaIdentifier.Clone();
-            if (transitionBpuaIdentifier == null)
+            IRequestMetadata? requestMetadata = dataSet.GetRequestMetadata();
+            if (requestMetadata == null)
             {
-                return dataSet;
+                return ResponseTransitionContext;
             }
 
-            dataSet.AddRequestMetadata(transitionBpuaIdentifier);
-*/
-            return await HandleRequestAsync(dataSet);
+            requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+
+            return ResponseTransitionContext;
         }
         #endregion
 

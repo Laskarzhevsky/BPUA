@@ -48,9 +48,16 @@ namespace BPUA.Application.Orchestration
                 throw new System.Exception("BPUA identifier metadata is missing in data set.");
             }
 
+            string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
+            object? hostedApplicationLayer;
+            if (!BPUAApplication!.ServiceRegistry.TryGetRegisteredObject(hostedApplicationLayerKey, out hostedApplicationLayer))
+            {
+                return;
+            }
+
             bpuaIdentifier.RequestName = serviceRequestEventArgs.EventName;
             IDataSet? responseTransitionContext = null;
-            UseCaseActivationResult useCaseActivationResult = await BPUAApplication!.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await BPUAApplication.ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
                 ITransition transition = PrepareRequestTransitionContext(requestTransitionContext, BPUAApplication.ServiceRegistry, bpuaIdentifier);

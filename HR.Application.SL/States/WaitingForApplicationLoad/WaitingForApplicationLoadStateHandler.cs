@@ -2,6 +2,8 @@
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
+
 namespace HR.Application.SL
 {
     /// <summary>
@@ -34,6 +36,23 @@ namespace HR.Application.SL
         /// </summary>
         public WaitingForApplicationLoadStateHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName)
         {
+            DoNotSendRequestToApplicationNextLayer = true;
+        }
+        #endregion
+
+        #region Overridden Methods
+        /// <summary>
+        /// Processes response
+        /// </summary>
+        protected override void ProcessResponse()
+        {
+            IRequestMetadata? requestMetadata = ResponseTransitionContext.GetRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new System.ApplicationException("Request metadata is missing in data set.");
+            }
+
+            requestMetadata.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
         }
         #endregion
     }

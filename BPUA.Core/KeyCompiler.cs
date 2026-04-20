@@ -22,6 +22,18 @@
         }
 
         /// <summary>
+        /// Compiles hosted application layer key
+        /// </summary>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="applicationLayerName">Application layer name</param>
+        /// <returns>Compiled hosted application layer key</returns>
+        public static string CompileHostedApplicationLayerKey(string? domainName, string? useCaseName, string? applicationLayerName)
+        {
+            return $"{domainName}_{useCaseName}_{applicationLayerName}";
+        }
+
+        /// <summary>
         /// Compiles state handler key
         /// </summary>
         /// <param name="domainName">Domain name</param>
