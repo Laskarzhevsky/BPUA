@@ -47,7 +47,7 @@ namespace BPUA.Application.StateMachineComponents
         /// Gets tables
         /// ITransitionDataContract interface implementation
         /// </summary>
-        public IReadOnlyList<ITransitionDataTableContract> Tables
+        public IReadOnlyList<ITransitionDataTableContract> DataTableContracts
         {
             get
             {

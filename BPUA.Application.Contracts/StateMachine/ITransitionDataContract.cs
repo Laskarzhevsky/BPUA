@@ -9,9 +9,9 @@ namespace BPUA.Application.Contracts
     {
         #region Properties
         /// <summary>
-        /// Gets tables
+        /// Gets data table contracts.
         /// </summary>
-        IReadOnlyList<ITransitionDataTableContract> Tables
+        IReadOnlyList<ITransitionDataTableContract> DataTableContracts
         {
             get;
         }

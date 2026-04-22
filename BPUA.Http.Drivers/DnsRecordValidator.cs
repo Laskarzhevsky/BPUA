@@ -1,23 +1,22 @@
-﻿using SkySoft.Contracts;
-using SkySoft.DnsRecord.DTO;
+﻿using BPUA.Application.Contracts;
 
 namespace BPUA.Http.Drivers
 {
     /// <summary>
     /// Provides host data validator class
     /// </summary>
-    public class DnsRecordValidator : SkySoft.BPPApplication.RequestHandler
+    public class DnsRecordValidator
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="dnsRecord">DNS record</param>
+        /// <param name="bpuaInfrastructureServerRecord">BPUA infrastructure server record</param>
         /// <param name="logValidationResult">Flag indicating whether validation result needs to be logged</param>
         /// <param name="messageHeader">Message header</param>
-        public DnsRecordValidator(DnsRecordDTO dnsRecord, bool logValidationResult, string? messageHeader = null)
+        public DnsRecordValidator(IBpuaInfrastructureServerRecord bpuaInfrastructureServerRecord, bool logValidationResult, string? messageHeader = null)
         {
-            DnsRecordDTO = dnsRecord;
+            BpuaInfrastructureServerRecord = bpuaInfrastructureServerRecord;
             LogValidationResult = logValidationResult;
             MessageHeader = messageHeader;
         }
@@ -27,7 +26,7 @@ namespace BPUA.Http.Drivers
         /// <summary>
         /// Handles request
         /// </summary>
-        protected override void HandleRequest()
+        protected void HandleRequest()
         {
             ValidateHostApplicationLayerName();
             if (DnsRecordDataValid)
@@ -39,11 +38,21 @@ namespace BPUA.Http.Drivers
 
         #region Private Methods
         /// <summary>
+        /// Logs message
+        /// </summary>
+        /// <param name="message">Message for logging</param>
+        /// <param name="messageType">Message type</param>
+        protected virtual void LogMessage(string message, MessageType messageType)
+        {
+            DataContainer.SetMessage(message, messageType, BpuaInfrastructureServerRecord.ApplicationLayerFullName, BpuaInfrastructureServerRecord.Url);
+        }
+
+        /// <summary>
         /// Validates host application layer name
         /// </summary>
         void ValidateHostApplicationLayerName()
         {
-            if (string.IsNullOrEmpty(DnsRecordDTO.ApplicationLayerFullName))
+            if (string.IsNullOrEmpty(BpuaInfrastructureServerRecord.ApplicationLayerFullName))
             {
                 if (LogValidationResult)
                 {
@@ -59,11 +68,11 @@ namespace BPUA.Http.Drivers
         /// </summary>
         void ValidateUrl()
         {
-            if (string.IsNullOrEmpty(DnsRecordDTO.Url))
+            if (string.IsNullOrEmpty(BpuaInfrastructureServerRecord.Url))
             {
                 if (LogValidationResult)
                 {
-                    LogMessage($"{MessageHeader}DNS data file does not have required URL entry for " + DnsRecordDTO.ApplicationLayerFullName, MessageType.Warning);
+                    LogMessage($"{MessageHeader}DNS data file does not have required URL entry for " + BpuaInfrastructureServerRecord.ApplicationLayerFullName, MessageType.Warning);
                 }
 
                 DnsRecordDataValid = false;
@@ -83,9 +92,9 @@ namespace BPUA.Http.Drivers
 
         #region Private Properties
         /// <summary>
-        /// Gets or sets DNS record
+        /// Gets or sets BPUA infrastructure server record
         /// </summary>
-        DnsRecordDTO DnsRecordDTO
+        IBpuaInfrastructureServerRecord BpuaInfrastructureServerRecord
         {
             get; set;
         }

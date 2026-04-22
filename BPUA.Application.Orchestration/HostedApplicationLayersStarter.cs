@@ -41,7 +41,16 @@ namespace BPUA.Application.Orchestration
 
                 if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
                 {
-                    bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer);
+                    if (bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer))
+                    {
+                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                    }
+                    else
+                    {
+                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                        return;
+                    }
+
                     UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
                     if (useCaseActivationResult.Succeeded)
                     {
