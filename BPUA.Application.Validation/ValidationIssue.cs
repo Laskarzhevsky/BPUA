@@ -9,23 +9,41 @@ namespace BPUA.Application.Validation
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationIssue"/> class.
+        /// Default constructor
         /// </summary>
-        public ValidationIssue(string code, string message, ValidationIssueSeverity severity, string? tableName = null, string? memberName = null)
+        /// <param name="code">The code of the validation issue.</param>
+        /// <param name="message">The message of the validation issue.</param>
+        /// <param name="severity">The severity of the validation issue.</param>
+        /// <param name="tableName">The name of the table associated with the validation issue.</param>
+        /// <param name="rowIndex">The index of the row associated with the validation issue.</param>
+        /// <param name="columnName">The name of the column associated with the validation issue.</param>
+        public ValidationIssue(string? code, string message, ValidationIssueSeverity severity, string? tableName = null, int? rowIndex = null, string? columnName = null)
         {
             Code = code;
             Message = message;
             Severity = severity;
             TableName = tableName;
-            MemberName = memberName;
+            RowIndex = rowIndex;
+            ColumnName = columnName;
         }
         #endregion
 
         #region Properties
         /// <summary>
         /// Gets code.
+        /// IValidationIssue interface implementation
         /// </summary>
-        public string Code
+        public string? Code
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets column name.
+        /// IValidationIssue interface implementation
+        /// </summary>
+        public string? ColumnName
         {
             get;
             private set;
@@ -33,6 +51,7 @@ namespace BPUA.Application.Validation
 
         /// <summary>
         /// Gets message.
+        /// IValidationIssue interface implementation
         /// </summary>
         public string Message
         {
@@ -41,16 +60,18 @@ namespace BPUA.Application.Validation
         }
 
         /// <summary>
-        /// Gets member name.
+        /// Gets row index.
+        /// IValidationIssue interface implementation
         /// </summary>
-        public string? MemberName
+        public int? RowIndex
         {
             get;
             private set;
-        }
+        } = null;
 
         /// <summary>
         /// Gets severity.
+        /// IValidationIssue interface implementation
         /// </summary>
         public ValidationIssueSeverity Severity
         {
@@ -60,6 +81,7 @@ namespace BPUA.Application.Validation
 
         /// <summary>
         /// Gets table name.
+        /// IValidationIssue interface implementation
         /// </summary>
         public string? TableName
         {

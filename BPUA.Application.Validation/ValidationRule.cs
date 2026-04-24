@@ -1,19 +1,20 @@
+using BPUA.Application.Validation.Contracts;
 using PocoDataSet.IData;
 
-namespace BPUA.Application.Validation.Contracts
+namespace BPUA.Application.Validation
 {
     /// <summary>
-    /// Defines a reusable validation rule.
+    /// Base class for validation rules.
     /// </summary>
-    public interface IValidationRule
+    public abstract class ValidationRule : IValidationRule
     {
-        #region Methods
+        #region Public Methods
         /// <summary>
         /// Validates data context against the rule.
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
         /// <param name="validationResult">The validation result to update.</param>
-        void Validate(IDataSet? dataContext, IValidationResult validationResult);
+        public abstract void Validate(IDataSet? dataContext, IValidationResult validationResult);
         #endregion
     }
 }

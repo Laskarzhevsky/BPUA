@@ -4,18 +4,18 @@ using PocoDataSet.IData;
 namespace BPUA.Application.Validation.Contracts
 {
     /// <summary>
-    /// Defines validation of data set against transition data contract.
+    /// Defines validation functionality of the structure of the data context
     /// </summary>
-    public interface ITransitionDataContractValidator
+    public interface IDataContextStructureValidator
     {
         #region Methods
         /// <summary>
-        /// Validates data set against transition data contract.
+        /// Validates data context against transition data contract.
         /// </summary>
+        /// <param name="dataContext">The data context to validate.</param>
         /// <param name="transitionDataContract">The transition data contract.</param>
-        /// <param name="dataSet">The data set to validate.</param>
         /// <returns>The validation result.</returns>
-        IValidationResult Validate(ITransitionDataContract transitionDataContract, IDataSet? dataSet);
+        IValidationResult Validate(IDataSet? dataContext, ITransitionDataContract transitionDataContract);
         #endregion
     }
 }

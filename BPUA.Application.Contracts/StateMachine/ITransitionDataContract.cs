@@ -5,16 +5,7 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Defines transition data contract functionality.
     /// </summary>
-    public interface ITransitionDataContract
+    public interface ITransitionDataContract : ICollection<ITransitionDataTableContract>
     {
-        #region Properties
-        /// <summary>
-        /// Gets data table contracts.
-        /// </summary>
-        IReadOnlyList<ITransitionDataTableContract> DataTableContracts
-        {
-            get;
-        }
-        #endregion
     }
 }

@@ -9,17 +9,7 @@ namespace BPUA.Application.Validation
     public class ValidationResult : IValidationResult
     {
         #region Fields
-        private readonly IReadOnlyList<IValidationIssue> _issues;
-        #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationResult"/> class.
-        /// </summary>
-        public ValidationResult(IReadOnlyList<IValidationIssue> issues)
-        {
-            _issues = issues;
-        }
+        private readonly List<IValidationIssue> _issues = new List<IValidationIssue>();
         #endregion
 
         #region Properties
@@ -53,6 +43,18 @@ namespace BPUA.Application.Validation
 
                 return true;
             }
+        }
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Adds validation issue to the result.
+        /// IValidationResult interface implementation
+        /// </summary>
+        /// <param name="validationIssue">The validation issue to add.</param>
+        public void AddIssue(IValidationIssue validationIssue)
+        {
+            _issues.Add(validationIssue);
         }
         #endregion
     }

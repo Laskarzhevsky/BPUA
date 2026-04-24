@@ -9,7 +9,15 @@ namespace BPUA.Application.Validation.Contracts
         /// <summary>
         /// Gets code.
         /// </summary>
-        string Code
+        string? Code
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets optional column name.
+        /// </summary>
+        string? ColumnName
         {
             get;
         }
@@ -23,12 +31,12 @@ namespace BPUA.Application.Validation.Contracts
         }
 
         /// <summary>
-        /// Gets optional member name.
+        /// Gets row index
         /// </summary>
-        string? MemberName
+        int? RowIndex 
         {
-            get;
-        }
+            get; 
+        } 
 
         /// <summary>
         /// Gets severity.
