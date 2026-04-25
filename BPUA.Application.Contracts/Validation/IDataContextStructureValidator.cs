@@ -1,7 +1,7 @@
 using BPUA.Application.Contracts;
 using PocoDataSet.IData;
 
-namespace BPUA.Application.Validation.Contracts
+namespace BPUA.Application.Contracts
 {
     /// <summary>
     /// Defines validation functionality of the structure of the data context
@@ -14,8 +14,7 @@ namespace BPUA.Application.Validation.Contracts
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
         /// <param name="transitionDataContract">The transition data contract.</param>
-        /// <returns>The validation result.</returns>
-        IValidationResult Validate(IDataSet? dataContext, ITransitionDataContract transitionDataContract);
+        void Validate(IDataSet? dataContext, ITransitionDataContract transitionDataContract);
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-using BPUA.Application.Validation.Contracts;
+using BPUA.Application.Contracts;
 using PocoDataSet.IData;
 
 namespace BPUA.Application.Validation
@@ -13,8 +13,7 @@ namespace BPUA.Application.Validation
         /// Validates data context against the rule.
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
-        /// <param name="validationResult">The validation result to update.</param>
-        public abstract void Validate(IDataSet? dataContext, IValidationResult validationResult);
+        public abstract void Validate(IDataSet? dataContext);
         #endregion
     }
 }

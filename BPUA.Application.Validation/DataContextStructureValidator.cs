@@ -1,5 +1,7 @@
 using BPUA.Application.Contracts;
-using BPUA.Application.Validation.Contracts;
+using BPUA.Core;
+
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 namespace BPUA.Application.Validation
@@ -15,33 +17,37 @@ namespace BPUA.Application.Validation
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
         /// <param name="transitionDataContract">The transition data contract.</param>
-        /// <returns>The validation result.</returns>
-        public IValidationResult Validate(IDataSet? dataContext, ITransitionDataContract transitionDataContract)
+        public void Validate(IDataSet? dataContext, ITransitionDataContract transitionDataContract)
         {
-            ValidationResult validationResult = new ValidationResult();
             if (dataContext == null)
             {
-                return validationResult;
+                return;
+            }
+
+            IBPUAIdentifier? bpuaIdentifier = dataContext.GetBpuaIdentifier();
+            if (bpuaIdentifier == null)
+            {
+                dataContext.AddMessage(MessageType.Error, "Required BPUA identifier metadata is missing.");
+                return;
             }
 
             DataTableStructureValidator transitionDataTableContractValidator = new DataTableStructureValidator();
             foreach (ITransitionDataTableContract transitionDataTableContract in transitionDataContract)
             {
-                IDataTable? dataTable = dataContext[transitionDataTableContract.TableName];
+                IDataTable? dataTable = null;
+                dataContext.TryGetTable(transitionDataTableContract.TableName, out dataTable);
                 if (dataTable == null)
                 {
                     if (transitionDataTableContract.IsRequired)
                     {
-                        validationResult.AddIssue(new ValidationIssue("RequiredTableIsMissing", "Required table is missing.", ValidationIssueSeverity.Error, transitionDataTableContract.TableName));
+                        dataContext.AddMessage(MessageType.Error, "Required table is missing", transitionDataTableContract.TableName, bpuaIdentifier.ApplicationLayerName);
                     }
                 }
                 else
                 {
-                    transitionDataTableContractValidator.Validate(transitionDataTableContract, dataTable, validationResult); 
+                    transitionDataTableContractValidator.Validate(dataContext, bpuaIdentifier, transitionDataTableContract, dataTable); 
                 }
             }
-
-            return validationResult;
         }
         #endregion
     }

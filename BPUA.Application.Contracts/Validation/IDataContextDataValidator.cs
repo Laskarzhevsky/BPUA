@@ -2,7 +2,7 @@ using PocoDataSet.IData;
 
 using System.Collections.Generic;
 
-namespace BPUA.Application.Validation.Contracts
+namespace BPUA.Application.Contracts
 {
     /// <summary>
     /// Defines validation functionality of the data of the data context
@@ -15,7 +15,7 @@ namespace BPUA.Application.Validation.Contracts
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
         /// <param name="validationRules">The validation rules to apply.</param>
-        IValidationResult Validate(IDataSet? dataContext, IReadOnlyList<IValidationRule> validationRules);
+        void Validate(IDataSet? dataContext, IReadOnlyList<IValidationRule> validationRules);
         #endregion
     }
 }

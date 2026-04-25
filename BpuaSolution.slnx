@@ -28,7 +28,6 @@
     <Project Path="BPUA.Application.Services/BPUA.Application.Services.csproj" />
     <Project Path="BPUA.Application.StateLogic/BPUA.Application.StateLogic.csproj" Id="457ac41b-766a-44b3-a410-d3adc9161f64" />
     <Project Path="BPUA.Application.StateMachineComponents/BPUA.Application.StateMachineComponents.csproj" />
-    <Project Path="BPUA.Application.Validation.Contracts/BPUA.Application.Validation.Contracts.csproj" />
     <Project Path="BPUA.Application.Validation/BPUA.Application.Validation.csproj" />
   </Folder>
   <Folder Name="/BPUA.Application/NFA/">

@@ -76,7 +76,7 @@ namespace PocoDataSet.BpuaExtensions
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="applicationLayerUrl">Application layer URL</param>
         /// <returns>Added message</returns>
-        public static IMessage AddMessage(this IDataSet? dataSet, MessageType messageType, string? messageText, string? applicationLayerName, string? applicationLayerUrl = null)
+        public static IMessage AddMessage(this IDataSet? dataSet, MessageType messageType, string? messageText, string? applicationLayerName = null, string? applicationLayerUrl = null)
         {
             if (dataSet == null)
             {

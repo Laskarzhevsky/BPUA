@@ -1,6 +1,6 @@
 using PocoDataSet.IData;
 
-namespace BPUA.Application.Validation.Contracts
+namespace BPUA.Application.Contracts
 {
     /// <summary>
     /// Defines a reusable validation rule.
@@ -12,8 +12,7 @@ namespace BPUA.Application.Validation.Contracts
         /// Validates data context against the rule.
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
-        /// <param name="validationResult">The validation result to update.</param>
-        void Validate(IDataSet? dataContext, IValidationResult validationResult);
+        void Validate(IDataSet? dataContext);
         #endregion
     }
 }

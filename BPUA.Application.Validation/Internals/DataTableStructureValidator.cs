@@ -1,6 +1,10 @@
 using BPUA.Application.Contracts;
-using BPUA.Application.Validation.Contracts;
+using BPUA.Core;
+
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
+
+using System;
 
 namespace BPUA.Application.Validation
 {
@@ -13,22 +17,34 @@ namespace BPUA.Application.Validation
         /// <summary>
         /// Validates single table contract.
         /// </summary>
+        /// <param name="dataContext">The data context to validate.</param>
+        /// <param name="bpuaIdentifier">The BPUA identifier.</param>
         /// <param name="transitionDataTableContract">The transition data table contract.</param>
         /// <param name="dataTable">The data table to validate.</param>
-        /// <param name="validationResult">The validation result.</param>
-        public void Validate(ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable, ValidationResult validationResult)
+        public void Validate(IDataSet? dataContext, IBPUAIdentifier bpuaIdentifier, ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable)
         {
-            ValidateMinimumRowsCount(transitionDataTableContract, dataTable, validationResult);
-            ValidateMaximumRowsCount(transitionDataTableContract, dataTable, validationResult);
+            if (transitionDataTableContract.MinimumRowsCount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(transitionDataTableContract.MinimumRowsCount));
+            }
+
+            if (transitionDataTableContract.MaximumRowsCount != null && transitionDataTableContract.MaximumRowsCount.Value < transitionDataTableContract.MinimumRowsCount)
+            {
+                throw new ArgumentException("Maximum rows count cannot be less than minimum rows count.", nameof(transitionDataTableContract.MaximumRowsCount));
+            }
+
+            ValidateMinimumRowsCount(dataContext, bpuaIdentifier, transitionDataTableContract, dataTable);
+            ValidateMaximumRowsCount(dataContext, bpuaIdentifier, transitionDataTableContract, dataTable);
         }
 
         /// <summary>
         /// Validates maximum rows count.
         /// </summary>
+        /// <param name="dataContext">The data context to validate.</param>
+        /// <param name="bpuaIdentifier">The BPUA identifier.</param>
         /// <param name="transitionDataTableContract">The transition data table contract.</param>
         /// <param name="dataTable">The data table to validate.</param>
-        /// <param name="validationResult">The validation result.</param>
-        protected virtual void ValidateMaximumRowsCount(ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable, ValidationResult validationResult)
+        protected virtual void ValidateMaximumRowsCount(IDataSet? dataContext, IBPUAIdentifier bpuaIdentifier, ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable)
         {
             if (transitionDataTableContract.MaximumRowsCount == null)
             {
@@ -37,21 +53,22 @@ namespace BPUA.Application.Validation
 
             if (dataTable.Rows.Count > transitionDataTableContract.MaximumRowsCount.Value)
             {
-                validationResult.AddIssue(new ValidationIssue("MaximumRowsCountExceeded", "Table contains more rows than allowed by contract.", ValidationIssueSeverity.Error, transitionDataTableContract.TableName));
+                dataContext.AddMessage(MessageType.Error, "MaximumRowsCountExceeded", $"Table {transitionDataTableContract.TableName} contains more rows than allowed by contract.", bpuaIdentifier.ApplicationLayerName);
             }
         }
 
         /// <summary>
         /// Validates minimum rows count.
         /// </summary>
+        /// <param name="dataContext">The data context to validate.</param>
+        /// <param name="bpuaIdentifier">The BPUA identifier.</param>
         /// <param name="transitionDataTableContract">The transition data table contract.</param>
         /// <param name="dataTable">The data table to validate.</param>
-        /// <param name="validationResult">The validation result.</param>
-        protected virtual void ValidateMinimumRowsCount(ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable, ValidationResult validationResult)
+        protected virtual void ValidateMinimumRowsCount(IDataSet? dataContext, IBPUAIdentifier bpuaIdentifier, ITransitionDataTableContract transitionDataTableContract, IDataTable dataTable)
         {
             if (dataTable.Rows.Count < transitionDataTableContract.MinimumRowsCount)
             {
-                validationResult.AddIssue(new ValidationIssue( "MinimumRowsCountNotReached", "Table contains fewer rows than required by contract.", ValidationIssueSeverity.Error, transitionDataTableContract.TableName));
+                dataContext.AddMessage(MessageType.Error, "MinimumRowsCountNotReached", $"Table {transitionDataTableContract.TableName} contains fewer rows than required by contract.", bpuaIdentifier.ApplicationLayerName);
             }
         }
         #endregion

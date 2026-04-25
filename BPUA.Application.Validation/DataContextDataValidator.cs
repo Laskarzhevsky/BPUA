@@ -1,4 +1,4 @@
-using BPUA.Application.Validation.Contracts;
+using BPUA.Application.Contracts;
 
 using PocoDataSet.IData;
 
@@ -17,20 +17,17 @@ namespace BPUA.Application.Validation
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
         /// <param name="validationRules">The validation rules to apply.</param>
-        public IValidationResult Validate(IDataSet? dataContext, IReadOnlyList<IValidationRule> validationRules)
+        public void Validate(IDataSet? dataContext, IReadOnlyList<IValidationRule> validationRules)
         {
-            IValidationResult validationResult = new ValidationResult();
             if (dataContext == null)
             {
-                return validationResult;
+                return;
             }
 
             for (int index = 0; index < validationRules.Count; index++)
             {
-                validationRules[index].Validate(dataContext, validationResult);
+                validationRules[index].Validate(dataContext);
             }
-
-            return validationResult;
         }
         #endregion
     }
