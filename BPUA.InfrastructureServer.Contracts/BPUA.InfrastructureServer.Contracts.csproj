@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>Contracts of BPUA Infrastructure Server application</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DomainName>BPUA</DomainName>
+    <UseCaseName>InfrastructureServer</UseCaseName>
+    <PluginFolderSubdir>InfrastructureServer</PluginFolderSubdir>
+  </PropertyGroup>
+</Project>

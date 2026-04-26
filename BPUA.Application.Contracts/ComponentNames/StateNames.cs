@@ -19,5 +19,10 @@
         /// Defines no state
         /// </summary>
         public static string NULL = "";
+
+        /// <summary>
+        /// Defines waiting for application load state
+        /// </summary>
+        public static string WAITING_FOR_APPLICATION_LOAD = "WaitingForApplicationLoad";
     }
 }

@@ -1,4 +1,6 @@
-﻿using PocoDataSet.IData;
+﻿using BPUA.Core;
+
+using PocoDataSet.IData;
 
 using System;
 using System.Runtime.CompilerServices;
@@ -41,6 +43,14 @@ namespace BPUA.Application.Contracts
         IBPUAApplication BPUAApplication
         {
             get; set;
+        }
+
+        /// <summary>
+        /// Gets BPUA identifier
+        /// </summary>
+        IBPUAIdentifier BpuaIdentifier
+        {
+            get;
         }
 
         /// <summary>

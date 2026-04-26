@@ -1,5 +1,12 @@
 <Solution>
   <Folder Name="/Applications/" />
+  <Folder Name="/Applications/BpuaInfrastructureServer/">
+    <Project Path="BPUA.InfrastructureServer.BL/BPUA.InfrastructureServer.BL.csproj" Id="0760aba1-1bde-486d-8a92-788c35197ad9" />
+    <Project Path="BPUA.InfrastructureServer.Contracts/BPUA.InfrastructureServer.Contracts.csproj" Id="e40c0835-4fb6-4f68-8b36-15cf58842296" />
+    <Project Path="BPUA.InfrastructureServer.DAL/BPUA.InfrastructureServer.DAL.csproj" Id="a890e6ce-ea01-4844-bc19-187ad2573ad1" />
+    <Project Path="BPUA.InfrastructureServer.DPL/BPUA.InfrastructureServer.DPL.csproj" Id="91065176-6ead-4a3c-a7a4-f106c43057ea" />
+    <Project Path="BPUA.InfrastructureServer.SL/BPUA.InfrastructureServer.SL.csproj" Id="8cb565ff-856c-400b-819e-a400686ab876" />
+  </Folder>
   <Folder Name="/Applications/HR/" />
   <Folder Name="/Applications/HR/UseCases/" />
   <Folder Name="/Applications/HR/UseCases/Account/">
@@ -32,9 +39,9 @@
   </Folder>
   <Folder Name="/BPUA.Application/NFA/">
     <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />
+    <Project Path="BPUA.Application.NonFunctionalContracts/BPUA.Application.NonFunctionalContracts.csproj" />
     <Project Path="BPUA.Application.Orchestration/BPUA.Application.Orchestration.csproj" />
     <Project Path="BPUA.Application.Registration/BPUA.Application.Registration.csproj" />
-    <Project Path="BPUA.Application.NonFunctionalContracts/BPUA.Application.NonFunctionalContracts.csproj" />
   </Folder>
   <Folder Name="/BPUA.Application/UseCases/" />
   <Folder Name="/Framework/">
@@ -49,5 +56,6 @@
     <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />
     <Project Path="BPUA.Application.RoutingTests/BPUA.Application.RoutingTests.csproj" Id="0ec6cf73-002d-4431-8c30-c94f1e124c5a" />
     <Project Path="BPUA.Application.TestInfrastructure/BPUA.Application.TestInfrastructure.csproj" Id="d1726330-baea-49c8-8108-248a9f4f3529" />
+    <Project Path="BPUA.InfrastructureServer.Tests/BPUA.InfrastructureServer.Tests.csproj" Id="a5a3d3a6-8553-4923-bdc3-aec25050892e" />
   </Folder>
 </Solution>

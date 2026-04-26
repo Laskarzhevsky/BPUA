@@ -64,6 +64,7 @@ namespace BPUA.Application.StateMachineComponents
             ProcessRequest();
             if (DoNotSendRequestToApplicationNextLayer)
             {
+                FinalizeTransitionContextProcessing();
                 return ResponseTransitionContext;
             }
 
@@ -75,6 +76,7 @@ namespace BPUA.Application.StateMachineComponents
 
             ProcessResponse();
             await ProcessResponseAsync();
+            FinalizeTransitionContextProcessing();
             return ResponseTransitionContext;
         }
 
@@ -143,6 +145,13 @@ namespace BPUA.Application.StateMachineComponents
         #endregion
 
         #region Protected Methods
+        /// <summary>
+        /// Finalizes the processing of the transition context
+        /// </summary>
+        protected virtual void FinalizeTransitionContextProcessing()
+        {
+        }
+
         /// <summary>
         /// Processes request
         /// </summary>

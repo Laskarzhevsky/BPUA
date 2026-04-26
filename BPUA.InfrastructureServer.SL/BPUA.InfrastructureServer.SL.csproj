@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\\SharedBuildSettings.props" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
+      <_Parameter1>State logic components of BPUA Infrastructure Server application</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BPUA.Application.StateMachineComponents\BPUA.Application.StateMachineComponents.csproj" />
+    <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
+    <ProjectReference Include="..\BPUA.InfrastructureServer.Contracts\BPUA.InfrastructureServer.Contracts.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DomainName>BPUA</DomainName>
+    <UseCaseName>InfrastructureServer</UseCaseName>
+    <PluginFolderSubdir>InfrastructureServer</PluginFolderSubdir>
+  </PropertyGroup>
+</Project>
