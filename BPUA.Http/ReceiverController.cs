@@ -4,11 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SkySoft.Communication;
-using SkySoft.Contracts;
-using BPUA.Http.Contracts;
-using SkySoft.ICommunication;
-using SkySoft.OS.INT;
+using BPUA.Application.NonFunctionalContracts;
 
 namespace BPUA.Http
 {

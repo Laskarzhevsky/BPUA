@@ -7,6 +7,10 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BPUA.Application.NonFunctionalContracts\BPUA.Application.NonFunctionalContracts.csproj" />
+  </ItemGroup>
+
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>

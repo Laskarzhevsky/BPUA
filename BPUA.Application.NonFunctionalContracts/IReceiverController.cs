@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BPUA.Http.Contracts
+namespace BPUA.Application.NonFunctionalContracts
 {
     /// <summary>
     /// Defines receiver controller functionality
