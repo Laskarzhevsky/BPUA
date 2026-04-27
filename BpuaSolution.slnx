@@ -41,7 +41,6 @@
     <Project Path="BPUA.Application.Boot/BPUA.Application.Boot.csproj" />
     <Project Path="BPUA.Application.NonFunctionalContracts/BPUA.Application.NonFunctionalContracts.csproj" />
     <Project Path="BPUA.Application.Orchestration/BPUA.Application.Orchestration.csproj" />
-    <Project Path="BPUA.Application.Registration/BPUA.Application.Registration.csproj" />
   </Folder>
   <Folder Name="/BPUA.Application/UseCases/" />
   <Folder Name="/Framework/">

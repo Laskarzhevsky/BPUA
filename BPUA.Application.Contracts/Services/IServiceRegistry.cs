@@ -41,6 +41,12 @@ namespace BPUA.Application.Contracts
         IEnumerable<KeyValuePair<string, object>> EnumerateObjectsByPrefix(string prefix);
 
         /// <summary>
+        /// Enumerates objects by type
+        /// </summary>
+        /// <returns>Enumerated objects by type</returns>
+        IEnumerable<T> EnumerateObjectsByType<T>();
+
+        /// <summary>
         /// Enumerates types by prefix
         /// </summary>
         /// <param name="prefix">Prefix for enumeration</param>

@@ -84,6 +84,25 @@ namespace BPUA.Application.Orchestration
             }
         }
 
+
+        /// <summary>
+        /// Enumerates objects by type
+        /// IServiceRegistry interface implementation
+        /// </summary>
+        /// <returns>Enumerated objects by type</returns>
+        public IEnumerable<T> EnumerateObjectsByType<T>()
+        {
+            KeyValuePair<string, object>[] snapshot = _registeredObjects.ToArray();
+
+            for (int i = 0; i < snapshot.Length; i++)
+            {
+                if (snapshot[i].Value is T typedObject)
+                {
+                    yield return typedObject;
+                }
+            }
+        }
+
         /// <summary>
         /// Enumerates types by prefix
         /// IServiceRegistry interface implementation

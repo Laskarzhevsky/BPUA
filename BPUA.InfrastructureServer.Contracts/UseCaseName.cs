@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines use case names
     /// </summary>
-    public class UseCaseNames
+    public class UseCaseName
     {
         /// <summary>
         /// Infrastructure server use case name

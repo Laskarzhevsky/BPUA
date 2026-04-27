@@ -8,21 +8,21 @@
         /// <summary>
         /// Business logic
         /// </summary>
-        public static string BL = "BL";
+        public const string BL = "BL";
 
         /// <summary>
         /// Data access logic
         /// </summary>
-        public static string DAL = "DAL";
+        public const string DAL = "DAL";
 
         /// <summary>
         /// Data processing logic
         /// </summary>
-        public static string DPL = "DPL";
+        public const string DPL = "DPL";
 
         /// <summary>
         /// State logic
         /// </summary>
-        public static string SL = "SL";
+        public const string SL = "SL";
     }
 }

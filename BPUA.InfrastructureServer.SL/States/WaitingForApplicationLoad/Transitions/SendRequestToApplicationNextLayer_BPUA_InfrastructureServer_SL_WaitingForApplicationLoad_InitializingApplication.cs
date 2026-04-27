@@ -15,7 +15,7 @@ namespace BPUA.InfrastructureServer.SL
         #region Identification
         public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_APPLICATION_NEXT_LAYER;
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseNames.INFRASTRUCTURE_SERVER;
+        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
         public static string StateName = BPUA.Application.Contracts.StateNames.WAITING_FOR_APPLICATION_LOAD;
         public static string TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_APPLICATION;
@@ -62,6 +62,7 @@ namespace BPUA.InfrastructureServer.SL
         /// <param name="bpuaIdentifier">BPUA identifier</param>
         public override void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
         {
+            // Add transition name from the BPUA identifier to the request data context
             bpuaIdentifier.TransitionName = BpuaIdentifier.TransitionName;
             base.ProcessRequestTransitionContext(requestTransitionContext, bpuaIdentifier);
         }

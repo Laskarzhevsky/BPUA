@@ -11,7 +11,7 @@ namespace BPUA.Application.Orchestration
         /// <summary>
         /// Gets or sets BPUA identifier
         /// </summary>
-        public IBPUAIdentifier BPUAIdentifier
+        public IBPUAIdentifier BpuaIdentifier
         {
             get; set;
         } = default!;
@@ -23,6 +23,14 @@ namespace BPUA.Application.Orchestration
         {
             get; set;
         } = HostedApplicationLayerState.NotInitialized;
+
+        /// <summary>
+        /// Gets or sets flag indicating whether it is the "Application" use case layer
+        /// </summary>
+        public bool IsApplicationUseCaseLayer
+        {
+            get; set;
+        }
         #endregion
     }
 }

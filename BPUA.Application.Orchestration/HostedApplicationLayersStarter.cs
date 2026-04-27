@@ -45,31 +45,37 @@ namespace BPUA.Application.Orchestration
         /// <param name="hostedApplicationLayersSection">Configuration section for hosted application layers</param>
         public static async Task ActivateHostedApplicationLayers(IBPUAApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection)
         {
-            foreach (IConfigurationSection startupTransitionSection in hostedApplicationLayersSection.GetChildren())
+            foreach (HostedApplicationLayer hostedApplicationLayer in bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>())
             {
-                IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
-                string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
-                HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
-                hostedApplicationLayer.BPUAIdentifier = bpuaIdentifier;
-
+                IBPUAIdentifier bpuaIdentifier = hostedApplicationLayer.BpuaIdentifier;
                 if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
                 {
-                    UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
-                    if (useCaseActivationResult.Succeeded)
+                    if (hostedApplicationLayer.IsApplicationUseCaseLayer)
                     {
-                        string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
-                        IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
-                        if (bpuaService != null && bpuaService is IStateHandler)
+                        UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
+                        if (useCaseActivationResult.Succeeded)
                         {
-                            IStateHandler stateHandler = (IStateHandler)bpuaService;
-                            await stateHandler.Initialize();
-                            if (stateHandler.BpuaIdentifier.StateName == BPUA.Application.Contracts.StateNames.INITIAL)
+                            string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
+                            IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
+                            if (bpuaService == null)
                             {
-                                hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                                throw new InvalidOperationException($"State handler with key '{bpuaServicekey}' is not found for hosted application layer with key '{KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName)}'.");
                             }
                             else
                             {
-                                hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                                if (bpuaService is IStateHandler)
+                                {
+                                    IStateHandler stateHandler = (IStateHandler)bpuaService;
+                                    await stateHandler.Initialize();
+                                    if (stateHandler.BpuaIdentifier.StateName == BPUA.Application.Contracts.StateNames.INITIAL)
+                                    {
+                                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                                    }
+                                    else
+                                    {
+                                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                                    }
+                                }
                             }
                         }
                     }
@@ -140,20 +146,17 @@ namespace BPUA.Application.Orchestration
                 IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
                 string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
                 HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
-                hostedApplicationLayer.BPUAIdentifier = bpuaIdentifier;
+                hostedApplicationLayer.BpuaIdentifier = bpuaIdentifier;
 
-                if (bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer))
+                string? isApplicationUseCaseLayer = GetOptionalValue(startupTransitionSection, "IsApplicationUseCaseLayer");
+                if (!string.IsNullOrWhiteSpace(isApplicationUseCaseLayer) && bool.TryParse(isApplicationUseCaseLayer, out bool isApplicationUseCaseLayerValue))
                 {
-                    if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
-                    {
-                        continue;
-                    }
-
-                    hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
+                    hostedApplicationLayer.IsApplicationUseCaseLayer = isApplicationUseCaseLayerValue;
                 }
-                else
+
+                if (!bpuaApplication.ServiceRegistry.TryRegisterObject(hostedApplicationLayerKey, hostedApplicationLayer))
                 {
-                    hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
+                    throw new InvalidOperationException($"Hosted application layer with key '{hostedApplicationLayerKey}' is already registered.");
                 }
             }
         }
