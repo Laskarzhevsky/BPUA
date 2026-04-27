@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines Account use case contract
     /// </summary>
-    public class Contract
+    public class UseCaseName
     {
         public static string ACCOUNT = "Account";
     }

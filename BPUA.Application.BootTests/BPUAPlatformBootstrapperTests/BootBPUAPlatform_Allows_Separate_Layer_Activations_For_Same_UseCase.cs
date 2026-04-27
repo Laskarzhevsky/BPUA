@@ -26,7 +26,7 @@ namespace BPUA.Application.BootTests
 
             IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
             bpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
@@ -41,7 +41,7 @@ namespace BPUA.Application.BootTests
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DPL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
             bpuaIdentifier.ApplicationLayerName = ApplicationLayersNames.DPL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
@@ -57,7 +57,7 @@ namespace BPUA.Application.BootTests
             Assert.False(serviceRegistry.HasAssemblyFacet("BPUA.Account.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", AssemblyFacet.Services));
 
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
             bpuaIdentifier.ApplicationLayerName = ApplicationLayersNames.DAL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;

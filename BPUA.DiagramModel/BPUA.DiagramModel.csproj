@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>BPUA.DiagramModel</RootNamespace>
+    <AssemblyName>BPUA.DiagramModel</AssemblyName>
+  </PropertyGroup>
+
+</Project>

@@ -12,7 +12,7 @@ namespace BPUA.Account.SL
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+        public static string UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
         public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
 

@@ -26,7 +26,7 @@ namespace BPUA.Application.BootTests
 
             IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
             bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+            bpuaIdentifier.UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
             bpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
             bpuaIdentifier.StateName = default!;
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;

@@ -13,7 +13,7 @@ namespace BPUA.Account.DAL
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.Account.Contracts.Contract.ACCOUNT;
+        public static string UseCaseName = BPUA.Account.Contracts.UseCaseName.ACCOUNT;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
         public static string StateName = default!;
         public static string TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
