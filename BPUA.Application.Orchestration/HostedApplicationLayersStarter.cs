@@ -3,11 +3,7 @@ using BPUA.Core;
 
 using Microsoft.Extensions.Configuration;
 
-using PocoDataSet.BpuaExtensions;
-using PocoDataSet.IData;
-
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BPUA.Application.Orchestration
@@ -48,37 +44,9 @@ namespace BPUA.Application.Orchestration
             foreach (HostedApplicationLayer hostedApplicationLayer in bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>())
             {
                 IBPUAIdentifier bpuaIdentifier = hostedApplicationLayer.BpuaIdentifier;
-                if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL)
+                if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL && hostedApplicationLayer.IsApplicationUseCaseLayer)
                 {
-                    if (hostedApplicationLayer.IsApplicationUseCaseLayer)
-                    {
-                        UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
-                        if (useCaseActivationResult.Succeeded)
-                        {
-                            string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
-                            IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
-                            if (bpuaService == null)
-                            {
-                                throw new InvalidOperationException($"State handler with key '{bpuaServicekey}' is not found for hosted application layer with key '{KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName)}'.");
-                            }
-                            else
-                            {
-                                if (bpuaService is IStateHandler)
-                                {
-                                    IStateHandler stateHandler = (IStateHandler)bpuaService;
-                                    await stateHandler.Initialize();
-                                    if (stateHandler.BpuaIdentifier.StateName == BPUA.Application.Contracts.StateNames.INITIAL)
-                                    {
-                                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.Initialized;
-                                    }
-                                    else
-                                    {
-                                        hostedApplicationLayer.HostedApplicationLayerState = HostedApplicationLayerState.InitializationError;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    await bpuaApplication.ExecuteTransition(bpuaIdentifier);
                 }
             }
         }

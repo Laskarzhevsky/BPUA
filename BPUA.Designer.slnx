@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BPUA.DiagramModel.Tests/BPUA.DiagramModel.Tests.csproj" />
+  <Project Path="BPUA.DiagramModel/BPUA.DiagramModel.csproj" />
+</Solution>

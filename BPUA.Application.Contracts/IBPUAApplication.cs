@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using BPUA.Core;
 
@@ -19,6 +18,12 @@ namespace BPUA.Application.Contracts
         /// <param name="bpuaIdentifier">BPUA identifier</param>
         /// <returns>Use case activation result</returns>
         Task<UseCaseActivationResult> ActivateUseCaseAsync(IBPUAIdentifier bpuaIdentifier);
+
+        /// <summary>
+        /// Executes transition
+        /// </summary>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        Task ExecuteTransition(IBPUAIdentifier bpuaIdentifier);
 
         /// <summary>
         /// Gets request handler
@@ -57,17 +62,9 @@ namespace BPUA.Application.Contracts
 
         #region Properties
         /// <summary>
-        /// Gets or sets application configuration
+        /// Gets application configuration
         /// </summary>
         IConfiguration ApplicationConfiguration
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Gets service registry 
-        /// </summary>
-        IServiceRegistry ServiceRegistry
         {
             get;
         }
@@ -76,6 +73,14 @@ namespace BPUA.Application.Contracts
         /// Gets path to folder with dynamic assemblies
         /// </summary>
         string PathToFolderWithDynamicAssemblies
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets service registry 
+        /// </summary>
+        IServiceRegistry ServiceRegistry
         {
             get;
         }

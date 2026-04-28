@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using BPUA.Application.Contracts;
+﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
 using Microsoft.Extensions.Configuration;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BPUA.Application.Orchestration
 {
@@ -19,6 +20,11 @@ namespace BPUA.Application.Orchestration
         /// Holds reference to BPUA application
         /// </summary>
         static BPUAApplication? _bppApplication = null;
+
+        /// <summary>
+        /// Holds state machines for activated use cases. Key is BPUA identifier key.
+        /// </summary>
+        readonly Dictionary<string, StateMachine> _stateMachines = new Dictionary<string, StateMachine>();
         #endregion
 
         #region Constructors
@@ -42,6 +48,28 @@ namespace BPUA.Application.Orchestration
             IUseCaseActivator useCaseActivator = ServiceRegistry.GetObject<IUseCaseActivator>(typeof(IUseCaseActivator).Name);
             UseCaseActivationResult useCaseActivationResult = await useCaseActivator.ActivateAsync(bpuaIdentifier, ServiceRegistry);
             return useCaseActivationResult;
+        }
+
+        /// <summary>
+        /// Executes transition
+        /// IBPUAApplication interface implementation
+        /// </summary>
+        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        public async Task ExecuteTransition(IBPUAIdentifier bpuaIdentifier)
+        {
+            string stateMachineKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
+            StateMachine? stateMachine = null;
+            if (_stateMachines.ContainsKey(stateMachineKey))
+            {
+                stateMachine = _stateMachines[stateMachineKey];
+            }
+            else
+            {
+                stateMachine = new StateMachine();
+                _stateMachines[stateMachineKey] = stateMachine;
+            }
+
+            await stateMachine.ExecuteTransition(this, bpuaIdentifier);
         }
 
         /// <summary>
@@ -142,12 +170,21 @@ namespace BPUA.Application.Orchestration
 
         #region Public Properties
         /// <summary>
-        /// Gets or sets application configuration
+        /// Gets application configuration
         /// IBPUAApplication interface implementation
         /// </summary>
         public IConfiguration ApplicationConfiguration
         {
-            get; set;
+            get; private set;
+        } = default!;
+
+        /// <summary>
+        /// Gets path to folder with dynamic assemblies
+        /// IBPUAApplication interface implementation
+        /// </summary>
+        public string PathToFolderWithDynamicAssemblies
+        {
+            get; private set;
         } = default!;
 
         /// <summary>
@@ -156,17 +193,8 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         public IServiceRegistry ServiceRegistry
         {
-            get; set;
+            get; private set;
         }
-
-        /// <summary>
-        /// Gets path to folder with dynamic assemblies
-        /// IBPUAApplication interface implementation
-        /// </summary>
-        public string PathToFolderWithDynamicAssemblies
-        {
-            get; set;
-        } = default!;
         #endregion
 
         #region Event handlers

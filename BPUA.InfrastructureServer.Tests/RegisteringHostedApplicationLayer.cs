@@ -29,6 +29,8 @@ namespace BPUA.InfrastructureServer.Tests
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
             stringBuilder.AppendLine("      \"UseCaseName\": \"InfrastructureServer\",");
             stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\"");
+            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
+            stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
             stringBuilder.AppendLine("    },");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
