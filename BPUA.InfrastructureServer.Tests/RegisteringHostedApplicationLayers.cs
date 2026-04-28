@@ -15,7 +15,7 @@ namespace BPUA.InfrastructureServer.Tests
         /// Tests the registration of hosted application layers.
         /// </summary>
         [Fact]
-        public async Task RegisteringHostedApplicationLayer()
+        public async Task RegisteringHostedApplicationLayers()
         {
             string buildFolder = Helpers.FindBuildFolder();
             string pluginFolderPath = Path.Combine(buildFolder, "PluginFolder");
@@ -29,8 +29,8 @@ namespace BPUA.InfrastructureServer.Tests
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
             stringBuilder.AppendLine("      \"UseCaseName\": \"InfrastructureServer\",");
             stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\"");
-            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
-            stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
+//            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
+//            stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
             stringBuilder.AppendLine("    },");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");

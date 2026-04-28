@@ -32,7 +32,7 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
             bpuaIdentifier.Breadcrumbs = "Libraries\\Setup\\Administration";
 
-            UseCaseActivationResult useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)application).ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
             IServiceRegistry serviceRegistry = application.ServiceRegistry;
@@ -47,7 +47,7 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
             bpuaIdentifier.Breadcrumbs = @"Libraries\Setup\Administration";
 
-            useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+            useCaseActivationResult = await ((BPUAApplication)application).ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
             serviceRegistry = application.ServiceRegistry;
@@ -63,7 +63,7 @@ namespace BPUA.Application.BootTests
             bpuaIdentifier.TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_USE_CASE;
             bpuaIdentifier.Breadcrumbs = @"Libraries\Setup\Administration";
 
-            useCaseActivationResult = await application.ActivateUseCaseAsync(bpuaIdentifier);
+            useCaseActivationResult = await ((BPUAApplication)application).ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
             serviceRegistry = application.ServiceRegistry;

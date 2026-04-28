@@ -17,7 +17,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="bpuaApplication">BPUA application instance</param>
         /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public async Task ExecuteTransition(IBPUAApplication bpuaApplication, IBPUAIdentifier bpuaIdentifier)
+        public async Task ExecuteTransition(BPUAApplication bpuaApplication, IBPUAIdentifier bpuaIdentifier)
         {
             UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)

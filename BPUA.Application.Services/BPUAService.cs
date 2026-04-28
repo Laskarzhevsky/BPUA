@@ -49,7 +49,7 @@ namespace BPUA.Application.Services
                 return;
             }
 
-            BPUAApplication = sender as IBPUAApplication;
+            BpuaApplication = sender as IBPUAApplication;
             await HandleAsync(sender, args);
         }
         #endregion
@@ -58,7 +58,7 @@ namespace BPUA.Application.Services
         /// <summary>
         /// Gets or sets BPUA application
         /// </summary>
-        protected IBPUAApplication? BPUAApplication
+        protected IBPUAApplication? BpuaApplication
         {
             get; set;
         }

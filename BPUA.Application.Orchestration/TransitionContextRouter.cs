@@ -50,17 +50,17 @@ namespace BPUA.Application.Orchestration
 
             string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
             object? hostedApplicationLayer;
-            if (!BPUAApplication!.ServiceRegistry.TryGetRegisteredObject(hostedApplicationLayerKey, out hostedApplicationLayer))
+            if (!BpuaApplication!.ServiceRegistry.TryGetRegisteredObject(hostedApplicationLayerKey, out hostedApplicationLayer))
             {
                 return;
             }
 
             bpuaIdentifier.RequestName = serviceRequestEventArgs.EventName;
             IDataSet? responseTransitionContext = null;
-            UseCaseActivationResult useCaseActivationResult = await BPUAApplication.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)BpuaApplication).ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
-                ITransition transition = PrepareRequestTransitionContext(requestTransitionContext, BPUAApplication.ServiceRegistry, bpuaIdentifier);
+                ITransition transition = PrepareRequestTransitionContext(requestTransitionContext, BpuaApplication.ServiceRegistry, bpuaIdentifier);
                 if (requestTransitionContext.HasError())
                 {
                     responseTransitionContext = requestTransitionContext;
@@ -73,14 +73,14 @@ namespace BPUA.Application.Orchestration
                         throw new System.Exception("BPUA identifier metadata is missing in data set.");
                     }
 
-                    useCaseActivationResult = await BPUAApplication!.ActivateUseCaseAsync(bpuaIdentifier);
+                    useCaseActivationResult = await ((BPUAApplication)BpuaApplication).ActivateUseCaseAsync(bpuaIdentifier);
                     if (useCaseActivationResult.Succeeded)
                     {
                         string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
-                        ITransitionHandler? transitionHandler = BPUAApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
+                        ITransitionHandler? transitionHandler = BpuaApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
                         if (transitionHandler != null)
                         {
-                            transitionHandler.BPUAApplication = BPUAApplication;
+                            transitionHandler.BPUAApplication = BpuaApplication;
                             await using (transitionHandler as IAsyncDisposable)
                             {
                                 responseTransitionContext = await transitionHandler.HandleRequestAsync(requestTransitionContext);
@@ -104,7 +104,7 @@ namespace BPUA.Application.Orchestration
                 responseTransitionContext = requestTransitionContext;
             }
 
-            BPUAApplication = null;
+            BpuaApplication = null;
             routeTransitionContextEventArgs.TransitionContext = responseTransitionContext;
         }
         #endregion

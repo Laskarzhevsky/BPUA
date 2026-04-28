@@ -62,7 +62,7 @@ namespace BPUA.Application.RoutingTests
             bpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.SL;
             bpuaIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
 
-            UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)bpuaApplication).ActivateUseCaseAsync(bpuaIdentifier);
             Assert.True(useCaseActivationResult.Succeeded, string.Join(System.Environment.NewLine, useCaseActivationResult.Errors));
 
             IServiceRegistry serviceRegistry = bpuaApplication.ServiceRegistry;

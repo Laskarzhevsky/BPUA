@@ -13,13 +13,6 @@ namespace BPUA.Application.Contracts
     {
         #region Methods
         /// <summary>
-        /// Activates use case
-        /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        /// <returns>Use case activation result</returns>
-        Task<UseCaseActivationResult> ActivateUseCaseAsync(IBPUAIdentifier bpuaIdentifier);
-
-        /// <summary>
         /// Executes transition
         /// </summary>
         /// <param name="bpuaIdentifier">BPUA identifier</param>
