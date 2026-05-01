@@ -11,4 +11,8 @@
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
     <ProjectReference Include="..\PocoDataSet.BpuaExtensions\PocoDataSet.BpuaExtensions.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Internals\" />
+  </ItemGroup>
 </Project>

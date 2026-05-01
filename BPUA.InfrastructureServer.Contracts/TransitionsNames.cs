@@ -9,5 +9,10 @@
         /// Defines initializing application transition
         /// </summary>
         public static string INITIALIZING_APPLICATION = "InitializingApplication";
+
+        /// <summary>
+        /// RegisteringHost transition
+        /// </summary>
+        public static string REGISTERING_HOST = "RegisteringHost";
     }
 }

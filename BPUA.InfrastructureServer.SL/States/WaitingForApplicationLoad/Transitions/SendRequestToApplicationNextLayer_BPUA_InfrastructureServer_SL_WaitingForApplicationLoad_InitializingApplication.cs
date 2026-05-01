@@ -56,15 +56,13 @@ namespace BPUA.InfrastructureServer.SL
 
         #region Overridden Methods
         /// <summary>
-        /// Processes the request transition context
+        /// Prepares the BPUA identifier for the next transition handler
         /// </summary>
-        /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public override void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
+        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
+        protected override void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
         {
             // Add transition name from the BPUA identifier to the request data context
-            bpuaIdentifier.TransitionName = BpuaIdentifier.TransitionName;
-            base.ProcessRequestTransitionContext(requestTransitionContext, bpuaIdentifier);
+            nextTransitionHandlerBpuaIdentifier.TransitionName = BpuaIdentifier.TransitionName;
         }
         #endregion
     }

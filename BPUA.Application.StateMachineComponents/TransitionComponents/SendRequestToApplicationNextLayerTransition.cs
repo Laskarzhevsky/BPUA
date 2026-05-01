@@ -30,39 +30,25 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Overridden Methods
         /// <summary>
-        /// Processes the request transition context
-        /// ITransition interface implementation
+        /// Prepares the BPUA identifier for the next transition handler
         /// </summary>
-        /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public override void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
+        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
+        protected override void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
         {
-            IBPUAIdentifier nextApplicationLayerBpuaIdentifier = bpuaIdentifier.Clone()!;
-            switch (bpuaIdentifier.ApplicationLayerName)
+            switch (nextTransitionHandlerBpuaIdentifier.ApplicationLayerName)
             {
                 case "SL":
-                    nextApplicationLayerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
+                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
                     break;
                 case "BL":
-                    nextApplicationLayerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
                     break;
                 case "DL":
-                    nextApplicationLayerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
+                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
                     break;
                 default:
-                    throw new InvalidOperationException($"Unsupported application layer: {bpuaIdentifier.ApplicationLayerName}");
+                    throw new InvalidOperationException($"Unsupported application layer: {nextTransitionHandlerBpuaIdentifier.ApplicationLayerName}");
             }
-
-            requestTransitionContext.AddRequestMetadata(nextApplicationLayerBpuaIdentifier);
-        }
-
-        /// <summary>
-        /// Processes the response transition context
-        /// </summary>
-        /// <param name="responseTransitionContext">Response transition context</param>
-        public override void ProcessResponseTransitionContext(IDataSet responseTransitionContext)
-        {
-            responseTransitionContext.RemoveLastRequestMetadata();
         }
         #endregion
     }

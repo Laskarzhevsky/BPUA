@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BPUA.InfrastructureServer.Tests
 {
-    public class InfrastructureServerTests
+    public partial class InfrastructureServerTests
     {
         /// <summary>
         /// Tests the registration of hosted application layers.
@@ -29,6 +29,7 @@ namespace BPUA.InfrastructureServer.Tests
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
             stringBuilder.AppendLine("      \"UseCaseName\": \"InfrastructureServer\",");
             stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\"");
+//            stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\",");
 //            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
 //            stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
             stringBuilder.AppendLine("    },");

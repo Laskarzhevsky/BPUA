@@ -37,19 +37,19 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets inbound data contract
+        /// Gets or sets request data context validation rules
         /// </summary>
-        ITransitionDataContract InboundDataContract
+        DistinctList<IValidationRule> RequestDataContextValidationRules
         {
-            get;
+            get; set;
         }
 
         /// <summary>
-        /// Gets outbound data contract
+        /// Gets or sets response data context validation rules
         /// </summary>
-        ITransitionDataContract OutboundDataContract
+        DistinctList<IValidationRule> ResponseDataContextValidationRules
         {
-            get;
+            get; set;
         }
 
         /// <summary>

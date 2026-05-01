@@ -1,6 +1,7 @@
 using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 using System;
@@ -46,9 +47,10 @@ namespace BPUA.Application.StateMachineComponents
             BpuaIdentifier.TransitionName = transitionName;
 
             _allowedCallerTypeFullNames = new List<string>();
-            InboundDataContract = new TransitionDataContract();
-            OutboundDataContract = new TransitionDataContract();
             _targetStateNames = new List<string>();
+
+            AddRequestDataContextValidationRules();
+            AddResponseDataContextValidationRules();
         }
         #endregion
 
@@ -86,22 +88,20 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
-        /// Gets inbound data contract
-        /// ITransition interface implementation
+        /// Gets or sets request data context validation rules
         /// </summary>
-        public ITransitionDataContract InboundDataContract
+        public DistinctList<IValidationRule> RequestDataContextValidationRules
         {
-            get; private set;
-        }
+            get; set;
+        } = new DistinctList<IValidationRule>();
 
         /// <summary>
-        /// Gets outbound data contract
-        /// ITransition interface implementation
+        /// Gets or sets response data context validation rules
         /// </summary>
-        public ITransitionDataContract OutboundDataContract
+        public DistinctList<IValidationRule> ResponseDataContextValidationRules
         {
-            get; private set;
-        }
+            get; set;
+        } = new DistinctList<IValidationRule>();
 
         /// <summary>
         /// Gets target state names
@@ -176,13 +176,43 @@ namespace BPUA.Application.StateMachineComponents
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public abstract void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier);
+        public virtual void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
+        {
+            IBPUAIdentifier nextTransitionHandlerBpuaIdentifier = bpuaIdentifier.Clone()!;
+            PrepareNextTransitionHandlerBpuaIdentifier(nextTransitionHandlerBpuaIdentifier);
+            requestTransitionContext.AddRequestMetadata(nextTransitionHandlerBpuaIdentifier);
+        }
 
         /// <summary>
         /// Processes the response transition context
         /// </summary>
         /// <param name="responseTransitionContext">Response transition context</param>
-        public abstract void ProcessResponseTransitionContext(IDataSet responseTransitionContext);
+        public virtual void ProcessResponseTransitionContext(IDataSet responseTransitionContext)
+        {
+            responseTransitionContext.RemoveLastRequestMetadata();
+        }
+        #endregion
+
+        #region Protected Methods
+        /// <summary>
+        /// Adds request data context validation rules
+        /// </summary>
+        protected virtual void AddRequestDataContextValidationRules()
+        {
+        }
+
+        /// <summary>
+        /// Adds response data context validation rules
+        /// </summary>
+        protected virtual void AddResponseDataContextValidationRules()
+        {
+        }
+
+        /// <summary>
+        /// Prepares the BPUA identifier for the next transition handler
+        /// </summary>
+        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
+        protected abstract void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier);
         #endregion
     }
 }

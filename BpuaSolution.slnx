@@ -7,22 +7,6 @@
     <Project Path="BPUA.InfrastructureServer.DPL/BPUA.InfrastructureServer.DPL.csproj" Id="91065176-6ead-4a3c-a7a4-f106c43057ea" />
     <Project Path="BPUA.InfrastructureServer.SL/BPUA.InfrastructureServer.SL.csproj" Id="8cb565ff-856c-400b-819e-a400686ab876" />
   </Folder>
-  <Folder Name="/Applications/HR/" />
-  <Folder Name="/Applications/HR/UseCases/" />
-  <Folder Name="/Applications/HR/UseCases/Account/">
-    <Project Path="BPUA.Account.BL/BPUA.Account.BL.csproj" />
-    <Project Path="BPUA.Account.Contracts/BPUA.Account.Contracts.csproj" />
-    <Project Path="BPUA.Account.DAL/BPUA.Account.DAL.csproj" />
-    <Project Path="BPUA.Account.DPL/BPUA.Account.DPL.csproj" />
-    <Project Path="BPUA.Account.SL/BPUA.Account.SL.csproj" Id="6ba2b5a0-7e40-4cbd-989d-2501a32404c0" />
-  </Folder>
-  <Folder Name="/Applications/HR/UseCases/Application/">
-    <Project Path="HR.Application.BL/HR.Application.BL.csproj" Id="7a4f9388-6ec7-4d5a-a639-5d3e08b8c0b2" />
-    <Project Path="HR.Application.Contracts/HR.Application.Contracts.csproj" Id="d93a7ab9-9519-4b1d-96ba-0a71c6a1b4ac" />
-    <Project Path="HR.Application.DAL/HR.Application.DAL.csproj" Id="ee9ba8f9-7ddb-444c-888f-c54119b6bad9" />
-    <Project Path="HR.Application.DPL/HR.Application.DPL.csproj" Id="6b56d34e-a040-459d-9f04-23a0602c6f8b" />
-    <Project Path="HR.Application.SL/HR.Application.SL.csproj" Id="dcda8b45-3ca6-457e-9894-4c17de7d0156" />
-  </Folder>
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/ApplicationServer/">
     <Project Path="BPUA.ApplicationServer.Configuration/BPUA.ApplicationServer.Configuration.csproj" />
@@ -52,8 +36,6 @@
     <File Path="SharedBuildSettings.props" />
   </Folder>
   <Folder Name="/xUnitTesting/">
-    <Project Path="BPUA.Application.BootTests/BPUA.Application.BootTests.csproj" />
-    <Project Path="BPUA.Application.RoutingTests/BPUA.Application.RoutingTests.csproj" Id="0ec6cf73-002d-4431-8c30-c94f1e124c5a" />
     <Project Path="BPUA.Application.TestInfrastructure/BPUA.Application.TestInfrastructure.csproj" Id="d1726330-baea-49c8-8108-248a9f4f3529" />
     <Project Path="BPUA.InfrastructureServer.Tests/BPUA.InfrastructureServer.Tests.csproj" Id="a5a3d3a6-8553-4923-bdc3-aec25050892e" />
   </Folder>

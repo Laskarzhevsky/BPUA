@@ -6,6 +6,21 @@
     public class TableNames
     {
         /// <summary>
+        /// Hosted application layer
+        /// </summary>
+        public static string HOSTED_APPLICATION_LAYER = "HostedApplicationLayer";
+
+        /// <summary>
+        /// Infrastructure server table
+        /// </summary>
+        public static string INFRASTRUCTURE_SERVER = "InfrastructureServer";
+
+        /// <summary>
+        /// Host suffix
+        /// </summary>
+        public const string HOST_SUFFIX = "_Host";
+
+        /// <summary>
         /// Message table
         /// </summary>
         public static string MESSAGE = "__Message";
@@ -29,6 +44,11 @@
         /// Search table
         /// </summary>
         public static string SEARCH = "Search";
+
+        /// <summary>
+        /// Transition handler
+        /// </summary>
+        public const string TRANSITION_HANDLER = "TransitionHandler";
 
         /// <summary>
         /// Transition metadata

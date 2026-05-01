@@ -182,17 +182,30 @@ namespace BPUA.Application.StateMachineComponents
             IRequestMetadata? requestMetadata = RequestTransitionContext.GetRequestMetadata();
             if (requestMetadata == null)
             {
-                throw new InvalidOperationException("Request transition context does not coatain request metadata");
+                throw new InvalidOperationException("Request transition context does not contain request metadata");
             }
-
-//            string applicationNextLayerName = BPUAApplicationLayers.GetNextLayerName(requestMetadata.ApplicationLayerName);
-//            RequestTransitionContext.AddRequestMetadata(requestMetadata.DomainName, requestMetadata.UseCaseName, applicationNextLayerName, requestMetadata.StateName, requestMetadata.TransitionName, requestMetadata.Breadcrumbs);
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
 
             ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
- //           ResponseTransitionContext.RemoveLastRequestMetadata();
+        }
+
+        /// <summary>
+        /// Sends request to next handler
+        /// </summary>
+        protected virtual async Task SendRequestToNextHandler()
+        {
+            IRequestMetadata? requestMetadata = RequestTransitionContext.GetRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new InvalidOperationException("Request transition context does not contain request metadata");
+            }
+
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
+
+            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
         }
         #endregion
 

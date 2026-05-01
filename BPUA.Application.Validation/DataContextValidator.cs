@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace BPUA.Application.Validation
 {
     /// <summary>
-    /// Provides data validation functionality of a data context using validation rules
+    /// Provides data context validator functionality
     /// </summary>
-    public class DataContextDataValidator : IDataContextDataValidator
+    public class DataContextValidator : IDataContextValidator
     {
         #region Methods
         /// <summary>

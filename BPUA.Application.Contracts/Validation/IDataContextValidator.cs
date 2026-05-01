@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace BPUA.Application.Contracts
 {
     /// <summary>
-    /// Defines validation functionality of the data of the data context
+    /// Defines data context validator functionality
     /// </summary>
-    public interface IDataContextDataValidator
+    public interface IDataContextValidator
     {
         #region Methods
         /// <summary>
