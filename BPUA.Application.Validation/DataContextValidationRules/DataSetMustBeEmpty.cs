@@ -27,17 +27,21 @@ namespace BPUA.Application.Validation
         /// IValidationRule interface implementation
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
-        public override void Validate(IDataSet? dataContext)
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        public override bool Validate(IDataSet? dataContext)
         {
             if (dataContext == null)
             {
-                return;
+                return false;
             }
 
             if (dataContext.Tables.Count > 0)
             {
                 dataContext.AddMessage(MessageType.Error, $"Data set must be empty at transition handler {RequestHandlerTypeFullName}");
+                return false;
             }
+
+            return true;
         }
         #endregion
     }

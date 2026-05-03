@@ -12,11 +12,11 @@ namespace PocoDataSet.BpuaExtensions
     {
         #region Public Methods
         /// <summary>
-        /// Gets request metadata
+        /// Gets caller request metadata
         /// </summary>
         /// <param name="dataSet">Data set</param>
-        /// <returns>Request metadata</returns>
-        public static IRequestMetadata? GetRequestMetadata(this IDataSet? dataSet)
+        /// <returns>Caller request metadata</returns>
+        public static IRequestMetadata? GetCallerRequestMetadata(this IDataSet? dataSet)
         {
             if (dataSet == null)
             {
@@ -24,12 +24,12 @@ namespace PocoDataSet.BpuaExtensions
             }
 
             IDataTable requestMetadataDataTable = dataSet.GetRequestMetadataDataTable();
-            if (requestMetadataDataTable.Rows.Count == 0)
+            if (requestMetadataDataTable.Rows.Count < 2)
             {
                 return null;
             }
 
-            IRequestMetadata requestMetadata = requestMetadataDataTable.Rows[requestMetadataDataTable.Rows.Count - 1].AsInterface<IRequestMetadata>();
+            IRequestMetadata requestMetadata = requestMetadataDataTable.Rows[requestMetadataDataTable.Rows.Count - 2].AsInterface<IRequestMetadata>();
             return requestMetadata;
         }
         #endregion

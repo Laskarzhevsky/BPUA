@@ -11,14 +11,12 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="eventSourceType">Event source type</param>
         /// <param name="eventName">Event name</param>
         /// <param name="eventArguments">Event arguments</param>
-        public ServiceRequestEventArgs(Type eventSourceType, string eventName, EventArgs eventArguments)
+        public ServiceRequestEventArgs(string eventName, EventArgs eventArguments)
         {
             EventName = eventName;
             EventArguments = eventArguments;
-            EventSourceType = eventSourceType;
         }
         #endregion
 
@@ -35,14 +33,6 @@ namespace BPUA.Application.Contracts
         /// Gets event name
         /// </summary>
         public string EventName
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// Gets event source type
-        /// </summary>
-        public Type EventSourceType
         {
             get; private set;
         }

@@ -19,7 +19,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// AllowedCallerTypeFullNames property data filed
         /// </summary>
-        private readonly List<string> _allowedCallerTypeFullNames;
+        private readonly List<string> _allowedCallerBpuaIdentifiers;
 
         /// <summary>
         /// AllowedCallerTypeFullNames property data filed
@@ -46,7 +46,7 @@ namespace BPUA.Application.StateMachineComponents
             BpuaIdentifier.StateName = stateName;
             BpuaIdentifier.TransitionName = transitionName;
 
-            _allowedCallerTypeFullNames = new List<string>();
+            _allowedCallerBpuaIdentifiers = new List<string>();
             _targetStateNames = new List<string>();
 
             AddRequestDataContextValidationRules();
@@ -63,7 +63,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return _allowedCallerTypeFullNames;
+                return _allowedCallerBpuaIdentifiers;
             }
         }
 
@@ -78,6 +78,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets component identifier
+        /// IRequestHandler interface implementation
         /// </summary>
         public string ComponentIdentifier
         {
@@ -88,7 +89,18 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
+        /// Gets flag indicating whether the transition is an endpoint in the use case.
+        /// It can be called from outside of the use case.
+        /// IRequestHandler interface implementation
+        /// </summary>
+        public bool IsEndpoint
+        {
+            get; protected set;
+        }
+
+        /// <summary>
         /// Gets or sets request data context validation rules
+        /// IRequestHandler interface implementation
         /// </summary>
         public DistinctList<IValidationRule> RequestDataContextValidationRules
         {
@@ -97,6 +109,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets or sets response data context validation rules
+        /// IRequestHandler interface implementation
         /// </summary>
         public DistinctList<IValidationRule> ResponseDataContextValidationRules
         {
@@ -118,66 +131,28 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Public Methods
         /// <summary>
-        /// Adds allowed caller
-        /// </summary>
-        /// <param name="allowedCallerTypeFullName">Allowed caller type full name</param>
-        public void AddAllowedCaller(string allowedCallerTypeFullName)
-        {
-            if (string.IsNullOrWhiteSpace(allowedCallerTypeFullName))
-            {
-                return;
-            }
-
-            _allowedCallerTypeFullNames.Add(allowedCallerTypeFullName);
-        }
-
-        /// <summary>
-        /// Adds target state name
-        /// </summary>
-        /// <param name="targetStateName">Target state name</param>
-        public void AddTargetStateName(string targetStateName)
-        {
-            _targetStateNames.Add(targetStateName);
-        }
-
-        /// <summary>
-        /// Gets flag indicating whether caller is allowed
-        /// </summary>
-        /// <param name="callerTypeFullName">Caller type full name</param>
-        /// <returns></returns>
-        public bool IsCallerAllowed(string? callerTypeFullName)
-        {
-            int i = 0;
-
-            if (_allowedCallerTypeFullNames.Count == 0)
-            {
-                return true;
-            }
-
-            if (string.IsNullOrWhiteSpace(callerTypeFullName))
-            {
-                return false;
-            }
-
-            for (i = 0; i < _allowedCallerTypeFullNames.Count; i++)
-            {
-                if (string.Equals(_allowedCallerTypeFullNames[i], callerTypeFullName, StringComparison.Ordinal))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Processes the request transition context
         /// ITransition interface implementation
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public virtual void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
+        public virtual void ProcessRequestTransitionContext(IDataSet requestTransitionContext)
         {
+            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCurrentBpuaIdentifier();
+            if (bpuaIdentifier == null)
+            {
+                throw new System.Exception("BPUA identifier metadata is missing in data set.");
+            }
+
+            if (!ValidateRequestTransitionContext(requestTransitionContext))
+            {
+                return;
+            }
+
+            if (!ValidateCallerPermission(requestTransitionContext, bpuaIdentifier))
+            {
+                return;
+            }
+
             IBPUAIdentifier nextTransitionHandlerBpuaIdentifier = bpuaIdentifier.Clone()!;
             PrepareNextTransitionHandlerBpuaIdentifier(nextTransitionHandlerBpuaIdentifier);
             requestTransitionContext.AddRequestMetadata(nextTransitionHandlerBpuaIdentifier);
@@ -185,6 +160,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Processes the response transition context
+        /// ITransition interface implementation
         /// </summary>
         /// <param name="responseTransitionContext">Response transition context</param>
         public virtual void ProcessResponseTransitionContext(IDataSet responseTransitionContext)
@@ -194,6 +170,20 @@ namespace BPUA.Application.StateMachineComponents
         #endregion
 
         #region Protected Methods
+        /// <summary>
+        /// Adds allowed caller
+        /// </summary>
+        /// <param name="allowedCallerTypeFullName">Allowed caller type full name</param>
+        protected void AddAllowedCaller(string allowedCallerTypeFullName)
+        {
+            if (string.IsNullOrWhiteSpace(allowedCallerTypeFullName))
+            {
+                return;
+            }
+
+            _allowedCallerBpuaIdentifiers.Add(allowedCallerTypeFullName);
+        }
+
         /// <summary>
         /// Adds request data context validation rules
         /// </summary>
@@ -209,10 +199,71 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
+        /// Adds target state name
+        /// </summary>
+        /// <param name="targetStateName">Target state name</param>
+        protected void AddTargetStateName(string targetStateName)
+        {
+            _targetStateNames.Add(targetStateName);
+        }
+
+        /// <summary>
         /// Prepares the BPUA identifier for the next transition handler
         /// </summary>
         /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
-        protected abstract void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier);
+        protected virtual void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
+        {
+        }
+
+        /// <summary>
+        /// Validates caller permission
+        /// </summary>
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <param name="currentBpuaIdentifier">Current BPUA identifier</param>
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        protected bool ValidateCallerPermission(IDataSet requestTransitionContext, IBPUAIdentifier currentBpuaIdentifier)
+        {
+            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCallerBpuaIdentifier();
+            if (bpuaIdentifier == null)
+            {
+                throw new System.Exception("BPUA identifier of caller is missing in data set.");
+            }
+
+            if (_allowedCallerBpuaIdentifiers.Count == 0)
+            {
+                return true;
+            }
+
+            string callerBPUAIdentifierKey = bpuaIdentifier.ToString()!;
+            for (int i = 0; i < _allowedCallerBpuaIdentifiers.Count; i++)
+            {
+                if (string.Equals(_allowedCallerBpuaIdentifiers[i], callerBPUAIdentifierKey, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            requestTransitionContext.AddMessage(MessageType.Error, $"Caller {callerBPUAIdentifierKey} is not allowed to execute transition {currentBpuaIdentifier.ToString()!}");
+            return false;
+        }
+
+        /// <summary>
+        /// Validates request transition context
+        /// </summary>
+        /// <param name="requestTransitionContext">Request transition context</param>
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        protected bool ValidateRequestTransitionContext(IDataSet requestTransitionContext)
+        {
+            foreach (IValidationRule validationRule in RequestDataContextValidationRules)
+            {
+                if (!validationRule.Validate(requestTransitionContext))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
         #endregion
     }
 }

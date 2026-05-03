@@ -26,7 +26,7 @@ namespace PocoDataSet.BpuaExtensions
             IDataTable requestMetadataDataTable = dataSet.GetRequestMetadataDataTable();
             if (requestMetadataDataTable.Rows.Count > 0)
             {
-                IRequestMetadata? currentRequestMetadata = dataSet.GetRequestMetadata();
+                IRequestMetadata? currentRequestMetadata = dataSet.GetCurrentRequestMetadata();
 
                 // Copy current request metadata
                 BPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
@@ -41,7 +41,7 @@ namespace PocoDataSet.BpuaExtensions
                 // Propagate current use case matadata to previous for BL layer
                 if (bpuaIdentifier.ApplicationLayerName == ApplicationLayersNames.BL)
                 {
-                    currentRequestMetadata = dataSet!.GetRequestMetadata();
+                    currentRequestMetadata = dataSet!.GetCurrentRequestMetadata();
                     if (currentRequestMetadata!.DomainName != bpuaIdentifier.DomainName)
                     {
                         currentRequestMetadata.DomainName = bpuaIdentifier.DomainName;

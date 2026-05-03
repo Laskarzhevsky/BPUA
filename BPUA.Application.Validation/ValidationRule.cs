@@ -26,7 +26,8 @@ namespace BPUA.Application.Validation
         /// Validates data context against the rule.
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
-        public abstract void Validate(IDataSet? dataContext);
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        public abstract bool Validate(IDataSet? dataContext);
         #endregion
 
         #region Protected Properties

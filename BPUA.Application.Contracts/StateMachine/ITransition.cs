@@ -37,6 +37,15 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
+        /// Gets flag indicating whether the transition is an endpoint in the use case.
+        /// It can be called from outside of the use case.
+        /// </summary>
+        bool IsEndpoint
+        {
+            get;
+        }
+
+        /// <summary>
         /// Gets or sets request data context validation rules
         /// </summary>
         DistinctList<IValidationRule> RequestDataContextValidationRules
@@ -66,8 +75,7 @@ namespace BPUA.Application.Contracts
         /// Processes the request transition context
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier);
+        void ProcessRequestTransitionContext(IDataSet requestTransitionContext);
 
         /// <summary>
         /// Processes the response transition context

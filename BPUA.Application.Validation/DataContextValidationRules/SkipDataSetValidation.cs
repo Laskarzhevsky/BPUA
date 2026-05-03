@@ -23,10 +23,10 @@ namespace BPUA.Application.Validation
         /// Validates data context against the rule.
         /// IValidationRule interface implementation
         /// </summary>
-        /// <param name="dataContext">The data context to validate.</param>
-        public override void Validate(IDataSet? dataContext)
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        public override bool Validate(IDataSet? dataContext)
         {
-            return;
+            return true;
         }
         #endregion
     }

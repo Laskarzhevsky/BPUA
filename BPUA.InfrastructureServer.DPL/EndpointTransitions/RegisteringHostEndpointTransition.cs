@@ -1,17 +1,15 @@
-﻿using BPUA.Application.Contracts;
+using BPUA.Application.Contracts;
 using BPUA.Application.StateMachineComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
 
-using PocoDataSet.IData;
-
 namespace BPUA.InfrastructureServer.DPL
 {
     /// <summary>
-    /// Prepares the BPUA identifier for the next transition handler in the application layer initialization flow, after receiving a request to register a host for the application layer.
+    /// Provides RegisteringHost endpoint functionality
     /// </summary>
     [RegisterAsTransition]
-    public class SendRequestToNextHandler_BPUA_InfrastructureServer_DPL__RegisteringHost : SendRequestToApplicationNextLayerTransition
+    public class RegisteringHostEndpointTransition : SendRequestToApplicationNextLayerTransition
     {
         #region Identification
         public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_HANDLER;
@@ -37,8 +35,9 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SendRequestToNextHandler_BPUA_InfrastructureServer_DPL__RegisteringHost() : base(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public RegisteringHostEndpointTransition() : base(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
+            IsEndpoint = true;
         }
         #endregion
 

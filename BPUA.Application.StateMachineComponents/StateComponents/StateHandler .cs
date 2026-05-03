@@ -73,7 +73,7 @@ namespace BPUA.Application.StateMachineComponents
                 return ResponseTransitionContext;
             }
 
-            IRequestMetadata? requestMetadata = dataSet.GetRequestMetadata();
+            IRequestMetadata? requestMetadata = dataSet.GetCurrentRequestMetadata();
             if (requestMetadata == null)
             {
                 return ResponseTransitionContext;

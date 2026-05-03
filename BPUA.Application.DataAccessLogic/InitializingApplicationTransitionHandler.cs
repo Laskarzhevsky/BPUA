@@ -53,7 +53,7 @@ namespace BPUA.Application.DataAccessLogic
                 return requestTransitionContext;
             }
 
-            IRequestMetadata? requestMetadata = requestTransitionContext.GetRequestMetadata();
+            IRequestMetadata? requestMetadata = requestTransitionContext.GetCurrentRequestMetadata();
             if (requestMetadata == null)
             {
                 throw new System.ArgumentOutOfRangeException(nameof(requestMetadata));

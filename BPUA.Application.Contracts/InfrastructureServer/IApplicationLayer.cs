@@ -1,23 +1,16 @@
 ﻿namespace BPUA.Application.Contracts
 {
     /// <summary>
-    /// Defines BPUA infrastructure server record
+    /// Defines hosted application layer contract.
+    /// This contract is used to register hosted application layers with the infrastructure server.
     /// </summary>
-    public interface IBpuaInfrastructureServerRecord
+    public interface IApplicationLayer
     {
         #region Properties
         /// <summary>
         /// Gets or sets application layer full name
         /// </summary>
         string? ApplicationLayerFullName
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Gets or sets flag indicating whehter DNS record needs to be registered with DNS server
-        /// </summary>
-        bool? RegisterWithDnsServer
         {
             get; set;
         }

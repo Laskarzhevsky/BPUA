@@ -42,7 +42,7 @@ namespace BPUA.Application.Orchestration
                 return;
             }
 
-            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetBpuaIdentifier();
+            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCurrentBpuaIdentifier();
             if (bpuaIdentifier == null)
             {
                 throw new System.Exception("BPUA identifier metadata is missing in data set.");
@@ -60,14 +60,15 @@ namespace BPUA.Application.Orchestration
             UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)BpuaApplication).ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
-                ITransition transition = PrepareRequestTransitionContext(requestTransitionContext, BpuaApplication.ServiceRegistry, bpuaIdentifier);
+                ITransition transition = GetTransition(requestTransitionContext, BpuaApplication.ServiceRegistry);
+                transition.ProcessRequestTransitionContext(requestTransitionContext);
                 if (requestTransitionContext.HasError())
                 {
                     responseTransitionContext = requestTransitionContext;
                 }
                 else
                 {
-                    bpuaIdentifier = requestTransitionContext.GetBpuaIdentifier();
+                    bpuaIdentifier = requestTransitionContext.GetCurrentBpuaIdentifier();
                     if (bpuaIdentifier == null)
                     {
                         throw new System.Exception("BPUA identifier metadata is missing in data set.");
@@ -115,9 +116,14 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         /// <param name="serviceRegistry">Service registry</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        ITransition PrepareRequestTransitionContext(IDataSet requestTransitionContext, IServiceRegistry serviceRegistry, IBPUAIdentifier bpuaIdentifier)
+        ITransition GetTransition(IDataSet requestTransitionContext, IServiceRegistry serviceRegistry)
         {
+            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCurrentBpuaIdentifier();
+            if (bpuaIdentifier == null)
+            {
+                throw new System.Exception("BPUA identifier metadata is missing in data set.");
+            }
+
             Type? transitionType = null;
             serviceRegistry.TryGetRegisteredTransitionType(bpuaIdentifier, out transitionType);
             if (transitionType == null)
@@ -130,8 +136,6 @@ namespace BPUA.Application.Orchestration
             {
                 throw new ApplicationException($"Transition {bpuaIdentifier.RequestName}_{bpuaIdentifier.DomainName}_{bpuaIdentifier.UseCaseName}_{bpuaIdentifier.ApplicationLayerName}_{bpuaIdentifier.StateName}_{bpuaIdentifier.TransitionName} could not be instantiated.");
             }
-
-            transition.ProcessRequestTransitionContext(requestTransitionContext, bpuaIdentifier);
 
             return transition;
         }

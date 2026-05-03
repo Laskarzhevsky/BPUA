@@ -12,18 +12,18 @@ namespace PocoDataSet.BpuaExtensions
     {
         #region Public Methods
         /// <summary>
-        /// Gets BPUA identifier
+        /// Gets current BPUA identifier
         /// </summary>
         /// <param name="dataSet">Data set</param>
-        /// <returns>BPUA identifier</returns>
-        public static IBPUAIdentifier? GetBpuaIdentifier(this IDataSet? dataSet)
+        /// <returns>Current BPUA identifier</returns>
+        public static IBPUAIdentifier? GetCurrentBpuaIdentifier(this IDataSet? dataSet)
         {
             if (dataSet == null)
             {
                 return null;
             }
 
-            IRequestMetadata? requestMetadata = dataSet.GetRequestMetadata();
+            IRequestMetadata? requestMetadata = dataSet.GetCurrentRequestMetadata();
             return requestMetadata as IBPUAIdentifier;
         }
         #endregion

@@ -27,22 +27,27 @@ namespace BPUA.Application.Validation
         /// IValidationRule interface implementation
         /// </summary>
         /// <param name="dataContext">The data context to validate.</param>
-        public override void Validate(IDataSet? dataContext)
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        public override bool Validate(IDataSet? dataContext)
         {
             if (dataContext == null)
             {
-                return;
+                return false;
             }
 
             if (!dataContext.Tables.ContainsKey(DataTableName))
             {
                 dataContext.AddMessage(MessageType.Error, $"Data table {DataTableName} is not found at transition handler {RequestHandlerTypeFullName}");
+                return false;
             }
 
             if (dataContext.Tables[DataTableName].Rows.Count != 1)
             {
                 dataContext.AddMessage(MessageType.Error, $"Data table {DataTableName} must have one row only at transition handler {RequestHandlerTypeFullName}");
+                return false;
             }
+
+            return true;
         }
         #endregion
     }

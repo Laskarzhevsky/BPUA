@@ -79,7 +79,7 @@
         /// Returns string representation of BPUA identifier
         /// </summary>
         /// <returns>String representation of BPUA identifier</returns>
-        override public string ToString()
+        public override string? ToString()
         {
             return $"DomainName: {DomainName}, UseCaseName: {UseCaseName}, ApplicationLayerName: {ApplicationLayerName}, StateName: {StateName}, TransitionName: {TransitionName}";
         }

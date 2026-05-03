@@ -52,17 +52,12 @@ namespace BPUA.InfrastructureServer.Tests
 
             // The remote host will send a request to the BPUA application to register itself as a host for the specified application layer.
             // This will trigger the execution of the transition that registers the hosted application layer.
-            IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
-            bpuaIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            bpuaIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-            bpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-            bpuaIdentifier.StateName = default!;
-            bpuaIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
+            IBPUAIdentifier bpuaIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
 
             IDataSet dataSet = DataSetFactory.CreateDataSet();
             dataSet.AddRequestMetadata(bpuaIdentifier);
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(dataSet);
-            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(GetType(), "SendRequestToNextHandler", routeTransitionContextEventArgs);
+            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs("SendRequestToNextHandler", routeTransitionContextEventArgs);
 
             IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
             await bpuaApplication.RequestHandler_RequestServiceEvent(null, serviceRequestEventArgs);

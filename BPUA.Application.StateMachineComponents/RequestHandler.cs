@@ -102,7 +102,7 @@ namespace BPUA.Application.StateMachineComponents
                 return;
             }
 
-            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(GetType(), eventName, eventArguments);
+            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(eventName, eventArguments);
             await ServiceRequestEvent.Invoke(this, serviceRequestEventArgs);
         }
         #endregion
@@ -179,7 +179,7 @@ namespace BPUA.Application.StateMachineComponents
         /// </summary>
         protected virtual async Task SendRequestToApplicationNextLayer()
         {
-            IRequestMetadata? requestMetadata = RequestTransitionContext.GetRequestMetadata();
+            IRequestMetadata? requestMetadata = RequestTransitionContext.GetCurrentRequestMetadata();
             if (requestMetadata == null)
             {
                 throw new InvalidOperationException("Request transition context does not contain request metadata");
@@ -196,7 +196,7 @@ namespace BPUA.Application.StateMachineComponents
         /// </summary>
         protected virtual async Task SendRequestToNextHandler()
         {
-            IRequestMetadata? requestMetadata = RequestTransitionContext.GetRequestMetadata();
+            IRequestMetadata? requestMetadata = RequestTransitionContext.GetCurrentRequestMetadata();
             if (requestMetadata == null)
             {
                 throw new InvalidOperationException("Request transition context does not contain request metadata");

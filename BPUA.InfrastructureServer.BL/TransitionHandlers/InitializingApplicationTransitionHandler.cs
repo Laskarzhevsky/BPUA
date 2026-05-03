@@ -53,7 +53,7 @@ namespace BPUA.InfrastructureServer.BL
             }
             else
             {
-                IRequestMetadata? requestMetadata = ResponseTransitionContext.GetRequestMetadata();
+                IRequestMetadata? requestMetadata = ResponseTransitionContext.GetCurrentRequestMetadata();
                 if (requestMetadata == null)
                 {
                     throw new System.ApplicationException("Request metadata is missing in data set.");
