@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BPUA.Application.DataProcessingLogic\BPUA.Application.DataProcessingLogic.csproj" />
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
+    <ProjectReference Include="..\BPUA.Application.NonFunctionalContracts\BPUA.Application.NonFunctionalContracts.csproj" />
     <ProjectReference Include="..\BPUA.Application.Validation\BPUA.Application.Validation.csproj" />
     <ProjectReference Include="..\BPUA.InfrastructureServer.Contracts\BPUA.InfrastructureServer.Contracts.csproj" />
   </ItemGroup>

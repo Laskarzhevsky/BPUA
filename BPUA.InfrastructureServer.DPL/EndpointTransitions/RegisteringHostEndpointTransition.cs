@@ -1,4 +1,5 @@
 using BPUA.Application.Contracts;
+using BPUA.Application.NonFunctionalContracts;
 using BPUA.Application.StateMachineComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
@@ -41,7 +42,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         protected override void AddRequestDataContextValidationRules()
         {
-            RequestDataContextValidationRules.Add(new OneOnlyRowMustExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.HOSTED_APPLICATION_LAYER, ComponentIdentifier));
+            RequestDataContextValidationRules.Add(new AtLeastOneRowMustExistInDataTable(typeof(IHostedApplicationLayer).Name, ComponentIdentifier));
             RequestDataContextValidationRules.Add( new AnyNumberOfRowsMayExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.TRANSITION_HANDLER, ComponentIdentifier));
         }
 

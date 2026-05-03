@@ -1,5 +1,6 @@
 ﻿using BPUA.Application.Boot;
 using BPUA.Application.Contracts;
+using BPUA.Application.NonFunctionalContracts;
 using BPUA.Application.Orchestration;
 using BPUA.Application.TestInfrastructure;
 using BPUA.Core;
@@ -57,7 +58,8 @@ namespace BPUA.InfrastructureServer.Tests
             IDataSet dataSet = DataSetFactory.CreateDataSet();
             dataSet.AddRequestMetadata(bpuaIdentifier);
 
-//            IDataTable dataTable = dataSet.AddNewTable("???");
+            IDataTable dataTable = dataSet.AddNewTableFromPocoInterface(typeof(IHostedApplicationLayer).Name, typeof(IHostedApplicationLayer));
+            IHostedApplicationLayer? hostedApplicationLayer = dataTable.AddNewRow() as IHostedApplicationLayer;
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(dataSet);
             ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs("SendRequestToNextHandler", routeTransitionContextEventArgs);
