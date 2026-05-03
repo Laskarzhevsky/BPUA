@@ -6,6 +6,9 @@ using PocoDataSet.IData;
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+
+using static System.TimeZoneInfo;
 
 namespace BPUA.Application.StateMachineComponents
 {
@@ -29,22 +32,17 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Constructors
         /// <summary>
-        /// Default constructor
+        /// Constructor overload that accepts endpoint identifier.
+        /// This allows endpoint contracts to be the single source of truth.
         /// </summary>
-        /// <param name="requestName">Request name</param>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        /// <param name="transitionName">Transition name</param>
-        public Transition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        public Transition(string requestName, IBPUAIdentifier bpuaIdentifier)
         {
             BpuaIdentifier.RequestName = requestName;
-            BpuaIdentifier.DomainName = domainName;
-            BpuaIdentifier.UseCaseName = useCaseName;
-            BpuaIdentifier.ApplicationLayerName = applicationLayerName;
-            BpuaIdentifier.StateName = stateName;
-            BpuaIdentifier.TransitionName = transitionName;
+            BpuaIdentifier.DomainName = bpuaIdentifier.DomainName;
+            BpuaIdentifier.UseCaseName = bpuaIdentifier.UseCaseName;
+            BpuaIdentifier.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
+            BpuaIdentifier.StateName = bpuaIdentifier.StateName;
+            BpuaIdentifier.TransitionName = bpuaIdentifier.TransitionName;
 
             _allowedCallerBpuaIdentifiers = new List<string>();
             _targetStateNames = new List<string>();
@@ -243,7 +241,7 @@ namespace BPUA.Application.StateMachineComponents
                 }
             }
 
-            requestTransitionContext.AddMessage(MessageType.Error, $"Caller {callerBPUAIdentifierKey} is not allowed to execute transition {currentBpuaIdentifier.ToString()!}");
+            requestTransitionContext.AddMessage(MessageType.Error, $"CallerNotAllowed_{callerBPUAIdentifierKey}", $"Caller {callerBPUAIdentifierKey} is not allowed to execute transition {currentBpuaIdentifier.ToString()!}");
             return false;
         }
 

@@ -6,9 +6,9 @@ using PocoDataSet.IData;
 namespace BPUA.Application.Validation
 {
     /// <summary>
-    /// Verifies that data set is empty.
+    /// Verifies that data set contains data table.
     /// </summary>
-    public class DataSetMustBeEmpty : ValidationRule
+    public class DataSetMustContainDataTable : ValidationRule
     {
         #region Constructors
         /// <summary>
@@ -16,7 +16,7 @@ namespace BPUA.Application.Validation
         /// </summary>
         /// <param name="dataTableName">Data table name</param>
         /// <param name="requestHandlerTypeFullName">Request handler type full name</param>
-        public DataSetMustBeEmpty(string dataTableName, string requestHandlerTypeFullName) : base(dataTableName, requestHandlerTypeFullName)
+        public DataSetMustContainDataTable(string dataTableName, string requestHandlerTypeFullName) : base(dataTableName, requestHandlerTypeFullName)
         {
         }
         #endregion
@@ -35,9 +35,9 @@ namespace BPUA.Application.Validation
                 return false;
             }
 
-            if (dataContext.Tables.Count > 0)
+            if (!dataContext.Tables.ContainsKey(DataTableName))
             {
-                dataContext.AddMessage(MessageType.Error, $"{this.GetType().Name}", $"Data set must be empty at transition handler {RequestHandlerTypeFullName}");
+                dataContext.AddMessage(MessageType.Error, $"{this.GetType().Name}_{DataTableName}", $"Data table {DataTableName} is not found at transition handler {RequestHandlerTypeFullName}");
                 return false;
             }
 

@@ -61,6 +61,7 @@ namespace PocoDataSet.BpuaExtensions
             newMessage.ApplicationLayerName = message.ApplicationLayerName;
             newMessage.ApplicationLayerUrl = message.ApplicationLayerUrl;
             newMessage.Exception = message.Exception;
+            newMessage.MessageCode = message.MessageCode;
             newMessage.MessageText = message.MessageText;
             newMessage.MessageType = message.MessageType;
 
@@ -72,11 +73,12 @@ namespace PocoDataSet.BpuaExtensions
         /// </summary>
         /// <param name="dataSet">Data set</param>
         /// <param name="messageType">Message type</param>
+        /// <param name="messageCode">Message code</param>
         /// <param name="messageText">Message text</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="applicationLayerUrl">Application layer URL</param>
         /// <returns>Added message</returns>
-        public static IMessage AddMessage(this IDataSet? dataSet, MessageType messageType, string? messageText, string? applicationLayerName = null, string? applicationLayerUrl = null)
+        public static IMessage AddMessage(this IDataSet? dataSet, MessageType messageType, string messageCode, string? messageText, string? applicationLayerName = null, string? applicationLayerUrl = null)
         {
             if (dataSet == null)
             {
@@ -84,11 +86,21 @@ namespace PocoDataSet.BpuaExtensions
             }
 
             IDataTable messageDataTable = dataSet.GetMessageDataTable();
+            foreach (IDataRow existingMessageDataRow in messageDataTable.Rows)
+            {
+                IMessage? existingMessage = existingMessageDataRow.AsInterface<IMessage>();
+                if (existingMessage.MessageCode == messageCode)
+                {
+                    return default!;
+                }
+            }
+
             IDataRow messageDataRow = messageDataTable.AddNewRow();
 
             IMessage? newMessage = messageDataRow.AsInterface<IMessage>();
             newMessage.ApplicationLayerName = applicationLayerName;
             newMessage.ApplicationLayerUrl = applicationLayerUrl;
+            newMessage.MessageCode = messageCode;
             newMessage.MessageText = messageText;
             newMessage.MessageType = messageType;
 

@@ -1,7 +1,4 @@
-﻿using BPUA.Application.Contracts;
-
-using PocoDataSet.BpuaExtensions;
-using PocoDataSet.IData;
+﻿using PocoDataSet.IData;
 
 namespace BPUA.Application.Validation
 {
@@ -36,9 +33,9 @@ namespace BPUA.Application.Validation
                 return false;
             }
 
-            if (!dataContext.Tables.ContainsKey(DataTableName))
+            DataSetMustContainDataTable dataSetMustContainDataTable = new(DataTableName, RequestHandlerTypeFullName);
+            if (!dataSetMustContainDataTable.Validate(dataContext))
             {
-                dataContext.AddMessage(MessageType.Error, $"Data table {DataTableName} is not found at transition handler {RequestHandlerTypeFullName}");
                 return false;
             }
 

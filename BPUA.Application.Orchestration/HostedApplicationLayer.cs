@@ -9,20 +9,22 @@ namespace BPUA.Application.Orchestration
     {
         #region Public Properties
         /// <summary>
-        /// Gets or sets BPUA identifier
+        /// Gets or sets application layer name
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public IBPUAIdentifier BpuaIdentifier
+        public string? ApplicationLayerName
         {
             get; set;
-        } = default!;
+        }
 
         /// <summary>
-        /// Gets or sets the current initialization state of the hosted application layer
+        /// Gets or sets domain name
+        /// IBPUAIdentifier interface implementation
         /// </summary>
-        public HostedApplicationLayerState HostedApplicationLayerState
+        public string? DomainName
         {
             get; set;
-        } = HostedApplicationLayerState.NotInitialized;
+        }
 
         /// <summary>
         /// Gets or sets flag indicating whether it is the "Application" use case layer
@@ -30,6 +32,16 @@ namespace BPUA.Application.Orchestration
         public bool IsApplicationUseCaseLayer
         {
             get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets application layer name
+        /// IBPUAIdentifier interface implementation
+        /// </summary>
+        public string? UseCaseName
+        {
+            get;
+            set;
         }
         #endregion
     }

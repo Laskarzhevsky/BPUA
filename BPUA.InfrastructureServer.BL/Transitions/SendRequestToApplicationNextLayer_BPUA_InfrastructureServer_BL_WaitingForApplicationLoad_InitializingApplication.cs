@@ -1,4 +1,5 @@
-﻿using BPUA.Application.Contracts;
+﻿/*
+using BPUA.Application.Contracts;
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
@@ -40,19 +41,6 @@ namespace BPUA.InfrastructureServer.BL
         {
         }
         #endregion
-/*
-        #region Overridden Methods
-        /// <summary>
-        /// Processes the request transition context
-        /// </summary>
-        /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public override void ProcessRequestTransitionContext(IDataSet requestTransitionContext, IBPUAIdentifier bpuaIdentifier)
-        {
-            bpuaIdentifier.TransitionName = BpuaIdentifier.TransitionName;
-            base.ProcessRequestTransitionContext(requestTransitionContext, bpuaIdentifier);
-        }
-        #endregion
-*/
     }
 }
+*/

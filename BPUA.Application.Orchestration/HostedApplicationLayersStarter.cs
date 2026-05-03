@@ -43,7 +43,7 @@ namespace BPUA.Application.Orchestration
         {
             foreach (HostedApplicationLayer hostedApplicationLayer in bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>())
             {
-                IBPUAIdentifier bpuaIdentifier = hostedApplicationLayer.BpuaIdentifier;
+                IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier(hostedApplicationLayer.DomainName, hostedApplicationLayer.UseCaseName, hostedApplicationLayer.ApplicationLayerName, null, null);
                 if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL && hostedApplicationLayer.IsApplicationUseCaseLayer)
                 {
                     await bpuaApplication.ExecuteTransition(bpuaIdentifier);
@@ -114,7 +114,9 @@ namespace BPUA.Application.Orchestration
                 IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
                 string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
                 HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
-                hostedApplicationLayer.BpuaIdentifier = bpuaIdentifier;
+                hostedApplicationLayer.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
+                hostedApplicationLayer.DomainName = bpuaIdentifier.DomainName;
+                hostedApplicationLayer.UseCaseName = bpuaIdentifier.UseCaseName;
 
                 string? isApplicationUseCaseLayer = GetOptionalValue(startupTransitionSection, "IsApplicationUseCaseLayer");
                 if (!string.IsNullOrWhiteSpace(isApplicationUseCaseLayer) && bool.TryParse(isApplicationUseCaseLayer, out bool isApplicationUseCaseLayerValue))

@@ -9,16 +9,9 @@ namespace BPUA.InfrastructureServer.DPL
     /// Provides RegisteringHost endpoint functionality
     /// </summary>
     [RegisterAsTransition]
-    public class RegisteringHostEndpointTransition : SendRequestToApplicationNextLayerTransition
+    public class RegisteringHostEndpointTransition : Transition
     {
         #region Identification
-        public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_HANDLER;
-        public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-        public static string StateName = default!;
-        public static string TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
-
         /// <summary>
         /// Gets transition key
         /// </summary>
@@ -26,7 +19,8 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
+                IBPUAIdentifier bpuaIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
+                return KeyCompiler.CompileTransitionKey(bpuaIdentifier.RequestName, bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
             }
         }
         #endregion
@@ -35,7 +29,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointTransition() : base(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public RegisteringHostEndpointTransition() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost())
         {
             IsEndpoint = true;
         }

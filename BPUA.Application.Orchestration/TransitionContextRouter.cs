@@ -55,7 +55,7 @@ namespace BPUA.Application.Orchestration
                 return;
             }
 
-            bpuaIdentifier.RequestName = serviceRequestEventArgs.EventName;
+//            bpuaIdentifier.RequestName = serviceRequestEventArgs.EventName;
             IDataSet? responseTransitionContext = null;
             UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)BpuaApplication).ActivateUseCaseAsync(bpuaIdentifier);
             if (useCaseActivationResult.Succeeded)

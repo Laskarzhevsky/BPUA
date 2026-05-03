@@ -56,6 +56,9 @@ namespace BPUA.InfrastructureServer.Tests
 
             IDataSet dataSet = DataSetFactory.CreateDataSet();
             dataSet.AddRequestMetadata(bpuaIdentifier);
+
+//            IDataTable dataTable = dataSet.AddNewTable("???");
+
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(dataSet);
             ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs("SendRequestToNextHandler", routeTransitionContextEventArgs);
 

@@ -71,32 +71,28 @@ namespace BPUA.InfrastructureServer.Tests
             for (int i = 0; i < hostedApplicationLayersList.Count; i++)
             {
                 HostedApplicationLayer hostedApplicationLayer = hostedApplicationLayersList[i];
-                string? applicationLayerName = hostedApplicationLayer.BpuaIdentifier.ApplicationLayerName;
+                string? applicationLayerName = hostedApplicationLayer.ApplicationLayerName;
                 switch (applicationLayerName)
                 {
                     case ApplicationLayersNames.SL:
                         foundSL = true;
-                        Assert.Equal(HostedApplicationLayerState.NotInitialized, hostedApplicationLayer.HostedApplicationLayerState);
                         break;
                     case ApplicationLayersNames.BL:
                         foundBL = true;
-                        Assert.Equal(HostedApplicationLayerState.NotInitialized, hostedApplicationLayer.HostedApplicationLayerState);
                         break;
                     case ApplicationLayersNames.DPL:
                         foundDPL = true;
-                        Assert.Equal(HostedApplicationLayerState.NotInitialized, hostedApplicationLayer.HostedApplicationLayerState);
                         break;
                     case ApplicationLayersNames.DAL:
                         foundDAL = true;
-                        Assert.Equal(HostedApplicationLayerState.NotInitialized, hostedApplicationLayer.HostedApplicationLayerState);
                         break;
                     default:
                         Assert.Fail($"Unexpected application layer name: {applicationLayerName}");
                         break;
                 }
 
-                Assert.Equal("BPUA", hostedApplicationLayer.BpuaIdentifier.DomainName);
-                Assert.Equal("InfrastructureServer", hostedApplicationLayer.BpuaIdentifier.UseCaseName);
+                Assert.Equal("BPUA", hostedApplicationLayer.DomainName);
+                Assert.Equal("InfrastructureServer", hostedApplicationLayer.UseCaseName);
                 Assert.False(hostedApplicationLayer.IsApplicationUseCaseLayer);
             }
 

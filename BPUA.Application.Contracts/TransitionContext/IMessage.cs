@@ -34,6 +34,14 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
+        /// Gets or sets message code
+        /// </summary>
+        string MessageCode
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets message text
         /// </summary>
         string? MessageText

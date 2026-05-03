@@ -23,7 +23,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public SendRequestToApplicationNextLayerTransition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(requestName, domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        public SendRequestToApplicationNextLayerTransition(string requestName, IBPUAIdentifier bpuaIdentifier) : base(requestName, bpuaIdentifier)
         {
         }
         #endregion

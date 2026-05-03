@@ -1,4 +1,5 @@
-﻿using BPUA.Application.Contracts;
+﻿/*
+using BPUA.Application.Contracts;
 using BPUA.Application.StateMachineComponents;
 using BPUA.Core;
 
@@ -67,3 +68,4 @@ namespace BPUA.InfrastructureServer.SL
         #endregion
     }
 }
+*/

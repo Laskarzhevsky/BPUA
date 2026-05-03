@@ -35,15 +35,15 @@ namespace BPUA.Application.Validation
                 return false;
             }
 
-            if (!dataContext.Tables.ContainsKey(DataTableName))
+            DataSetMustContainDataTable dataSetMustContainDataTable = new(DataTableName, RequestHandlerTypeFullName);
+            if (!dataSetMustContainDataTable.Validate(dataContext))
             {
-                dataContext.AddMessage(MessageType.Error, $"Data table {DataTableName} is not found at transition handler {RequestHandlerTypeFullName}");
                 return false;
             }
 
             if (dataContext.Tables[DataTableName].Rows.Count != 1)
             {
-                dataContext.AddMessage(MessageType.Error, $"Data table {DataTableName} must have one row only at transition handler {RequestHandlerTypeFullName}");
+                dataContext.AddMessage(MessageType.Error, $"{this.GetType().Name}_{DataTableName}", $"Data table {DataTableName} must have one row only at transition handler {RequestHandlerTypeFullName}");
                 return false;
             }
 
