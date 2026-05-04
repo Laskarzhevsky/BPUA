@@ -51,15 +51,19 @@ namespace BPUA.InfrastructureServer.Tests
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
             await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
 
+            // The remote host (caller) needs to identify itself. Simulating this by creating a dummy BPUA identifier
+            IBPUAIdentifier remoteHostBpuiIdentifier = new BPUAIdentifier("HR", "Acounting", "DPL", "State1", "Transition1");
+
             // The remote host will send a request to the BPUA application to register itself as a host for the specified application layer.
             // This will trigger the execution of the transition that registers the hosted application layer.
             IBPUAIdentifier bpuaIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
 
             IDataSet dataSet = DataSetFactory.CreateDataSet();
+            dataSet.AddRequestMetadata(remoteHostBpuiIdentifier);
             dataSet.AddRequestMetadata(bpuaIdentifier);
 
             IDataTable dataTable = dataSet.AddNewTableFromPocoInterface(typeof(IHostedApplicationLayer).Name, typeof(IHostedApplicationLayer));
-            IHostedApplicationLayer? hostedApplicationLayer = dataTable.AddNewRow() as IHostedApplicationLayer;
+            IHostedApplicationLayer? hostedApplicationLayer = dataTable.AddNewRow<IHostedApplicationLayer>();
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(dataSet);
             ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs("SendRequestToNextHandler", routeTransitionContextEventArgs);

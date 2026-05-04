@@ -8,7 +8,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="PocoDataSet.Extensions" Version="2.0.1" />
+    <PackageReference Include="PocoDataSet.Extensions" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -43,7 +43,6 @@ namespace BPUA.InfrastructureServer.DPL
         protected override void AddRequestDataContextValidationRules()
         {
             RequestDataContextValidationRules.Add(new AtLeastOneRowMustExistInDataTable(typeof(IHostedApplicationLayer).Name, ComponentIdentifier));
-            RequestDataContextValidationRules.Add( new AnyNumberOfRowsMayExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.TRANSITION_HANDLER, ComponentIdentifier));
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         protected override void AddResponseDataContextValidationRules()
         {
-            RequestDataContextValidationRules.Add(new OneOnlyRowMustExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.HOST_SUFFIX, ComponentIdentifier));
+            ResponseDataContextValidationRules.Add(new OneOnlyRowMustExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.HOST_SUFFIX, ComponentIdentifier));
         }
 
         /// <summary>

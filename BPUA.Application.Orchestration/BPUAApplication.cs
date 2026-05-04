@@ -95,11 +95,6 @@ namespace BPUA.Application.Orchestration
         public IRequestHandler? GetRequestHandler(string requesthandlerKey)
         {
             IRequestHandler? requestHandler = (IRequestHandler?)ServiceRegistry.GetBPUAService(requesthandlerKey);
-            if (requestHandler != null)
-            {
-                SignInToRequestHandlerRequestServiceEvent(requestHandler);
-            }
-
             return requestHandler;
         }
 
