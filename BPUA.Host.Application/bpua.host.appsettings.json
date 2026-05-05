@@ -1,0 +1,18 @@
+{
+  "$schema": "./bpua.host.appsettings.schema.json",
+  "HostUrl": "http://localhost:5075",
+  "PluginFolder": "PluginFolder",
+  "HostedApplicationLayers":
+  [
+    {
+      "DomainName": "BPUA",
+      "UseCaseName": "InfrastructureServer",
+      "ApplicationLayerName": "DPL"
+    },
+    {
+      "DomainName": "BPUA",
+      "UseCaseName": "InfrastructureServer",
+      "ApplicationLayerName": "DAL"
+    }
+  ]
+}

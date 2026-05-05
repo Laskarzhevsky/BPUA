@@ -124,12 +124,12 @@ namespace BPUA.Application.Orchestration
 
 
         /// <summary>
-        /// Initializes business applications asynchronously
+        /// Initializes hosted application layers
         /// IBPUAApplication interface implementation
         /// </summary>
-        public async Task InitializeBusinessApplicationsAsync()
+        public async Task InitializeHostedApplicationLayers()
         {
-            await HostedApplicationLayersStarter.CreateAndActivateAsync(this);
+            await HostedApplicationLayersInitializer.Initialize(this);
         }
 
         /// <summary>

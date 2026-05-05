@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BPUA Application Configuration",
+  "type": "object",
+  "required": [
+    "HostUrl",
+    "PluginFolder",
+    "HostedApplicationLayers"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path to the JSON schema used for editor validation."
+    },
+    "HostUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Host URL of the BPUA application instance."
+    },
+    "PluginFolder": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to the folder containing dynamically loadable assemblies."
+    },
+    "HostedApplicationLayers": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of application layers hosted by this process.",
+      "items": {
+        "type": "object",
+        "required": [
+          "DomainName",
+          "UseCaseName",
+          "ApplicationLayerName"
+        ],
+        "properties": {
+          "DomainName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "UseCaseName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ApplicationLayerName": {
+            "type": "string",
+            "enum": [
+              "SL",
+              "BL",
+              "DPL",
+              "DAL"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

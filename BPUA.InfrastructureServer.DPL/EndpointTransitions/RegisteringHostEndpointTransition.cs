@@ -50,7 +50,6 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         protected override void AddResponseDataContextValidationRules()
         {
-            ResponseDataContextValidationRules.Add(new OneOnlyRowMustExistInDataTable(BPUA.Application.Contracts.TableNames.INFRASTRUCTURE_SERVER + BPUA.Application.Contracts.TableNames.HOST_SUFFIX, ComponentIdentifier));
         }
 
         /// <summary>

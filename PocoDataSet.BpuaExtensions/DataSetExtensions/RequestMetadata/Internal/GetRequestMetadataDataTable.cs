@@ -18,19 +18,19 @@ namespace PocoDataSet.BpuaExtensions
         /// <returns>Request metadata dta table</returns>
         internal static IDataTable GetRequestMetadataDataTable(this IDataSet? dataSet)
         {
-            if (dataSet == null)
-            {
-                return default!;
-            }
+if (dataSet == null)
+{
+    return default!;
+}
 
-            IDataTable? requestMetadataDataTable = null;
-            dataSet.TryGetTable(BPUA.Application.Contracts.TableNames.REQUEST_METADATA, out requestMetadataDataTable);
-            if (requestMetadataDataTable == null)
-            {
-                requestMetadataDataTable = dataSet.AddNewTableFromPocoInterface(BPUA.Application.Contracts.TableNames.REQUEST_METADATA, typeof(IRequestMetadata));
-            }
+IDataTable? requestMetadataDataTable = null;
+dataSet.TryGetTable(BPUA.Application.Contracts.TableNames.REQUEST_METADATA, out requestMetadataDataTable);
+if (requestMetadataDataTable == null)
+{
+    requestMetadataDataTable = dataSet.AddNewTableFromPocoInterface(BPUA.Application.Contracts.TableNames.REQUEST_METADATA, typeof(IRequestMetadata));
+}
 
-            return requestMetadataDataTable;
+return requestMetadataDataTable;
         }
         #endregion
     }

@@ -34,7 +34,7 @@ namespace BPUA.Application.Boot
                 InitializeAssemblyProcessors();
                 ProcessStaticAssemblies();
                 InitializeUseCaseActivator();
-                await InitializeBusinessApplications();
+                await InitializeHostedApplicationLayers();
             }
             finally
             {

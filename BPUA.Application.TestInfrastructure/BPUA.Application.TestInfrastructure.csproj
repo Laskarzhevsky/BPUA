@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" Version="9.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BPUA.Application.Extensions.Services\BPUA.Application.Extensions.Services.csproj" />
     <ProjectReference Include="..\BPUA.Application.Orchestration\BPUA.Application.Orchestration.csproj" />
   </ItemGroup>

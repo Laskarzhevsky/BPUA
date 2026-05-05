@@ -62,6 +62,7 @@ namespace BPUA.Application.StateMachineComponents
             }
 
             ProcessRequest();
+            await ProcessRequestAsync();
             if (DoNotSendRequestToApplicationNextLayer)
             {
                 FinalizeTransitionContextProcessing();
@@ -157,6 +158,14 @@ namespace BPUA.Application.StateMachineComponents
         /// </summary>
         protected virtual void ProcessRequest()
         {
+        }
+
+        /// <summary>
+        /// Processes request asynchronously
+        /// </summary>
+        protected virtual async Task ProcessRequestAsync()
+        {
+            await Task.CompletedTask;
         }
 
         /// <summary>

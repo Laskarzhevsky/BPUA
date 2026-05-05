@@ -63,7 +63,7 @@
           SkipUnchangedFiles="true" Retries="3" RetryDelayMilliseconds="100" />
 
     <MakeDir Condition="'$(_PluginFolderPath)' != ''"
-              Directories="$(_PluginFolderPath)" />
+  Directories="$(_PluginFolderPath)" />
 
     <Copy Condition="'$(_PluginFolderPath)' != ''"
           SourceFiles="@(UseCaseAssemblies)"

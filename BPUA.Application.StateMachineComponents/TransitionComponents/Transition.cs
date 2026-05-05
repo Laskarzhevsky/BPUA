@@ -64,7 +64,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets BPUA identifier
-        /// IRequestHandler interface implementation
+        /// ITransition interface implementation
         /// </summary>
         public IBPUAIdentifier BpuaIdentifier
         {
@@ -73,7 +73,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets component identifier
-        /// IRequestHandler interface implementation
+        /// ITransition interface implementation
         /// </summary>
         public string ComponentIdentifier
         {
@@ -86,7 +86,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// Gets flag indicating whether the transition is an endpoint in the use case.
         /// It can be called from outside of the use case.
-        /// IRequestHandler interface implementation
+        /// ITransition interface implementation
         /// </summary>
         public bool IsEndpoint
         {
@@ -95,7 +95,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets or sets request data context validation rules
-        /// IRequestHandler interface implementation
+        /// ITransition interface implementation
         /// </summary>
         public DistinctList<IValidationRule> RequestDataContextValidationRules
         {
@@ -104,7 +104,7 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Gets or sets response data context validation rules
-        /// IRequestHandler interface implementation
+        /// ITransition interface implementation
         /// </summary>
         public DistinctList<IValidationRule> ResponseDataContextValidationRules
         {
@@ -161,6 +161,7 @@ namespace BPUA.Application.StateMachineComponents
         public virtual void ProcessResponseTransitionContext(IDataSet responseTransitionContext)
         {
             responseTransitionContext.RemoveLastRequestMetadata();
+            ValidateResponseTransitionContext(responseTransitionContext);
         }
         #endregion
 
@@ -252,6 +253,24 @@ namespace BPUA.Application.StateMachineComponents
             foreach (IValidationRule validationRule in RequestDataContextValidationRules)
             {
                 if (!validationRule.Validate(requestTransitionContext))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Validates response transition context
+        /// </summary>
+        /// <param name="responseTransitionContext">Response transition context</param>
+        /// <returns>True if the data context is valid; otherwise, false.</returns>
+        protected bool ValidateResponseTransitionContext(IDataSet responseTransitionContext)
+        {
+            foreach (IValidationRule validationRule in ResponseDataContextValidationRules)
+            {
+                if (!validationRule.Validate(responseTransitionContext))
                 {
                     return false;
                 }

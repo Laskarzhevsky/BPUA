@@ -18,19 +18,19 @@ namespace PocoDataSet.BpuaExtensions
         /// <returns>Transition metadata data table</returns>
         internal static IDataTable GetTransitionMetadataDataTable(this IDataSet? dataSet)
         {
-            if (dataSet == null)
-            {
-                return default!;
-            }
+if (dataSet == null)
+{
+    return default!;
+}
 
-            IDataTable? transitionMetadataDataTable = null;
-            dataSet.TryGetTable(BPUA.Application.Contracts.TableNames.TRANSITION_METADATA, out transitionMetadataDataTable);
-            if (transitionMetadataDataTable == null)
-            {
-                transitionMetadataDataTable = dataSet.AddNewTableFromPocoInterface(BPUA.Application.Contracts.TableNames.TRANSITION_METADATA, typeof(ITransitionMetadata));
-            }
+IDataTable? transitionMetadataDataTable = null;
+dataSet.TryGetTable(BPUA.Application.Contracts.TableNames.TRANSITION_METADATA, out transitionMetadataDataTable);
+if (transitionMetadataDataTable == null)
+{
+    transitionMetadataDataTable = dataSet.AddNewTableFromPocoInterface(BPUA.Application.Contracts.TableNames.TRANSITION_METADATA, typeof(ITransitionMetadata));
+}
 
-            return transitionMetadataDataTable;
+return transitionMetadataDataTable;
         }
         #endregion
     }

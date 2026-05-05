@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/Applications/" />
+  <Folder Name="/Applications/BpuaHost/">
+    <Project Path="BPUA.Host.Application/BPUA.Host.Application.csproj" />
+  </Folder>
   <Folder Name="/Applications/BpuaInfrastructureServer/">
     <Project Path="BPUA.InfrastructureServer.BL/BPUA.InfrastructureServer.BL.csproj" Id="0760aba1-1bde-486d-8a92-788c35197ad9" />
     <Project Path="BPUA.InfrastructureServer.Contracts/BPUA.InfrastructureServer.Contracts.csproj" Id="e40c0835-4fb6-4f68-8b36-15cf58842296" />

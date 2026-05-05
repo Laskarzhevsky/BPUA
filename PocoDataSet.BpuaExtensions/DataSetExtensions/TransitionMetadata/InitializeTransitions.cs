@@ -19,18 +19,18 @@ namespace PocoDataSet.BpuaExtensions
         /// <param name="dataSet">Data set</param>
         public static void InitializeTransitions(this IDataSet? dataSet)
         {
-            if (dataSet == null)
-            {
-                return;
-            }
+if (dataSet == null)
+{
+    return;
+}
 
-            IDataTable transitionMetadataDataTable = GetTransitionMetadataDataTable(dataSet);
-            List<ITransitionMetadata> transitionMetadataList = transitionMetadataDataTable.ToList<ITransitionMetadata>();
-            for (int i = 0; i < transitionMetadataList.Count; i++)
-            {
-                ITransitionMetadata transitionMetadata = transitionMetadataList[i];
-                transitionMetadata.Available = true;
-            }
+IDataTable transitionMetadataDataTable = GetTransitionMetadataDataTable(dataSet);
+List<ITransitionMetadata> transitionMetadataList = transitionMetadataDataTable.ToList<ITransitionMetadata>();
+for (int i = 0; i < transitionMetadataList.Count; i++)
+{
+    ITransitionMetadata transitionMetadata = transitionMetadataList[i];
+    transitionMetadata.Available = true;
+}
         }
         #endregion
     }

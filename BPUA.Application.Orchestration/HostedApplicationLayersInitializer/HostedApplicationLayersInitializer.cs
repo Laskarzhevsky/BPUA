@@ -9,26 +9,27 @@ using System.Threading.Tasks;
 namespace BPUA.Application.Orchestration
 {
     /// <summary>
-    /// Provides functionality to prepare application startup transitions from configuration.
+    /// Provides hosted application layers initializer functionality
     /// </summary>
-    public static class HostedApplicationLayersStarter
+    public static partial class HostedApplicationLayersInitializer
     {
         #region Public Methods
         /// <summary>
-        /// Reads configured application startup transitions, creates BPUA identifiers for them,
-        /// activates corresponding use cases, and returns created identifiers.
+        /// Initializes hosted application layers
         /// </summary>
         /// <param name="configuration">Application configuration</param>
         /// <param name="bpuaApplication">BPUA application instance</param>
-        public static async Task CreateAndActivateAsync(IBPUAApplication bpuaApplication)
+        public static async Task Initialize(IBPUAApplication bpuaApplication)
         {
+            HostUrl = ConfigurationReader.GetRequiredValue(bpuaApplication, "HostUrl");
+
             IConfigurationSection hostedApplicationLayersSection = bpuaApplication.ApplicationConfiguration.GetSection("HostedApplicationLayers");
             if (!hostedApplicationLayersSection.Exists())
             {
                 return;
             }
 
-            RegisterHostedApplicationLayers(bpuaApplication, hostedApplicationLayersSection);
+            RegisterHostedApplicationLayers(bpuaApplication, hostedApplicationLayersSection, HostUrl);
             await ActivateHostedApplicationLayers(bpuaApplication, hostedApplicationLayersSection);
         }
         #endregion
@@ -60,46 +61,12 @@ namespace BPUA.Application.Orchestration
         {
             BPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
 
-            bpuaIdentifier.DomainName = GetRequiredValue(startupTransitionSection, "DomainName");
-            bpuaIdentifier.UseCaseName = GetRequiredValue(startupTransitionSection, "UseCaseName");
-            bpuaIdentifier.ApplicationLayerName = GetRequiredValue(startupTransitionSection, "ApplicationLayerName");
-            bpuaIdentifier.StateName = GetOptionalValue(startupTransitionSection, "StateName");
+            bpuaIdentifier.DomainName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "DomainName");
+            bpuaIdentifier.UseCaseName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "UseCaseName");
+            bpuaIdentifier.ApplicationLayerName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "ApplicationLayerName");
+            bpuaIdentifier.StateName = ConfigurationReader.GetOptionalValue(startupTransitionSection, "StateName");
 
             return bpuaIdentifier;
-        }
-
-        /// <summary>
-        /// Gets optional configuration value.
-        /// </summary>
-        /// <param name="section">Configuration section</param>
-        /// <param name="key">Configuration key</param>
-        /// <returns>Configuration value or empty string</returns>
-        static string GetOptionalValue(IConfigurationSection section, string key)
-        {
-            string? value = section[key];
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return string.Empty;
-            }
-
-            return value;
-        }
-
-        /// <summary>
-        /// Gets required configuration value.
-        /// </summary>
-        /// <param name="section">Configuration section</param>
-        /// <param name="key">Configuration key</param>
-        /// <returns>Configuration value</returns>
-        static string GetRequiredValue(IConfigurationSection section, string key)
-        {
-            string? value = section[key];
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new InvalidOperationException("Required configuration value '" + key + "' is missing in HostedApplicationLayers.");
-            }
-
-            return value;
         }
 
         /// <summary>
@@ -107,18 +74,20 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="bpuaApplication">BPUA application instance</param>
         /// <param name="hostedApplicationLayersSection">Configuration section for hosted application layers</param>
-        static void RegisterHostedApplicationLayers(IBPUAApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection)
+        /// <param name="hostUrl">Host URL</param>
+        static void RegisterHostedApplicationLayers(IBPUAApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection, string hostUrl)
         {
-            foreach (IConfigurationSection startupTransitionSection in hostedApplicationLayersSection.GetChildren())
+            foreach (IConfigurationSection configuredHostedApplicationLayer in hostedApplicationLayersSection.GetChildren())
             {
-                IBPUAIdentifier bpuaIdentifier = CreateIdentifier(startupTransitionSection);
+                IBPUAIdentifier bpuaIdentifier = CreateIdentifier(configuredHostedApplicationLayer);
                 string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
                 HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
                 hostedApplicationLayer.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
                 hostedApplicationLayer.DomainName = bpuaIdentifier.DomainName;
                 hostedApplicationLayer.UseCaseName = bpuaIdentifier.UseCaseName;
+                hostedApplicationLayer.HostUrl = hostUrl;
 
-                string? isApplicationUseCaseLayer = GetOptionalValue(startupTransitionSection, "IsApplicationUseCaseLayer");
+                string? isApplicationUseCaseLayer = ConfigurationReader.GetOptionalValue(configuredHostedApplicationLayer, "IsApplicationUseCaseLayer");
                 if (!string.IsNullOrWhiteSpace(isApplicationUseCaseLayer) && bool.TryParse(isApplicationUseCaseLayer, out bool isApplicationUseCaseLayerValue))
                 {
                     hostedApplicationLayer.IsApplicationUseCaseLayer = isApplicationUseCaseLayerValue;

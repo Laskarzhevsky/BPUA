@@ -29,9 +29,9 @@ namespace BPUA.InfrastructureServer.Tests
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
             stringBuilder.AppendLine("      \"UseCaseName\": \"InfrastructureServer\",");
             stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\"");
-//            stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\",");
-//            stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
-//            stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
+            //stringBuilder.AppendLine("      \"ApplicationLayerName\": \"SL\",");
+            //stringBuilder.AppendLine("      \"StateName\": \"WaitingForApplicationLoad\",");
+            //stringBuilder.AppendLine("      \"IsApplicationUseCaseLayer\": \"true\"");
             stringBuilder.AppendLine("    },");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("      \"DomainName\": \"BPUA\",");
@@ -75,20 +75,20 @@ namespace BPUA.InfrastructureServer.Tests
                 switch (applicationLayerName)
                 {
                     case ApplicationLayersNames.SL:
-                        foundSL = true;
-                        break;
+            foundSL = true;
+            break;
                     case ApplicationLayersNames.BL:
-                        foundBL = true;
-                        break;
+            foundBL = true;
+            break;
                     case ApplicationLayersNames.DPL:
-                        foundDPL = true;
-                        break;
+            foundDPL = true;
+            break;
                     case ApplicationLayersNames.DAL:
-                        foundDAL = true;
-                        break;
+            foundDAL = true;
+            break;
                     default:
-                        Assert.Fail($"Unexpected application layer name: {applicationLayerName}");
-                        break;
+            Assert.Fail($"Unexpected application layer name: {applicationLayerName}");
+            break;
                 }
 
                 Assert.Equal("BPUA", hostedApplicationLayer.DomainName);

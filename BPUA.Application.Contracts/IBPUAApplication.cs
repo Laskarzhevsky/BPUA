@@ -41,9 +41,9 @@ namespace BPUA.Application.Contracts
         void Initialize(IConfiguration applicationConfiguration, string pathToFolderWithDynamicAssemblies);
 
         /// <summary>
-        /// Initializes business applications asynchronously
+        /// Initializes hosted application layers
         /// </summary>
-        Task InitializeBusinessApplicationsAsync();
+        Task InitializeHostedApplicationLayers();
 
         /// <summary>
         /// Gets flag indicating whether use case activated

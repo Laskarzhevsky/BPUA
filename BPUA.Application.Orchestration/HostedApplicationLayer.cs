@@ -9,21 +9,38 @@ namespace BPUA.Application.Orchestration
     {
         #region Public Properties
         /// <summary>
+        /// Gets or sets application layer full name
+        /// </summary>
+        public string? ApplicationLayerFullName
+        {
+get; set;
+        }
+
+        /// <summary>
         /// Gets or sets application layer name
         /// IHostedApplicationLayer interface implementation
         /// </summary>
-        public string ApplicationLayerName
+        public string? ApplicationLayerName
         {
-            get; set;
-        } = default!;
+get; set;
+        }
 
         /// <summary>
         /// Gets or sets domain name
         /// IHostedApplicationLayer interface implementation
         /// </summary>
-        public string DomainName
+        public string? DomainName
         {
-            get; set;
+get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets host URL for the hosted application layer.
+        /// This is the URL on which the hosted application layer is accessible by remote hosts (callers).
+        /// </summary>
+        public string? HostUrl
+        {
+get; set;
         }
 
         /// <summary>
@@ -32,18 +49,18 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         public bool IsApplicationUseCaseLayer
         {
-            get; set;
-        } = default!;
+get; set;
+        }
 
         /// <summary>
         /// Gets or sets use case name
         /// IHostedApplicationLayer interface implementation
         /// </summary>
-        public string UseCaseName
+        public string? UseCaseName
         {
-            get;
-            set;
-        } = default!;
+get;
+set;
+        }
         #endregion
     }
 }

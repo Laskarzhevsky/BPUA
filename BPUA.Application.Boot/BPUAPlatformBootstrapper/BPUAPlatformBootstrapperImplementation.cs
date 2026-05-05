@@ -38,12 +38,12 @@ namespace BPUA.Application.Boot
         }
 
         /// <summary>
-        /// Initializes business applications
+        /// Initializes hosted application layers
         /// </summary>
-        async Task InitializeBusinessApplications()
+        async Task InitializeHostedApplicationLayers()
         {
             IBPUAApplication application = BPUAApplication.GetInstance();
-            await application.InitializeBusinessApplicationsAsync();
+            await application.InitializeHostedApplicationLayers();
         }
 
         /// <summary>
