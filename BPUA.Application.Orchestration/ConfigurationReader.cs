@@ -15,7 +15,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="section">Configuration section</param>
         /// <param name="key">Configuration key</param>
         /// <returns>Configuration value or empty string</returns>
-        public static string GetOptionalValue(IBPUAApplication bpuaApplication, string key)
+        public static string? GetOptionalValue(IBPUAApplication bpuaApplication, string key)
         {
             IConfigurationSection section = bpuaApplication.ApplicationConfiguration.GetSection(key);
             string? value = GetOptionalValue(section, key);
@@ -29,12 +29,20 @@ namespace BPUA.Application.Orchestration
         /// <param name="section">Configuration section</param>
         /// <param name="key">Configuration key</param>
         /// <returns>Configuration value or empty string</returns>
-        public static string GetOptionalValue(IConfigurationSection section, string key)
+        public static string? GetOptionalValue(IConfigurationSection section, string key)
         {
-            string? value = section[key];
-            if (string.IsNullOrWhiteSpace(value))
+            string? value;
+            if (string.IsNullOrWhiteSpace(key))
             {
-                return string.Empty;
+                value = section.Value;
+            }
+            else if (string.Equals(section.Key, key, StringComparison.Ordinal))
+            {
+                value = section.Value;
+            }
+            else
+            {
+                value = section[key];
             }
 
             return value;
@@ -60,12 +68,25 @@ namespace BPUA.Application.Orchestration
         /// <param name="section">Configuration section</param>
         /// <param name="key">Configuration key</param>
         /// <returns>Configuration value</returns>
-        public static string GetRequiredValue(IConfigurationSection section, string key)
+        public static string GetRequiredValue(IConfigurationSection section, string? key = null)
         {
-            string? value = section[key];
+            string? value;
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                value = section.Value;
+            }
+            else if (string.Equals(section.Key, key, StringComparison.Ordinal))
+            {
+                value = section.Value;
+            }
+            else
+            {
+                value = section[key];
+            }
+
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new InvalidOperationException("Required configuration value '" + key + "' is missing in HostedApplicationLayers.");
+                throw new InvalidOperationException("Required configuration value is missing.");
             }
 
             return value;

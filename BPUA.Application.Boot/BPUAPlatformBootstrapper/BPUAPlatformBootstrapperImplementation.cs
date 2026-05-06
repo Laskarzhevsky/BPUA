@@ -98,7 +98,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void LoadApplicationConfiguration()
         {
-            ApplicationConfiguration = AssemblyLoadingProcessConfigurator.LoadApplicationConfiguration();
+            ApplicationConfiguration = AssemblyLoadingProcessConfigurator.LoadApplicationConfiguration(PathToFolderWithExecutableFile);
         }
 
         /// <summary>

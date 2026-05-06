@@ -33,7 +33,6 @@ namespace BPUA.Application.TestInfrastructure
         public TestBootstrapEnvironmentScope(string appSettingsJson, string? aspNetCoreEnvironementName = null, string? environmentSpecificJson = null, string? appSettingsSchemaJson = null)
         {
             InitializeComponent(appSettingsJson, aspNetCoreEnvironementName, environmentSpecificJson, appSettingsSchemaJson);
-            ValidateAppSettingsAgainstSchema();
             WriteAppSettingsAndSchemaIntoTestEnvironmentFolder();
             ConfigureAspNetCoreEnvironment();
 

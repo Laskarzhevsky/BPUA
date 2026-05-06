@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 using Microsoft.Extensions.Configuration;
@@ -11,11 +11,14 @@ namespace BPUA.Application.Boot
         /// <summary>
         /// Loads application configuration
         /// </summary>
+        /// <param name="pathToFolderWithExecutableFile">Path to folder with executable file</param>
         /// <returns>Application configuration</returns>
-        public static IConfiguration LoadApplicationConfiguration()
+        public static IConfiguration LoadApplicationConfiguration(string pathToFolderWithExecutableFile)
         {
+            AppSettingsSchemaValidator.ValidateAppSettingsAgainstSchema(pathToFolderWithExecutableFile, "appsettings.json");
+
             return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(pathToFolderWithExecutableFile)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
                 .AddEnvironmentVariables()
@@ -42,8 +45,10 @@ namespace BPUA.Application.Boot
                 pluginPath = Path.Combine(pathToFolderWithExecutableFile, pluginPath);
             }
 
-            Console.WriteLine("PathToFolderWithDynamicAssemblies: " + pluginPath);
-            return Path.GetFullPath(pluginPath);
+            string pathToFolderWithDynamicAssemblies = Path.GetFullPath(pluginPath);
+            Console.WriteLine("PathToFolderWithDynamicAssemblies: " + pathToFolderWithDynamicAssemblies);
+
+            return pathToFolderWithDynamicAssemblies;
         }
         #endregion
     }
