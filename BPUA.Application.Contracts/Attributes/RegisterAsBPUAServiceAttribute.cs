@@ -6,14 +6,14 @@ namespace BPUA.Application.Contracts
     /// Marks a class as BPUA service to be auto-registered with BPUA application
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class RegisterAsBPUAServiceAttribute : Attribute
+    public sealed class RegisterAsBpuaServiceAttribute : Attribute
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
         /// <param name="serviceTypeKey">Service type key</param>
-        public RegisterAsBPUAServiceAttribute(string? serviceTypeKey = null)
+        public RegisterAsBpuaServiceAttribute(string? serviceTypeKey = null)
         {
             ServiceTypeKey = serviceTypeKey;
         }

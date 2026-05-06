@@ -1,3 +1,3 @@
 ﻿using BPUA.Application.Contracts;
 
-[assembly: RegisterAsBPUAServiceAssembly]
+[assembly: RegisterAsBpuaServiceAssembly]

@@ -55,10 +55,10 @@ namespace BPUA.InfrastructureServer.Tests
 
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
-            BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            await bootstrapper.BootBPUAPlatform(scope.RootPath);
+            BpuaPlatformBootstrapper bootstrapper = new BpuaPlatformBootstrapper();
+            await bootstrapper.BootBpuaPlatform(scope.RootPath);
 
-            IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
+            IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
 
             IEnumerable<HostedApplicationLayer> hostedApplicationLayers = bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>();
             List<HostedApplicationLayer> hostedApplicationLayersList = new List<HostedApplicationLayer>(hostedApplicationLayers);

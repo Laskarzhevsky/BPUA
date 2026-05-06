@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BPUA.Application.StateMachineComponents
 {
-    public abstract class RequestHandler : AsyncDisposableObject, IRequestHandler, IBPUAService
+    public abstract class RequestHandler : AsyncDisposableObject, IRequestHandler, IBpuaService
     {
         #region Events
         /// <summary>
@@ -38,11 +38,11 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="transitionName">Transition name</param>
         public RequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string? transitionName = null)
         {
-            BpuaIdentifier.DomainName = domainName;
-            BpuaIdentifier.UseCaseName = useCaseName;
-            BpuaIdentifier.ApplicationLayerName = applicationLayerName;
-            BpuaIdentifier.StateName = stateName;
-            BpuaIdentifier.TransitionName = transitionName;
+            BpuIdentifier.DomainName = domainName;
+            BpuIdentifier.UseCaseName = useCaseName;
+            BpuIdentifier.ApplicationLayerName = applicationLayerName;
+            BpuIdentifier.StateName = stateName;
+            BpuIdentifier.TransitionName = transitionName;
         }
         #endregion
 
@@ -83,10 +83,10 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Initializes component
-        /// IBPUAService interface implementation
+        /// IBpuaService interface implementation
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public virtual async Task InitializeComponent(IBPUAApplication bppApplication)
+        public virtual async Task InitializeComponent(IBpuaApplication bppApplication)
         {
         }
 
@@ -113,19 +113,19 @@ namespace BPUA.Application.StateMachineComponents
         /// Gets or sets BPUA application
         /// IRequestHandler interface implementation
         /// </summary>
-        public IBPUAApplication BPUAApplication
+        public IBpuaApplication BpuaApplication
         {
             get; set;
         } = default!;
 
         /// <summary>
-        /// Gets BPUA identifier
+        /// Gets BPU identifier
         /// IRequestHandler interface implementation
         /// </summary>
-        public IBPUAIdentifier BpuaIdentifier
+        public IBpuIdentifier BpuIdentifier
         {
             get; private set;
-        } = new BPUAIdentifier();
+        } = new BpuIdentifier();
 
         /// <summary>
         /// Gets or sets transition context
@@ -264,7 +264,7 @@ namespace BPUA.Application.StateMachineComponents
         protected override void ReleaseResources()
         {
             ServiceRequestEvent = null;
-            BPUAApplication = default!;
+            BpuaApplication = default!;
             TransitionContext = null;
         }
         #endregion

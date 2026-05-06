@@ -6,7 +6,7 @@ namespace BPUA.InfrastructureServer.DPL
     /// <summary>
     /// RegisteringHost service handler
     /// </summary>
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public partial class RegisteringHostServiceHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicTransitionHandler
     {
         #region Identification

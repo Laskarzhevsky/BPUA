@@ -9,14 +9,14 @@ namespace BPUA.Application.Boot
     /// <summary>
     /// Provides BPUA platform bootstrapper functionality
     /// </summary>
-    public sealed partial class BPUAPlatformBootstrapper
+    public sealed partial class BpuaPlatformBootstrapper
     {
         #region Public Methods
         /// <summary>
         /// Boots BPUA platform
         /// </summary>
         /// <param name="pathToFolderWithExecutableFile">Path to folder with excutable file</param>
-        public async Task BootBPUAPlatform(string pathToFolderWithExecutableFile)
+        public async Task BootBpuaPlatform(string pathToFolderWithExecutableFile)
         {
             ThrowIfAlreadyBootstrapped();
             ValidatePathToFolderWithExecutableFile(pathToFolderWithExecutableFile);
@@ -46,10 +46,10 @@ namespace BPUA.Application.Boot
         /// <summary>
         /// Gets list of assembly processors
         /// </summary>
-        public List<IBPUAAssemblyProcessor> ListOfAssemblyProcessors
+        public List<IBpuaAssemblyProcessor> ListOfAssemblyProcessors
         {
             get; set;
-        } = new List<IBPUAAssemblyProcessor>();
+        } = new List<IBpuaAssemblyProcessor>();
 
         /// <summary>
         /// Gets or sets list of loaded assemblies

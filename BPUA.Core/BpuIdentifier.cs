@@ -1,38 +1,38 @@
 ﻿namespace BPUA.Core
 {
     /// <summary>
-    /// Defines BPUA identifier
+    /// Defines BPU identifier
     /// </summary>
-    public class BPUAIdentifier : IBPUAIdentifier
+    public class BpuIdentifier : IBpuIdentifier
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BPUAIdentifier()
+        public BpuIdentifier()
         {
         }
 
         /// <summary>
-        /// Creates instance of BPUA identifier string representation
+        /// Creates instance of BPU identifier string representation
         /// </summary>
-        /// <param name="bpuaIdentifierStringRepresentation">BPUA identifier string representation</param>
-        public BPUAIdentifier(string bpuaIdentifierStringRepresentation)
+        /// <param name="bpuIdentifierStringRepresentation">BPU identifier string representation</param>
+        public BpuIdentifier(string bpuIdentifierStringRepresentation)
         {
-            string[] bpuaIdentifierPats = bpuaIdentifierStringRepresentation.Split('_');
-            DomainName = bpuaIdentifierPats[0];
-            UseCaseName = bpuaIdentifierPats[1];
-            ApplicationLayerName = bpuaIdentifierPats[2];
-            StateName = bpuaIdentifierPats[3];
+            string[] bpuIdentifierPats = bpuIdentifierStringRepresentation.Split('_');
+            DomainName = bpuIdentifierPats[0];
+            UseCaseName = bpuIdentifierPats[1];
+            ApplicationLayerName = bpuIdentifierPats[2];
+            StateName = bpuIdentifierPats[3];
 
-            if (bpuaIdentifierPats.Length > 4)
+            if (bpuIdentifierPats.Length > 4)
             {
-                TransitionName = bpuaIdentifierPats[4];
+                TransitionName = bpuIdentifierPats[4];
             }
         }
 
         /// <summary>
-        /// Creates instance of BPUA identifier from metadata
+        /// Creates instance of BPU identifier from metadata
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
@@ -41,7 +41,7 @@
         /// <param name="transitionName">Transition name</param>
         /// <param name="breadcrumbs">Breadcrumbs string</param>
         /// <param name="requestName">Request name</param>
-        public BPUAIdentifier(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null, string? requestName = null)
+        public BpuIdentifier(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs = null, string? requestName = null)
         {
             DomainName = domainName;
             UseCaseName = useCaseName;
@@ -55,30 +55,30 @@
 
         #region Public Methods
         /// <summary>
-        /// Clones BPUA identifier
-        /// IBPUAIdentifier interface implementation
+        /// Clones BPU identifier
+        /// IBpuIdentifier interface implementation
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier to clone</param>
-        /// <returns>Cloned BPUA identifier</returns>
-        public IBPUAIdentifier Clone(IBPUAIdentifier bpuaIdentifier)
+        /// <param name="bpuIdentifier">BPU identifier to clone</param>
+        /// <returns>Cloned BPU identifier</returns>
+        public IBpuIdentifier Clone(IBpuIdentifier bpuIdentifier)
         {
-            IBPUAIdentifier clonedBpuaIdentifier = new BPUAIdentifier();
+            IBpuIdentifier clonedBpuIdentifier = new BpuIdentifier();
 
-            clonedBpuaIdentifier.DomainName = DomainName;
-            clonedBpuaIdentifier.UseCaseName = UseCaseName;
-            clonedBpuaIdentifier.ApplicationLayerName = ApplicationLayerName;
-            clonedBpuaIdentifier.StateName = StateName;
-            clonedBpuaIdentifier.TransitionName = TransitionName;
-            clonedBpuaIdentifier.Breadcrumbs = Breadcrumbs;
-            clonedBpuaIdentifier.RequestName = RequestName;
+            clonedBpuIdentifier.DomainName = DomainName;
+            clonedBpuIdentifier.UseCaseName = UseCaseName;
+            clonedBpuIdentifier.ApplicationLayerName = ApplicationLayerName;
+            clonedBpuIdentifier.StateName = StateName;
+            clonedBpuIdentifier.TransitionName = TransitionName;
+            clonedBpuIdentifier.Breadcrumbs = Breadcrumbs;
+            clonedBpuIdentifier.RequestName = RequestName;
 
-            return clonedBpuaIdentifier;
+            return clonedBpuIdentifier;
         }
 
         /// <summary>
-        /// Returns string representation of BPUA identifier
+        /// Returns string representation of BPU identifier
         /// </summary>
-        /// <returns>String representation of BPUA identifier</returns>
+        /// <returns>String representation of BPU identifier</returns>
         public override string? ToString()
         {
             return $"DomainName: {DomainName}, UseCaseName: {UseCaseName}, ApplicationLayerName: {ApplicationLayerName}, StateName: {StateName}, TransitionName: {TransitionName}";
@@ -88,7 +88,7 @@
         #region Properties
         /// <summary>
         /// Gets or sets application layer name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? ApplicationLayerName
         {
@@ -97,7 +97,7 @@
 
         /// <summary>
         /// Gets or sets breadcrumbs
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? Breadcrumbs
         {
@@ -106,7 +106,7 @@
 
         /// <summary>
         /// Gets or sets domain name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? DomainName
         {
@@ -115,7 +115,7 @@
 
         /// <summary>
         /// Gets or sets request name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? RequestName
         {
@@ -124,7 +124,7 @@
 
         /// <summary>
         /// Gets or sets state name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? StateName
         {
@@ -134,7 +134,7 @@
 
         /// <summary>
         /// Gets or sets transition name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? TransitionName
         {
@@ -144,7 +144,7 @@
 
         /// <summary>
         /// Gets or sets application layer name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? UseCaseName
         {

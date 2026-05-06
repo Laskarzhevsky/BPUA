@@ -29,37 +29,37 @@ if (requestMetadataDataTable.Rows.Count > 0)
     IRequestMetadata? currentRequestMetadata = dataSet.GetCurrentRequestMetadata();
 
     // Copy current request metadata
-    BPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
-    bpuaIdentifier.ApplicationLayerName = currentRequestMetadata!.ApplicationLayerName;
-    bpuaIdentifier.DomainName = currentRequestMetadata.DomainName;
-    bpuaIdentifier.StateName = currentRequestMetadata.StateName;
-    bpuaIdentifier.TransitionName = currentRequestMetadata.TransitionName;
-    bpuaIdentifier.UseCaseName = currentRequestMetadata.UseCaseName;
+    BpuIdentifier bpuIdentifier = new BpuIdentifier();
+    bpuIdentifier.ApplicationLayerName = currentRequestMetadata!.ApplicationLayerName;
+    bpuIdentifier.DomainName = currentRequestMetadata.DomainName;
+    bpuIdentifier.StateName = currentRequestMetadata.StateName;
+    bpuIdentifier.TransitionName = currentRequestMetadata.TransitionName;
+    bpuIdentifier.UseCaseName = currentRequestMetadata.UseCaseName;
 
     dataSet.RemoveRow(BPUA.Application.Contracts.TableNames.REQUEST_METADATA, requestMetadataDataTable.Rows.Count - 1);
 
     // Propagate current use case matadata to previous for BL layer
-    if (bpuaIdentifier.ApplicationLayerName == ApplicationLayersNames.BL)
+    if (bpuIdentifier.ApplicationLayerName == ApplicationLayersNames.BL)
     {
         currentRequestMetadata = dataSet!.GetCurrentRequestMetadata();
-        if (currentRequestMetadata!.DomainName != bpuaIdentifier.DomainName)
+        if (currentRequestMetadata!.DomainName != bpuIdentifier.DomainName)
         {
-currentRequestMetadata.DomainName = bpuaIdentifier.DomainName;
+currentRequestMetadata.DomainName = bpuIdentifier.DomainName;
         }
 
-        if (currentRequestMetadata.StateName != bpuaIdentifier.StateName)
+        if (currentRequestMetadata.StateName != bpuIdentifier.StateName)
         {
-currentRequestMetadata.StateName = bpuaIdentifier.StateName;
+currentRequestMetadata.StateName = bpuIdentifier.StateName;
         }
 
-        if (currentRequestMetadata.TransitionName != bpuaIdentifier.TransitionName)
+        if (currentRequestMetadata.TransitionName != bpuIdentifier.TransitionName)
         {
-currentRequestMetadata.TransitionName = bpuaIdentifier.TransitionName;
+currentRequestMetadata.TransitionName = bpuIdentifier.TransitionName;
         }
 
-        if (currentRequestMetadata.UseCaseName != bpuaIdentifier.UseCaseName)
+        if (currentRequestMetadata.UseCaseName != bpuIdentifier.UseCaseName)
         {
-currentRequestMetadata.UseCaseName = bpuaIdentifier.UseCaseName;
+currentRequestMetadata.UseCaseName = bpuIdentifier.UseCaseName;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BPUA.Application.Boot
         /// <param name="listOfLoadedAssemblies">List of loaded assemblies.</param>
         /// <param name="listOfAssemblyProcessors">List of assembly processors.</param>
         /// <returns>The loaded assembly, or null when the file could not be loaded or was not eligible.</returns>
-        public Assembly? LoadDynamicAssembly(string pathToDynamicAssembly, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
+        public Assembly? LoadDynamicAssembly(string pathToDynamicAssembly, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBpuaAssemblyProcessor> listOfAssemblyProcessors)
         {
             InitializeComponent(string.Empty, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
             PathToDynamicAssembly = pathToDynamicAssembly;
@@ -66,7 +66,7 @@ namespace BPUA.Application.Boot
         /// <param name="listOfAssemblyProcessors">List of assembly processors.</param>
         /// <returns>List of loaded dynamic assemblies.</returns>
         [Obsolete("Use LoadDynamicAssembly for on-demand loading by identifier.")]
-        public List<Assembly> LoadDynamicAssemblies(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
+        public List<Assembly> LoadDynamicAssemblies(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBpuaAssemblyProcessor> listOfAssemblyProcessors)
         {
             InitializeComponent(pathToFolderWithDynamicAssemblies, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
 
@@ -74,7 +74,7 @@ namespace BPUA.Application.Boot
             AddStaticAssemblyProcessorToListOfAssemblyProcessors();
             foreach (Assembly assembly in listOfLoadedAssemblies)
             {
-                foreach (IBPUAAssemblyProcessor bpuaAssemblyProcessor in ListOfAssemblyProcessors)
+                foreach (IBpuaAssemblyProcessor bpuaAssemblyProcessor in ListOfAssemblyProcessors)
                 {
                     bpuaAssemblyProcessor.Process(assembly, serviceRegistry);
                 }

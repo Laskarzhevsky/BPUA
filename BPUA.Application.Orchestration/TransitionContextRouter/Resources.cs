@@ -12,9 +12,9 @@ namespace BPUA.Application.Orchestration
     {
         #region Private Properties
         /// <summary>
-        /// Gets or sets the BPUA identifier
+        /// Gets or sets the BPU identifier
         /// </summary>
-        IBPUAIdentifier BpuaIdentifier
+        IBpuIdentifier BpuIdentifier
         {
             get; set;
         } = default!;
@@ -58,7 +58,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         protected override void ReleaseResources()
         {
-            BpuaIdentifier = default!;
+            BpuIdentifier = default!;
             RequestTransitionContext = default!;
             ResponseTransitionContext = default!;
             Transition = default!;

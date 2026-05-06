@@ -123,10 +123,10 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Tries to get registered transition type
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
         /// <param name="registeredTransitionType">Registered transition type</param>
         /// <returns>True if type retreived successfully, otherwise False</returns>
-        bool TryGetRegisteredTransitionType(IBPUAIdentifier bpuaIdentifier, out Type registeredTransitionType);
+        bool TryGetRegisteredTransitionType(IBpuIdentifier bpuIdentifier, out Type registeredTransitionType);
 
         /// <summary>
         /// Tries to get registered type

@@ -9,7 +9,7 @@ namespace BPUA.Application.Orchestration
 {
     /// <summary>
     /// Dispatches events (instances of <see cref="EventArgs"/>) to all registered
-    /// <see cref="BPUAService{TEventArgs}"/> handlers in the service registry.
+    /// <see cref="BpuaService{TEventArgs}"/> handlers in the service registry.
     /// </summary>
     /// <remarks>
     /// This dispatcher:
@@ -19,7 +19,7 @@ namespace BPUA.Application.Orchestration
     ///   <item><description>Matches handlers to events based on generic type compatibility.</description></item>
     /// </list>
     /// </remarks>
-    public static class BPUAEventDispatcher
+    public static class BpuaEventDispatcher
     {
         #region Public Methods
         /// <summary>
@@ -31,14 +31,14 @@ namespace BPUA.Application.Orchestration
         /// <returns>A task that completes once all handlers have processed the event.</returns>
         public static async Task Dispatch<TEvent>(TEvent e, IServiceRegistry serviceRegistry) where TEvent : EventArgs
         {
-            IBPUAApplication app = BPUAApplication.GetInstance();
+            IBpuaApplication app = BpuaApplication.GetInstance();
 
             // Enumerate all registered types
             IEnumerable<KeyValuePair<string, Type>> allTypes = serviceRegistry.EnumerateTypesByPrefix(string.Empty);
             foreach (KeyValuePair<string, Type> kv in allTypes)
             {
                 Type serviceType = kv.Value;
-                if (!typeof(IBPUAService).IsAssignableFrom(serviceType))
+                if (!typeof(IBpuaService).IsAssignableFrom(serviceType))
                 {
                     continue;
                 }
@@ -48,7 +48,7 @@ namespace BPUA.Application.Orchestration
                     continue;
                 }
 
-                IBPUAService? handler = Activator.CreateInstance(serviceType) as IBPUAService;
+                IBpuaService? handler = Activator.CreateInstance(serviceType) as IBpuaService;
                 if (handler == null)
                 {
                     continue;
@@ -76,7 +76,7 @@ namespace BPUA.Application.Orchestration
 
         #region Methods
         /// <summary>
-        /// Determines whether a type inherits from <see cref="BPUAService{TEventArgs}"/>
+        /// Determines whether a type inherits from <see cref="BpuaService{TEventArgs}"/>
         /// with a generic argument compatible with <typeparamref name="TEvent"/>.
         /// </summary>
         static bool InheritsBpuAServiceOf<TEvent>(Type type)
@@ -84,7 +84,7 @@ namespace BPUA.Application.Orchestration
             Type? t = type;
             while (t != null && t != typeof(object))
             {
-                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(BPUAService<>))
+                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(BpuaService<>))
                 {
                     Type[] args = t.GetGenericArguments();
                     return typeof(TEvent).IsAssignableFrom(args[0]);

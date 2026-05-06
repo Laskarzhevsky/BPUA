@@ -17,12 +17,12 @@ namespace BPUA.Application.Orchestration
     {
         #region Private Methods
         /// <summary>
-        /// Checks if the use case specified in the BPUA identifier is activated, and if not, activates it
+        /// Checks if the use case specified in the BPU identifier is activated, and if not, activates it
         /// </summary>
         /// <returns>True if the use case is activated; otherwise, false.</returns>
         async Task<bool> UseCaseActivated()
         {
-            UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)BpuaApplication!).ActivateUseCaseAsync(BpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await ((BpuaApplication)BpuaApplication!).ActivateUseCaseAsync(BpuIdentifier);
             return useCaseActivationResult.Succeeded;
         }
         #endregion

@@ -9,16 +9,16 @@ namespace BPUA.Application.Extensions.Services
     /// <summary>
     /// Provides BPUA service locator functionality
     /// </summary>
-    public static class BPUAServiceLocator
+    public static class BpuaServiceLocator
     {
         #region Methods
         /// <summary>
         /// Gets BPUA application
         /// </summary>
         /// <returns>BPUA application</returns>
-        public static IBPUAApplication GetBPUAApplication()
+        public static IBpuaApplication GetBpuaApplication()
         {
-            IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
+            IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
             return bpuaApplication;
         }
 
@@ -27,18 +27,18 @@ namespace BPUA.Application.Extensions.Services
         /// </summary>
         /// <param name="bpuaServicekey">BPUA service key</param>
         /// <returns>BPUA service</returns>
-        public static async Task<IBPUAService?> GetBPUAServiceAsync(string? bpuaServicekey)
+        public static async Task<IBpuaService?> GetBpuaServiceAsync(string? bpuaServicekey)
         {
             if (string.IsNullOrEmpty(bpuaServicekey))
             {
                 return null;
             }
 
-            IBPUAApplication bppApplication = BPUAApplication.GetInstance();
+            IBpuaApplication bppApplication = BpuaApplication.GetInstance();
 
             bpuaServicekey = bpuaServicekey.Trim('/');
-            IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier(bpuaServicekey);
-            UseCaseActivationResult useCaseActivationResult = await ((BPUAApplication)bppApplication).ActivateUseCaseAsync(bpuaIdentifier);
+            IBpuIdentifier bpuIdentifier = new BpuIdentifier(bpuaServicekey);
+            UseCaseActivationResult useCaseActivationResult = await ((BpuaApplication)bppApplication).ActivateUseCaseAsync(bpuIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
                 return bppApplication.GetRequestHandler(bpuaServicekey);

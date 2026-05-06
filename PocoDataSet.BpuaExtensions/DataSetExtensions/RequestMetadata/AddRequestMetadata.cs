@@ -16,9 +16,9 @@ namespace PocoDataSet.BpuaExtensions
         /// Adds request metadata
         /// </summary>
         /// <param name="dataSet">Data set</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
         /// <returns>Added request metadata</returns>
-        public static IRequestMetadata AddRequestMetadata(this IDataSet? dataSet, IBPUAIdentifier bpuaIdentifier)
+        public static IRequestMetadata AddRequestMetadata(this IDataSet? dataSet, IBpuIdentifier bpuIdentifier)
         {
             if (dataSet == null)
             {
@@ -29,12 +29,12 @@ namespace PocoDataSet.BpuaExtensions
             IDataRow requestMetadataDataRow = requestMetadataDataTable.AddNewRow();
 
             IRequestMetadata? requestMetadata = requestMetadataDataRow.AsInterface<IRequestMetadata>();
-            requestMetadata.DomainName = bpuaIdentifier.DomainName;
-            requestMetadata.UseCaseName = bpuaIdentifier.UseCaseName;
-            requestMetadata.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
-            requestMetadata.StateName = bpuaIdentifier.StateName;
-            requestMetadata.TransitionName = bpuaIdentifier.TransitionName;
-            requestMetadata.Breadcrumbs = bpuaIdentifier.Breadcrumbs;
+            requestMetadata.DomainName = bpuIdentifier.DomainName;
+            requestMetadata.UseCaseName = bpuIdentifier.UseCaseName;
+            requestMetadata.ApplicationLayerName = bpuIdentifier.ApplicationLayerName;
+            requestMetadata.StateName = bpuIdentifier.StateName;
+            requestMetadata.TransitionName = bpuIdentifier.TransitionName;
+            requestMetadata.Breadcrumbs = bpuIdentifier.Breadcrumbs;
 
             return requestMetadata;
         }

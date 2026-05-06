@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BPUA.Application.DataAccessLogic
 {
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class InitializingApplicationTransitionHandler : DataAccessLogicTransitionHandler, IDataAccessLogicTransitionHandler
     {
         #region Identification
@@ -59,7 +59,7 @@ namespace BPUA.Application.DataAccessLogic
                 throw new System.ArgumentOutOfRangeException(nameof(requestMetadata));
             }
 
-            string fullPath = BPUAApplication.PathToFolderWithDynamicAssemblies;
+            string fullPath = BpuaApplication.PathToFolderWithDynamicAssemblies;
             if (!string.IsNullOrEmpty(requestMetadata.Breadcrumbs))
             {
                 fullPath = Path.Combine(fullPath, requestMetadata.Breadcrumbs);

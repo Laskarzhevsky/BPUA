@@ -21,9 +21,9 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets BPUA identifier
+        /// Gets BPU identifier
         /// </summary>
-        IBPUAIdentifier BpuaIdentifier
+        IBpuIdentifier BpuIdentifier
         {
             get;
         }

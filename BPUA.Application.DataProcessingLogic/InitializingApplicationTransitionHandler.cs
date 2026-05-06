@@ -8,7 +8,7 @@ using PocoDataSet.IData;
 
 namespace BPUA.Application.DataProcessingLogic
 {
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class InitializingApplicationTransitionHandler : DataProcessingLogicTransitionHandler, IDataProcessingLogicTransitionHandler
     {
         #region Identification

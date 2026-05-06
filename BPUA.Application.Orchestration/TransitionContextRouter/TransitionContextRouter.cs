@@ -11,15 +11,15 @@ namespace BPUA.Application.Orchestration
     /// <summary>
     /// Provides request to the next layer event handler functionality
     /// </summary>
-    [RegisterAsBPUAService]
-    public partial class TransitionContextRouter : BPUAService<RouteTransitionContextEventArgs>
+    [RegisterAsBpuaService]
+    public partial class TransitionContextRouter : BpuaService<RouteTransitionContextEventArgs>
     {
         #region Public Methods
         /// <summary>
         /// Initializes component
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public override async Task InitializeComponent(IBPUAApplication bppApplication)
+        public override async Task InitializeComponent(IBpuaApplication bppApplication)
         {
         }
         #endregion

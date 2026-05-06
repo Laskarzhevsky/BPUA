@@ -19,7 +19,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <summary>
         /// AllowedCallerTypeFullNames property data filed
         /// </summary>
-        private readonly List<string> _allowedCallerBpuaIdentifiers;
+        private readonly List<string> _allowedCallerBpuIdentifiers;
 
         /// <summary>
         /// AllowedCallerTypeFullNames property data filed
@@ -32,16 +32,16 @@ namespace BPUA.Application.StateMachineComponents
         /// Constructor overload that accepts endpoint identifier.
         /// This allows endpoint contracts to be the single source of truth.
         /// </summary>
-        public Transition(string requestName, IBPUAIdentifier bpuaIdentifier)
+        public Transition(string requestName, IBpuIdentifier bpuIdentifier)
         {
-            BpuaIdentifier.RequestName = requestName;
-            BpuaIdentifier.DomainName = bpuaIdentifier.DomainName;
-            BpuaIdentifier.UseCaseName = bpuaIdentifier.UseCaseName;
-            BpuaIdentifier.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
-            BpuaIdentifier.StateName = bpuaIdentifier.StateName;
-            BpuaIdentifier.TransitionName = bpuaIdentifier.TransitionName;
+            BpuIdentifier.RequestName = requestName;
+            BpuIdentifier.DomainName = bpuIdentifier.DomainName;
+            BpuIdentifier.UseCaseName = bpuIdentifier.UseCaseName;
+            BpuIdentifier.ApplicationLayerName = bpuIdentifier.ApplicationLayerName;
+            BpuIdentifier.StateName = bpuIdentifier.StateName;
+            BpuIdentifier.TransitionName = bpuIdentifier.TransitionName;
 
-            _allowedCallerBpuaIdentifiers = new List<string>();
+            _allowedCallerBpuIdentifiers = new List<string>();
             _targetStateNames = new List<string>();
 
             AddRequestDataContextValidationRules();
@@ -58,18 +58,18 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return _allowedCallerBpuaIdentifiers;
+                return _allowedCallerBpuIdentifiers;
             }
         }
 
         /// <summary>
-        /// Gets BPUA identifier
+        /// Gets BPU identifier
         /// ITransition interface implementation
         /// </summary>
-        public IBPUAIdentifier BpuaIdentifier
+        public IBpuIdentifier BpuIdentifier
         {
             get; private set;
-        } = new BPUAIdentifier();
+        } = new BpuIdentifier();
 
         /// <summary>
         /// Gets component identifier
@@ -79,7 +79,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(BpuaIdentifier.RequestName, BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+                return KeyCompiler.CompileTransitionKey(BpuIdentifier.RequestName, BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
             }
         }
 
@@ -132,10 +132,10 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="requestTransitionContext">Request transition context</param>
         public virtual void ProcessRequestTransitionContext(IDataSet requestTransitionContext)
         {
-            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCurrentBpuaIdentifier();
-            if (bpuaIdentifier == null)
+            IBpuIdentifier? bpuIdentifier = requestTransitionContext.GetCurrentBpuIdentifier();
+            if (bpuIdentifier == null)
             {
-                throw new System.Exception("BPUA identifier metadata is missing in data set.");
+                throw new System.Exception("BPU identifier metadata is missing in data set.");
             }
 
             if (!ValidateRequestTransitionContext(requestTransitionContext))
@@ -143,14 +143,14 @@ namespace BPUA.Application.StateMachineComponents
                 return;
             }
 
-            if (!ValidateCallerPermission(requestTransitionContext, bpuaIdentifier))
+            if (!ValidateCallerPermission(requestTransitionContext, bpuIdentifier))
             {
                 return;
             }
 
-            IBPUAIdentifier nextTransitionHandlerBpuaIdentifier = bpuaIdentifier.Clone()!;
-            PrepareNextTransitionHandlerBpuaIdentifier(nextTransitionHandlerBpuaIdentifier);
-            requestTransitionContext.AddRequestMetadata(nextTransitionHandlerBpuaIdentifier);
+            IBpuIdentifier nextTransitionHandlerBpuIdentifier = bpuIdentifier.Clone()!;
+            PrepareNextTransitionHandlerBpuIdentifier(nextTransitionHandlerBpuIdentifier);
+            requestTransitionContext.AddRequestMetadata(nextTransitionHandlerBpuIdentifier);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace BPUA.Application.StateMachineComponents
                 return;
             }
 
-            _allowedCallerBpuaIdentifiers.Add(allowedCallerTypeFullName);
+            _allowedCallerBpuIdentifiers.Add(allowedCallerTypeFullName);
         }
 
         /// <summary>
@@ -204,10 +204,10 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
-        /// Prepares the BPUA identifier for the next transition handler
+        /// Prepares the BPU identifier for the next transition handler
         /// </summary>
-        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
-        protected virtual void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
+        /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
+        protected virtual void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
         {
         }
 
@@ -215,31 +215,31 @@ namespace BPUA.Application.StateMachineComponents
         /// Validates caller permission
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
-        /// <param name="currentBpuaIdentifier">Current BPUA identifier</param>
+        /// <param name="currentBpuIdentifier">Current BPU identifier</param>
         /// <returns>True if the data context is valid; otherwise, false.</returns>
-        protected bool ValidateCallerPermission(IDataSet requestTransitionContext, IBPUAIdentifier currentBpuaIdentifier)
+        protected bool ValidateCallerPermission(IDataSet requestTransitionContext, IBpuIdentifier currentBpuIdentifier)
         {
-            IBPUAIdentifier? bpuaIdentifier = requestTransitionContext.GetCallerBpuaIdentifier();
-            if (bpuaIdentifier == null)
+            IBpuIdentifier? bpuIdentifier = requestTransitionContext.GetCallerBpuIdentifier();
+            if (bpuIdentifier == null)
             {
-                throw new System.Exception("BPUA identifier of caller is missing in data set.");
+                throw new System.Exception("BPU identifier of caller is missing in data set.");
             }
 
-            if (_allowedCallerBpuaIdentifiers.Count == 0)
+            if (_allowedCallerBpuIdentifiers.Count == 0)
             {
                 return true;
             }
 
-            string callerBPUAIdentifierKey = bpuaIdentifier.ToString()!;
-            for (int i = 0; i < _allowedCallerBpuaIdentifiers.Count; i++)
+            string callerBpuIdentifierKey = bpuIdentifier.ToString()!;
+            for (int i = 0; i < _allowedCallerBpuIdentifiers.Count; i++)
             {
-                if (string.Equals(_allowedCallerBpuaIdentifiers[i], callerBPUAIdentifierKey, StringComparison.Ordinal))
+                if (string.Equals(_allowedCallerBpuIdentifiers[i], callerBpuIdentifierKey, StringComparison.Ordinal))
                 {
                     return true;
                 }
             }
 
-            requestTransitionContext.AddMessage(MessageType.Error, $"CallerNotAllowed_{callerBPUAIdentifierKey}", $"Caller {callerBPUAIdentifierKey} is not allowed to execute transition {currentBpuaIdentifier.ToString()!}");
+            requestTransitionContext.AddMessage(MessageType.Error, $"CallerNotAllowed_{callerBpuIdentifierKey}", $"Caller {callerBpuIdentifierKey} is not allowed to execute transition {currentBpuIdentifier.ToString()!}");
             return false;
         }
 

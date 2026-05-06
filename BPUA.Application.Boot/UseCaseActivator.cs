@@ -34,13 +34,13 @@ namespace BPUA.Application.Boot
         /// normalized use-case key and then delegates the actual loading work to ActivateCore.
         /// The public contract remains asynchronous for compatibility, but the work itself is synchronous.
         /// </summary>
-        /// <param name="identifier">The BPUA identifier describing the requested use case.</param>
+        /// <param name="identifier">The BPU identifier describing the requested use case.</param>
         /// <param name="serviceRegistry">The service registry used to store and query activation stamps and registered services.</param>
         /// <returns>
         /// A task that contains a UseCaseActivationResult describing whether activation succeeded,
         /// whether anything new had to be loaded, and what the default route for the activated use case is.
         /// </returns>
-        public Task<UseCaseActivationResult> ActivateAsync(IBPUAIdentifier identifier, IServiceRegistry serviceRegistry)
+        public Task<UseCaseActivationResult> ActivateAsync(IBpuIdentifier identifier, IServiceRegistry serviceRegistry)
         {
             if (identifier == null)
             {
@@ -136,7 +136,7 @@ namespace BPUA.Application.Boot
         /// <param name="identifier">The identifier that describes the use case to activate.</param>
         /// <param name="serviceRegistry">The registry that receives newly registered services and pages.</param>
         /// <returns>A result object describing success or failure of the activation operation.</returns>
-        public UseCaseActivationResult ActivateCore(IBPUAIdentifier identifier, IServiceRegistry serviceRegistry)
+        public UseCaseActivationResult ActivateCore(IBpuIdentifier identifier, IServiceRegistry serviceRegistry)
         {
             string pluginRoot = string.Empty;
             string useCaseFolder = string.Empty;
@@ -145,7 +145,7 @@ namespace BPUA.Application.Boot
 
             try
             {
-                IBPUAApplication application = BPUAApplication.GetInstance();
+                IBpuaApplication application = BpuaApplication.GetInstance();
                 pluginRoot = application.PathToFolderWithDynamicAssemblies;
                 if (string.IsNullOrEmpty(pluginRoot))
                 {
@@ -223,7 +223,7 @@ namespace BPUA.Application.Boot
         /// <param name="pluginRoot">The root folder under which dynamic use-case assemblies are stored.</param>
         /// <param name="identifier">The identifier from which folder information is taken.</param>
         /// <returns>The resolved folder path, or an empty string when the identifier does not contain enough information.</returns>
-        static string ResolveFolder(string pluginRoot, IBPUAIdentifier identifier)
+        static string ResolveFolder(string pluginRoot, IBpuIdentifier identifier)
         {
             if (string.IsNullOrEmpty(pluginRoot))
             {
@@ -259,7 +259,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="identifier">The identifier that supplies domain and use-case values.</param>
         /// <returns>The folder leaf name, or an empty string when no usable use-case information exists.</returns>
-        static string BuildUseCaseFolderLeaf(IBPUAIdentifier identifier)
+        static string BuildUseCaseFolderLeaf(IBpuIdentifier identifier)
         {
             string useCaseName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.UseCaseName))
@@ -293,7 +293,7 @@ namespace BPUA.Application.Boot
         /// <param name="useCaseFolder">Resolved use-case folder.</param>
         /// <param name="identifier">Identifier that supplies domain, use-case, and layer names.</param>
         /// <returns>Full path to the requested assembly, or an empty string when required identifier data is missing.</returns>
-        static string BuildPathToDynamicAssembly(string useCaseFolder, IBPUAIdentifier identifier)
+        static string BuildPathToDynamicAssembly(string useCaseFolder, IBpuIdentifier identifier)
         {
             if (string.IsNullOrEmpty(useCaseFolder))
             {
@@ -314,7 +314,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="identifier">Identifier that supplies domain, use-case, and layer names.</param>
         /// <returns>Assembly file name, or an empty string when required identifier data is missing.</returns>
-        static string BuildDynamicAssemblyFileName(IBPUAIdentifier identifier)
+        static string BuildDynamicAssemblyFileName(IBpuIdentifier identifier)
         {
             string folderLeaf = BuildUseCaseFolderLeaf(identifier);
             if (string.IsNullOrEmpty(folderLeaf))
@@ -343,7 +343,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="identifier">The identifier used to determine the route segment.</param>
         /// <returns>The normalized default route for the activated use case.</returns>
-        static string ComputeDefaultRoute(IBPUAIdentifier identifier)
+        static string ComputeDefaultRoute(IBpuIdentifier identifier)
         {
             string routeSegment = string.Empty;
 
@@ -367,7 +367,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="identifier">The identifier from which the normalized activation key is derived.</param>
         /// <returns>A lower-cased normalized activation key.</returns>
-        static string NormalizeActivationKey(IBPUAIdentifier identifier)
+        static string NormalizeActivationKey(IBpuIdentifier identifier)
         {
             string domainName = string.Empty;
             if (!string.IsNullOrEmpty(identifier.DomainName))
@@ -443,7 +443,7 @@ namespace BPUA.Application.Boot
         /// <returns>A composed diagnostic message.</returns>
         static string BuildActivationDiagnosticMessage(
             string prefix,
-            IBPUAIdentifier identifier,
+            IBpuIdentifier identifier,
             string pluginRoot,
             string useCaseFolder,
             string relativeAssemblyPath,
@@ -503,7 +503,7 @@ namespace BPUA.Application.Boot
         /// Gets or sets the assembly processors that must be applied to each newly loaded assembly.
         /// These processors register services, pages, and any other assembly-discovered runtime artifacts.
         /// </summary>
-        public List<IBPUAAssemblyProcessor> ListOfAssemblyProcessors { get; set; } = default!;
+        public List<IBpuaAssemblyProcessor> ListOfAssemblyProcessors { get; set; } = default!;
 
         /// <summary>
         /// Gets or sets the root path to the folder that contains dynamically loadable assemblies.

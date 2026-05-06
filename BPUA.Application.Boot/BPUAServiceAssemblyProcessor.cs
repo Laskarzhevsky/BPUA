@@ -6,11 +6,11 @@ using BPUA.Core;
 namespace BPUA.Application.Boot
 {
     /// <summary>
-    /// Processes assembly decorated by RegisterAsBPUAServiceAssemblyAttribute
+    /// Processes assembly decorated by RegisterAsBpuaServiceAssemblyAttribute
     /// Marks the assembly as processed by the service-assembly registration pipeline.
     /// This pipeline currently registers both BPUA services and transition definitions.
     /// </summary>
-    public sealed class BPUAServiceAssemblyProcessor : IBPUAAssemblyProcessor
+    public sealed class BpuaServiceAssemblyProcessor : IBpuaAssemblyProcessor
     {
         #region Public Methods
         /// <summary>
@@ -23,7 +23,7 @@ namespace BPUA.Application.Boot
         {
             if (CanProcess(loadedAssembly) && NotProcessed(loadedAssembly, serviceRegistry))
             {
-                BPUAServicesRegistrar.RegisterServicesFromAssembly(loadedAssembly, serviceRegistry);
+                BpuaServicesRegistrar.RegisterServicesFromAssembly(loadedAssembly, serviceRegistry);
                 TransitionsRegistrar.RegisterTransitionsFromAssembly(loadedAssembly, serviceRegistry);
             }
         }
@@ -36,7 +36,7 @@ namespace BPUA.Application.Boot
         /// <param name="loadedAssembly">Loaded assembly</param>
         bool CanProcess(Assembly loadedAssembly)
         {
-            return loadedAssembly.IsDefined(typeof(RegisterAsBPUAServiceAssemblyAttribute), inherit: false);
+            return loadedAssembly.IsDefined(typeof(RegisterAsBpuaServiceAssemblyAttribute), inherit: false);
         }
 
         /// <summary>

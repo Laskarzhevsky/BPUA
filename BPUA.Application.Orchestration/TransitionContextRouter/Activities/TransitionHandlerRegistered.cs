@@ -10,12 +10,12 @@ namespace BPUA.Application.Orchestration
     {
         #region Private Methods
         /// <summary>
-        /// Checks if the transition handler specified in the BPUA identifier is registered in the service registry and retrieves it
+        /// Checks if the transition handler specified in the BPU identifier is registered in the service registry and retrieves it
         /// </summary>
         /// <returns>True if the transition handler is registered; otherwise, false.</returns>
         bool TransitionHandlerRegistered()
         {
-            string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+            string handlerTypeKey = KeyCompiler.CompileTransitionHandlerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
             ITransitionHandler? transitionHandler = BpuaApplication!.GetRequestHandler(handlerTypeKey) as ITransitionHandler;
             if (transitionHandler == null)
             {

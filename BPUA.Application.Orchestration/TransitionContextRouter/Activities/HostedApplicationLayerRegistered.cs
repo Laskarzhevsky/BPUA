@@ -14,7 +14,7 @@ namespace BPUA.Application.Orchestration
         /// <returns>True if the hosted application layer is registered; otherwise, false.</returns>
         bool HostedApplicationLayerRegistered()
         {
-            string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName);
+            string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName);
             object? hostedApplicationLayer;
             bool HostedApplicationLayerRegistered = BpuaApplication!.ServiceRegistry.TryGetRegisteredObject(hostedApplicationLayerKey, out hostedApplicationLayer);
 

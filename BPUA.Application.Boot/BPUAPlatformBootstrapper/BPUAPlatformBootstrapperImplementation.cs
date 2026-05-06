@@ -12,7 +12,7 @@ namespace BPUA.Application.Boot
     /// <summary>
     /// Provides BPUA platform bootstrapper functionality
     /// </summary>
-    public sealed partial class BPUAPlatformBootstrapper
+    public sealed partial class BpuaPlatformBootstrapper
     {
         #region Methods
         /// <summary>
@@ -20,7 +20,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void BuildDynamicAssembliesPathIndex()
         {
-            IBPUAApplication application = BPUAApplication.GetInstance();
+            IBpuaApplication application = BpuaApplication.GetInstance();
             DynamicAssemblyPathIndexBuilder.BuildAssemblyPathIndex(application.PathToFolderWithDynamicAssemblies, application.ServiceRegistry);
         }
 
@@ -34,7 +34,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void InitializeApplication()
         {
-            BPUAApplication.GetInstance().Initialize(ApplicationConfiguration, PathToFolderWithDynamicAssemblies);
+            BpuaApplication.GetInstance().Initialize(ApplicationConfiguration, PathToFolderWithDynamicAssemblies);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         async Task InitializeHostedApplicationLayers()
         {
-            IBPUAApplication application = BPUAApplication.GetInstance();
+            IBpuaApplication application = BpuaApplication.GetInstance();
             await application.InitializeHostedApplicationLayers();
         }
 
@@ -64,21 +64,21 @@ namespace BPUA.Application.Boot
             useCaseActivator.ListOfAssemblyProcessors = ListOfAssemblyProcessors;
             useCaseActivator.PathToFolderWithDynamicAssemblies = PathToFolderWithDynamicAssemblies;
 
-            IServiceRegistry serviceRegistry = BPUAApplication.GetInstance().ServiceRegistry;
+            IServiceRegistry serviceRegistry = BpuaApplication.GetInstance().ServiceRegistry;
             serviceRegistry.RegisterObject(typeof(IUseCaseActivator).Name, useCaseActivator);
         }
 
         /// <summary>
         /// Initializes the list of assembly processors required during platform boot.
         /// The service assembly processor is needed so static platform assemblies marked
-        /// with RegisterAsBPUAServiceAssembly can register their built-in services.
+        /// with RegisterAsBpuaServiceAssembly can register their built-in services.
         /// </summary>
         void InitializeAssemblyProcessors()
         {
             bool exists = false;
             for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
             {
-                if (ListOfAssemblyProcessors[i] is BPUAServiceAssemblyProcessor)
+                if (ListOfAssemblyProcessors[i] is BpuaServiceAssemblyProcessor)
                 {
                     exists = true;
                     break;
@@ -87,7 +87,7 @@ namespace BPUA.Application.Boot
 
             if (!exists)
             {
-                ListOfAssemblyProcessors.Add(new BPUAServiceAssemblyProcessor());
+                ListOfAssemblyProcessors.Add(new BpuaServiceAssemblyProcessor());
             }
         }
 
@@ -102,7 +102,7 @@ namespace BPUA.Application.Boot
         /// <summary>
         /// Loads dynamic assemblies.
         /// Dynamic plugin assemblies are no longer loaded during platform boot.
-        /// They are loaded on demand by UseCaseActivator based on IBPUAIdentifier.
+        /// They are loaded on demand by UseCaseActivator based on IBpuIdentifier.
         /// </summary>
         void LoadDynamicAssemblies()
         {
@@ -127,7 +127,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void ProcessStaticAssemblies()
         {
-            IServiceRegistry serviceRegistry = BPUAApplication.GetInstance().ServiceRegistry;
+            IServiceRegistry serviceRegistry = BpuaApplication.GetInstance().ServiceRegistry;
 
             for (int i = 0; i < ListOfLoadedAssemblies.Count; i++)
             {
@@ -135,7 +135,7 @@ namespace BPUA.Application.Boot
 
                 for (int j = 0; j < ListOfAssemblyProcessors.Count; j++)
                 {
-                    IBPUAAssemblyProcessor assemblyProcessor = ListOfAssemblyProcessors[j];
+                    IBpuaAssemblyProcessor assemblyProcessor = ListOfAssemblyProcessors[j];
                     assemblyProcessor.Process(loadedAssembly, serviceRegistry);
                 }
             }
@@ -156,7 +156,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void ThrowIfAlreadyBootstrapped()
         {
-            IBPUAApplication application = BPUAApplication.GetInstance();
+            IBpuaApplication application = BpuaApplication.GetInstance();
             if (!string.IsNullOrWhiteSpace(application.PathToFolderWithDynamicAssemblies))
             {
                 throw new InvalidOperationException("BPUA platform has already been bootstrapped.");

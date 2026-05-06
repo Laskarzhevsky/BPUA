@@ -51,7 +51,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileStateHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName);
+                return KeyCompiler.CompileStateHandlerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName);
             }
         }
         #endregion
@@ -65,7 +65,7 @@ namespace BPUA.Application.StateMachineComponents
         public async Task<IDataSet?> Initialize()
         {
             IDataSet dataSet = DataSetFactory.CreateDataSet();
-            dataSet.AddRequestMetadata(BpuaIdentifier);
+            dataSet.AddRequestMetadata(BpuIdentifier);
             await HandleRequestAsync(dataSet);
 
             if (ResponseTransitionContext.HasError())

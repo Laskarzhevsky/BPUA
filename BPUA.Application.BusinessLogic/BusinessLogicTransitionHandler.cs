@@ -44,7 +44,7 @@ namespace BPUA.Application.BusinessLogic
                     IRequestMetadata requestMetadata = RequestTransitionContext!.RequestMetadata;
                     string stateHandlerKey = KeyCompiler.CompileStateHandlerKey(requestMetadata.DomainName, requestMetadata.UseCaseName, requestMetadata.ApplicationLayerName, requestMetadata.StateName);
 
-                    IServiceRegistry serviceRegistry = BPUAApplication.ServiceRegistry;
+                    IServiceRegistry serviceRegistry = BpuaApplication.ServiceRegistry;
                     IList<string>? listOfUseCaseStateTransitionNames = serviceRegistry.GetUseCaseStateTransitionNames(stateHandlerKey);
                     if (listOfUseCaseStateTransitionNames == null)
                     {

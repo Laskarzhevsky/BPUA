@@ -23,31 +23,31 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public SendRequestToApplicationNextLayerTransition(string requestName, IBPUAIdentifier bpuaIdentifier) : base(requestName, bpuaIdentifier)
+        public SendRequestToApplicationNextLayerTransition(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
         {
         }
         #endregion
 
         #region Overridden Methods
         /// <summary>
-        /// Prepares the BPUA identifier for the next transition handler
+        /// Prepares the BPU identifier for the next transition handler
         /// </summary>
-        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
-        protected override void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
+        /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
+        protected override void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
         {
-            switch (nextTransitionHandlerBpuaIdentifier.ApplicationLayerName)
+            switch (nextTransitionHandlerBpuIdentifier.ApplicationLayerName)
             {
                 case "SL":
-                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
+                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
                     break;
                 case "BL":
-                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
                     break;
                 case "DL":
-                    nextTransitionHandlerBpuaIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
+                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
                     break;
                 default:
-                    throw new InvalidOperationException($"Unsupported application layer: {nextTransitionHandlerBpuaIdentifier.ApplicationLayerName}");
+                    throw new InvalidOperationException($"Unsupported application layer: {nextTransitionHandlerBpuIdentifier.ApplicationLayerName}");
             }
         }
         #endregion

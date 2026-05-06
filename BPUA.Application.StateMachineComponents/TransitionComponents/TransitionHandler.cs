@@ -37,7 +37,7 @@ namespace BPUA.Application.StateMachineComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionHandlerKey(BpuaIdentifier.DomainName, BpuaIdentifier.UseCaseName, BpuaIdentifier.ApplicationLayerName, BpuaIdentifier.StateName, BpuaIdentifier.TransitionName);
+                return KeyCompiler.CompileTransitionHandlerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
             }
         }
         #endregion

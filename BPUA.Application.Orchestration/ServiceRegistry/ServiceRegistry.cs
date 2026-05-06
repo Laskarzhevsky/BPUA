@@ -241,19 +241,19 @@ namespace BPUA.Application.Orchestration
         /// Tries to get registered transition type
         /// IServiceRegistry interface implementation
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
         /// <param name="registeredTransitionType">Registered transition type</param>
         /// <returns>True if type retreived successfully, otherwise False</returns>
-        public bool TryGetRegisteredTransitionType(IBPUAIdentifier bpuaIdentifier, out Type registeredTransitionType)
+        public bool TryGetRegisteredTransitionType(IBpuIdentifier bpuIdentifier, out Type registeredTransitionType)
         {
-            if (string.IsNullOrEmpty(bpuaIdentifier.TransitionName))
+            if (string.IsNullOrEmpty(bpuIdentifier.TransitionName))
             {
                 string statePrefix = KeyCompiler.CompileStatePrefixKey(
-                    bpuaIdentifier.RequestName,
-                    bpuaIdentifier.DomainName,
-                    bpuaIdentifier.UseCaseName,
-                    bpuaIdentifier.ApplicationLayerName,
-                    bpuaIdentifier.StateName);
+                    bpuIdentifier.RequestName,
+                    bpuIdentifier.DomainName,
+                    bpuIdentifier.UseCaseName,
+                    bpuIdentifier.ApplicationLayerName,
+                    bpuIdentifier.StateName);
 
                 Type? found = null;
 
@@ -291,7 +291,7 @@ namespace BPUA.Application.Orchestration
             }
             else
             {
-                string transitionTypeKey = KeyCompiler.CompileTransitionKey(bpuaIdentifier.RequestName, bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
+                string transitionTypeKey = KeyCompiler.CompileTransitionKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
                 return _registeredTransitions.TryGetValue(transitionTypeKey, out registeredTransitionType!);
             }
         }

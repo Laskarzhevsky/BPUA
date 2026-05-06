@@ -5,7 +5,7 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Post-load processor that inspects an assembly and performs registrations.
     /// </summary>
-    public interface IBPUAAssemblyProcessor
+    public interface IBpuaAssemblyProcessor
     {
         #region Methods
         /// <summary>

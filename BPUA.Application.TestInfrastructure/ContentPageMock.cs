@@ -13,7 +13,7 @@ namespace BPUA.Application.TestInfrastructure
         /// </summary>
         /// <param name="currentPath">Current path</param>
         /// <param name="bpuaApplication">BPUA application instance</param>
-        public ContentPageMock(string currentPath, IBPUAApplication bpuaApplication)
+        public ContentPageMock(string currentPath, IBpuaApplication bpuaApplication)
         {
             CurrentPath = currentPath;
             BpuaApplication = bpuaApplication;
@@ -36,10 +36,10 @@ namespace BPUA.Application.TestInfrastructure
         /// </summary>
         public async Task OnInitializedAsync()
         {
-            object? locatedBPUAService = await BPUAServiceLocator.GetBPUAServiceAsync(CurrentPath);
-            if (locatedBPUAService != null && locatedBPUAService is IStateHandler)
+            object? locatedBpuaService = await BpuaServiceLocator.GetBpuaServiceAsync(CurrentPath);
+            if (locatedBpuaService != null && locatedBpuaService is IStateHandler)
             {
-                StateHandler = (IStateHandler)locatedBPUAService;
+                StateHandler = (IStateHandler)locatedBpuaService;
                 await StateHandler.InitializeComponent(BpuaApplication);
             }
         }
@@ -49,7 +49,7 @@ namespace BPUA.Application.TestInfrastructure
         /// <summary>
         /// Gets or sets the BPUA application instance
         /// </summary>
-        IBPUAApplication BpuaApplication
+        IBpuaApplication BpuaApplication
         {
             get; set;
         }

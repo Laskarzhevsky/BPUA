@@ -9,7 +9,7 @@ namespace BPUA.InfrastructureServer.BL
     /// <summary>
     /// Provides functionality of the transition handler for "Initializing use case" transition of the account use case in the business logic application layer
     /// </summary>
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class InitializingApplicationTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
     {
         #region Identification

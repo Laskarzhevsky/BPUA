@@ -14,17 +14,17 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         async Task RedirectRequestTransitionContextToTransitionHandler()
         {
-            TransitionHandler.BPUAApplication = BpuaApplication!;
+            TransitionHandler.BpuaApplication = BpuaApplication!;
             await using (TransitionHandler as IAsyncDisposable)
             {
-                ((BPUAApplication)BpuaApplication!).SignInToRequestHandlerRequestServiceEvent(TransitionHandler);
+                ((BpuaApplication)BpuaApplication!).SignInToRequestHandlerRequestServiceEvent(TransitionHandler);
                 ResponseTransitionContext = await TransitionHandler.HandleRequestAsync(RequestTransitionContext);
                 if (ResponseTransitionContext == null)
                 {
                     throw new System.Exception("Transition handler did not return a response transition context.");
                 }
 
-                ((BPUAApplication)BpuaApplication!).SignOutFromRequestHandlerRequestServiceEvent(TransitionHandler);
+                ((BpuaApplication)BpuaApplication!).SignOutFromRequestHandlerRequestServiceEvent(TransitionHandler);
             }
         }
         #endregion

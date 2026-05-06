@@ -9,14 +9,14 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Defines BPUA application functionality
     /// </summary>
-    public interface IBPUAApplication
+    public interface IBpuaApplication
     {
         #region Methods
         /// <summary>
         /// Executes transition
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        Task ExecuteTransition(IBPUAIdentifier bpuaIdentifier);
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        Task ExecuteTransition(IBpuIdentifier bpuIdentifier);
 
         /// <summary>
         /// Gets request handler

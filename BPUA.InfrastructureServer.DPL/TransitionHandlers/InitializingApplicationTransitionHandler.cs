@@ -7,7 +7,7 @@ namespace BPUA.InfrastructureServer.DPL
     /// <summary>
     /// Provides functionality of the transition handler for "Initializing use case" transition of the account use case in the data processing logic application layer
     /// </summary>
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class InitializingApplicationTransitionHandler : DataProcessingLogicTransitionHandler, IDataProcessingLogicTransitionHandler
     {
         #region Identification

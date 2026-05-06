@@ -16,17 +16,17 @@ namespace BPUA.Application.Orchestration
         /// Starts state machine
         /// </summary>
         /// <param name="bpuaApplication">BPUA application instance</param>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public async Task ExecuteTransition(BPUAApplication bpuaApplication, IBPUAIdentifier bpuaIdentifier)
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        public async Task ExecuteTransition(BpuaApplication bpuaApplication, IBpuIdentifier bpuIdentifier)
         {
-            UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuaIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await bpuaApplication.ActivateUseCaseAsync(bpuIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
-                string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName);
-                IBPUAService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
+                string bpuaServicekey = KeyCompiler.CompileStateHandlerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName);
+                IBpuaService? bpuaService = bpuaApplication.GetRequestHandler(bpuaServicekey);
                 if (bpuaService == null)
                 {
-                    throw new InvalidOperationException($"State handler with key '{bpuaServicekey}' is not found for hosted application layer with key '{KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName)}'.");
+                    throw new InvalidOperationException($"State handler with key '{bpuaServicekey}' is not found for hosted application layer with key '{KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName)}'.");
                 }
                 else
                 {
@@ -34,16 +34,16 @@ namespace BPUA.Application.Orchestration
                     {
                         IStateHandler stateHandler = (IStateHandler)bpuaService;
                         await stateHandler.Initialize();
-                        if (bpuaIdentifier.StateName != stateHandler.BpuaIdentifier.StateName)
+                        if (bpuIdentifier.StateName != stateHandler.BpuIdentifier.StateName)
                         {
-                            await ExecuteTransition(bpuaApplication, stateHandler.BpuaIdentifier);
+                            await ExecuteTransition(bpuaApplication, stateHandler.BpuIdentifier);
                         }
                     }
                 }
             }
             else
             {
-                throw new InvalidOperationException($"Use case activation failed for BPUA identifier '{bpuaIdentifier}'.");
+                throw new InvalidOperationException($"Use case activation failed for BPU identifier '{bpuIdentifier}'.");
             }
         }
         #endregion

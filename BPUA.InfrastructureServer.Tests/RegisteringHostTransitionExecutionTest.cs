@@ -23,22 +23,22 @@ namespace BPUA.InfrastructureServer.Tests
         {
             // Boot BPUA platform
             string buildFolder = Helpers.FindBuildFolder();
-            BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            await bootstrapper.BootBPUAPlatform(buildFolder);
+            BpuaPlatformBootstrapper bootstrapper = new BpuaPlatformBootstrapper();
+            await bootstrapper.BootBpuaPlatform(buildFolder);
 
             // Testing the transition that registers hosted application layers.
             // This transition is triggered when a remote host (caller) sends a request to the BPUA application to register itself as a host for a specified application layer.
 
-            // 1. The remote host (caller) needs to identify itself. Simulating this by creating a dummy BPUA identifier
-            IBPUAIdentifier remoteHostBpuiIdentifier = new BPUAIdentifier("HR", "Acounting", "DPL", "State1", "Transition1");
+            // 1. The remote host (caller) needs to identify itself. Simulating this by creating a dummy BPU identifier
+            IBpuIdentifier remoteHostBpuIdentifier = new BpuIdentifier("HR", "Acounting", "DPL", "State1", "Transition1");
 
             // 2. The remote host will send a request to the BPUA application to register itself as a host for the specified application layer.
             // This will trigger the execution of the transition that registers the hosted application layer.
-            IBPUAIdentifier bpuaIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
+            IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
 
             IDataSet dataSet = DataSetFactory.CreateDataSet();
-            dataSet.AddRequestMetadata(remoteHostBpuiIdentifier);
-            dataSet.AddRequestMetadata(bpuaIdentifier);
+            dataSet.AddRequestMetadata(remoteHostBpuIdentifier);
+            dataSet.AddRequestMetadata(bpuIdentifier);
 
             // 3. Provide the details of the hosted application layer in the request data set.
             IDataTable dataTable = dataSet.AddNewTableFromPocoInterface(typeof(IHostedApplicationLayer).Name, typeof(IHostedApplicationLayer));
@@ -51,7 +51,7 @@ namespace BPUA.InfrastructureServer.Tests
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(dataSet);
             ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs("SendRequestToNextHandler", routeTransitionContextEventArgs);
 
-            IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
+            IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
             await bpuaApplication.RequestHandler_RequestServiceEvent(null, serviceRequestEventArgs);
 
             // To be continued: Verify that the hosted application layer was registered successfully.

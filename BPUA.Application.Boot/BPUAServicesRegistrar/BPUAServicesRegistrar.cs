@@ -8,7 +8,7 @@ namespace BPUA.Application.Boot
     /// <summary>
     /// Provides BPUA services registrar functionality
     /// </summary>
-    public static class BPUAServicesRegistrar
+    public static class BpuaServicesRegistrar
     {
         #region Public Methods
         /// <summary>
@@ -32,7 +32,7 @@ namespace BPUA.Application.Boot
                     continue;
                 }
 
-                if (!type.IsDefined(typeof(RegisterAsBPUAServiceAttribute), inherit: false))
+                if (!type.IsDefined(typeof(RegisterAsBpuaServiceAttribute), inherit: false))
                 {
                     continue;
                 }

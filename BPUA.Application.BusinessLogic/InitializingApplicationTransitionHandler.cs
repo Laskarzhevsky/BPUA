@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BPUA.Application.BusinessLogic
 {
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class InitializingApplicationTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
     {
         #region Identification

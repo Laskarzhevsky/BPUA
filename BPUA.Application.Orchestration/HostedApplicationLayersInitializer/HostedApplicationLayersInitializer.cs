@@ -19,7 +19,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="configuration">Application configuration</param>
         /// <param name="bpuaApplication">BPUA application instance</param>
-        public static async Task Initialize(IBPUAApplication bpuaApplication)
+        public static async Task Initialize(IBpuaApplication bpuaApplication)
         {
             HostUrl = ConfigurationReader.GetRequiredValue(bpuaApplication, "HostUrl");
 
@@ -40,33 +40,33 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="bpuaApplication">BPUA application instance</param>
         /// <param name="hostedApplicationLayersSection">Configuration section for hosted application layers</param>
-        public static async Task ActivateHostedApplicationLayers(IBPUAApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection)
+        public static async Task ActivateHostedApplicationLayers(IBpuaApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection)
         {
             foreach (HostedApplicationLayer hostedApplicationLayer in bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>())
             {
-                IBPUAIdentifier bpuaIdentifier = new BPUAIdentifier(hostedApplicationLayer.DomainName, hostedApplicationLayer.UseCaseName, hostedApplicationLayer.ApplicationLayerName, null, null);
-                if (bpuaIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL && hostedApplicationLayer.IsApplicationUseCaseLayer)
+                IBpuIdentifier bpuIdentifier = new BpuIdentifier(hostedApplicationLayer.DomainName, hostedApplicationLayer.UseCaseName, hostedApplicationLayer.ApplicationLayerName, null, null);
+                if (bpuIdentifier.ApplicationLayerName == BPUA.Application.Contracts.ApplicationLayersNames.SL && hostedApplicationLayer.IsApplicationUseCaseLayer)
                 {
-                    await bpuaApplication.ExecuteTransition(bpuaIdentifier);
+                    await bpuaApplication.ExecuteTransition(bpuIdentifier);
                 }
             }
         }
 
         /// <summary>
-        /// Creates BPUA identifier from configuration section.
+        /// Creates BPU identifier from configuration section.
         /// </summary>
         /// <param name="startupTransitionSection">Startup transition configuration section</param>
-        /// <returns>Created BPUA identifier</returns>
-        static IBPUAIdentifier CreateIdentifier(IConfigurationSection startupTransitionSection)
+        /// <returns>Created BPU identifier</returns>
+        static IBpuIdentifier CreateIdentifier(IConfigurationSection startupTransitionSection)
         {
-            BPUAIdentifier bpuaIdentifier = new BPUAIdentifier();
+            BpuIdentifier bpuIdentifier = new BpuIdentifier();
 
-            bpuaIdentifier.DomainName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "DomainName");
-            bpuaIdentifier.UseCaseName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "UseCaseName");
-            bpuaIdentifier.ApplicationLayerName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "ApplicationLayerName");
-            bpuaIdentifier.StateName = ConfigurationReader.GetOptionalValue(startupTransitionSection, "StateName");
+            bpuIdentifier.DomainName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "DomainName");
+            bpuIdentifier.UseCaseName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "UseCaseName");
+            bpuIdentifier.ApplicationLayerName = ConfigurationReader.GetRequiredValue(startupTransitionSection, "ApplicationLayerName");
+            bpuIdentifier.StateName = ConfigurationReader.GetOptionalValue(startupTransitionSection, "StateName");
 
-            return bpuaIdentifier;
+            return bpuIdentifier;
         }
 
         /// <summary>
@@ -75,16 +75,16 @@ namespace BPUA.Application.Orchestration
         /// <param name="bpuaApplication">BPUA application instance</param>
         /// <param name="hostedApplicationLayersSection">Configuration section for hosted application layers</param>
         /// <param name="hostUrl">Host URL</param>
-        static void RegisterHostedApplicationLayers(IBPUAApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection, string hostUrl)
+        static void RegisterHostedApplicationLayers(IBpuaApplication bpuaApplication, IConfigurationSection hostedApplicationLayersSection, string hostUrl)
         {
             foreach (IConfigurationSection configuredHostedApplicationLayer in hostedApplicationLayersSection.GetChildren())
             {
-                IBPUAIdentifier bpuaIdentifier = CreateIdentifier(configuredHostedApplicationLayer);
-                string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
+                IBpuIdentifier bpuIdentifier = CreateIdentifier(configuredHostedApplicationLayer);
+                string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName);
                 HostedApplicationLayer hostedApplicationLayer = new HostedApplicationLayer();
-                hostedApplicationLayer.ApplicationLayerName = bpuaIdentifier.ApplicationLayerName;
-                hostedApplicationLayer.DomainName = bpuaIdentifier.DomainName;
-                hostedApplicationLayer.UseCaseName = bpuaIdentifier.UseCaseName;
+                hostedApplicationLayer.ApplicationLayerName = bpuIdentifier.ApplicationLayerName;
+                hostedApplicationLayer.DomainName = bpuIdentifier.DomainName;
+                hostedApplicationLayer.UseCaseName = bpuIdentifier.UseCaseName;
                 hostedApplicationLayer.HostUrl = hostUrl;
 
                 string? isApplicationUseCaseLayer = ConfigurationReader.GetOptionalValue(configuredHostedApplicationLayer, "IsApplicationUseCaseLayer");

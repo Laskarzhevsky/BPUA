@@ -10,7 +10,7 @@ namespace BPUA.Application.Orchestration
     public static class ServiceRegistryActivationExtensions
     {
         // Lookup by explicit key or by stem (with prefix + heuristic fallback).
-        public static IBPUAService? GetBPUAService(this IServiceRegistry registry, string key)
+        public static IBpuaService? GetBpuaService(this IServiceRegistry registry, string key)
         {
             if (registry == null)
                 throw new ArgumentNullException(nameof(registry));
@@ -58,17 +58,17 @@ namespace BPUA.Application.Orchestration
         }
 
         // By EventArgs instance → derive stem → delegate to the string overload
-        public static IBPUAService? GetBPUAService(this IServiceRegistry registry, EventArgs args)
+        public static IBpuaService? GetBpuaService(this IServiceRegistry registry, EventArgs args)
         {
             string stem = DeriveKeyFromEventArgs(args.GetType()); // e.g., "RequestToNextLayer"
-            return registry.GetBPUAService(stem);
+            return registry.GetBpuaService(stem);
         }
 
         // By EventArgs type → derive stem → delegate
-        public static IBPUAService? GetBPUAService(this IServiceRegistry registry, Type eventArgsType)
+        public static IBpuaService? GetBpuaService(this IServiceRegistry registry, Type eventArgsType)
         {
             string stem = DeriveKeyFromEventArgs(eventArgsType);
-            return registry.GetBPUAService(stem);
+            return registry.GetBpuaService(stem);
         }
 
         static string DeriveKeyFromEventArgs(Type t)
@@ -80,12 +80,12 @@ namespace BPUA.Application.Orchestration
             return name;
         }
 
-        static IBPUAService? CreateAndInit(Type type)
+        static IBpuaService? CreateAndInit(Type type)
         {
-            var instance = Activator.CreateInstance(type) as IBPUAService;
+            var instance = Activator.CreateInstance(type) as IBpuaService;
             if (instance != null)
             {
-                instance.InitializeComponent(BPUAApplication.GetInstance());
+                instance.InitializeComponent(BpuaApplication.GetInstance());
             }
             return instance;
         }

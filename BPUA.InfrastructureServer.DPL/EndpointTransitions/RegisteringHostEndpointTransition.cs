@@ -20,8 +20,8 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                IBPUAIdentifier bpuaIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
-                return KeyCompiler.CompileTransitionKey(bpuaIdentifier.RequestName, bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName, bpuaIdentifier.StateName, bpuaIdentifier.TransitionName);
+                IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
+                return KeyCompiler.CompileTransitionKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
             }
         }
         #endregion
@@ -53,12 +53,12 @@ namespace BPUA.InfrastructureServer.DPL
         }
 
         /// <summary>
-        /// Prepares the BPUA identifier for the next transition handler
+        /// Prepares the BPU identifier for the next transition handler
         /// </summary>
-        /// <param name= "nextTransitionHandlerBpuaIdentifier" >Next transition handler BPUA identifier</param>
-        protected override void PrepareNextTransitionHandlerBpuaIdentifier(IBPUAIdentifier nextTransitionHandlerBpuaIdentifier)
+        /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
+        protected override void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
         {
-            nextTransitionHandlerBpuaIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+            nextTransitionHandlerBpuIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
         }
         #endregion
     }

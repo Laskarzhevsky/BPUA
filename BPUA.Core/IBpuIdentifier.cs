@@ -1,9 +1,9 @@
 ﻿namespace BPUA.Core
 {
     /// <summary>
-    /// Defines BPUA identifier
+    /// Defines BPU identifier
     /// </summary>
-    public interface IBPUAIdentifier
+    public interface IBpuIdentifier
     {
         #region Properties
         /// <summary>

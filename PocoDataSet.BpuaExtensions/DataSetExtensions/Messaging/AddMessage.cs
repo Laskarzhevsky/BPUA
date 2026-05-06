@@ -45,7 +45,7 @@ namespace PocoDataSet.BpuaExtensions
         /// Adds message to the data set
         /// </summary>
         /// <param name="dataSet">Data set</param>
-        /// <param name="message">BPUA identifier</param>
+        /// <param name="message">BPU identifier</param>
         /// <returns>Added message</returns>
         public static IMessage AddMessage(this IDataSet? dataSet, IMessage message)
         {

@@ -10,7 +10,7 @@ namespace BPUA.Application.RoutingTests
     public partial class InfrastructureServerTests : IDisposable
     {
         /// <summary>
-        /// Creates a new routing test instance and resets the <c>BPUAApplication</c> singleton first.
+        /// Creates a new routing test instance and resets the <c>BpuaApplication</c> singleton first.
         /// This keeps every routing test isolated from previous bootstrap or activation activity.
         /// </summary>
         public InfrastructureServerTests()
@@ -19,7 +19,7 @@ namespace BPUA.Application.RoutingTests
         }
 
         /// <summary>
-        /// Performs routing test cleanup by resetting the <c>BPUAApplication</c> singleton again.
+        /// Performs routing test cleanup by resetting the <c>BpuaApplication</c> singleton again.
         /// </summary>
         public void Dispose()
         {

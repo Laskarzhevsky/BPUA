@@ -17,13 +17,13 @@ namespace BPUA.Application.Orchestration
         void InitializeTransitionContextRouter()
         {
             ResponseTransitionContext = RequestTransitionContext;
-            IBPUAIdentifier? bpuaIdentifier = RequestTransitionContext.GetCurrentBpuaIdentifier();
-            if (bpuaIdentifier == null)
+            IBpuIdentifier? bpuIdentifier = RequestTransitionContext.GetCurrentBpuIdentifier();
+            if (bpuIdentifier == null)
             {
-                throw new System.Exception("BPUA identifier metadata is missing in data set.");
+                throw new System.Exception("BPU identifier metadata is missing in data set.");
             }
 
-            BpuaIdentifier = bpuaIdentifier;
+            BpuIdentifier = bpuIdentifier;
         }
         #endregion
     }

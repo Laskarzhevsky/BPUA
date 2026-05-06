@@ -7,14 +7,14 @@ namespace BPUA.Application.Boot
     /// The snapshot prevents the delayed activation pipeline from observing later modifications
     /// to the original identifier object supplied by the caller.
     /// </summary>
-    sealed class IdentifierSnapshot : IBPUAIdentifier
+    sealed class IdentifierSnapshot : IBpuIdentifier
     {
         /// <summary>
         /// Copies all relevant identifier values from the supplied identifier into a separate object.
         /// Null string values that are important for path and key calculations are normalized to empty strings.
         /// </summary>
         /// <param name="identifier">The identifier to copy.</param>
-        public IdentifierSnapshot(IBPUAIdentifier identifier)
+        public IdentifierSnapshot(IBpuIdentifier identifier)
         {
             if (string.IsNullOrEmpty(identifier.DomainName))
             {
@@ -43,7 +43,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the application layer name captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? ApplicationLayerName
         {
@@ -52,7 +52,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the breadcrumbs captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? Breadcrumbs 
         {
@@ -61,7 +61,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the domain name captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? DomainName 
         {
@@ -70,7 +70,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets request name
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? RequestName
         {
@@ -79,7 +79,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the state name captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? StateName 
         {
@@ -88,7 +88,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the transition name captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? TransitionName 
         {
@@ -97,7 +97,7 @@ namespace BPUA.Application.Boot
 
         /// <summary>
         /// Gets or sets the use-case name captured from the original identifier.
-        /// IBPUAIdentifier interface implementation
+        /// IBpuIdentifier interface implementation
         /// </summary>
         public string? UseCaseName 
         {

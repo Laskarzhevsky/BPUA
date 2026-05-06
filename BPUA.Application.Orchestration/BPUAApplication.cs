@@ -13,16 +13,16 @@ namespace BPUA.Application.Orchestration
     /// Represents the runtime application coordinator that listens to service requests
     /// and dispatches them to the appropriate event bus handler.
     /// </summary>
-    public class BPUAApplication : IBPUAApplication
+    public class BpuaApplication : IBpuaApplication
     {
         #region Data Fields
         /// <summary>
         /// Holds reference to BPUA application
         /// </summary>
-        static BPUAApplication? _bppApplication = null;
+        static BpuaApplication? _bppApplication = null;
 
         /// <summary>
-        /// Holds state machines for activated use cases. Key is BPUA identifier key.
+        /// Holds state machines for activated use cases. Key is BPU identifier key.
         /// </summary>
         readonly Dictionary<string, StateMachine> _stateMachines = new Dictionary<string, StateMachine>();
         #endregion
@@ -30,7 +30,7 @@ namespace BPUA.Application.Orchestration
         #region Constructors
         /// <summary>
         /// Default constructor
-        BPUAApplication()
+        BpuaApplication()
         {
             ServiceRegistry = new ServiceRegistry();
         }
@@ -39,25 +39,25 @@ namespace BPUA.Application.Orchestration
         #region Public Methods
         /// <summary>
         /// Activates use case
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
         /// <returns>Use case activation result</returns>
-        public async Task<UseCaseActivationResult> ActivateUseCaseAsync(IBPUAIdentifier bpuaIdentifier)
+        public async Task<UseCaseActivationResult> ActivateUseCaseAsync(IBpuIdentifier bpuIdentifier)
         {
             IUseCaseActivator useCaseActivator = ServiceRegistry.GetObject<IUseCaseActivator>(typeof(IUseCaseActivator).Name);
-            UseCaseActivationResult useCaseActivationResult = await useCaseActivator.ActivateAsync(bpuaIdentifier, ServiceRegistry);
+            UseCaseActivationResult useCaseActivationResult = await useCaseActivator.ActivateAsync(bpuIdentifier, ServiceRegistry);
             return useCaseActivationResult;
         }
 
         /// <summary>
         /// Executes transition
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
-        /// <param name="bpuaIdentifier">BPUA identifier</param>
-        public async Task ExecuteTransition(IBPUAIdentifier bpuaIdentifier)
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        public async Task ExecuteTransition(IBpuIdentifier bpuIdentifier)
         {
-            string stateMachineKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuaIdentifier.DomainName, bpuaIdentifier.UseCaseName, bpuaIdentifier.ApplicationLayerName);
+            string stateMachineKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName);
             StateMachine? stateMachine = null;
             if (_stateMachines.ContainsKey(stateMachineKey))
             {
@@ -69,18 +69,18 @@ namespace BPUA.Application.Orchestration
                 _stateMachines[stateMachineKey] = stateMachine;
             }
 
-            await stateMachine.ExecuteTransition(this, bpuaIdentifier);
+            await stateMachine.ExecuteTransition(this, bpuIdentifier);
         }
 
         /// <summary>
         /// Gets instance of BPUA application
         /// </summary>
         /// <returns>BPUA application</returns>
-        public static IBPUAApplication GetInstance()
+        public static IBpuaApplication GetInstance()
         {
             if (_bppApplication == null)
             {
-                _bppApplication = new BPUAApplication();
+                _bppApplication = new BpuaApplication();
             }
 
             return _bppApplication;
@@ -88,19 +88,19 @@ namespace BPUA.Application.Orchestration
 
         /// <summary>
         /// Gets request handler
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         /// <param name="requesthandlerKey">Request handler key</param>
         /// <returns>Request handler</returns>
         public IRequestHandler? GetRequestHandler(string requesthandlerKey)
         {
-            IRequestHandler? requestHandler = (IRequestHandler?)ServiceRegistry.GetBPUAService(requesthandlerKey);
+            IRequestHandler? requestHandler = (IRequestHandler?)ServiceRegistry.GetBpuaService(requesthandlerKey);
             return requestHandler;
         }
 
         /// <summary>
         /// Gets value from application configuration
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         /// <typeparam name="T">Value type</typeparam>
         /// <param name="key">Value key</param>
@@ -125,7 +125,7 @@ namespace BPUA.Application.Orchestration
 
         /// <summary>
         /// Initializes hosted application layers
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         public async Task InitializeHostedApplicationLayers()
         {
@@ -134,7 +134,7 @@ namespace BPUA.Application.Orchestration
 
         /// <summary>
         /// Gets flag indicating whether use case activated
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         /// <param name="useCaseKey">Use case key</param>
         /// <returns>Flag indicating whether use case activated</returns>
@@ -166,7 +166,7 @@ namespace BPUA.Application.Orchestration
         #region Public Properties
         /// <summary>
         /// Gets application configuration
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         public IConfiguration ApplicationConfiguration
         {
@@ -175,7 +175,7 @@ namespace BPUA.Application.Orchestration
 
         /// <summary>
         /// Gets path to folder with dynamic assemblies
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         public string PathToFolderWithDynamicAssemblies
         {
@@ -184,7 +184,7 @@ namespace BPUA.Application.Orchestration
 
         /// <summary>
         /// Gets service registry 
-        /// IBPUAApplication interface implementation
+        /// IBpuaApplication interface implementation
         /// </summary>
         public IServiceRegistry ServiceRegistry
         {
@@ -195,14 +195,14 @@ namespace BPUA.Application.Orchestration
         #region Event handlers
         /// <summary>
         /// Handles RequestHandler.RequestService event
-        /// IBPUAApplication interface implementaion
+        /// IBpuaApplication interface implementaion
         /// </summary>
         /// <param name="eventSource">Event source</param>
         /// <param name="args">Event arguments</param>
         public async Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args)
         {
             EventArgs eventArguments = args.EventArguments;
-            IBPUAService? bppService = ServiceRegistry.GetBPUAService(eventArguments);
+            IBpuaService? bppService = ServiceRegistry.GetBpuaService(eventArguments);
             if (bppService != null)
             {
                 await using (bppService as IAsyncDisposable)

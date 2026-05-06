@@ -82,12 +82,12 @@ namespace BPUA.Application.Boot
 
         public static string? TryToResolveEventArgsKey(Type type)
         {
-            // Priority 3: derives from BPUAService<TEventArgs>
+            // Priority 3: derives from BpuaService<TEventArgs>
             // -> create a unique key per handler type for the same event
             Type? baseType = type.BaseType;
             while (baseType != null && baseType != typeof(object))
             {
-                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(BPUAService<>))
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(BpuaService<>))
                 {
                     Type eventArgsType = baseType.GetGenericArguments()[0];
                     string stem = eventArgsType.Name;

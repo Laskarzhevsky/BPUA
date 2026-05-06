@@ -6,14 +6,14 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Defines BPUA application service functionality
     /// </summary>
-    public interface IBPUAService
+    public interface IBpuaService
     {
         #region Methods
         /// <summary>
         /// Initializes component
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        Task InitializeComponent(IBPUAApplication bppApplication);
+        Task InitializeComponent(IBpuaApplication bppApplication);
         #endregion
 
         #region Event Handlers

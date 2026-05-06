@@ -8,7 +8,7 @@ namespace BPUA.Application.Orchestration
 {
     /// <summary>
     /// Process-local record of a successfully activated use case.
-    /// Stored/cached inside BPUAApplication so repeated activations are no-ops.
+    /// Stored/cached inside BpuaApplication so repeated activations are no-ops.
     /// </summary>
     internal sealed class ActivationContext
     {

@@ -15,7 +15,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="section">Configuration section</param>
         /// <param name="key">Configuration key</param>
         /// <returns>Configuration value or empty string</returns>
-        public static string? GetOptionalValue(IBPUAApplication bpuaApplication, string key)
+        public static string? GetOptionalValue(IBpuaApplication bpuaApplication, string key)
         {
             IConfigurationSection section = bpuaApplication.ApplicationConfiguration.GetSection(key);
             string? value = GetOptionalValue(section, key);
@@ -54,7 +54,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="section">Configuration section</param>
         /// <param name="key">Configuration key</param>
         /// <returns>Configuration value</returns>
-        public static string GetRequiredValue(IBPUAApplication bpuaApplication, string key)
+        public static string GetRequiredValue(IBpuaApplication bpuaApplication, string key)
         {
             IConfigurationSection section = bpuaApplication.ApplicationConfiguration.GetSection(key);
             string value = GetRequiredValue(section, key);

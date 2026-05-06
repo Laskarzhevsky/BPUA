@@ -21,7 +21,7 @@ namespace BPUA.Application.Boot
         /// <param name="owner">The activator that performs the real activation work.</param>
         /// <param name="identifier">The identifier that describes the use case to activate.</param>
         /// <param name="serviceRegistry">The registry used during activation.</param>
-        public ActivationCoreInvoker(UseCaseActivator owner, IBPUAIdentifier identifier, IServiceRegistry serviceRegistry)
+        public ActivationCoreInvoker(UseCaseActivator owner, IBpuIdentifier identifier, IServiceRegistry serviceRegistry)
         {
             _useCaseActivator = owner;
             _serviceRegistry = serviceRegistry;

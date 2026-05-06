@@ -2,7 +2,7 @@
 
 namespace BPUA.Application.Contracts
 {
-    public interface ITransitionMetadata : IBPUAIdentifier
+    public interface ITransitionMetadata : IBpuIdentifier
     {
         #region Properties
         /// <summary>

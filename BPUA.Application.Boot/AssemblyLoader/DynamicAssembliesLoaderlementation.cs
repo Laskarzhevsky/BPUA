@@ -21,7 +21,7 @@ namespace BPUA.Application.Boot
             bool exists = false;
             for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
             {
-                if (ListOfAssemblyProcessors[i] is BPUAServiceAssemblyProcessor)
+                if (ListOfAssemblyProcessors[i] is BpuaServiceAssemblyProcessor)
                 {
                     exists = true;
                     break;
@@ -30,7 +30,7 @@ namespace BPUA.Application.Boot
 
             if (!exists)
             {
-                ListOfAssemblyProcessors.Add(new BPUAServiceAssemblyProcessor());
+                ListOfAssemblyProcessors.Add(new BpuaServiceAssemblyProcessor());
             }
         }
 
@@ -69,7 +69,7 @@ namespace BPUA.Application.Boot
 
             for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
             {
-                IBPUAAssemblyProcessor bpuaAssemblyProcessor = ListOfAssemblyProcessors[i];
+                IBpuaAssemblyProcessor bpuaAssemblyProcessor = ListOfAssemblyProcessors[i];
                 bpuaAssemblyProcessor.Process(LoadedAssembly, ServiceRegistry);
             }
         }
@@ -101,7 +101,7 @@ namespace BPUA.Application.Boot
         /// <param name="serviceRegistry">Service registry</param>
         /// <param name="listOfLoadedAssemblies">List of loaded assemblies</param>
         /// <param name="listOfAssemblyProcessors">List of assembly processors</param>
-        void InitializeComponent(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBPUAAssemblyProcessor> listOfAssemblyProcessors)
+        void InitializeComponent(string pathToFolderWithDynamicAssemblies, IServiceRegistry serviceRegistry, List<Assembly> listOfLoadedAssemblies, List<IBpuaAssemblyProcessor> listOfAssemblyProcessors)
         {
             PathToFolderWithDynamicAssemblies = pathToFolderWithDynamicAssemblies;
             ServiceRegistry = serviceRegistry;
@@ -175,12 +175,12 @@ namespace BPUA.Application.Boot
                     continue;
                 }
 
-                if (!typeof(IBPUAAssemblyProcessor).IsAssignableFrom(type))
+                if (!typeof(IBpuaAssemblyProcessor).IsAssignableFrom(type))
                 {
                     continue;
                 }
 
-                IBPUAAssemblyProcessor? bpuaAssemblyProcessor = Activator.CreateInstance(type) as IBPUAAssemblyProcessor;
+                IBpuaAssemblyProcessor? bpuaAssemblyProcessor = Activator.CreateInstance(type) as IBpuaAssemblyProcessor;
                 if (bpuaAssemblyProcessor != null)
                 {
                     ListOfAssemblyProcessors.Add(bpuaAssemblyProcessor);
@@ -226,7 +226,7 @@ namespace BPUA.Application.Boot
         /// <summary>
         /// Gets or sets list of assembly processors
         /// </summary>
-        List<IBPUAAssemblyProcessor> ListOfAssemblyProcessors
+        List<IBpuaAssemblyProcessor> ListOfAssemblyProcessors
         {
             get; set;
         } = default!;

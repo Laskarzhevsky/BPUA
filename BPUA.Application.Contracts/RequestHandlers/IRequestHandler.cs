@@ -11,7 +11,7 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Defines request handler functionality
     /// </summary>
-    public interface IRequestHandler : IDisposable, IBPUAService
+    public interface IRequestHandler : IDisposable, IBpuaService
     {
         #region Events
         /// <summary>
@@ -40,15 +40,15 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets BPUA application
         /// </summary>
-        IBPUAApplication BPUAApplication
+        IBpuaApplication BpuaApplication
         {
             get; set;
         }
 
         /// <summary>
-        /// Gets BPUA identifier
+        /// Gets BPU identifier
         /// </summary>
-        IBPUAIdentifier BpuaIdentifier
+        IBpuIdentifier BpuIdentifier
         {
             get;
         }

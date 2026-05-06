@@ -10,15 +10,15 @@ namespace BPUA.Application.Services
     /// Provides BPUA service functionality
     /// </summary>
     /// <typeparam name="TArgs">Type of event arguments</typeparam>
-    public abstract class BPUAService<TArgs> : AsyncDisposableObject, IBPUAService where TArgs : EventArgs
+    public abstract class BpuaService<TArgs> : AsyncDisposableObject, IBpuaService where TArgs : EventArgs
     {
         #region Public Methods
         /// <summary>
         /// Initializes component
-        /// IBPUAService interface implementation
+        /// IBpuaService interface implementation
         /// </summary>
         /// <param name="bppApplication">BPUA application</param>
-        public abstract Task InitializeComponent(IBPUAApplication bppApplication);
+        public abstract Task InitializeComponent(IBpuaApplication bppApplication);
         #endregion
 
         #region Event handlers
@@ -31,11 +31,11 @@ namespace BPUA.Application.Services
 
         /// <summary>
         /// Handles event asynchronously
-        /// IBPUAService interface implementation
+        /// IBpuaService interface implementation
         /// </summary>
         /// <param name="sender">Event source</param>
         /// <param name="args">Event arguments</param>
-        async Task IBPUAService.HandleAsync(object? sender, EventArgs args)
+        async Task IBpuaService.HandleAsync(object? sender, EventArgs args)
         {
             ServiceRequestEventArgs? serviceRequestEventArgs = args as ServiceRequestEventArgs;
             if (serviceRequestEventArgs == null)
@@ -49,7 +49,7 @@ namespace BPUA.Application.Services
                 return;
             }
 
-            BpuaApplication = sender as IBPUAApplication;
+            BpuaApplication = sender as IBpuaApplication;
             await HandleAsync(sender, args);
         }
         #endregion
@@ -58,7 +58,7 @@ namespace BPUA.Application.Services
         /// <summary>
         /// Gets or sets BPUA application
         /// </summary>
-        protected IBPUAApplication? BpuaApplication
+        protected IBpuaApplication? BpuaApplication
         {
             get; set;
         }

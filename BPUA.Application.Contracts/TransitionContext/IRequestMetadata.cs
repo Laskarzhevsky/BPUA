@@ -7,7 +7,7 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Defines request metadata data trasfer objet functionality
     /// </summary>
-    public interface IRequestMetadata : IBPUAIdentifier
+    public interface IRequestMetadata : IBpuIdentifier
     {
         #region Properties
         /// <summary>

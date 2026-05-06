@@ -9,7 +9,7 @@ namespace BPUA.InfrastructureServer.SL
     /// <summary>
     /// Provides functionality of the state handler for "WaitingForApplicationLoad" state of the InfrastructureServer use case in the state logic application layer
     /// </summary>
-    [RegisterAsBPUAService]
+    [RegisterAsBpuaService]
     public class WaitingForApplicationLoadStateHandler : StateHandler
     {
         #region Identification
@@ -45,15 +45,15 @@ namespace BPUA.InfrastructureServer.SL
         /// </summary>
         protected override void ProcessResponse()
         {
-            StoreApplicationInitializationResultIntoBpuaIdentifier();
+            StoreApplicationInitializationResultIntoBpuIdentifier();
         }
         #endregion
 
         #region Private Methods
         /// <summary>
-        /// Stores application initialization result into BPUA identifier
+        /// Stores application initialization result into BPU identifier
         /// </summary>
-        void StoreApplicationInitializationResultIntoBpuaIdentifier()
+        void StoreApplicationInitializationResultIntoBpuIdentifier()
         {
             IRequestMetadata? requestMetadata = ResponseTransitionContext.GetCurrentRequestMetadata();
             if (requestMetadata == null)
@@ -61,7 +61,7 @@ namespace BPUA.InfrastructureServer.SL
                 throw new System.ApplicationException("Request metadata is missing in data set.");
             }
 
-            BpuaIdentifier.StateName = requestMetadata.StateName;
+            BpuIdentifier.StateName = requestMetadata.StateName;
         }
         #endregion
     }

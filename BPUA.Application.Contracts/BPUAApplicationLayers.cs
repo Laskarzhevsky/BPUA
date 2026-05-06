@@ -6,18 +6,18 @@ namespace BPUA.Application.Contracts
     /// <summary>
     /// Provides BPUA application layers progression
     /// </summary>
-    public static class BPUAApplicationLayers
+    public static class BpuaApplicationLayers
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        static BPUAApplicationLayers()
+        static BpuaApplicationLayers()
         {
-            BPUAApplicationLayersProgression = new Dictionary<string, string>();
-            BPUAApplicationLayersProgression.Add("SL", "BL");
-            BPUAApplicationLayersProgression.Add("BL", "DPL");
-            BPUAApplicationLayersProgression.Add("DPL", "DAL");
+            BpuaApplicationLayersProgression = new Dictionary<string, string>();
+            BpuaApplicationLayersProgression.Add("SL", "BL");
+            BpuaApplicationLayersProgression.Add("BL", "DPL");
+            BpuaApplicationLayersProgression.Add("DPL", "DAL");
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace BPUA.Application.Contracts
                 return "SL";
             }
 
-            BPUAApplicationLayersProgression.TryGetValue(currentLayerName, out string? nextLayerName);
+            BpuaApplicationLayersProgression.TryGetValue(currentLayerName, out string? nextLayerName);
             if (string.IsNullOrEmpty(nextLayerName))
             {
                 throw new InvalidOperationException($"No next layer found for the current layer: {currentLayerName}");
@@ -48,7 +48,7 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Gets or sets BPUA application layers progression
         /// </summary>
-        static Dictionary<string, string> BPUAApplicationLayersProgression
+        static Dictionary<string, string> BpuaApplicationLayersProgression
         {
             get; set;
         }

@@ -23,7 +23,7 @@ namespace BPUA.Application.Orchestration
                 return false;
             }
 
-            BpuaIdentifier = RequestTransitionContext.GetCurrentBpuaIdentifier()!;
+            BpuIdentifier = RequestTransitionContext.GetCurrentBpuIdentifier()!;
             bool useCaseActivated = await UseCaseActivated();
 
             return useCaseActivated;
