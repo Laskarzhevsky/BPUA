@@ -16,15 +16,15 @@ namespace BPUA.InfrastructureServer.Tests
     public partial class InfrastructureServerTests
     {
         /// <summary>
-        /// Tests the registration of hosted application layers.
+        /// Tests the execution of the transition that registers hosted application layers with BPUA Infrastructure Server.
         /// </summary>
         [Fact]
-        public async Task RegisteringHostTransitionTest()
+        public async Task RegisteringHostTransitionExecutionTest()
         {
             // Boot BPUA platform
             string buildFolder = Helpers.FindBuildFolder();
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            await bootstrapper.BootBPUAPlatform(buildFolder, false);
+            await bootstrapper.BootBPUAPlatform(buildFolder);
 
             // Testing the transition that registers hosted application layers.
             // This transition is triggered when a remote host (caller) sends a request to the BPUA application to register itself as a host for a specified application layer.

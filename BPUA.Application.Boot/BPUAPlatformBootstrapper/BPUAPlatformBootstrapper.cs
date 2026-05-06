@@ -16,12 +16,11 @@ namespace BPUA.Application.Boot
         /// Boots BPUA platform
         /// </summary>
         /// <param name="pathToFolderWithExecutableFile">Path to folder with excutable file</param>
-        /// <param name="isDevelopmentEnvironment">Flag indicating whether application runs in development environment</param>
-        public async Task BootBPUAPlatform(string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
+        public async Task BootBPUAPlatform(string pathToFolderWithExecutableFile)
         {
             ThrowIfAlreadyBootstrapped();
             ValidatePathToFolderWithExecutableFile(pathToFolderWithExecutableFile);
-            InitializeComponent(pathToFolderWithExecutableFile, isDevelopmentEnvironment);
+            InitializeComponent(pathToFolderWithExecutableFile);
 
             try
             {

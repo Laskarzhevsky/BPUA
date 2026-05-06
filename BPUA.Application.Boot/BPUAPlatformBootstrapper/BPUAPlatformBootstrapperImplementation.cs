@@ -26,7 +26,7 @@ namespace BPUA.Application.Boot
 
         void CalculatePathToFolderWithDynamicAssemblies()
         {
-            PathToFolderWithDynamicAssemblies = AssemblyLoadingProcessConfigurator.CalculatePathToFolderWithDynamicAssemblies(ApplicationConfiguration, PathToFolderWithExecutableFile, IsDevelopmentEnvironment);
+            PathToFolderWithDynamicAssemblies = AssemblyLoadingProcessConfigurator.CalculatePathToFolderWithDynamicAssemblies(ApplicationConfiguration, PathToFolderWithExecutableFile);
         }
 
         /// <summary>
@@ -50,11 +50,9 @@ namespace BPUA.Application.Boot
         /// Initializes component
         /// </summary>
         /// <param name="pathToFolderWithExecutableFile">Path to folder with excutable file</param>
-        /// <param name="isDevelopmentEnvironment">Flag indicating whether application runs in development environment</param>
-        void InitializeComponent(string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
+        void InitializeComponent(string pathToFolderWithExecutableFile)
         {
             PathToFolderWithExecutableFile = pathToFolderWithExecutableFile;
-            IsDevelopmentEnvironment = isDevelopmentEnvironment;
         }
 
         /// <summary>
@@ -211,14 +209,6 @@ namespace BPUA.Application.Boot
         {
             get; set;
         } = default!;
-
-        /// <summary>
-        /// Gets or sets flag indicating whether application runs in development environment
-        /// </summary>
-        bool IsDevelopmentEnvironment
-        {
-            get; set;
-        }
 
         /// <summary>
         /// Gets or sets path to folder with dynamic assemblies

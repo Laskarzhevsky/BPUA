@@ -56,7 +56,7 @@ namespace BPUA.InfrastructureServer.Tests
             using TestBootstrapEnvironmentScope scope = new TestBootstrapEnvironmentScope(appSettingsJson);
 
             BPUAPlatformBootstrapper bootstrapper = new BPUAPlatformBootstrapper();
-            await bootstrapper.BootBPUAPlatform(scope.RootPath, true);
+            await bootstrapper.BootBPUAPlatform(scope.RootPath);
 
             IBPUAApplication bpuaApplication = BPUAApplication.GetInstance();
 
@@ -75,20 +75,20 @@ namespace BPUA.InfrastructureServer.Tests
                 switch (applicationLayerName)
                 {
                     case ApplicationLayersNames.SL:
-            foundSL = true;
-            break;
+                        foundSL = true;
+                        break;
                     case ApplicationLayersNames.BL:
-            foundBL = true;
-            break;
+                        foundBL = true;
+                        break;
                     case ApplicationLayersNames.DPL:
-            foundDPL = true;
-            break;
+                        foundDPL = true;
+                        break;
                     case ApplicationLayersNames.DAL:
-            foundDAL = true;
-            break;
+                        foundDAL = true;
+                        break;
                     default:
-            Assert.Fail($"Unexpected application layer name: {applicationLayerName}");
-            break;
+                        Assert.Fail($"Unexpected application layer name: {applicationLayerName}");
+                        break;
                 }
 
                 Assert.Equal("BPUA", hostedApplicationLayer.DomainName);

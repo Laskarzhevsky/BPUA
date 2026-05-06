@@ -30,24 +30,21 @@ namespace BPUA.Application.Boot
         /// </summary>
         /// <param name="applicationConfiguration">Application configuration</param>
         /// <param name="pathToFolderWithExecutableFile">Path to folder with excutable file</param>
-        /// <param name="isDevelopmentEnvironment">Flag indicating whether application runs in development environment</param>
         /// <returns>Calculated path to folder with dynamic assemblies</returns>
-        public static string CalculatePathToFolderWithDynamicAssemblies(IConfiguration applicationConfiguration, string pathToFolderWithExecutableFile, bool isDevelopmentEnvironment)
+        public static string CalculatePathToFolderWithDynamicAssemblies(IConfiguration applicationConfiguration, string pathToFolderWithExecutableFile)
         {
             string? pluginPath = applicationConfiguration["PluginFolder"];
-            if (string.IsNullOrEmpty(pluginPath))
+            if (string.IsNullOrWhiteSpace(pluginPath))
             {
                 throw new ArgumentOutOfRangeException(nameof(applicationConfiguration), "The appsettings.json file does not contain a 'PluginFolder' setting");
             }
 
-            if (!isDevelopmentEnvironment)
+            if (!Path.IsPathRooted(pluginPath))
             {
                 pluginPath = Path.Combine(pathToFolderWithExecutableFile, pluginPath);
             }
 
             string pathToFolderWithDynamicAssemblies = Path.GetFullPath(pluginPath);
-            Console.WriteLine("PathToFolderWithDynamicAssemblies: " + pathToFolderWithDynamicAssemblies);
-
             return pathToFolderWithDynamicAssemblies;
         }
         #endregion
