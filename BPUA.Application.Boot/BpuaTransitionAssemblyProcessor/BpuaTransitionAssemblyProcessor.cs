@@ -5,10 +5,10 @@ using BPUA.Application.Contracts;
 namespace BPUA.Application.Boot
 {
     /// <summary>
-    /// Processes assembly decorated by RegisterAsBpuaServiceAssemblyAttribute
+    /// Processes assembly decorated by RegisterAsBPUATransitionAssemblyAttribute
     /// Marks the assembly as processed by the service-assembly registration pipeline.
     /// </summary>
-    public partial class BpuaServiceAssemblyProcessor : IBpuaAssemblyProcessor
+    public partial class BpuaTransitionAssemblyProcessor : IBpuaAssemblyProcessor
     {
         #region Public Methods
         /// <summary>
@@ -22,6 +22,7 @@ namespace BPUA.Application.Boot
             if (CanProcess(loadedAssembly) && NotProcessed(loadedAssembly, serviceRegistry))
             {
                 BpuaServicesRegistrar.RegisterServicesFromAssembly(loadedAssembly, serviceRegistry);
+                TransitionsRegistrar.RegisterTransitionsFromAssembly(loadedAssembly, serviceRegistry);
             }
         }
         #endregion

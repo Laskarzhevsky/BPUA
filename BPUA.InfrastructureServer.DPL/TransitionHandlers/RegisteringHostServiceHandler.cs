@@ -34,8 +34,12 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         public RegisteringHostServiceHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
-            DoNotSendRequestToApplicationNextLayer = true;
+//            DoNotSendRequestToApplicationNextLayer = true;
         }
+        #endregion
+
+        #region Overridden Methods
+
         #endregion
     }
 }

@@ -4,15 +4,22 @@ using BPUA.Application.StateMachineComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
 
-namespace BPUA.InfrastructureServer.DPL
+namespace BPUA.InfrastructureServer.Transitions
 {
     /// <summary>
     /// Provides RegisteringHost endpoint functionality
     /// </summary>
     [RegisterAsTransition]
-    public class RegisteringHostEndpointTransition : Transition
+    public class RegisteringHostTransition : SendRequestToApplicationNextLayerTransition
     {
         #region Identification
+        public static string RequestName = BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_APPLICATION_NEXT_LAYER;
+        public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
+        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
+        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+        public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+        public static string TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
+
         /// <summary>
         /// Gets transition key
         /// </summary>
@@ -20,8 +27,7 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
-                return KeyCompiler.CompileTransitionKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
+                return KeyCompiler.CompileTransitionKey(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
             }
         }
         #endregion
@@ -30,9 +36,8 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointTransition() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost())
+        public RegisteringHostTransition() : base(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
-            IsEndpoint = true;
         }
         #endregion
 
@@ -58,7 +63,6 @@ namespace BPUA.InfrastructureServer.DPL
         /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
         protected override void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
         {
-            nextTransitionHandlerBpuIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
         }
         #endregion
     }

@@ -1,8 +1,5 @@
 using BPUA.Core;
 
-using PocoDataSet.BpuaExtensions;
-using PocoDataSet.IData;
-
 using System;
 
 namespace BPUA.Application.StateMachineComponents
@@ -18,12 +15,21 @@ namespace BPUA.Application.StateMachineComponents
         /// Default constructor
         /// </summary>
         /// <param name="requestName">Request name</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        public SendRequestToApplicationNextLayerTransition(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
+        {
+        }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="requestName">Request name</param>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public SendRequestToApplicationNextLayerTransition(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
+        public SendRequestToApplicationNextLayerTransition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(requestName, domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
         }
         #endregion

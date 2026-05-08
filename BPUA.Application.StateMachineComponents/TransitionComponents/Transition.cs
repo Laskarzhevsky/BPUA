@@ -29,6 +29,31 @@ namespace BPUA.Application.StateMachineComponents
 
         #region Constructors
         /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="requestName">Request name</param>
+        /// <param name="domainName">Domain name</param>
+        /// <param name="useCaseName">Use case name</param>
+        /// <param name="applicationLayerName">Application layer name</param>
+        /// <param name="stateName">State name</param>
+        /// <param name="transitionName">Transition name</param>
+        public Transition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        {
+            BpuIdentifier.RequestName = requestName;
+            BpuIdentifier.DomainName = domainName;
+            BpuIdentifier.UseCaseName = useCaseName;
+            BpuIdentifier.ApplicationLayerName = applicationLayerName;
+            BpuIdentifier.StateName = stateName;
+            BpuIdentifier.TransitionName = transitionName;
+
+            _allowedCallerBpuIdentifiers = new List<string>();
+            _targetStateNames = new List<string>();
+
+            AddRequestDataContextValidationRules();
+            AddResponseDataContextValidationRules();
+        }
+
+        /// <summary>
         /// Constructor overload that accepts endpoint identifier.
         /// This allows endpoint contracts to be the single source of truth.
         /// </summary>
@@ -81,16 +106,6 @@ namespace BPUA.Application.StateMachineComponents
             {
                 return KeyCompiler.CompileTransitionKey(BpuIdentifier.RequestName, BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
             }
-        }
-
-        /// <summary>
-        /// Gets flag indicating whether the transition is an endpoint in the use case.
-        /// It can be called from outside of the use case.
-        /// ITransition interface implementation
-        /// </summary>
-        public bool IsEndpoint
-        {
-            get; protected set;
         }
 
         /// <summary>

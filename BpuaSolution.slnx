@@ -9,6 +9,7 @@
     <Project Path="BPUA.InfrastructureServer.DAL/BPUA.InfrastructureServer.DAL.csproj" Id="a890e6ce-ea01-4844-bc19-187ad2573ad1" />
     <Project Path="BPUA.InfrastructureServer.DPL/BPUA.InfrastructureServer.DPL.csproj" Id="91065176-6ead-4a3c-a7a4-f106c43057ea" />
     <Project Path="BPUA.InfrastructureServer.SL/BPUA.InfrastructureServer.SL.csproj" Id="8cb565ff-856c-400b-819e-a400686ab876" />
+    <Project Path="BPUA.InfrastructureServer.Transitions/BPUA.InfrastructureServer.Transitions.csproj" Id="4244859d-77e0-4b42-b171-b4d10b4fb82d" />
   </Folder>
   <Folder Name="/BPUA.Application/" />
   <Folder Name="/BPUA.Application/ApplicationServer/">

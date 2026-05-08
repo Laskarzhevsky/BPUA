@@ -37,15 +37,6 @@ namespace BPUA.Application.Contracts
         }
 
         /// <summary>
-        /// Gets flag indicating whether the transition is an endpoint in the use case.
-        /// It can be called from outside of the use case.
-        /// </summary>
-        bool IsEndpoint
-        {
-            get;
-        }
-
-        /// <summary>
         /// Gets or sets request data context validation rules
         /// </summary>
         DistinctList<IValidationRule> RequestDataContextValidationRules

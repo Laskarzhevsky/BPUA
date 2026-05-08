@@ -15,6 +15,7 @@ namespace BPUA.InfrastructureServer.Contracts
         {
             BpuIdentifier bpuIdentifier = new BpuIdentifier();
 
+            bpuIdentifier.RequestName = BPUA.Application.Contracts.RequestNames.ANY;
             bpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
             bpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
             bpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;

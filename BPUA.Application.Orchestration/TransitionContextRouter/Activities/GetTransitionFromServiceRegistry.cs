@@ -19,6 +19,12 @@ namespace BPUA.Application.Orchestration
             BpuaApplication!.ServiceRegistry.TryGetRegisteredTransitionType(BpuIdentifier, out transitionType);
             if (transitionType == null)
             {
+                BpuIdentifier.RequestName = BPUA.Application.Contracts.RequestNames.ANY;
+                BpuaApplication!.ServiceRegistry.TryGetRegisteredTransitionType(BpuIdentifier, out transitionType);
+            }
+
+            if (transitionType == null)
+            {
                 throw new ApplicationException($"Transition is not registered for {BpuIdentifier.RequestName}_{BpuIdentifier.DomainName}_{BpuIdentifier.UseCaseName}_{BpuIdentifier.ApplicationLayerName}_{BpuIdentifier.StateName}_{BpuIdentifier.TransitionName}");
             }
 

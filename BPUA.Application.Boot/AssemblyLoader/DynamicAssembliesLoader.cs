@@ -25,7 +25,7 @@ namespace BPUA.Application.Boot
             InitializeComponent(string.Empty, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
             PathToDynamicAssembly = pathToDynamicAssembly;
 
-            AddStaticAssemblyProcessorToListOfAssemblyProcessors();
+            AddStaticAssemblyProcessorsToListOfAssemblyProcessors();
             LoadedAssembly = null;
             TryToLoadAssembly();
             if (LoadedAssembly == null)
@@ -71,7 +71,7 @@ namespace BPUA.Application.Boot
             InitializeComponent(pathToFolderWithDynamicAssemblies, serviceRegistry, listOfLoadedAssemblies, listOfAssemblyProcessors);
 
             LoadDynamicAssemblies();
-            AddStaticAssemblyProcessorToListOfAssemblyProcessors();
+            AddStaticAssemblyProcessorsToListOfAssemblyProcessors();
             foreach (Assembly assembly in listOfLoadedAssemblies)
             {
                 foreach (IBpuaAssemblyProcessor bpuaAssemblyProcessor in ListOfAssemblyProcessors)

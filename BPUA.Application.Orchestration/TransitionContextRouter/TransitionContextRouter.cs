@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BPUA.Application.Contracts;
 using BPUA.Application.Services;
 
+using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 namespace BPUA.Application.Orchestration
@@ -39,6 +40,14 @@ namespace BPUA.Application.Orchestration
             {
                 return;
             }
+
+            IRequestMetadata? requestMetadata = requestTransitionContext.GetCurrentRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new InvalidOperationException("Request data context does not contain request metadata");
+            }
+
+            requestMetadata.RequestName = serviceRequestEventArgs.EventName;
 
             RequestTransitionContext = requestTransitionContext;
             await RouteTransitionContext();

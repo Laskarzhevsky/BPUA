@@ -6,6 +6,11 @@
     public class RequestNames
     {
         /// <summary>
+        /// Defines any request name
+        /// </summary>
+        public static string ANY = "*";
+
+        /// <summary>
         /// Send request to application next layer
         /// </summary>
         public static string SEND_REQUEST_TO_APPLICATION_NEXT_LAYER = "SendRequestToApplicationNextLayer";
