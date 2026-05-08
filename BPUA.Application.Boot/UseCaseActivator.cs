@@ -191,6 +191,12 @@ namespace BPUA.Application.Boot
                     return Failure("Failed to load use case assembly: " + pathToDynamicAssembly);
                 }
 
+                dynamicAssembliesLoader.LoadDynamicTransitionAssembliesFromFolder(
+                    useCaseFolder,
+                    serviceRegistry,
+                    localLoadedAssemblies,
+                    ListOfAssemblyProcessors);
+
                 UseCaseActivationResult successResult = new UseCaseActivationResult();
                 successResult.Succeeded = true;
                 successResult.NoAdditionalAssembliesWereLoaded = false;

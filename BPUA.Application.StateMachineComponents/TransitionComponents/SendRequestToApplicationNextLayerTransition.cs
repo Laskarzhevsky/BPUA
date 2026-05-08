@@ -49,7 +49,7 @@ namespace BPUA.Application.StateMachineComponents
                 case "BL":
                     nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
                     break;
-                case "DL":
+                case "DPL":
                     nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
                     break;
                 default:

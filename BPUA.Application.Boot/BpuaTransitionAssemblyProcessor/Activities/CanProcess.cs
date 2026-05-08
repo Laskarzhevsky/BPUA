@@ -6,7 +6,7 @@ namespace BPUA.Application.Boot
 {
     /// <summary>
     /// Processes assembly decorated by RegisterAsBPUATransitionAssemblyAttribute
-    /// Marks the assembly as processed by the service-assembly registration pipeline.
+    /// Marks the assembly as processed by the transition-assembly registration pipeline.
     /// </summary>
     public partial class BpuaTransitionAssemblyProcessor
     {

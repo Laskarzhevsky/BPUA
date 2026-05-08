@@ -63,6 +63,7 @@ namespace BPUA.InfrastructureServer.Transitions
         /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
         protected override void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
         {
+            base.PrepareNextTransitionHandlerBpuIdentifier(nextTransitionHandlerBpuIdentifier);
         }
         #endregion
     }
