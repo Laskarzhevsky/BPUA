@@ -1,18 +1,18 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.StateMachineComponents;
+using BPUA.Application.ProcessComponents;
 
 namespace BPUA.Application.DataProcessingLogic
 {
     /// <summary>
     /// Provides transition handler functionality
     /// </summary>
-    public abstract class DataProcessingLogicTransitionHandler : TransitionHandler, IDataAccessLogicTransitionHandler
+    public abstract class DataProcessingLogicRequestHandler : RequestHandler, IDataAccessLogicTransitionHandler
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DataProcessingLogicTransitionHandler() : base()
+        public DataProcessingLogicRequestHandler() : base()
         {
         }
 
@@ -24,7 +24,7 @@ namespace BPUA.Application.DataProcessingLogic
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public DataProcessingLogicTransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        public DataProcessingLogicRequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
         }
         #endregion

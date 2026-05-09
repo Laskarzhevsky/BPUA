@@ -6,7 +6,7 @@
     public class StateNames
     {
         /// <summary>
-        /// Defines waiting for application load state
+        /// WaitingForApplicationLoad state
         /// </summary>
         public static string WAITING_FOR_APPLICATION_LOAD = "WaitingForApplicationLoad";
     }

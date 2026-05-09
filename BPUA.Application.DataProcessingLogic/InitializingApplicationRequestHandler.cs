@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
-using BPUA.Application.StateMachineComponents;
+using BPUA.Application.ProcessComponents;
 using BPUA.Core;
 
 using PocoDataSet.IData;
@@ -9,7 +9,7 @@ using PocoDataSet.IData;
 namespace BPUA.Application.DataProcessingLogic
 {
     [RegisterAsBpuaService]
-    public class InitializingApplicationTransitionHandler : DataProcessingLogicTransitionHandler, IDataProcessingLogicTransitionHandler
+    public class InitializingApplicationRequestHandler : DataProcessingLogicRequestHandler, IDataProcessingLogicTransitionHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
@@ -34,7 +34,7 @@ namespace BPUA.Application.DataProcessingLogic
         /// <summary>
         /// Default constructor
         /// </summary>
-        public InitializingApplicationTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public InitializingApplicationRequestHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
         }
         #endregion

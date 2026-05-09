@@ -1,13 +1,15 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using System.Threading.Tasks;
+
 namespace BPUA.InfrastructureServer.DPL
 {
     /// <summary>
     /// RegisteringHost service handler
     /// </summary>
     [RegisterAsBpuaService]
-    public partial class RegisteringHostServiceHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicTransitionHandler
+    public partial class RegisteringHostTransitionHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicRequestHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
@@ -32,14 +34,22 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostServiceHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public RegisteringHostTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
-//            DoNotSendRequestToApplicationNextLayer = true;
+            DoNotSendRequestToApplicationNextLayer = true;
         }
         #endregion
 
         #region Overridden Methods
-
+        /// <summary>
+        /// Processes request asynchronously
+        /// </summary>
+        protected override async Task ProcessRequestAsync()
+        {
+            await SearchApplicationLayersByFullNames();
+            MergeApplicationLayersFromRequestWithFound();
+            await SaveMergedApplicationLayers();
+        }
         #endregion
     }
 }

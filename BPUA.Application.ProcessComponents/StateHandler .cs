@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.ProcessComponents
 {
     /// <summary>
     /// Provides state handler functionality

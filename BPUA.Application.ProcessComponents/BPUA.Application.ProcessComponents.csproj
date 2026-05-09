@@ -17,8 +17,4 @@
     <ProjectReference Include="..\BPUA.Core\BPUA.Core.csproj" />
     <ProjectReference Include="..\PocoDataSet.BpuaExtensions\PocoDataSet.BpuaExtensions.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="StateComponents\" />
-  </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.ProcessComponents
 {
     public abstract class RequestHandler : AsyncDisposableObject, IRequestHandler, IBpuaService
     {
@@ -92,6 +92,17 @@ namespace BPUA.Application.StateMachineComponents
 
         /// <summary>
         /// Raises service request event
+        /// </summary>
+        /// <param name="eventName">Event name</param>
+        protected async Task RaiseServiceRequestEventAsync([CallerMemberName] string requestName = "")
+        {
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, requestName);
+            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+        }
+
+        /// <summary>
+        /// Raises service request event
         /// IRequestHandler interface implementation
         /// </summary>
         /// <param name="eventArguments">Event arguments</param>
@@ -137,11 +148,14 @@ namespace BPUA.Application.StateMachineComponents
         }
 
         /// <summary>
-        /// Gets request handler key
+        /// Gets component identifier
         /// </summary>
-        public abstract string ComponentIdentifier
+        public virtual string ComponentIdentifier
         {
-            get;
+            get
+            {
+                return KeyCompiler.CompileTransitionHandlerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
+            }
         }
         #endregion
 

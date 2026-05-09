@@ -1,5 +1,5 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.StateMachineComponents;
+using BPUA.Application.ProcessComponents;
 using BPUA.Core;
 
 using PocoDataSet.BpuaExtensions;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BPUA.Application.BusinessLogic
 {
     [RegisterAsBpuaService]
-    public class InitializingApplicationTransitionHandler : BusinessLogicTransitionHandler, IBusinessLogicTransitionHandler
+    public class InitializingApplicationRequestHandler : BusinessLogicRequestHandler, IBusinessLogicTransitionHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
@@ -36,7 +36,7 @@ namespace BPUA.Application.BusinessLogic
         /// <summary>
         /// Default constructor
         /// </summary>
-        public InitializingApplicationTransitionHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public InitializingApplicationRequestHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
         }
         #endregion

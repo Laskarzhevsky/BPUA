@@ -8,9 +8,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BPUA.Application.StateMachineComponents\BPUA.Application.StateMachineComponents.csproj" />
+    <ProjectReference Include="..\BPUA.Application.ProcessComponents\BPUA.Application.ProcessComponents.csproj" />
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
     <ProjectReference Include="..\BPUA.InfrastructureServer.Contracts\BPUA.InfrastructureServer.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="States\WaitingForApplicationLoad\Transitions\" />
   </ItemGroup>
 
   <PropertyGroup>

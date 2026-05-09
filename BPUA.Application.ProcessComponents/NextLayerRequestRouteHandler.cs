@@ -2,13 +2,13 @@ using BPUA.Core;
 
 using System;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.ProcessComponents
 {
 
     /// <summary>
     /// Provides transition definition functionality.
     /// </summary>
-    public abstract class SendRequestToApplicationNextLayerTransition : Transition
+    public abstract class NextLayerRequestRouteHandler : RequestRouteHandler
     {
         #region Constructors
         /// <summary>
@@ -16,7 +16,7 @@ namespace BPUA.Application.StateMachineComponents
         /// </summary>
         /// <param name="requestName">Request name</param>
         /// <param name="bpuIdentifier">BPU identifier</param>
-        public SendRequestToApplicationNextLayerTransition(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
+        public NextLayerRequestRouteHandler(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
         {
         }
 
@@ -29,7 +29,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public SendRequestToApplicationNextLayerTransition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(requestName, domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        public NextLayerRequestRouteHandler(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(requestName, domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
         }
         #endregion

@@ -1,16 +1,16 @@
 using BPUA.Application.Contracts;
 using BPUA.Application.NonFunctionalContracts;
-using BPUA.Application.StateMachineComponents;
+using BPUA.Application.ProcessComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
 
-namespace BPUA.InfrastructureServer.Transitions
+namespace BPUA.InfrastructureServer.RequestRouteHandlers
 {
     /// <summary>
     /// Provides RegisteringHost endpoint functionality
     /// </summary>
     [RegisterAsTransition]
-    public class RegisteringHostEndpointTransition : Transition
+    public class RegisteringHostEndpointRequestRouteHandler : RequestRouteHandler
     {
         #region Identification
         /// <summary>
@@ -30,7 +30,7 @@ namespace BPUA.InfrastructureServer.Transitions
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointTransition() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost())
+        public RegisteringHostEndpointRequestRouteHandler() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost())
         {
         }
         #endregion

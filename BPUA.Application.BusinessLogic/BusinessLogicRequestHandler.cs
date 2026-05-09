@@ -1,23 +1,18 @@
-﻿using System.Threading.Tasks;
-
-using BPUA.Application.Contracts;
-using BPUA.Application.StateMachineComponents;
-
-using PocoDataSet.BpuaExtensions;
-using PocoDataSet.IData;
+﻿using BPUA.Application.Contracts;
+using BPUA.Application.ProcessComponents;
 
 namespace BPUA.Application.BusinessLogic
 {
     /// <summary>
     /// Provides transition handler functionality
     /// </summary>
-    public abstract class BusinessLogicTransitionHandler : TransitionHandler, IBusinessLogicTransitionHandler
+    public abstract class BusinessLogicRequestHandler : RequestHandler, IBusinessLogicTransitionHandler
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BusinessLogicTransitionHandler() : base()
+        public BusinessLogicRequestHandler() : base()
         {
         }
 
@@ -29,7 +24,7 @@ namespace BPUA.Application.BusinessLogic
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public BusinessLogicTransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        public BusinessLogicRequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
         }
         #endregion

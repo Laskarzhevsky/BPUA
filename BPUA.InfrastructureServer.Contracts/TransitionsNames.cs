@@ -6,13 +6,13 @@
     public class TransitionsNames
     {
         /// <summary>
-        /// Defines initializing application transition
-        /// </summary>
-        public static string INITIALIZING_APPLICATION = "InitializingApplication";
-
-        /// <summary>
-        /// RegisteringHost transition
+        /// RegisteringHost transition name
         /// </summary>
         public static string REGISTERING_HOST = "RegisteringHost";
+
+        /// <summary>
+        /// SearchApplicationLayersByFullNames transition name
+        /// </summary>
+        public const string SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES = "SearchApplicationLayersByFullNames";
     }
 }

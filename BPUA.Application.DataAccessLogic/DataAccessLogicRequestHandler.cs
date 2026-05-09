@@ -1,5 +1,5 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.StateMachineComponents;
+using BPUA.Application.ProcessComponents;
 
 using PocoDataSet.IData;
 
@@ -10,13 +10,13 @@ namespace BPUA.Application.DataAccessLogic
     /// <summary>
     /// Provides transition handler functionality
     /// </summary>
-    public abstract class DataAccessLogicTransitionHandler : TransitionHandler, IDataAccessLogicTransitionHandler
+    public abstract class DataAccessLogicRequestHandler : RequestHandler, IDataAccessLogicTransitionHandler
     {
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DataAccessLogicTransitionHandler() : base()
+        public DataAccessLogicRequestHandler() : base()
         {
         }
 
@@ -28,7 +28,7 @@ namespace BPUA.Application.DataAccessLogic
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public DataAccessLogicTransitionHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        public DataAccessLogicRequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
         {
         }
         #endregion
@@ -49,17 +49,33 @@ namespace BPUA.Application.DataAccessLogic
             }
 
             ProcessRequest();
+            await ProcessRequestAsync();
 
             return ResponseTransitionContext;
         }
         #endregion
 
-        #region Private Methods
+        #region Protected Methods
+        /// <summary>
+        /// Processes request
+        /// </summary>
+        protected override void ProcessRequest()
+        {
+        }
+
+        /// <summary>
+        /// Processes request asynchronously
+        /// </summary>
+        protected override async Task ProcessRequestAsync()
+        {
+            await Task.CompletedTask;
+        }
+
         /// <summary>
         /// Processes response
         /// Hide ProcessResponse method from inherited classes
         /// </summary>
-        protected new void ProcessResponse()
+        protected override void ProcessResponse()
         {
         }
         #endregion

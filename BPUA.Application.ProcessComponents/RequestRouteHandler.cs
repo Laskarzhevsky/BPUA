@@ -7,13 +7,13 @@ using PocoDataSet.IData;
 using System;
 using System.Collections.Generic;
 
-namespace BPUA.Application.StateMachineComponents
+namespace BPUA.Application.ProcessComponents
 {
 
     /// <summary>
-    /// Provides transition definition functionality.
+    /// Provides request route handler functionality.
     /// </summary>
-    public abstract class Transition : ITransition
+    public abstract class RequestRouteHandler : ITransition
     {
         #region Data Fields
         /// <summary>
@@ -37,7 +37,7 @@ namespace BPUA.Application.StateMachineComponents
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">Transition name</param>
-        public Transition(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        public RequestRouteHandler(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
         {
             BpuIdentifier.RequestName = requestName;
             BpuIdentifier.DomainName = domainName;
@@ -57,7 +57,7 @@ namespace BPUA.Application.StateMachineComponents
         /// Constructor overload that accepts endpoint identifier.
         /// This allows endpoint contracts to be the single source of truth.
         /// </summary>
-        public Transition(string requestName, IBpuIdentifier bpuIdentifier)
+        public RequestRouteHandler(string requestName, IBpuIdentifier bpuIdentifier)
         {
             BpuIdentifier.RequestName = requestName;
             BpuIdentifier.DomainName = bpuIdentifier.DomainName;

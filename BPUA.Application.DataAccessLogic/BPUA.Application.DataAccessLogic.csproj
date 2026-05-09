@@ -8,7 +8,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BPUA.Application.StateMachineComponents\BPUA.Application.StateMachineComponents.csproj" />
+    <ProjectReference Include="..\BPUA.Application.ProcessComponents\BPUA.Application.ProcessComponents.csproj" />
     <ProjectReference Include="..\PocoDataSet.BpuaExtensions\PocoDataSet.BpuaExtensions.csproj" />
   </ItemGroup>
 
