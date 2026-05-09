@@ -93,8 +93,8 @@ namespace BPUA.Application.ProcessComponents
         /// <summary>
         /// Raises service request event
         /// </summary>
-        /// <param name="eventName">Event name</param>
-        protected async Task RaiseServiceRequestEventAsync([CallerMemberName] string requestName = "")
+        /// <param name="requestName">Request name</param>
+        protected async Task RaiseServiceRequestEventAsync(string requestName)
         {
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
             await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, requestName);
@@ -106,15 +106,15 @@ namespace BPUA.Application.ProcessComponents
         /// IRequestHandler interface implementation
         /// </summary>
         /// <param name="eventArguments">Event arguments</param>
-        /// <param name="eventName">Event name</param>
-        public virtual async Task RaiseServiceRequestEventAsync(EventArgs eventArguments, [CallerMemberName] string eventName = "")
+        /// <param name="requestName">Request name</param>
+        async Task RaiseServiceRequestEventAsync(EventArgs eventArguments, string requestName)
         {
             if (ServiceRequestEvent == null)
             {
                 return;
             }
 
-            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(eventName, eventArguments);
+            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(requestName, eventArguments);
             await ServiceRequestEvent.Invoke(this, serviceRequestEventArgs);
         }
         #endregion
@@ -209,7 +209,7 @@ namespace BPUA.Application.ProcessComponents
             }
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_APPLICATION_NEXT_LAYER);
 
             ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
         }
@@ -226,7 +226,7 @@ namespace BPUA.Application.ProcessComponents
             }
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_HANDLER);
 
             ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
         }

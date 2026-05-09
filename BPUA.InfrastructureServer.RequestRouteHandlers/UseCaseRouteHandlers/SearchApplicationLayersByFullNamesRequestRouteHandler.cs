@@ -4,7 +4,7 @@ using BPUA.Application.ProcessComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
 
-namespace BPUA.InfrastructureServer.RouteHandlers
+namespace BPUA.InfrastructureServer.RequestRouteHandlers
 {
     /// <summary>
     /// Provides RegisteringHost endpoint functionality

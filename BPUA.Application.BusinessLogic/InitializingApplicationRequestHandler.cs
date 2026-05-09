@@ -1,4 +1,5 @@
-﻿using BPUA.Application.Contracts;
+﻿/*
+using BPUA.Application.Contracts;
 using BPUA.Core;
 
 using PocoDataSet.BpuaExtensions;
@@ -53,7 +54,7 @@ namespace BPUA.Application.BusinessLogic
             }
 
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.INITIALIZING_APPLICATION);
 
             IDataSet? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
             if (responseTransitionContext == null)
@@ -67,3 +68,4 @@ namespace BPUA.Application.BusinessLogic
         #endregion
     }
 }
+*/

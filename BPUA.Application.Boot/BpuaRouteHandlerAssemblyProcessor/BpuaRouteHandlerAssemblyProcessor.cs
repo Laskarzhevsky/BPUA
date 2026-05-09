@@ -6,7 +6,6 @@ namespace BPUA.Application.Boot
 {
     /// <summary>
     /// Processes assembly decorated by RegisterAsBPUARouteHandlerAssemblyAttribute.
-    /// Marks the assembly as processed by the transition-assembly registration pipeline.
     /// </summary>
     public partial class BpuaRouteHandlerAssemblyProcessor : IBpuaAssemblyProcessor
     {

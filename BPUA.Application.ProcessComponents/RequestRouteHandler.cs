@@ -77,7 +77,7 @@ namespace BPUA.Application.ProcessComponents
         #region Properties
         /// <summary>
         /// Gets allowed caller type full names
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public IReadOnlyList<string> AllowedCallerTypeFullNames
         {
@@ -89,7 +89,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Gets BPU identifier
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public IBpuIdentifier BpuIdentifier
         {
@@ -98,7 +98,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Gets component identifier
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public string ComponentIdentifier
         {
@@ -110,7 +110,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Gets or sets request data context validation rules
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public DistinctList<IValidationRule> RequestDataContextValidationRules
         {
@@ -119,7 +119,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Gets or sets response data context validation rules
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public DistinctList<IValidationRule> ResponseDataContextValidationRules
         {
@@ -128,7 +128,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Gets target state names
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         public IReadOnlyList<string> TargetStateNames
         {
@@ -142,7 +142,7 @@ namespace BPUA.Application.ProcessComponents
         #region Public Methods
         /// <summary>
         /// Processes the request transition context
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         /// <param name="requestTransitionContext">Request transition context</param>
         public virtual void ProcessRequestTransitionContext(IDataSet requestTransitionContext)
@@ -170,7 +170,7 @@ namespace BPUA.Application.ProcessComponents
 
         /// <summary>
         /// Processes the response transition context
-        /// ITransition interface implementation
+        /// IRequestRoute interface implementation
         /// </summary>
         /// <param name="responseTransitionContext">Response transition context</param>
         public virtual void ProcessResponseTransitionContext(IDataSet responseTransitionContext)

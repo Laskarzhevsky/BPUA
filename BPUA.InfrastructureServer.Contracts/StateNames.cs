@@ -3,11 +3,7 @@
     /// <summary>
     /// Defines state names
     /// </summary>
-    public class StateNames
+    public class StateNames : BPUA.Application.Contracts.StateNames
     {
-        /// <summary>
-        /// WaitingForApplicationLoad state
-        /// </summary>
-        public static string WAITING_FOR_APPLICATION_LOAD = "WaitingForApplicationLoad";
     }
 }

@@ -33,7 +33,7 @@ namespace BPUA.Application.Contracts
         /// </summary>
         /// <param name="args">Event arguments</param>
         /// <param name="eventName">Event name</param>
-        Task RaiseServiceRequestEventAsync(EventArgs args, [CallerMemberName] string eventName = "");
+//        Task RaiseServiceRequestEventAsync(EventArgs args, string eventName);
         #endregion
 
         #region Properties

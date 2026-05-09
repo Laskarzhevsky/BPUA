@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines use case names
     /// </summary>
-    public class UseCaseName
+    public class UseCaseName : BPUA.Application.Contracts.UseCaseNames
     {
         /// <summary>
         /// Infrastructure server use case name

@@ -13,7 +13,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         async Task SaveMergedApplicationLayers()
         {
-            await RaiseServiceRequestEventAsync();
+            await RaiseServiceRequestEventAsync(BPUA.InfrastructureServer.Contracts.RequestNames.SAVE_MERGED_APPLICATION_LAYERS);
         }
         #endregion
     }

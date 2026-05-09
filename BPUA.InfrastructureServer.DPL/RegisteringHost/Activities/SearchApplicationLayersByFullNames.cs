@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using BPUA.InfrastructureServer.Contracts;
+
+using System.Threading.Tasks;
 
 namespace BPUA.InfrastructureServer.DPL
 {
@@ -13,7 +15,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         async Task SearchApplicationLayersByFullNames()
         {
-            await RaiseServiceRequestEventAsync();
+            await RaiseServiceRequestEventAsync(RequestNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES);
         }
         #endregion
     }

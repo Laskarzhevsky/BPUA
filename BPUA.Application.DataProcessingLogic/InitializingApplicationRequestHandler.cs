@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿/*
+using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
 using BPUA.Application.ProcessComponents;
@@ -48,7 +49,7 @@ namespace BPUA.Application.DataProcessingLogic
         public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
+            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.INITIALIZING_APPLICATION);
 
             IDataSet? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
 
@@ -57,3 +58,4 @@ namespace BPUA.Application.DataProcessingLogic
         #endregion
     }
 }
+*/

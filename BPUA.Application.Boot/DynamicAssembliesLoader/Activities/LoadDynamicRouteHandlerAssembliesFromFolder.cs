@@ -14,7 +14,7 @@ namespace BPUA.Application.Boot
         #region Public Methods
         /// <summary>
         /// Loads route handler companion assemblies from a use case folder and applies all configured assembly processors to them.
-        /// Only assemblies following the *.RouteHandlers.dll naming convention are considered. This prevents unrelated layer
+        /// Only assemblies following the *.RequestRouteHandlers.dll naming convention are considered. This prevents unrelated layer
         /// assemblies such as DAL or BL from being loaded while still allowing the route handler assembly marker attribute to be verified.
         /// </summary>
         /// <param name="pathToUseCaseFolder">Path to the use case folder.</param>
@@ -35,7 +35,7 @@ namespace BPUA.Application.Boot
                 return loadedRouteHandlerAssemblies;
             }
 
-            string[] pathsToDynamicAssemblies = Directory.GetFiles(pathToUseCaseFolder, "*.RouteHandlers.dll", SearchOption.TopDirectoryOnly);
+            string[] pathsToDynamicAssemblies = Directory.GetFiles(pathToUseCaseFolder, "*.RequestRouteHandlers.dll", SearchOption.TopDirectoryOnly);
             for (int i = 0; i < pathsToDynamicAssemblies.Length; i++)
             {
                 LoadedAssembly = null;

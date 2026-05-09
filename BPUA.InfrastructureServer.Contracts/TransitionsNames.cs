@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines transition names
     /// </summary>
-    public class TransitionsNames
+    public class TransitionsNames : BPUA.Application.Contracts.TransitionsNames
     {
         /// <summary>
         /// RegisteringHost transition name
