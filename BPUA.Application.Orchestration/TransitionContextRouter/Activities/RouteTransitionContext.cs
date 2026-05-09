@@ -19,12 +19,12 @@ namespace BPUA.Application.Orchestration
             {
                 if (await UseCaseActivated())
                 {
-                    if (await RequestTransitionContextPreparedForRedirection())
+                    if (await TransitionContextPreparedForRedirection())
                     {
-                        if (TransitionHandlerRegistered())
+                        if (RequestHandlerRegistered())
                         {
-                            await RedirectRequestTransitionContextToTransitionHandler();
-                            Transition.ProcessResponseTransitionContext(ResponseTransitionContext!);
+                            await RedirectTransitionContextToRequestHandler();
+                            RequestRoute.ProcessResponseTransitionContext(ResponseTransitionContext!);
                         }
                     }
                 }

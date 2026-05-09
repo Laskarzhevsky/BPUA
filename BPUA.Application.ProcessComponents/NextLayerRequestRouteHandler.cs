@@ -36,24 +36,24 @@ namespace BPUA.Application.ProcessComponents
 
         #region Overridden Methods
         /// <summary>
-        /// Prepares the BPU identifier for the next transition handler
+        /// Prepares the BPU identifier for the next request handler
         /// </summary>
-        /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
-        protected override void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
+        /// <param name= "nextRequestHandlerBpuIdentifier" >Next request handler BPU identifier</param>
+        protected override void PrepareNextRequestHandlerBpuIdentifier(IBpuIdentifier nextRequestHandlerBpuIdentifier)
         {
-            switch (nextTransitionHandlerBpuIdentifier.ApplicationLayerName)
+            switch (nextRequestHandlerBpuIdentifier.ApplicationLayerName)
             {
                 case "SL":
-                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
+                    nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.BL;
                     break;
                 case "BL":
-                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+                    nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
                     break;
                 case "DPL":
-                    nextTransitionHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
+                    nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
                     break;
                 default:
-                    throw new InvalidOperationException($"Unsupported application layer: {nextTransitionHandlerBpuIdentifier.ApplicationLayerName}");
+                    throw new InvalidOperationException($"Unsupported application layer: {nextRequestHandlerBpuIdentifier.ApplicationLayerName}");
             }
         }
         #endregion

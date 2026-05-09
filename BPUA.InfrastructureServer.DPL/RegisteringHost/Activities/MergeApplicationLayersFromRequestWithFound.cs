@@ -3,7 +3,7 @@
     /// <summary>
     /// RegisteringHost service handler
     /// </summary>
-    public partial class RegisteringHostTransitionHandler
+    public partial class RegisteringHostRequestHandler
     {
         #region Private Methods
         /// <summary>

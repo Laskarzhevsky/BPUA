@@ -36,17 +36,17 @@ namespace BPUA.Application.Orchestration
         }
 
         /// <summary>
-        /// Gets or sets transition
+        /// Gets or sets request route
         /// </summary>
-        ITransition Transition
+        IRequestRoute RequestRoute
         {
             get; set;
         } = default!;
 
         /// <summary>
-        /// Gets or sets transition handler
+        /// Gets or sets request handler
         /// </summary>
-        ITransitionHandler TransitionHandler
+        IRequestHandler RequestHandler
         {
             get; set;
         } = default!;
@@ -61,8 +61,8 @@ namespace BPUA.Application.Orchestration
             BpuIdentifier = default!;
             RequestTransitionContext = default!;
             ResponseTransitionContext = default!;
-            Transition = default!;
-            TransitionHandler = default!;
+            RequestRoute = default!;
+            RequestHandler = default!;
         }
         #endregion
     }

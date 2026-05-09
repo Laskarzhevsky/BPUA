@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace BPUA.Application.DataAccessLogic
 {
     [RegisterAsBpuaService]
-    public class InitializingApplicationRequestHandler : DataAccessLogicRequestHandler, IDataAccessLogicTransitionHandler
+    public class InitializingApplicationRequestHandler : DataAccessLogicRequestHandler, IDataAccessLogicRequestHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
@@ -26,7 +26,7 @@ namespace BPUA.Application.DataAccessLogic
         {
             get
             {
-                return KeyCompiler.CompileTransitionHandlerKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
+                return KeyCompiler.CompileRequestHandlerKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
             }
         }
         #endregion

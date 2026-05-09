@@ -36,6 +36,11 @@
         public static string _RESPONSE = "Response";
 
         /// <summary>
+        /// Request handler
+        /// </summary>
+        public const string REQUEST_HANDLER = "RequestHandler";
+
+        /// <summary>
         /// Request metadata
         /// </summary>
         public static string REQUEST_METADATA = "__RequestMetadata";
@@ -44,11 +49,6 @@
         /// Search table
         /// </summary>
         public static string SEARCH = "Search";
-
-        /// <summary>
-        /// Transition handler
-        /// </summary>
-        public const string TRANSITION_HANDLER = "TransitionHandler";
 
         /// <summary>
         /// Transition metadata

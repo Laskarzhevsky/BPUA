@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace BPUA.Application.DataAccessLogic
 {
     /// <summary>
-    /// Provides transition handler functionality
+    /// Provides request route handler functionality
     /// </summary>
-    public abstract class DataAccessLogicRequestHandler : RequestHandler, IDataAccessLogicTransitionHandler
+    public abstract class DataAccessLogicRequestHandler : RequestHandler, IDataAccessLogicRequestHandler
     {
         #region Constructors
         /// <summary>
@@ -21,7 +21,7 @@ namespace BPUA.Application.DataAccessLogic
         }
 
         /// <summary>
-        /// Creates an instance, taking the transition handler identity as arguments
+        /// Creates an instance, taking the request route handler identity as arguments
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>

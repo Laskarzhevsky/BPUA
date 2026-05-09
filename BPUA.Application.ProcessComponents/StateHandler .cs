@@ -20,7 +20,7 @@ namespace BPUA.Application.ProcessComponents
         /// <summary>
         /// Holds transitions of the state handler, where key is transition name and value is transition
         /// </summary>
-        List<ITransition> _transitions = new List<ITransition>();
+        List<IRequestRoute> _transitions = new List<IRequestRoute>();
         #endregion
 
         #region Constructors
@@ -90,7 +90,7 @@ namespace BPUA.Application.ProcessComponents
         /// Adds transition
         /// </summary>
         /// <param name="transition">Transition for addition</param>
-        protected void AddTransition(ITransition transition)
+        protected void AddTransition(IRequestRoute transition)
         {
             string transitionIdentifier = transition.ComponentIdentifier;
             if (_transitions.Exists(t => t.ComponentIdentifier == transitionIdentifier))

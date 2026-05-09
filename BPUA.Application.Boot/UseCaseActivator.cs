@@ -191,7 +191,7 @@ namespace BPUA.Application.Boot
                     return Failure("Failed to load use case assembly: " + pathToDynamicAssembly);
                 }
 
-                dynamicAssembliesLoader.LoadDynamicTransitionAssembliesFromFolder(
+                dynamicAssembliesLoader.LoadDynamicRouteHandlerAssembliesFromFolder(
                     useCaseFolder,
                     serviceRegistry,
                     localLoadedAssemblies,

@@ -13,7 +13,7 @@ namespace BPUA.Application.ProcessComponents
     /// <summary>
     /// Provides request route handler functionality.
     /// </summary>
-    public abstract class RequestRouteHandler : ITransition
+    public abstract class RequestRouteHandler : IRequestRoute
     {
         #region Data Fields
         /// <summary>
@@ -104,7 +104,7 @@ namespace BPUA.Application.ProcessComponents
         {
             get
             {
-                return KeyCompiler.CompileTransitionKey(BpuIdentifier.RequestName, BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
+                return KeyCompiler.CompileRequestRouteKey(BpuIdentifier.RequestName, BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
             }
         }
 
@@ -163,9 +163,9 @@ namespace BPUA.Application.ProcessComponents
                 return;
             }
 
-            IBpuIdentifier nextTransitionHandlerBpuIdentifier = bpuIdentifier.Clone()!;
-            PrepareNextTransitionHandlerBpuIdentifier(nextTransitionHandlerBpuIdentifier);
-            requestTransitionContext.AddRequestMetadata(nextTransitionHandlerBpuIdentifier);
+            IBpuIdentifier nextRequestHandlerBpuIdentifier = bpuIdentifier.Clone()!;
+            PrepareNextRequestHandlerBpuIdentifier(nextRequestHandlerBpuIdentifier);
+            requestTransitionContext.AddRequestMetadata(nextRequestHandlerBpuIdentifier);
         }
 
         /// <summary>
@@ -219,10 +219,10 @@ namespace BPUA.Application.ProcessComponents
         }
 
         /// <summary>
-        /// Prepares the BPU identifier for the next transition handler
+        /// Prepares the BPU identifier for the next request handler
         /// </summary>
-        /// <param name= "nextTransitionHandlerBpuIdentifier" >Next transition handler BPU identifier</param>
-        protected virtual void PrepareNextTransitionHandlerBpuIdentifier(IBpuIdentifier nextTransitionHandlerBpuIdentifier)
+        /// <param name= "nextRequestHandlerBpuIdentifier" >Next request handler BPU identifier</param>
+        protected virtual void PrepareNextRequestHandlerBpuIdentifier(IBpuIdentifier nextRequestHandlerBpuIdentifier)
         {
         }
 

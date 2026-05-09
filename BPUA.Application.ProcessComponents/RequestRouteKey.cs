@@ -5,7 +5,7 @@ namespace BPUA.Application
     /// <summary>
     /// Provides transition selection key functionality.
     /// </summary>
-    public class RequestRouteKey : ITransitionKey
+    public class RequestRouteKey : IRequestRouteKey
     {
         #region Constructors
         /// <summary>

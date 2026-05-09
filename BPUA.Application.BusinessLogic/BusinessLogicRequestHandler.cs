@@ -4,9 +4,9 @@ using BPUA.Application.ProcessComponents;
 namespace BPUA.Application.BusinessLogic
 {
     /// <summary>
-    /// Provides transition handler functionality
+    /// Provides request handler functionality
     /// </summary>
-    public abstract class BusinessLogicRequestHandler : RequestHandler, IBusinessLogicTransitionHandler
+    public abstract class BusinessLogicRequestHandler : RequestHandler, IBusinessLogicRequestHandler
     {
         #region Constructors
         /// <summary>
@@ -17,7 +17,7 @@ namespace BPUA.Application.BusinessLogic
         }
 
         /// <summary>
-        /// Creates an instance, taking the transition handler identity as arguments
+        /// Creates an instance, taking the request handler identity as arguments
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>

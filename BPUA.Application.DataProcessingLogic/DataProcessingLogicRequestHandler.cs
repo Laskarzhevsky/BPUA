@@ -4,9 +4,9 @@ using BPUA.Application.ProcessComponents;
 namespace BPUA.Application.DataProcessingLogic
 {
     /// <summary>
-    /// Provides transition handler functionality
+    /// Provides request route handler functionality
     /// </summary>
-    public abstract class DataProcessingLogicRequestHandler : RequestHandler, IDataAccessLogicTransitionHandler
+    public abstract class DataProcessingLogicRequestHandler : RequestHandler, IDataAccessLogicRequestHandler
     {
         #region Constructors
         /// <summary>

@@ -1,25 +1,24 @@
-﻿using System.Threading.Tasks;
-
+﻿using BPUA.Application.DataProcessingLogic;
 using BPUA.Application.Contracts;
-using BPUA.Application.ProcessComponents;
 using BPUA.Core;
 
-using PocoDataSet.IData;
-
-namespace BPUA.Application.DataProcessingLogic
+namespace BPUA.InfrastructureServer.DPL
 {
+    /// <summary>
+    /// Provides functionality of the request handler for "Initializing use case" transition of the account use case in the data processing logic application layer
+    /// </summary>
     [RegisterAsBpuaService]
     public class InitializingApplicationRequestHandler : DataProcessingLogicRequestHandler, IDataProcessingLogicRequestHandler
     {
         #region Identification
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.Application.Contracts.UseCaseNames.APPLICATION;
+        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-        public static string StateName = default!;
+        public static string StateName = BPUA.Application.Contracts.StateNames.WAITING_FOR_APPLICATION_LOAD;
         public static string TransitionName = BPUA.Application.Contracts.TransitionsNames.INITIALIZING_APPLICATION;
 
         /// <summary>
-        /// Gets service key
+        /// Gets service keys
         /// </summary>
         public static string ServiceKey
         {
@@ -36,23 +35,7 @@ namespace BPUA.Application.DataProcessingLogic
         /// </summary>
         public InitializingApplicationRequestHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
         {
-        }
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Handles request
-        /// </summary>
-        /// <param name="requestTransitionContext">Request transition context</param>
-        /// <returns>Response transition context</returns>
-        public override async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
-        {
-            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs);
-
-            IDataSet? responseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
-
-            return responseTransitionContext;
+            DoNotSendRequestToApplicationNextLayer = true;
         }
         #endregion
     }

@@ -33,12 +33,12 @@ namespace BPUA.Application.Orchestration
         }
 
         /// <summary>
-        /// Checks whether service registry contains registered transition type
+        /// Checks whether service registry contains registered request route type
         /// IServiceRegistry interface implementation
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <returns>True if registry contains registered transition type, otherwise False</returns>
-        public bool ContainsTransitionType(string registrationKey)
+        /// <returns>True if registry contains registered request route type, otherwise False</returns>
+        public bool ContainsRequestRouteType(string registrationKey)
         {
             return _registeredTransitions.ContainsKey(registrationKey);
         }
@@ -197,7 +197,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
         /// <param name="transitionType">Transition type</param>
-        public void RegisterTransitionType(string registrationKey, Type transitionType)
+        public void RegisterRequestRouteType(string registrationKey, Type transitionType)
         {
             _registeredTransitions[registrationKey] = transitionType;
         }
@@ -244,7 +244,7 @@ namespace BPUA.Application.Orchestration
         /// <param name="bpuIdentifier">BPU identifier</param>
         /// <param name="registeredTransitionType">Registered transition type</param>
         /// <returns>True if type retreived successfully, otherwise False</returns>
-        public bool TryGetRegisteredTransitionType(IBpuIdentifier bpuIdentifier, out Type registeredTransitionType)
+        public bool TryGetRegisteredRequestRouteType(IBpuIdentifier bpuIdentifier, out Type registeredTransitionType)
         {
             if (string.IsNullOrEmpty(bpuIdentifier.TransitionName))
             {
@@ -291,7 +291,7 @@ namespace BPUA.Application.Orchestration
             }
             else
             {
-                string transitionTypeKey = KeyCompiler.CompileTransitionKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
+                string transitionTypeKey = KeyCompiler.CompileRequestRouteKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
                 return _registeredTransitions.TryGetValue(transitionTypeKey, out registeredTransitionType!);
             }
         }
@@ -376,11 +376,11 @@ namespace BPUA.Application.Orchestration
         /// IServiceRegistry interface implementation
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <param name="transitionType">Transition type</param>
-        /// <returns>True if transition type was registered, otherwise False</returns>
-        public bool TryRegisterTransitionType(string registrationKey, Type transitionType)
+        /// <param name="requestRouteType">Request route type</param>
+        /// <returns>True if request route type was registered, otherwise False</returns>
+        public bool TryRegisterRequestRouteType(string registrationKey, Type requestRouteType)
         {
-            return _registeredTransitions.TryAdd(registrationKey, transitionType);
+            return _registeredTransitions.TryAdd(registrationKey, requestRouteType);
         }
 
         /// <summary>

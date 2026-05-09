@@ -12,7 +12,7 @@
         void AddStaticAssemblyProcessorsToListOfAssemblyProcessors()
         {
             AddBpuaServiceAssemblyProcessor();
-            AddBpuaTransitionAssemblyProcessor();
+            AddBpuaRouteHandlerAssemblyProcessor();
         }
 
         /// <summary>
@@ -38,15 +38,15 @@
         }
 
         /// <summary>
-        /// Adds BPUA transition assembly processor if it was not added yet
+        /// Adds BPUA route handler assembly processor if it was not added yet
         /// </summary>
-        void AddBpuaTransitionAssemblyProcessor()
+        void AddBpuaRouteHandlerAssemblyProcessor()
         {
             bool exists = false;
 
             for (int i = 0; i < ListOfAssemblyProcessors.Count; i++)
             {
-                if (ListOfAssemblyProcessors[i] is BpuaTransitionAssemblyProcessor)
+                if (ListOfAssemblyProcessors[i] is BpuaRouteHandlerAssemblyProcessor)
                 {
                     exists = true;
                     break;
@@ -55,7 +55,7 @@
 
             if (!exists)
             {
-                ListOfAssemblyProcessors.Add(new BpuaTransitionAssemblyProcessor());
+                ListOfAssemblyProcessors.Add(new BpuaRouteHandlerAssemblyProcessor());
             }
         }
         #endregion

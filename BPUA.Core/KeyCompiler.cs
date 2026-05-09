@@ -7,7 +7,7 @@
     {
         #region Public Methods
         /// <summary>
-        /// Compiles transition handler handler key
+        /// Compiles request handler key
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
@@ -16,7 +16,7 @@
         /// <param name="transitionName">transition name</param>
         /// <param name="breadcrumbs">Breadcrumbs string</param>
         /// <returns>Compiled transition handler handler key</returns>
-        public static string CompileHierarchicalTransitionHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs)
+        public static string CompileHierarchicalRequestHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName, string? breadcrumbs)
         {
             return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}_{breadcrumbs}";
         }
@@ -122,29 +122,29 @@
         }
 
         /// <summary>
-        /// Compiles transition handler key
+        /// Compiles request handler key
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">transition name</param>
-        /// <returns>Compiled transition handler handler key</returns>
-        public static string CompileTransitionHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName)
+        /// <returns>Compiled request handler key</returns>
+        public static string CompileRequestHandlerKey(string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName)
         {
             return $"{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}";
         }
 
         /// <summary>
-        /// Compiles transition handler keys
+        /// Compiles request handler keys
         /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateNames">State names</param>
         /// <param name="transitionName">transition name</param>
-        /// <returns>Compiled transition handler handler keys</returns>
-        public static string[] CompileTransitionHandlerKeys(string? domainName, string? useCaseName, string? applicationLayerName, string[]? stateNames, string? transitionName)
+        /// <returns>Compiled request handler keys</returns>
+        public static string[] CompileRequestHandlerKeys(string? domainName, string? useCaseName, string? applicationLayerName, string[]? stateNames, string? transitionName)
         {
             if (stateNames == null)
             {
@@ -161,7 +161,7 @@
         }
 
         /// <summary>
-        /// Compiles transition key
+        /// Compiles request route key
         /// </summary>
         /// <param name="requestName">Request name</param>
         /// <param name="domainName">Domain name</param>
@@ -169,8 +169,8 @@
         /// <param name="applicationLayerName">Application layer name</param>
         /// <param name="stateName">State name</param>
         /// <param name="transitionName">transition name</param>
-        /// <returns>Compiled transition handler handler key</returns>
-        public static string CompileTransitionKey(string? requestName, string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName)
+        /// <returns>Compiled request route key</returns>
+        public static string CompileRequestRouteKey(string? requestName, string? domainName, string? useCaseName, string? applicationLayerName, string? stateName, string? transitionName)
         {
             return $"{requestName}_{domainName}_{useCaseName}_{applicationLayerName}_{stateName}_{transitionName}";
         }

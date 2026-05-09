@@ -27,11 +27,11 @@ namespace BPUA.Application.Contracts
         bool ContainsTypeOrObject(string registrationKey);
 
         /// <summary>
-        /// Checks whether service registry contains registered transition type
+        /// Checks whether service registry contains registered request route type
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <returns>True if registry contains registered transition type, otherwise False</returns>
-        bool ContainsTransitionType(string registrationKey);
+        /// <returns>True if registry contains registered request route type, otherwise False</returns>
+        bool ContainsRequestRouteType(string registrationKey);
 
         /// <summary>
         /// Enumerates objects by prefix
@@ -91,11 +91,11 @@ namespace BPUA.Application.Contracts
         void RegisterObject(string registrationKey, object value);
 
         /// <summary>
-        /// Registers transition type
+        /// Registers request route type
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <param name="transitionType">Transition type</param>
-        void RegisterTransitionType(string registrationKey, Type transitionType);
+        /// <param name="requestRouteType">Request route type</param>
+        void RegisterRequestRouteType(string registrationKey, Type requestRouteType);
 
         /// <summary>
         /// Registers type
@@ -121,12 +121,12 @@ namespace BPUA.Application.Contracts
         bool TryGetRegisteredObject(string registrationKey, out object? value);
 
         /// <summary>
-        /// Tries to get registered transition type
+        /// Tries to get registered request route type
         /// </summary>
         /// <param name="bpuIdentifier">BPU identifier</param>
-        /// <param name="registeredTransitionType">Registered transition type</param>
+        /// <param name="registeredRequestRouteType">Registered request route type</param>
         /// <returns>True if type retreived successfully, otherwise False</returns>
-        bool TryGetRegisteredTransitionType(IBpuIdentifier bpuIdentifier, out Type registeredTransitionType);
+        bool TryGetRegisteredRequestRouteType(IBpuIdentifier bpuIdentifier, out Type registeredRequestRouteType);
 
         /// <summary>
         /// Tries to get registered type
@@ -161,12 +161,12 @@ namespace BPUA.Application.Contracts
         public bool TryRegisterObject(string registrationKey, object value);
 
         /// <summary>
-        /// Tries to register transition type
+        /// Tries to register request route type
         /// </summary>
         /// <param name="registrationKey">Registration key</param>
-        /// <param name="transitionType">Transition type</param>
-        /// <returns>True if transition type was registered, otherwise False</returns>
-        bool TryRegisterTransitionType(string registrationKey, Type transitionType);
+        /// <param name="requestRouteType">Request route type</param>
+        /// <returns>True if request route type was registered, otherwise False</returns>
+        bool TryRegisterRequestRouteType(string registrationKey, Type requestRouteType);
 
         /// <summary>
         /// Tries to register type
