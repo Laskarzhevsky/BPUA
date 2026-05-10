@@ -50,7 +50,7 @@ namespace BPUA.Application.Services
             }
 
             BpuaApplication = sender as IBpuaApplication;
-            await HandleAsync(sender, args);
+            await HandleAsync(sender, typedEventArgs);
         }
         #endregion
 

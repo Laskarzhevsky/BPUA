@@ -33,21 +33,12 @@ namespace BPUA.Application.Orchestration
         /// <param name="args">Event arguments</param>
         public override async Task HandleAsync(object? sender, EventArgs args)
         {
-            ServiceRequestEventArgs serviceRequestEventArgs = (ServiceRequestEventArgs)args;
-            RouteTransitionContextEventArgs routeTransitionContextEventArgs = (RouteTransitionContextEventArgs)serviceRequestEventArgs.EventArguments;
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = (RouteTransitionContextEventArgs)args;
             IDataSet? requestTransitionContext = routeTransitionContextEventArgs.TransitionContext;
             if (requestTransitionContext == null)
             {
                 return;
             }
-
-            IRequestMetadata? requestMetadata = requestTransitionContext.GetCurrentRequestMetadata();
-            if (requestMetadata == null)
-            {
-                throw new InvalidOperationException("Request data context does not contain request metadata");
-            }
-
-            requestMetadata.RequestName = serviceRequestEventArgs.EventName;
 
             RequestTransitionContext = requestTransitionContext;
             await RouteTransitionContext();

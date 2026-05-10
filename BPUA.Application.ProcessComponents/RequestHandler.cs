@@ -5,7 +5,6 @@ using PocoDataSet.BpuaExtensions;
 using PocoDataSet.IData;
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BPUA.Application.ProcessComponents
@@ -89,34 +88,6 @@ namespace BPUA.Application.ProcessComponents
         public virtual async Task InitializeComponent(IBpuaApplication bppApplication)
         {
         }
-
-        /// <summary>
-        /// Raises service request event
-        /// </summary>
-        /// <param name="requestName">Request name</param>
-        protected async Task RaiseServiceRequestEventAsync(string requestName)
-        {
-            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, requestName);
-            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
-        }
-
-        /// <summary>
-        /// Raises service request event
-        /// IRequestHandler interface implementation
-        /// </summary>
-        /// <param name="eventArguments">Event arguments</param>
-        /// <param name="requestName">Request name</param>
-        async Task RaiseServiceRequestEventAsync(EventArgs eventArguments, string requestName)
-        {
-            if (ServiceRequestEvent == null)
-            {
-                return;
-            }
-
-            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(requestName, eventArguments);
-            await ServiceRequestEvent.Invoke(this, serviceRequestEventArgs);
-        }
         #endregion
 
         #region Public Properties
@@ -198,20 +169,37 @@ namespace BPUA.Application.ProcessComponents
         }
 
         /// <summary>
+        /// Raises service request event
+        /// </summary>
+        /// <param name="requestName">Request name</param>
+        protected async virtual Task RaiseServiceRequestEventAsync(string requestName)
+        {
+            if (ServiceRequestEvent == null)
+            {
+                return;
+            }
+
+            IRequestMetadata? requestMetadata = RequestTransitionContext.GetCurrentRequestMetadata();
+            if (requestMetadata == null)
+            {
+                throw new InvalidOperationException("Request metadata is not found in the transition context.");
+            }
+
+            requestMetadata.RequestName = requestName;
+            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
+
+            ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(routeTransitionContextEventArgs);
+            await ServiceRequestEvent.Invoke(this, serviceRequestEventArgs);
+
+            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+        }
+
+        /// <summary>
         /// Sends request to application next layer
         /// </summary>
         protected virtual async Task SendRequestToApplicationNextLayer()
         {
-            IRequestMetadata? requestMetadata = RequestTransitionContext.GetCurrentRequestMetadata();
-            if (requestMetadata == null)
-            {
-                throw new InvalidOperationException("Request transition context does not contain request metadata");
-            }
-
-            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_APPLICATION_NEXT_LAYER);
-
-            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+            await RaiseServiceRequestEventAsync(BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_APPLICATION_NEXT_LAYER);
         }
 
         /// <summary>
@@ -219,16 +207,7 @@ namespace BPUA.Application.ProcessComponents
         /// </summary>
         protected virtual async Task SendRequestToNextHandler()
         {
-            IRequestMetadata? requestMetadata = RequestTransitionContext.GetCurrentRequestMetadata();
-            if (requestMetadata == null)
-            {
-                throw new InvalidOperationException("Request transition context does not contain request metadata");
-            }
-
-            RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(RequestTransitionContext);
-            await RaiseServiceRequestEventAsync(routeTransitionContextEventArgs, BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_HANDLER);
-
-            ResponseTransitionContext = routeTransitionContextEventArgs.TransitionContext;
+            await RaiseServiceRequestEventAsync(BPUA.Application.Contracts.RequestNames.SEND_REQUEST_TO_NEXT_HANDLER);
         }
         #endregion
 

@@ -20,7 +20,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         {
             get
             {
-                IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost();
+                IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHostBpuIdentifier();
                 return KeyCompiler.CompileRequestRouteKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
             }
         }
@@ -30,7 +30,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointRequestRouteHandler() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHost())
+        public RegisteringHostEndpointRequestRouteHandler() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHostBpuIdentifier())
         {
         }
         #endregion
@@ -57,7 +57,11 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <param name= "nextRequestHandlerBpuIdentifier" >Next request handler BPU identifier</param>
         protected override void PrepareNextRequestHandlerBpuIdentifier(IBpuIdentifier nextRequestHandlerBpuIdentifier)
         {
-            nextRequestHandlerBpuIdentifier.StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+            nextRequestHandlerBpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
+            nextRequestHandlerBpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
+            nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+            nextRequestHandlerBpuIdentifier.StateName = default!;
+            nextRequestHandlerBpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
         }
         #endregion
     }

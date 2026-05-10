@@ -11,11 +11,9 @@ namespace BPUA.Application.Contracts
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="eventName">Event name</param>
         /// <param name="eventArguments">Event arguments</param>
-        public ServiceRequestEventArgs(string eventName, EventArgs eventArguments)
+        public ServiceRequestEventArgs(EventArgs eventArguments)
         {
-            EventName = eventName;
             EventArguments = eventArguments;
         }
         #endregion
@@ -25,14 +23,6 @@ namespace BPUA.Application.Contracts
         /// Gets event arguments
         /// </summary>
         public EventArgs EventArguments
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// Gets event name
-        /// </summary>
-        public string EventName
         {
             get; private set;
         }

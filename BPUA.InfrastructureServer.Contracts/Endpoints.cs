@@ -11,7 +11,7 @@ namespace BPUA.InfrastructureServer.Contracts
         /// Provides the identifier for the "Registering Host" endpoint.
         /// </summary>
         /// <returns>Identifier for the "Registering Host" endpoint.</returns>
-        public static IBpuIdentifier RegisteringHost()
+        public static IBpuIdentifier RegisteringHostBpuIdentifier()
         {
             BpuIdentifier bpuIdentifier = new BpuIdentifier();
 
@@ -19,6 +19,7 @@ namespace BPUA.InfrastructureServer.Contracts
             bpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
             bpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
             bpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+            bpuIdentifier.StateName = default!;
             bpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
 
             return bpuIdentifier;

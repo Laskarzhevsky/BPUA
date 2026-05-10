@@ -15,7 +15,7 @@ namespace BPUA.InfrastructureServer.DPL
         public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
         public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
         public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-        public static string StateName = BPUA.Application.Contracts.StateNames.INITIAL;
+        public static string StateName = default!;
         public static string TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
 
         /// <summary>

@@ -164,6 +164,8 @@ namespace BPUA.Application.ProcessComponents
             }
 
             IBpuIdentifier nextRequestHandlerBpuIdentifier = bpuIdentifier.Clone()!;
+            nextRequestHandlerBpuIdentifier.RequestName = default;
+
             PrepareNextRequestHandlerBpuIdentifier(nextRequestHandlerBpuIdentifier);
             requestTransitionContext.AddRequestMetadata(nextRequestHandlerBpuIdentifier);
         }
