@@ -29,7 +29,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointRequestRouteHandler() : base(RequestRouteKey)
+        public RegisteringHostEndpointRequestRouteHandler() : base(RequestRouteKey, BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.RegisteringHost)
         {
         }
         #endregion
@@ -48,19 +48,6 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// </summary>
         protected override void AddResponseDataContextValidationRules()
         {
-        }
-
-        /// <summary>
-        /// Prepares the BPU identifier for the next request handler
-        /// </summary>
-        /// <param name= "nextRequestHandlerBpuIdentifier" >Next request handler BPU identifier</param>
-        protected override void PrepareNextRequestHandlerBpuIdentifier(IBpuIdentifier nextRequestHandlerBpuIdentifier)
-        {
-            nextRequestHandlerBpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            nextRequestHandlerBpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-            nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-            nextRequestHandlerBpuIdentifier.StateName = default!;
-            nextRequestHandlerBpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
         }
         #endregion
     }

@@ -3,7 +3,6 @@ using BPUA.Application.NonFunctionalContracts;
 using BPUA.Application.ProcessComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
-using BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers;
 
 namespace BPUA.InfrastructureServer.RequestRouteHandlers
 {
@@ -30,7 +29,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey)
+        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey, BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames)
         {
         }
         #endregion
@@ -49,20 +48,6 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// </summary>
         protected override void AddResponseDataContextValidationRules()
         {
-        }
-
-        /// <summary>
-        /// Prepares the BPU identifier for the next request handler
-        /// </summary>
-        /// <param name= "nextRequestHandlerBpuIdentifier" >Next request handler BPU identifier</param>
-        protected override void PrepareNextRequestHandlerBpuIdentifier(IBpuIdentifier nextRequestHandlerBpuIdentifier)
-        {
-            nextRequestHandlerBpuIdentifier.RequestName = default!;
-            nextRequestHandlerBpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-            nextRequestHandlerBpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-            nextRequestHandlerBpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
-            nextRequestHandlerBpuIdentifier.StateName = default!;
-            nextRequestHandlerBpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES;
         }
         #endregion
     }
