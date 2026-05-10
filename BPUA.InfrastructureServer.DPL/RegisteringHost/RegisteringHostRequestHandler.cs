@@ -19,7 +19,7 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DPL.BpuIdentifiers.RegisteringHost);
+                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -28,7 +28,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostRequestHandler() : base(BPUA.InfrastructureServer.Contracts.DPL.BpuIdentifiers.RegisteringHost)
+        public RegisteringHostRequestHandler() : base(ServiceKey)
         {
         }
         #endregion

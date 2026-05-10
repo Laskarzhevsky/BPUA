@@ -22,10 +22,10 @@ namespace BPUA.Application.DataProcessingLogic
         }
 
         /// <summary>
-        /// Creates an instance, taking the transition handler identity as arguments
+        /// Creates an instance, taking the request handler key as arguments
         /// </summary>
-        /// <param name="bpuIdentifier">BPU identifier</param>
-        public DataProcessingLogicRequestHandler(IBpuIdentifier bpuIdentifier) : base(bpuIdentifier)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public DataProcessingLogicRequestHandler(string requestHandlerKey) : base(requestHandlerKey)
         {
         }
         #endregion

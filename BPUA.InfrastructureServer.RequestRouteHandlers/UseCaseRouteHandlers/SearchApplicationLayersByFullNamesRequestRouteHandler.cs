@@ -3,6 +3,7 @@ using BPUA.Application.NonFunctionalContracts;
 using BPUA.Application.ProcessComponents;
 using BPUA.Application.Validation;
 using BPUA.Core;
+using BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers;
 
 namespace BPUA.InfrastructureServer.RequestRouteHandlers
 {
@@ -13,13 +14,6 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
     public class SearchApplicationLayersByFullNamesRequestRouteHandler : RequestRouteHandler
     {
         #region Identification
-        public static string RequestName = BPUA.InfrastructureServer.Contracts.RequestNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES;
-        public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-        public static string StateName = default!;
-        public static string TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
-
         /// <summary>
         /// Gets request route key
         /// </summary>
@@ -27,7 +21,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         {
             get
             {
-                return KeyCompiler.CompileRequestRouteKey(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
+                return KeyCompiler.CompileRequestRouteKey(BPUA.InfrastructureServer.Contracts.RequestNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES, BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -36,7 +30,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestName, DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey)
         {
         }
         #endregion

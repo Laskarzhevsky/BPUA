@@ -34,7 +34,7 @@ namespace BPUA.InfrastructureServer.Tests
 
             // 2. The remote host will send a request to the BPUA application to register itself as a host of the specific application layer.
             // This will trigger the execution of the transition that registers the hosted application layer.
-            IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHostBpuIdentifier();
+            IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.EndpointsIdentifiers.RegisteringHost;
 
             IDataSet requestTransitionContext = DataSetFactory.CreateDataSet();
             requestTransitionContext.AddRequestMetadata(remoteHostBpuIdentifier);

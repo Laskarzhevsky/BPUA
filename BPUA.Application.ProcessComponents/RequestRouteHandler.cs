@@ -31,40 +31,10 @@ namespace BPUA.Application.ProcessComponents
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="requestName">Request name</param>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        /// <param name="transitionName">Transition name</param>
-        public RequestRouteHandler(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public RequestRouteHandler(string requestHandlerKey)
         {
-            BpuIdentifier.RequestName = requestName;
-            BpuIdentifier.DomainName = domainName;
-            BpuIdentifier.UseCaseName = useCaseName;
-            BpuIdentifier.ApplicationLayerName = applicationLayerName;
-            BpuIdentifier.StateName = stateName;
-            BpuIdentifier.TransitionName = transitionName;
-
-            _allowedCallerBpuIdentifiers = new List<string>();
-            _targetStateNames = new List<string>();
-
-            AddRequestDataContextValidationRules();
-            AddResponseDataContextValidationRules();
-        }
-
-        /// <summary>
-        /// Constructor overload that accepts endpoint identifier.
-        /// This allows endpoint contracts to be the single source of truth.
-        /// </summary>
-        public RequestRouteHandler(string requestName, IBpuIdentifier bpuIdentifier)
-        {
-            BpuIdentifier.RequestName = requestName;
-            BpuIdentifier.DomainName = bpuIdentifier.DomainName;
-            BpuIdentifier.UseCaseName = bpuIdentifier.UseCaseName;
-            BpuIdentifier.ApplicationLayerName = bpuIdentifier.ApplicationLayerName;
-            BpuIdentifier.StateName = bpuIdentifier.StateName;
-            BpuIdentifier.TransitionName = bpuIdentifier.TransitionName;
+            BpuIdentifier = new BpuIdentifier(requestHandlerKey);
 
             _allowedCallerBpuIdentifiers = new List<string>();
             _targetStateNames = new List<string>();
@@ -94,7 +64,7 @@ namespace BPUA.Application.ProcessComponents
         public IBpuIdentifier BpuIdentifier
         {
             get; private set;
-        } = new BpuIdentifier();
+        }
 
         /// <summary>
         /// Gets component identifier

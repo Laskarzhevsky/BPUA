@@ -19,7 +19,7 @@ namespace BPUA.InfrastructureServer.DAL
         {
             get
             {
-                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DAL.BpuIdentifiers.SearchApplicationLayersByFullNames);
+                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames);
             }
         }
         #endregion
@@ -28,7 +28,7 @@ namespace BPUA.InfrastructureServer.DAL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestHandler() : base(BPUA.InfrastructureServer.Contracts.DAL.BpuIdentifiers.SearchApplicationLayersByFullNames)
+        public SearchApplicationLayersByFullNamesRequestHandler() : base(ServiceKey)
         {
         }
         #endregion

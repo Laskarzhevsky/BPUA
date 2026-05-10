@@ -17,14 +17,10 @@ namespace BPUA.Application.BusinessLogic
         }
 
         /// <summary>
-        /// Creates an instance, taking the request handler identity as arguments
+        /// Creates an instance, taking the request handler key as arguments
         /// </summary>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        /// <param name="transitionName">Transition name</param>
-        public BusinessLogicRequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public BusinessLogicRequestHandler(string requestHandlerKey) : base(requestHandlerKey)
         {
         }
         #endregion

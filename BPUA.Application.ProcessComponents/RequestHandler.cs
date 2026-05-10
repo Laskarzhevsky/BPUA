@@ -28,29 +28,12 @@ namespace BPUA.Application.ProcessComponents
         }
 
         /// <summary>
-        /// Creates an instance, taking the transition handler identity as arguments
+        /// Creates an instance, taking the request handler key as arguments
         /// </summary>
-        /// <param name="bpuIdentifier">BPU identifier</param>
-        public RequestHandler(IBpuIdentifier bpuIdentifier)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public RequestHandler(string requestHandlerKey)
         {
-            BpuIdentifier = bpuIdentifier;
-        }
-
-        /// <summary>
-        /// Creates an instance, taking the request handler identity as arguments
-        /// </summary>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        /// <param name="transitionName">Transition name</param>
-        public RequestHandler(string domainName, string useCaseName, string applicationLayerName, string stateName, string? transitionName = null)
-        {
-            BpuIdentifier.DomainName = domainName;
-            BpuIdentifier.UseCaseName = useCaseName;
-            BpuIdentifier.ApplicationLayerName = applicationLayerName;
-            BpuIdentifier.StateName = stateName;
-            BpuIdentifier.TransitionName = transitionName;
+            BpuIdentifier = new BpuIdentifier(requestHandlerKey);
         }
         #endregion
 

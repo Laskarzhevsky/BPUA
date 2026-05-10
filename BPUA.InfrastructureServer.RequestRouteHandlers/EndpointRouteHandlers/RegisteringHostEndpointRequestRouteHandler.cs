@@ -20,8 +20,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         {
             get
             {
-                IBpuIdentifier bpuIdentifier = BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHostBpuIdentifier();
-                return KeyCompiler.CompileRequestRouteKey(bpuIdentifier.RequestName, bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName, bpuIdentifier.StateName, bpuIdentifier.TransitionName);
+                return KeyCompiler.CompileRequestRouteKey(BPUA.InfrastructureServer.Contracts.EndpointsIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -30,7 +29,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostEndpointRequestRouteHandler() : base(default!, BPUA.InfrastructureServer.Contracts.Endpoints.RegisteringHostBpuIdentifier())
+        public RegisteringHostEndpointRequestRouteHandler() : base(RequestRouteKey)
         {
         }
         #endregion

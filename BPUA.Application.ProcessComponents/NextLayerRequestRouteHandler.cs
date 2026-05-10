@@ -14,22 +14,8 @@ namespace BPUA.Application.ProcessComponents
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="requestName">Request name</param>
-        /// <param name="bpuIdentifier">BPU identifier</param>
-        public NextLayerRequestRouteHandler(string requestName, IBpuIdentifier bpuIdentifier) : base(requestName, bpuIdentifier)
-        {
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="requestName">Request name</param>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        /// <param name="transitionName">Transition name</param>
-        public NextLayerRequestRouteHandler(string requestName, string domainName, string useCaseName, string applicationLayerName, string stateName, string transitionName) : base(requestName, domainName, useCaseName, applicationLayerName, stateName, transitionName)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public NextLayerRequestRouteHandler(string requestHandlerKey) : base(requestHandlerKey)
         {
         }
         #endregion

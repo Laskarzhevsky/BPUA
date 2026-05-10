@@ -34,7 +34,7 @@ namespace BPUA.InfrastructureServer.SL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public WaitingForApplicationLoadStateHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName)
+        public WaitingForApplicationLoadStateHandler() : base(ServiceKey)
         {
         }
         #endregion

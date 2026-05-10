@@ -1,17 +1,17 @@
 ﻿using BPUA.Core;
 
-namespace BPUA.InfrastructureServer.Contracts.DAL
+namespace BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers
 {
     /// <summary>
-    /// Defines SearchApplicationLayersByFullNames BPU identifier 
+    /// Defines RegisteringHost BPU identifier 
     /// </summary>
     public static partial class BpuIdentifiers
     {
         #region Public Properties
         /// <summary>
-        /// Gets SearchApplicationLayersByFullNames BPU identifier
+        /// Gets RegisteringHost BPU identifier
         /// </summary>
-        public static IBpuIdentifier SearchApplicationLayersByFullNames
+        public static IBpuIdentifier RegisteringHost
         {
             get 
             {
@@ -19,8 +19,8 @@ namespace BPUA.InfrastructureServer.Contracts.DAL
 
                 bpuIdentifier.DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
                 bpuIdentifier.UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-                bpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DAL;
-                bpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES;
+                bpuIdentifier.ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
+                bpuIdentifier.TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
 
                 return bpuIdentifier;
             }

@@ -174,6 +174,27 @@
         /// Compiles request route key
         /// </summary>
         /// <param name="requestName">Request name</param>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        /// <returns>Compiled request route key</returns>
+        public static string CompileRequestRouteKey(string requestName, IBpuIdentifier bpuIdentifier)
+        {
+            return $"{requestName}_{bpuIdentifier.DomainName}_{bpuIdentifier.UseCaseName}_{bpuIdentifier.ApplicationLayerName}_{bpuIdentifier.StateName}_{bpuIdentifier.TransitionName}";
+        }
+
+        /// <summary>
+        /// Compiles request route key
+        /// </summary>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        /// <returns>Compiled request route key</returns>
+        public static string CompileRequestRouteKey(IBpuIdentifier bpuIdentifier)
+        {
+            return $"{bpuIdentifier.RequestName}_{bpuIdentifier.DomainName}_{bpuIdentifier.UseCaseName}_{bpuIdentifier.ApplicationLayerName}_{bpuIdentifier.StateName}_{bpuIdentifier.TransitionName}";
+        }
+
+        /// <summary>
+        /// Compiles request route key
+        /// </summary>
+        /// <param name="requestName">Request name</param>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>

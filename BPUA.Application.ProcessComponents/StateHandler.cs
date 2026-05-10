@@ -31,14 +31,12 @@ namespace BPUA.Application.ProcessComponents
         {
         }
 
+
         /// <summary>
-        /// Creates an instance, taking the state handler identity as arguments
+        /// Creates an instance, taking the request handler key as arguments
         /// </summary>
-        /// <param name="domainName">Domain name</param>
-        /// <param name="useCaseName">Use case name</param>
-        /// <param name="applicationLayerName">Application layer name</param>
-        /// <param name="stateName">State name</param>
-        public StateHandler(string domainName, string useCaseName, string applicationLayerName, string stateName) : base(domainName, useCaseName, applicationLayerName, stateName)
+        /// <param name="requestHandlerKey">Request handler key</param>
+        public StateHandler(string requestHandlerKey) : base(requestHandlerKey)
         {
         }
         #endregion

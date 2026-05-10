@@ -35,7 +35,7 @@ namespace BPUA.Application.DataAccessLogic
         /// <summary>
         /// Default constructor
         /// </summary>
-        public InitializingApplicationRequestHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public InitializingApplicationRequestHandler() : base(ServiceKey)
         {
         }
         #endregion
