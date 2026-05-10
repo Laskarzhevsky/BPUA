@@ -12,12 +12,6 @@ namespace BPUA.InfrastructureServer.DPL
     public partial class RegisteringHostRequestHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicRequestHandler
     {
         #region Identification
-        public static string DomainName = BPUA.Application.Contracts.DomainNames.BPUA;
-        public static string UseCaseName = BPUA.InfrastructureServer.Contracts.UseCaseName.INFRASTRUCTURE_SERVER;
-        public static string ApplicationLayerName = BPUA.Application.Contracts.ApplicationLayersNames.DPL;
-        public static string StateName = default!;
-        public static string TransitionName = BPUA.InfrastructureServer.Contracts.TransitionsNames.REGISTERING_HOST;
-
         /// <summary>
         /// Gets service keys
         /// </summary>
@@ -25,7 +19,7 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                return KeyCompiler.CompileRequestHandlerKey(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName);
+                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DPL.BpuIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -34,9 +28,8 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostRequestHandler() : base(DomainName, UseCaseName, ApplicationLayerName, StateName, TransitionName)
+        public RegisteringHostRequestHandler() : base(BPUA.InfrastructureServer.Contracts.DPL.BpuIdentifiers.RegisteringHost)
         {
-            DoNotSendRequestToApplicationNextLayer = true;
         }
         #endregion
 

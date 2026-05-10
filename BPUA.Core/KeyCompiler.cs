@@ -124,6 +124,16 @@
         /// <summary>
         /// Compiles request handler key
         /// </summary>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        /// <returns>Compiled request handler key</returns>
+        public static string CompileRequestHandlerKey(IBpuIdentifier bpuIdentifier)
+        {
+            return $"{bpuIdentifier.DomainName}_{bpuIdentifier.UseCaseName}_{bpuIdentifier.ApplicationLayerName}_{bpuIdentifier.StateName}_{bpuIdentifier.TransitionName}";
+        }
+
+        /// <summary>
+        /// Compiles request handler key
+        /// </summary>
         /// <param name="domainName">Domain name</param>
         /// <param name="useCaseName">Use case name</param>
         /// <param name="applicationLayerName">Application layer name</param>

@@ -28,6 +28,15 @@ namespace BPUA.Application.ProcessComponents
         }
 
         /// <summary>
+        /// Creates an instance, taking the transition handler identity as arguments
+        /// </summary>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        public RequestHandler(IBpuIdentifier bpuIdentifier)
+        {
+            BpuIdentifier = bpuIdentifier;
+        }
+
+        /// <summary>
         /// Creates an instance, taking the request handler identity as arguments
         /// </summary>
         /// <param name="domainName">Domain name</param>
@@ -53,31 +62,7 @@ namespace BPUA.Application.ProcessComponents
         /// <returns>Response transition context</returns>
         public virtual async Task<IDataSet?> HandleRequestAsync(IDataSet? requestTransitionContext)
         {
-            RequestTransitionContext = requestTransitionContext;
-            ResponseTransitionContext = requestTransitionContext;
-            if (requestTransitionContext == null)
-            {
-                return ResponseTransitionContext;
-            }
-
-            ProcessRequest();
-            await ProcessRequestAsync();
-            if (DoNotSendRequestToApplicationNextLayer)
-            {
-                FinalizeTransitionContextProcessing();
-                return ResponseTransitionContext;
-            }
-
-            await SendRequestToApplicationNextLayer();
-            if (ResponseTransitionContext == null)
-            {
-                return ResponseTransitionContext;
-            }
-
-            ProcessResponse();
-            await ProcessResponseAsync();
-            FinalizeTransitionContextProcessing();
-            return ResponseTransitionContext;
+            return requestTransitionContext;
         }
 
         /// <summary>
@@ -212,14 +197,6 @@ namespace BPUA.Application.ProcessComponents
         #endregion
 
         #region Protected Properties
-        /// <summary>
-        /// Get or sets flag indicating whether request should not be sent to application next layer
-        /// </summary>
-        protected bool DoNotSendRequestToApplicationNextLayer
-        {
-            get; set;
-        }
-
         /// <summary>
         /// Gets or sets request transition context
         /// </summary>

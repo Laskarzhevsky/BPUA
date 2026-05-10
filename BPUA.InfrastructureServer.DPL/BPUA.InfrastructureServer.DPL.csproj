@@ -15,6 +15,10 @@
     <ProjectReference Include="..\BPUA.InfrastructureServer.Contracts\BPUA.InfrastructureServer.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InitializingApplication\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <DomainName>BPUA</DomainName>
     <UseCaseName>InfrastructureServer</UseCaseName>

@@ -1,5 +1,6 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Application.ProcessComponents;
+using BPUA.Core;
 
 using PocoDataSet.IData;
 
@@ -17,6 +18,14 @@ namespace BPUA.Application.DataAccessLogic
         /// Default constructor
         /// </summary>
         public DataAccessLogicRequestHandler() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates an instance, taking the transition handler identity as arguments
+        /// </summary>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        public DataAccessLogicRequestHandler(IBpuIdentifier bpuIdentifier) : base(bpuIdentifier)
         {
         }
 
@@ -50,7 +59,7 @@ namespace BPUA.Application.DataAccessLogic
 
             ProcessRequest();
             await ProcessRequestAsync();
-
+            FinalizeTransitionContextProcessing();
             return ResponseTransitionContext;
         }
         #endregion
