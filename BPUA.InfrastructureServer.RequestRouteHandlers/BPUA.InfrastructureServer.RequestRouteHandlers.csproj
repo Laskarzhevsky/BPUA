@@ -3,7 +3,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Reflection.AssemblyDescriptionAttribute">
-      <_Parameter1>Transitions of BPUA Infrastructure Server application</_Parameter1>
+      <_Parameter1>Request route handlers of BPUA Infrastructure Server application</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

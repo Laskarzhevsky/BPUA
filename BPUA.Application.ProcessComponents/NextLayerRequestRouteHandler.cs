@@ -15,7 +15,7 @@ namespace BPUA.Application.ProcessComponents
         /// Default constructor
         /// </summary>
         /// <param name="requestHandlerKey">Request handler key</param>
-        public NextLayerRequestRouteHandler(string requestHandlerKey) : base(requestHandlerKey, null)
+        public NextLayerRequestRouteHandler(string requestHandlerKey) : base(requestHandlerKey)
         {
         }
         #endregion

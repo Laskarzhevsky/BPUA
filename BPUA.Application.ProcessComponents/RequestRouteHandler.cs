@@ -32,11 +32,9 @@ namespace BPUA.Application.ProcessComponents
         /// Default constructor
         /// </summary>
         /// <param name="requestHandlerKey">Request handler key</param>
-        /// <param name="nextRequestHandlerBpuIdentifier">Next request handler BPU identifier</param>
-        public RequestRouteHandler(string requestHandlerKey, IBpuIdentifier? nextRequestHandlerBpuIdentifier)
+        public RequestRouteHandler(string requestHandlerKey)
         {
             BpuIdentifier = new BpuIdentifier(requestHandlerKey);
-            NextRequestHandlerBpuIdentifier = nextRequestHandlerBpuIdentifier;
 
             _allowedCallerBpuIdentifiers = new List<string>();
             _targetStateNames = new List<string>();
@@ -81,11 +79,11 @@ namespace BPUA.Application.ProcessComponents
         }
 
         /// <summary>
-        /// Gets or sets next request handler BPU identifier
+        /// Gets or sets target request handler BPU identifier
         /// </summary>
-        public IBpuIdentifier? NextRequestHandlerBpuIdentifier
+        public IBpuIdentifier? TargetRequestHandlerBpuIdentifier
         {
-            get; set;
+            get; protected set;
         }
 
         /// <summary>
@@ -143,18 +141,15 @@ namespace BPUA.Application.ProcessComponents
                 return;
             }
 
-            if (NextRequestHandlerBpuIdentifier == null)
+            if (TargetRequestHandlerBpuIdentifier == null)
             {
-                IBpuIdentifier nextRequestHandlerBpuIdentifier = bpuIdentifier.Clone()!;
-                nextRequestHandlerBpuIdentifier.RequestName = default;
+                TargetRequestHandlerBpuIdentifier = bpuIdentifier.Clone()!;
+                TargetRequestHandlerBpuIdentifier.RequestName = default;
 
-                PrepareNextRequestHandlerBpuIdentifier(nextRequestHandlerBpuIdentifier);
-                requestTransitionContext.AddRequestMetadata(nextRequestHandlerBpuIdentifier);
+                PrepareNextRequestHandlerBpuIdentifier(TargetRequestHandlerBpuIdentifier);
             }
-            else
-            {
-                requestTransitionContext.AddRequestMetadata(NextRequestHandlerBpuIdentifier);
-            }
+
+            requestTransitionContext.AddRequestMetadata(TargetRequestHandlerBpuIdentifier);
         }
 
         /// <summary>

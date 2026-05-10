@@ -5,7 +5,7 @@ namespace BPUA.InfrastructureServer.Contracts
     /// <summary>
     /// Defines RegisteringHost BPU identifier 
     /// </summary>
-    public static class EndpointsIdentifiers
+    public static class EndpointIdentifiers
     {
         /// <summary>
         /// Provides the identifier for the "Registering Host" endpoint.

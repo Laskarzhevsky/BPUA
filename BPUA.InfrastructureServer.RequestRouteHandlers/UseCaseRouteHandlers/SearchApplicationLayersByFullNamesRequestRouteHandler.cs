@@ -29,8 +29,9 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey, BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames)
+        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey)
         {
+            TargetRequestHandlerBpuIdentifier = BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames;
         }
         #endregion
 
