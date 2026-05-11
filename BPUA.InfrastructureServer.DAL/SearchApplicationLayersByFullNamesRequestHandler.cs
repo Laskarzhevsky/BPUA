@@ -1,6 +1,9 @@
 ﻿using BPUA.Application.Contracts;
 using BPUA.Core;
 
+using PocoDataSet.IData;
+using PocoDataSet.SqlServerDataAdapter;
+
 using System.Threading.Tasks;
 
 namespace BPUA.InfrastructureServer.DAL
@@ -39,7 +42,9 @@ namespace BPUA.InfrastructureServer.DAL
         /// </summary>
         protected override async Task ProcessRequestAsync()
         {
-            await base.ProcessRequestAsync();
+            GetConnectionString();
+            SqlDataAdapter adapter = new SqlDataAdapter(ConnectionString);
+            await adapter.FillAsync("FindDnsRecordByListOfApplicationLayerFullNames", false, null, null, null, null);
         }
         #endregion
     }

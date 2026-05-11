@@ -13,7 +13,7 @@ namespace BPUA.Application.Orchestration
     /// Represents the runtime application coordinator that listens to service requests
     /// and dispatches them to the appropriate event bus handler.
     /// </summary>
-    public class BpuaApplication : IBpuaApplication
+    public class BpuaApplication : IBpuaApplication, IBpuaHostServices
     {
         #region Data Fields
         /// <summary>
@@ -70,6 +70,24 @@ namespace BPUA.Application.Orchestration
             }
 
             await stateMachine.ExecuteTransition(this, bpuIdentifier);
+        }
+
+        /// <summary>
+        /// Gets the connection string for the specified BPU identifier.
+        /// IBpuaHostServices interface implementation
+        /// </summary>
+        /// <param name="bpuIdentifier">BPU identifier</param>
+        /// <returns>Connection string</returns>
+        public string GetConnectionString(IBpuIdentifier bpuIdentifier)
+        {
+            string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName);
+            string? connectionString = ApplicationConfiguration.GetConnectionString(hostedApplicationLayerKey);
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ApplicationException("Connection string not found for application layer: " + hostedApplicationLayerKey);
+            }
+
+            return connectionString;
         }
 
         /// <summary>

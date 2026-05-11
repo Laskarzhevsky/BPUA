@@ -8,6 +8,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PocoDataSet.SqlServerDataAdapter" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BPUA.Application.ProcessComponents\BPUA.Application.ProcessComponents.csproj" />
     <ProjectReference Include="..\PocoDataSet.BpuaExtensions\PocoDataSet.BpuaExtensions.csproj" />
   </ItemGroup>

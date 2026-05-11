@@ -54,6 +54,15 @@ namespace BPUA.Application.DataAccessLogic
 
         #region Protected Methods
         /// <summary>
+        /// Gets the connection string
+        /// </summary>
+        protected virtual void GetConnectionString()
+        {
+            IBpuaHostServices bpuaHostServices = (IBpuaHostServices)BpuaApplication;
+            ConnectionString = bpuaHostServices.GetConnectionString(BpuIdentifier);
+        }
+
+        /// <summary>
         /// Processes request
         /// </summary>
         protected override void ProcessRequest()
@@ -74,6 +83,16 @@ namespace BPUA.Application.DataAccessLogic
         /// </summary>
         protected override void ProcessResponse()
         {
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets or sets the connection string
+        /// </summary>
+        protected string ConnectionString
+        {
+            get; set;
         }
         #endregion
     }

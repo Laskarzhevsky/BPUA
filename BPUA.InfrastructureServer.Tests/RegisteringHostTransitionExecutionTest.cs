@@ -47,6 +47,11 @@ namespace BPUA.InfrastructureServer.Tests
             hostedApplicationLayer.UseCaseName = "Accounting";
             hostedApplicationLayer.ApplicationLayerName = "DPL";
 
+            hostedApplicationLayer = dataTable.AddNewRow<IHostedApplicationLayer>();
+            hostedApplicationLayer!.DomainName = "HR";
+            hostedApplicationLayer.UseCaseName = "Accounting";
+            hostedApplicationLayer.ApplicationLayerName = "DAL";
+
             // 4. Send the request to the BPUA application.
             RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
             ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(routeTransitionContextEventArgs);
