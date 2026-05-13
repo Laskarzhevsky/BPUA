@@ -1,0 +1,491 @@
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msdata:ApplyBinarySerialization="False" msdata:BusinessGuid="" msdata:DataTableTypeFormatString="WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SkySoft_DataContainerSchema" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="SkySoft_DataContainerSchema" msdata:OneObjectIsRequired="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="TableName" type="xs:string" minOccurs="0" />
+                <xs:element name="Id" type="xs:long" />
+                <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="IdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="NewId" type="xs:long" minOccurs="0" />
+                <xs:element name="ObjectState" type="xs:string" default="Detached" />
+                <xs:element name="SelectedManually" type="xs:boolean" default="false" />
+                <xs:element name="StringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Tags" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidationMessageType" type="xs:int" default="2" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SkySoft_UseCaseMetadata" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="SkySoft_UseCaseMetadata" msdata:OneObjectIsRequired="True">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ApplicationServerAddress" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessLogicTransitionName" type="xs:string" minOccurs="0" />
+                <xs:element name="Caller" type="xs:string" minOccurs="0" />
+                <xs:element name="EndDateTime" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="EndpointAddress" type="xs:string" minOccurs="0" />
+                <xs:element name="GUID" type="xs:string" minOccurs="0" />
+                <xs:element name="HasChanges" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsHandled" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLocalRequest" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsRejected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="MachineName" type="xs:string" minOccurs="0" />
+                <xs:element name="Note" type="xs:string" minOccurs="0" />
+                <xs:element name="PreviousStateName" type="xs:string" minOccurs="0" />
+                <xs:element name="PreviousTransitionName" type="xs:string" minOccurs="0" />
+                <xs:element name="PreviousUseCaseEngineName" type="xs:string" minOccurs="0" />
+                <xs:element name="PreviousUseCaseName" type="xs:string" minOccurs="0" />
+                <xs:element name="RejectionReason" type="xs:string" minOccurs="0" />
+                <xs:element name="RoleName" type="xs:string" minOccurs="0" />
+                <xs:element name="SendEntireDataSet" type="xs:boolean" minOccurs="0" />
+                <xs:element name="StartDateTime" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="StateName" type="xs:string" minOccurs="0" />
+                <xs:element name="TransitionName" type="xs:string" minOccurs="0" />
+                <xs:element name="useCaseEngineName" type="xs:string" minOccurs="0" />
+                <xs:element name="UseCaseName" type="xs:string" minOccurs="0" />
+                <xs:element name="UserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="UserName" type="xs:string" minOccurs="0" />
+                <xs:element name="DataCollectionTypeFormat" type="xs:string" minOccurs="0" />
+                <xs:element name="TransitionCollectionName" type="xs:string" minOccurs="0" />
+                <xs:element name="Id" type="xs:long" />
+                <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="IdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="NewId" type="xs:long" minOccurs="0" />
+                <xs:element name="ObjectState" type="xs:string" default="Detached" />
+                <xs:element name="SelectedManually" type="xs:boolean" default="false" />
+                <xs:element name="StringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Tags" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidationMessageType" type="xs:int" default="2" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SkySoft_PropertyMetadata" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="SkySoft_PropertyMetadata" msdata:OneObjectIsRequired="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="DataTypeName" type="xs:string" minOccurs="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="MetadataName" type="xs:string" minOccurs="0" />
+                <xs:element name="PropertyName" type="xs:string" minOccurs="0" />
+                <xs:element name="RowId" type="xs:long" minOccurs="0" />
+                <xs:element name="RowIdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="RowIndex" type="xs:int" minOccurs="0" />
+                <xs:element name="TypeKey" type="xs:string" minOccurs="0" />
+                <xs:element name="TypeName" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidationMessageType" type="xs:int" />
+                <xs:element name="Value" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="WasPropagated" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Id" type="xs:long" />
+                <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="IdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="NewId" type="xs:long" minOccurs="0" />
+                <xs:element name="ObjectState" type="xs:string" default="Detached" />
+                <xs:element name="SelectedManually" type="xs:boolean" default="false" />
+                <xs:element name="StringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Tags" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SkySoft_ValidationMessages" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="SkySoft_ValidationMessages" msdata:OneObjectIsRequired="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="EntityName" type="xs:string" minOccurs="0" />
+                <xs:element name="Id" type="xs:long" />
+                <xs:element name="Argument1" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Argument2" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="DataTypeName" type="xs:string" minOccurs="0" />
+                <xs:element name="ExpectedMessage" type="xs:boolean" minOccurs="0" />
+                <xs:element name="FieldName" type="xs:string" minOccurs="0" />
+                <xs:element name="FieldValue" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Index" type="xs:int" minOccurs="0" />
+                <xs:element name="Message" type="xs:string" minOccurs="0" />
+                <xs:element name="MessageCode" type="xs:int" minOccurs="0" />
+                <xs:element name="MessageId" type="xs:int" minOccurs="0" />
+                <xs:element name="MessageType" type="xs:long" minOccurs="0" />
+                <xs:element name="RecordId" type="xs:long" minOccurs="0" />
+                <xs:element name="ValidationMessageType" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="ValidationType" type="xs:long" minOccurs="0" />
+                <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="IdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="NewId" type="xs:long" minOccurs="0" />
+                <xs:element name="ObjectState" type="xs:string" default="Detached" />
+                <xs:element name="SelectedManually" type="xs:boolean" default="false" />
+                <xs:element name="StringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Tags" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SkySoft_ExecutableCommandArgument" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="SkySoft_ExecutableCommandArgument" msdata:OneObjectIsRequired="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Id" type="xs:long" default="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ContentType" type="xs:string" minOccurs="0" />
+                <xs:element name="AutomatedExecution" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Setting" msdata:AddPartialColumnsOnCreation="True" msdata:ContainsLookupData="False" msdata:Name="Setting" msdata:OneObjectIsRequired="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AssemblerFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="AssemblerNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessObjectFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessObjectNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="CommonComponentNamespaces" type="xs:string" minOccurs="0" />
+                <xs:element name="ConnectionString" type="xs:string" minOccurs="0" />
+                <xs:element name="DataAccessFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="DataAccessNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="DataContractFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="DataContractNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="DataTableFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="DataTableNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="DeploymentFileFullName" type="xs:string" minOccurs="0" />
+                <xs:element name="DisassemblerFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="DisassemblerNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="ExcludedTables" type="xs:string" minOccurs="0" />
+                <xs:element name="IncludedTables" type="xs:string" minOccurs="0" />
+                <xs:element name="IncludeServiceColumns" type="xs:boolean" default="false" />
+                <xs:element name="InterfaceFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="InterfaceNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="MapperFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="MapperNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="NullableColumnDataTableFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="NullableColumnDataTableNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="RelationFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="RelationNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="Path" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaDataContractFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaDataContractNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaDataTableFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaDataTableNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaInterfaceFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="SearchCriteriaInterfaceNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="StoredProcedureFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidatorFilesLocation" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidatorNamespace" type="xs:string" minOccurs="0" />
+                <xs:element name="Version" type="xs:string" minOccurs="0" />
+                <xs:element name="Id" type="xs:long" />
+                <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
+                <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Error" type="xs:string" minOccurs="0" />
+                <xs:element name="IdLookup" type="xs:string" minOccurs="0" />
+                <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="NewId" type="xs:long" minOccurs="0" />
+                <xs:element name="ObjectState" type="xs:string" default="Detached" />
+                <xs:element name="SelectedManually" type="xs:boolean" default="false" />
+                <xs:element name="StringRepresentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Tags" type="xs:string" minOccurs="0" />
+                <xs:element name="ValidationMessageType" type="xs:int" default="2" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//SkySoft_DataContainerSchema" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="SkySoft_UseCaseMetadata_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//SkySoft_UseCaseMetadata" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="SkySoft_PropertyMetadata_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//SkySoft_PropertyMetadata" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="SkySoft_ValidationMessages_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//SkySoft_ValidationMessages" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="SkySoft_ExecutableCommandArgument_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//SkySoft_ExecutableCommandArgument" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="Setting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Setting" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <SkySoft_DataContainerSchema>
+    <TableName>SkySoft_UseCaseMetadata</TableName>
+    <Id>-2147483646</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483646</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_DataContainerSchema>
+  <SkySoft_DataContainerSchema>
+    <TableName>SkySoft_ExecutableCommandArgument</TableName>
+    <Id>-2147483645</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483645</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_DataContainerSchema>
+  <SkySoft_DataContainerSchema>
+    <TableName>SkySoft_PropertyMetadata</TableName>
+    <Id>-2147483644</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483644</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_DataContainerSchema>
+  <SkySoft_DataContainerSchema>
+    <TableName>SkySoft_ValidationMessages</TableName>
+    <Id>-2147483643</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483643</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_DataContainerSchema>
+  <SkySoft_DataContainerSchema>
+    <TableName>Setting</TableName>
+    <Id>-2147483642</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483642</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_DataContainerSchema>
+  <SkySoft_UseCaseMetadata>
+    <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
+    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
+    <IsHandled>false</IsHandled>
+    <IsLocalRequest>false</IsLocalRequest>
+    <IsRejected>false</IsRejected>
+    <MachineName>VITALYXPS13</MachineName>
+    <SendEntireDataSet>true</SendEntireDataSet>
+    <StartDateTime>2021-10-22T14:27:43.974838-04:00</StartDateTime>
+    <StateName>Initial</StateName>
+    <TransitionName>SavingProfile</TransitionName>
+    <useCaseEngineName>DTOGenerator_BL_GeneratorProfile</useCaseEngineName>
+    <UseCaseName>GeneratorProfile</UseCaseName>
+    <UserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</UserGuid>
+    <UserName>System</UserName>
+    <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
+    <Id>-2147483646</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483646</NewId>
+    <ObjectState>Detached</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_UseCaseMetadata>
+  <SkySoft_UseCaseMetadata>
+    <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
+    <Caller>SkySoft.BusinessProcessProgramming.BusinessLogicRequestHandler, SkySoft.BusinessProcessProgramming, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Caller>
+    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
+    <MachineName>VITALYXPS13</MachineName>
+    <SendEntireDataSet>true</SendEntireDataSet>
+    <StartDateTime>2021-10-22T14:27:43.9788382-04:00</StartDateTime>
+    <StateName>Initial</StateName>
+    <TransitionName>SavingProfile</TransitionName>
+    <useCaseEngineName>DTOGenerator_DPL_GeneratorProfile</useCaseEngineName>
+    <UseCaseName>GeneratorProfile</UseCaseName>
+    <UserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</UserGuid>
+    <UserName>System</UserName>
+    <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
+    <Id>-2147483645</Id>
+    <CreatedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</CreatedByUserGuid>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</ModifiedByUserGuid>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483645</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_UseCaseMetadata>
+  <SkySoft_UseCaseMetadata>
+    <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
+    <Caller>DTOGenerator.DPL.GeneratorProfile.SavingProfile, DTOGenerator.DPL.GeneratorProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Caller>
+    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
+    <MachineName>VITALYXPS13</MachineName>
+    <SendEntireDataSet>true</SendEntireDataSet>
+    <StartDateTime>2021-10-22T14:27:43.9798378-04:00</StartDateTime>
+    <StateName>Initial</StateName>
+    <TransitionName>SavingProfile</TransitionName>
+    <useCaseEngineName>DTOGenerator_DAL_GeneratorProfile</useCaseEngineName>
+    <UseCaseName>GeneratorProfile</UseCaseName>
+    <UserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</UserGuid>
+    <UserName>System</UserName>
+    <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
+    <Id>-2147483644</Id>
+    <CreatedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</CreatedByUserGuid>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</ModifiedByUserGuid>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483644</NewId>
+    <ObjectState>Added</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </SkySoft_UseCaseMetadata>
+  <SkySoft_ExecutableCommandArgument>
+    <Id>-2147483646</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ContentType>DTOGenerator.PL.GeneratorProfile.SavingProfile, DTOGenerator.PL.GeneratorProfile</ContentType>
+    <AutomatedExecution>false</AutomatedExecution>
+  </SkySoft_ExecutableCommandArgument>
+  <Setting>
+    <BusinessObjectFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\DTO\BusinessObjects\</BusinessObjectFilesLocation>
+    <BusinessObjectNamespace>BPP.DTO.Contact</BusinessObjectNamespace>
+    <ConnectionString>Server=localhost;Database=BPPContact2;User ID=SkySoftAdministrator;Password=SkySoft0</ConnectionString>
+    <DataAccessFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\DataAccess\</DataAccessFilesLocation>
+    <DataAccessNamespace>BPP.DAO.Contact</DataAccessNamespace>
+    <DataContractFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\DTO\DataContracts\</DataContractFilesLocation>
+    <DataContractNamespace>BPP.DTOINT.Contact</DataContractNamespace>
+    <DataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\DTO\Collections\</DataTableFilesLocation>
+    <DataTableNamespace>BPP.DTO.Contact</DataTableNamespace>
+    <IncludedTables>*log</IncludedTables>
+    <IncludeServiceColumns>false</IncludeServiceColumns>
+    <InterfaceFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\DTO\Interfaces\</InterfaceFilesLocation>
+    <InterfaceNamespace>BPP.DTOINT.Contact</InterfaceNamespace>
+    <NullableColumnDataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\NullabelColumnCollections\</NullableColumnDataTableFilesLocation>
+    <NullableColumnDataTableNamespace>BPP.DAO.Contact</NullableColumnDataTableNamespace>
+    <RelationFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\Relations\</RelationFilesLocation>
+    <RelationNamespace>BPP.DAO.Contact</RelationNamespace>
+    <Path>E:\VSTS\SkySoftGit\Code\BPPSolutions\BPPContactDatabaseSolution\BPPContactDatabase\BPPContact_DTOGenerator.xml</Path>
+    <SearchCriteriaFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\Search\BusinessObjects\</SearchCriteriaFilesLocation>
+    <SearchCriteriaNamespace>BPP.DTO.Contact</SearchCriteriaNamespace>
+    <SearchCriteriaDataContractFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\Search\DataContracts\</SearchCriteriaDataContractFilesLocation>
+    <SearchCriteriaDataContractNamespace>BPP.DTOINT.Contact</SearchCriteriaDataContractNamespace>
+    <SearchCriteriaDataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\Search\Collections\</SearchCriteriaDataTableFilesLocation>
+    <SearchCriteriaDataTableNamespace>BPP.DTO.Contact</SearchCriteriaDataTableNamespace>
+    <SearchCriteriaInterfaceFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\Search\Interfaces\</SearchCriteriaInterfaceFilesLocation>
+    <SearchCriteriaInterfaceNamespace>BPP.DTOINT.Contact</SearchCriteriaInterfaceNamespace>
+    <StoredProcedureFilesLocation>E:\VSTS\SkySoftGit\Code\BPPSolutions\BPPContactDatabaseSolution\BPPContactDatabase\GeneratedComponents</StoredProcedureFilesLocation>
+    <Id>-2147483646</Id>
+    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
+    <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
+    <IsArchived>false</IsArchived>
+    <IsDeleted>false</IsDeleted>
+    <IsSelected>false</IsSelected>
+    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <NewId>-2147483646</NewId>
+    <ObjectState>Modified</ObjectState>
+    <SelectedManually>false</SelectedManually>
+    <ValidationMessageType>2</ValidationMessageType>
+  </Setting>
+</NewDataSet>
