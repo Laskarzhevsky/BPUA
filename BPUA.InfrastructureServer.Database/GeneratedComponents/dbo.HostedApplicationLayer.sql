@@ -4,7 +4,6 @@ create type [dbo].[HostedApplicationLayer] AS TABLE
     [ApplicationLayerName] [varchar] (32) NULL,
     [DomainName] [varchar] (128) NULL,
     [Guid] [uniqueidentifier] NULL,
-    [StringRepresentation] [varchar] (290) NULL,
     [Url] [varchar] (1024) NULL,
     [UseCaseName] [varchar] (128) NULL,
     [BusinessGuid] [uniqueidentifier] NULL,

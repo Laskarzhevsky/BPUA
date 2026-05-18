@@ -17,7 +17,6 @@ create type [dbo].[HostedApplicationLayerLog] AS TABLE
     [LoggedEntityModifiedByUserGuid] [uniqueidentifier] NULL,
     [LoggedEntityModifiedByUserName] [varchar] (50) NULL,
     [LoggedEntityStringRepresentation] [varchar] (290) NULL,
-    [StringRepresentation] [varchar] (290) NULL,
     [Url] [varchar] (1024) NULL,
     [UseCaseName] [varchar] (128) NULL,
     [BusinessGuid] [uniqueidentifier] NULL,

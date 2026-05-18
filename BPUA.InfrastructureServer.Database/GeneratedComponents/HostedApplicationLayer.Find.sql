@@ -25,8 +25,11 @@ as
 begin
     declare @sql nvarchar(max) = 'select '
 
+    if (@TopExpression is not null and try_convert(int, @TopExpression) is null)
+        raiserror('Invalid TopExpression. Integer value is expected.', 16, 1)
+
     if (@TopExpression is not null)
-        set @sql = @sql + 'top ' + @TopExpression
+        set @sql = @sql + 'top (' + convert(varchar(20), try_convert(int, @TopExpression)) + ') '
 
     set @sql = @sql + ' 
         *
@@ -48,8 +51,6 @@ begin
 
         if (@StringRepresentation is not null)
             set @sql = @sql + '[StringRepresentation] = @xStringRepresentation and '
-        else if (CHARINDEX(',StringRepresentation,', @ListOfNullableColumns) <> 0)
-            set @sql = @sql + '[StringRepresentation] is null and '
 
         if (@Url is not null)
             set @sql = @sql + '[Url] = @xUrl and '
@@ -73,18 +74,14 @@ begin
         if (@CreatedByUserName is not null)
             set @sql = @sql + '[CreatedByUserName] = @xCreatedByUserName and '
 
-        if (CHARINDEX(',DateOfCreation,', @ListOfNullableColumns) <> 0)
-            set @sql = @sql + '[DateOfCreation] is null and '
-        else if (@DateOfCreationFrom is not null and @DateOfCreationTo is not null)
+        if (@DateOfCreationFrom is not null and @DateOfCreationTo is not null)
             set @sql = @sql + '[DateOfCreation] >= @xDateOfCreationFrom and [DateOfCreation] < @xDateOfCreationTo and '
         else if (@DateOfCreationFrom is not null and @DateOfCreationTo is null)
             set @sql = @sql + '[DateOfCreation] >= @xDateOfCreationFrom and '
         else if (@DateOfCreationFrom is null and @DateOfCreationTo is not null)
             set @sql = @sql + '[DateOfCreation] < @xDateOfCreationTo and '
 
-        if (CHARINDEX(',DateOfModification,', @ListOfNullableColumns) <> 0)
-            set @sql = @sql + '[DateOfModification] is null and '
-        else if (@DateOfModificationFrom is not null and @DateOfModificationTo is not null)
+        if (@DateOfModificationFrom is not null and @DateOfModificationTo is not null)
             set @sql = @sql + '[DateOfModification] >= @xDateOfModificationFrom and [DateOfModification] < @xDateOfModificationTo and '
         else if (@DateOfModificationFrom is not null and @DateOfModificationTo is null)
             set @sql = @sql + '[DateOfModification] >= @xDateOfModificationFrom and '
@@ -103,10 +100,94 @@ begin
         if (@ModifiedByUserName is not null)
             set @sql = @sql + '[ModifiedByUserName] = @xModifiedByUserName and '
 
+        if (@IsArchived is null)
+            set @sql = @sql + '[IsArchived] = 0 and '
+
+        if (@IsDeleted is null)
+            set @sql = @sql + '[IsDeleted] = 0 and '
+
         set @sql = left(@sql, len(@sql) - 3)
 
         if (@OrderByClause is not null)
-            set @sql = @sql + ' order by ' + @OrderByClause
+        begin
+            declare @xAllowedOrderByColumns table ([ColumnName] varchar(128) not null primary key)
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('CreatedByUserGuid')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('CreatedByUserName')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('DateOfCreation')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('DateOfModification')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('Guid')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('IsArchived')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('IsDeleted')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('ModifiedByUserGuid')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('ModifiedByUserName')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('Id')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('ApplicationLayerName')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('DomainName')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('Url')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('UseCaseName')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('BusinessGuid')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('BusinessStringRepresentation')
+            insert into @xAllowedOrderByColumns ([ColumnName]) values ('StringRepresentation')
+
+            declare @xSafeOrderByClause varchar(max) = ''
+            declare @xRemainingOrderByClause varchar(max) = @OrderByClause
+            declare @xOrderByItem varchar(512)
+            declare @xCommaIndex int
+            declare @xOrderByColumn varchar(128)
+            declare @xOrderByDirection varchar(4)
+
+            while (len(ltrim(rtrim(@xRemainingOrderByClause))) > 0)
+            begin
+                set @xCommaIndex = charindex(',', @xRemainingOrderByClause)
+
+                if (@xCommaIndex = 0)
+                begin
+                    set @xOrderByItem = ltrim(rtrim(@xRemainingOrderByClause))
+                    set @xRemainingOrderByClause = ''
+                end
+                else
+                begin
+                    set @xOrderByItem = ltrim(rtrim(left(@xRemainingOrderByClause, @xCommaIndex - 1)))
+                    set @xRemainingOrderByClause = substring(@xRemainingOrderByClause, @xCommaIndex + 1, len(@xRemainingOrderByClause))
+                end
+
+                if (@xOrderByItem = '')
+                    raiserror('Invalid OrderByClause.', 16, 1)
+
+                set @xOrderByDirection = ''
+
+                if (len(@xOrderByItem) > 5 and upper(right(@xOrderByItem, 5)) = ' DESC')
+                begin
+                    set @xOrderByDirection = 'DESC'
+                    set @xOrderByColumn = ltrim(rtrim(left(@xOrderByItem, len(@xOrderByItem) - 5)))
+                end
+                else if (len(@xOrderByItem) > 4 and upper(right(@xOrderByItem, 4)) = ' ASC')
+                begin
+                    set @xOrderByDirection = 'ASC'
+                    set @xOrderByColumn = ltrim(rtrim(left(@xOrderByItem, len(@xOrderByItem) - 4)))
+                end
+                else
+                begin
+                    set @xOrderByColumn = @xOrderByItem
+                end
+
+                if (left(@xOrderByColumn, 1) = '[' and right(@xOrderByColumn, 1) = ']')
+                    set @xOrderByColumn = substring(@xOrderByColumn, 2, len(@xOrderByColumn) - 2)
+
+                if (@xOrderByColumn like '%[^A-Za-z0-9_]%' or not exists (select 1 from @xAllowedOrderByColumns where [ColumnName] = @xOrderByColumn))
+                    raiserror('Invalid OrderByClause.', 16, 1)
+
+                if (len(@xSafeOrderByClause) > 0)
+                    set @xSafeOrderByClause = @xSafeOrderByClause + ', '
+
+                set @xSafeOrderByClause = @xSafeOrderByClause + quotename(@xOrderByColumn)
+
+                if (@xOrderByDirection <> '')
+                    set @xSafeOrderByClause = @xSafeOrderByClause + ' ' + @xOrderByDirection
+            end
+
+            set @sql = @sql + ' order by ' + @xSafeOrderByClause
+        end
 
     declare @paramlist nvarchar(max)
     set @paramlist = '

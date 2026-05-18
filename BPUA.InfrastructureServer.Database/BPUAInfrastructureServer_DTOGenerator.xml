@@ -11,7 +11,7 @@
                 <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
                 <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
                 <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
@@ -21,7 +21,7 @@
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="NewId" type="xs:long" minOccurs="0" />
                 <xs:element name="ObjectState" type="xs:string" default="Detached" />
                 <xs:element name="SelectedManually" type="xs:boolean" default="false" />
@@ -66,7 +66,7 @@
                 <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
                 <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
                 <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
@@ -76,7 +76,7 @@
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="NewId" type="xs:long" minOccurs="0" />
                 <xs:element name="ObjectState" type="xs:string" default="Detached" />
                 <xs:element name="SelectedManually" type="xs:boolean" default="false" />
@@ -105,7 +105,7 @@
                 <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
                 <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
                 <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
@@ -114,7 +114,7 @@
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="NewId" type="xs:long" minOccurs="0" />
                 <xs:element name="ObjectState" type="xs:string" default="Detached" />
                 <xs:element name="SelectedManually" type="xs:boolean" default="false" />
@@ -145,7 +145,7 @@
                 <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
                 <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
                 <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
@@ -155,7 +155,7 @@
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="NewId" type="xs:long" minOccurs="0" />
                 <xs:element name="ObjectState" type="xs:string" default="Detached" />
                 <xs:element name="SelectedManually" type="xs:boolean" default="false" />
@@ -169,12 +169,12 @@
               <xs:sequence>
                 <xs:element name="Id" type="xs:long" default="0" />
                 <xs:element name="Error" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="IsArchived" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="ContentType" type="xs:string" minOccurs="0" />
                 <xs:element name="AutomatedExecution" type="xs:boolean" minOccurs="0" />
               </xs:sequence>
@@ -226,7 +226,7 @@
                 <xs:element name="BusinessGuid" type="xs:string" minOccurs="0" />
                 <xs:element name="BusinessStringRepresentation" type="xs:string" minOccurs="0" />
                 <xs:element name="CreatedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="CreatedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="DateOfCreation" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DateOfModification" type="xs:dateTime" default="1753-01-01T00:00:00-05:00" minOccurs="0" />
                 <xs:element name="DTO" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:anyType" minOccurs="0" />
@@ -236,7 +236,7 @@
                 <xs:element name="IsDeleted" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="IsSelected" type="xs:boolean" default="false" minOccurs="0" />
                 <xs:element name="ModifiedByUserGuid" type="xs:string" minOccurs="0" />
-                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYXPS13\Vitaly Laskarzhevsky" minOccurs="0" />
+                <xs:element name="ModifiedByUserName" type="xs:string" default="VITALYBOOK2PRO\vlask" minOccurs="0" />
                 <xs:element name="NewId" type="xs:long" minOccurs="0" />
                 <xs:element name="ObjectState" type="xs:string" default="Detached" />
                 <xs:element name="SelectedManually" type="xs:boolean" default="false" />
@@ -277,13 +277,13 @@
   <SkySoft_DataContainerSchema>
     <TableName>SkySoft_UseCaseMetadata</TableName>
     <Id>-2147483646</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483646</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -292,13 +292,13 @@
   <SkySoft_DataContainerSchema>
     <TableName>SkySoft_ExecutableCommandArgument</TableName>
     <Id>-2147483645</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483645</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -307,13 +307,13 @@
   <SkySoft_DataContainerSchema>
     <TableName>SkySoft_PropertyMetadata</TableName>
     <Id>-2147483644</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483644</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -322,13 +322,13 @@
   <SkySoft_DataContainerSchema>
     <TableName>SkySoft_ValidationMessages</TableName>
     <Id>-2147483643</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483643</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -337,13 +337,13 @@
   <SkySoft_DataContainerSchema>
     <TableName>Setting</TableName>
     <Id>-2147483642</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483642</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -351,13 +351,13 @@
   </SkySoft_DataContainerSchema>
   <SkySoft_UseCaseMetadata>
     <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
-    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
+    <GUID>58e010a6-d501-48d1-b24c-6688f43b547c</GUID>
     <IsHandled>false</IsHandled>
     <IsLocalRequest>false</IsLocalRequest>
     <IsRejected>false</IsRejected>
-    <MachineName>VITALYXPS13</MachineName>
+    <MachineName>VITALYBOOK2PRO</MachineName>
     <SendEntireDataSet>true</SendEntireDataSet>
-    <StartDateTime>2021-10-22T14:27:43.974838-04:00</StartDateTime>
+    <StartDateTime>2026-05-18T12:08:19.0093998-04:00</StartDateTime>
     <StateName>Initial</StateName>
     <TransitionName>SavingProfile</TransitionName>
     <useCaseEngineName>DTOGenerator_BL_GeneratorProfile</useCaseEngineName>
@@ -366,13 +366,13 @@
     <UserName>System</UserName>
     <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
     <Id>-2147483646</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483646</NewId>
     <ObjectState>Detached</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -381,10 +381,10 @@
   <SkySoft_UseCaseMetadata>
     <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
     <Caller>SkySoft.BusinessProcessProgramming.BusinessLogicRequestHandler, SkySoft.BusinessProcessProgramming, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Caller>
-    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
-    <MachineName>VITALYXPS13</MachineName>
+    <GUID>58e010a6-d501-48d1-b24c-6688f43b547c</GUID>
+    <MachineName>VITALYBOOK2PRO</MachineName>
     <SendEntireDataSet>true</SendEntireDataSet>
-    <StartDateTime>2021-10-22T14:27:43.9788382-04:00</StartDateTime>
+    <StartDateTime>2026-05-18T12:08:19.0134141-04:00</StartDateTime>
     <StateName>Initial</StateName>
     <TransitionName>SavingProfile</TransitionName>
     <useCaseEngineName>DTOGenerator_DPL_GeneratorProfile</useCaseEngineName>
@@ -394,14 +394,14 @@
     <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
     <Id>-2147483645</Id>
     <CreatedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</CreatedByUserGuid>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
     <ModifiedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</ModifiedByUserGuid>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483645</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -410,10 +410,10 @@
   <SkySoft_UseCaseMetadata>
     <BusinessLogicTransitionName>SavingProfile</BusinessLogicTransitionName>
     <Caller>DTOGenerator.DPL.GeneratorProfile.SavingProfile, DTOGenerator.DPL.GeneratorProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Caller>
-    <GUID>9b45fc42-158a-47e4-bcc6-cbe43f842411</GUID>
-    <MachineName>VITALYXPS13</MachineName>
+    <GUID>58e010a6-d501-48d1-b24c-6688f43b547c</GUID>
+    <MachineName>VITALYBOOK2PRO</MachineName>
     <SendEntireDataSet>true</SendEntireDataSet>
-    <StartDateTime>2021-10-22T14:27:43.9798378-04:00</StartDateTime>
+    <StartDateTime>2026-05-18T12:08:19.0144142-04:00</StartDateTime>
     <StateName>Initial</StateName>
     <TransitionName>SavingProfile</TransitionName>
     <useCaseEngineName>DTOGenerator_DAL_GeneratorProfile</useCaseEngineName>
@@ -423,14 +423,14 @@
     <DataCollectionTypeFormat>WillCross.DTO.Components.{0}DataTable, WillCross.DTO.Components</DataCollectionTypeFormat>
     <Id>-2147483644</Id>
     <CreatedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</CreatedByUserGuid>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
     <IsSelected>false</IsSelected>
     <ModifiedByUserGuid>0A8A2977-395C-4C7B-99CE-BC1F16B0826E</ModifiedByUserGuid>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <NewId>-2147483644</NewId>
     <ObjectState>Added</ObjectState>
     <SelectedManually>false</SelectedManually>
@@ -438,43 +438,21 @@
   </SkySoft_UseCaseMetadata>
   <SkySoft_ExecutableCommandArgument>
     <Id>-2147483646</Id>
-    <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
+    <CreatedByUserName>VITALYBOOK2PRO\vlask</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
     <DateOfModification>1753-01-01T00:00:00-05:00</DateOfModification>
     <IsArchived>false</IsArchived>
     <IsDeleted>false</IsDeleted>
-    <ModifiedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</ModifiedByUserName>
+    <ModifiedByUserName>VITALYBOOK2PRO\vlask</ModifiedByUserName>
     <ContentType>DTOGenerator.PL.GeneratorProfile.SavingProfile, DTOGenerator.PL.GeneratorProfile</ContentType>
     <AutomatedExecution>false</AutomatedExecution>
   </SkySoft_ExecutableCommandArgument>
   <Setting>
-    <BusinessObjectFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\DTO\BusinessObjects\</BusinessObjectFilesLocation>
-    <BusinessObjectNamespace>BPP.DTO.Contact</BusinessObjectNamespace>
-    <ConnectionString>Server=localhost;Database=BPPContact2;User ID=SkySoftAdministrator;Password=SkySoft0</ConnectionString>
-    <DataAccessFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\DataAccess\</DataAccessFilesLocation>
-    <DataAccessNamespace>BPP.DAO.Contact</DataAccessNamespace>
-    <DataContractFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\DTO\DataContracts\</DataContractFilesLocation>
-    <DataContractNamespace>BPP.DTOINT.Contact</DataContractNamespace>
-    <DataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\DTO\Collections\</DataTableFilesLocation>
-    <DataTableNamespace>BPP.DTO.Contact</DataTableNamespace>
+    <ConnectionString>Data Source=localhost;Initial Catalog=BpuaInfrastructureServer;User ID=SkySoftAdministrator;Password=SkySoft0;Encrypt=False;TrustServerCertificate=False</ConnectionString>
     <IncludedTables>*log</IncludedTables>
     <IncludeServiceColumns>false</IncludeServiceColumns>
-    <InterfaceFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\DTO\Interfaces\</InterfaceFilesLocation>
-    <InterfaceNamespace>BPP.DTOINT.Contact</InterfaceNamespace>
-    <NullableColumnDataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\NullabelColumnCollections\</NullableColumnDataTableFilesLocation>
-    <NullableColumnDataTableNamespace>BPP.DAO.Contact</NullableColumnDataTableNamespace>
-    <RelationFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DAO.Contact\GeneratedComponents\Relations\</RelationFilesLocation>
-    <RelationNamespace>BPP.DAO.Contact</RelationNamespace>
-    <Path>E:\VSTS\SkySoftGit\Code\BPPSolutions\BPPContactDatabaseSolution\BPPContactDatabase\BPPContact_DTOGenerator.xml</Path>
-    <SearchCriteriaFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\Search\BusinessObjects\</SearchCriteriaFilesLocation>
-    <SearchCriteriaNamespace>BPP.DTO.Contact</SearchCriteriaNamespace>
-    <SearchCriteriaDataContractFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\Search\DataContracts\</SearchCriteriaDataContractFilesLocation>
-    <SearchCriteriaDataContractNamespace>BPP.DTOINT.Contact</SearchCriteriaDataContractNamespace>
-    <SearchCriteriaDataTableFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTO.Contact\GeneratedComponents\Search\Collections\</SearchCriteriaDataTableFilesLocation>
-    <SearchCriteriaDataTableNamespace>BPP.DTO.Contact</SearchCriteriaDataTableNamespace>
-    <SearchCriteriaInterfaceFilesLocation>E:\VSTS\SkySoftGit\Code\BPPProjects\BPP.DTOINT.Contact\GeneratedComponents\Search\Interfaces\</SearchCriteriaInterfaceFilesLocation>
-    <SearchCriteriaInterfaceNamespace>BPP.DTOINT.Contact</SearchCriteriaInterfaceNamespace>
-    <StoredProcedureFilesLocation>E:\VSTS\SkySoftGit\Code\BPPSolutions\BPPContactDatabaseSolution\BPPContactDatabase\GeneratedComponents</StoredProcedureFilesLocation>
+    <Path>E:\VSTS\BPUA\BPUA.InfrastructureServer.Database\BPUAInfrastructureServer_DTOGenerator.xml</Path>
+    <StoredProcedureFilesLocation>E:\VSTS\BPUA\BPUA.InfrastructureServer.Database\GeneratedComponents</StoredProcedureFilesLocation>
     <Id>-2147483646</Id>
     <CreatedByUserName>VITALYXPS13\Vitaly Laskarzhevsky</CreatedByUserName>
     <DateOfCreation>1753-01-01T00:00:00-05:00</DateOfCreation>
