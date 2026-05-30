@@ -93,6 +93,7 @@
     <Build Include="GeneratedComponents\HostedApplicationLayerLog.Get.sql" />
     <Build Include="GeneratedComponents\HostedApplicationLayerLog.Save.sql" />
     <Build Include="GeneratedComponents\HostedApplicationLayerLog.sql" />
+    <Build Include="StoredProcedures\InfrastructureServer\FindHostedApplicationLayersByIdentifiers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BpuaInfrastructureServer_DEV_Local.publish.xml" />

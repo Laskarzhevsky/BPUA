@@ -20,9 +20,9 @@
     <Project Path="BPUA.Application.Contracts/BPUA.Application.Contracts.csproj" />
     <Project Path="BPUA.Application.DataAccessLogic/BPUA.Application.DataAccessLogic.csproj" />
     <Project Path="BPUA.Application.DataProcessingLogic/BPUA.Application.DataProcessingLogic.csproj" />
+    <Project Path="BPUA.Application.ProcessComponents/BPUA.Application.ProcessComponents.csproj" />
     <Project Path="BPUA.Application.Services/BPUA.Application.Services.csproj" />
     <Project Path="BPUA.Application.StateLogic/BPUA.Application.StateLogic.csproj" Id="457ac41b-766a-44b3-a410-d3adc9161f64" />
-    <Project Path="BPUA.Application.ProcessComponents/BPUA.Application.ProcessComponents.csproj" />
     <Project Path="BPUA.Application.Validation/BPUA.Application.Validation.csproj" />
   </Folder>
   <Folder Name="/BPUA.Application/NFA/">

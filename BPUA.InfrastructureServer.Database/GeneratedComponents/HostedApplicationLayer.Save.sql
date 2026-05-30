@@ -8,28 +8,42 @@ create procedure [HostedApplicationLayer].[Save]
 as
 begin
     -- Create
-    declare @InsertedRecords ListOfLong
-    insert into dbo.HostedApplicationLayer
+    declare @InsertedRecords [dbo].[ListOfLong]
+    merge into dbo.HostedApplicationLayer as destination
+    using
+    (
+        select
+            [Id],
+            [ApplicationLayerName],
+            [DomainName],
+            [Url],
+            [UseCaseName],
+            [BusinessGuid],
+            [BusinessStringRepresentation],
+            [__ClientKey]
+        from @HostedApplicationLayer
+        where __ChangeState = 1
+    ) as source
+    on 1 = 0
+    when not matched then
+    insert
     (
         [ApplicationLayerName],
         [DomainName],
         [Url],
         [UseCaseName],
         [BusinessGuid],
-        [BusinessStringRepresentation]
-    ) output inserted.Id, inserted.CreatedByUserName, inserted.DateOfCreation, inserted.Id into @InsertedRecords
-
-    select 
-        [ApplicationLayerName],
-        [DomainName],
-        [Url],
-        [UseCaseName],
-        [BusinessGuid],
-        [BusinessStringRepresentation]
-    from @HostedApplicationLayer
-    where
-        IsDeleted = 0 and
-        Id < 0
+        [BusinessStringRepresentation]    )
+    values
+    (
+        source.[ApplicationLayerName],
+        source.[DomainName],
+        source.[Url],
+        source.[UseCaseName],
+        source.[BusinessGuid],
+        source.[BusinessStringRepresentation]
+    )
+    output inserted.Id, inserted.CreatedByUserName, inserted.DateOfCreation, source.Id, convert(varchar(50), source.__ClientKey) into @InsertedRecords;
 
     -- Update
     update destination set
@@ -46,8 +60,7 @@ begin
         destination.ModifiedByUserName  = case when @UserName is null then source.[ModifiedByUserName] else @UserName end
     from [dbo].[HostedApplicationLayer] destination, @HostedApplicationLayer source
     where
-        source.IsDeleted = 0 and
-        source.Id > 0 and
+        source.__ChangeState = 2 and
         destination.Id = source.Id
 
     -- Delete
@@ -58,8 +71,7 @@ begin
         destination.ModifiedByUserName  = case when @UserName is null then source.[ModifiedByUserName] else @UserName end
     from [dbo].[HostedApplicationLayer] destination, @HostedApplicationLayer source
     where
-        source.IsDeleted = 1 and
-        source.Id > 0 and
+        source.__ChangeState = 3 and
         destination.Id = source.Id
 
     -- Return identifiers of created records

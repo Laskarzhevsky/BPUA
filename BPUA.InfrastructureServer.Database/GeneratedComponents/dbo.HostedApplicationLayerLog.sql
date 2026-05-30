@@ -28,7 +28,9 @@ create type [dbo].[HostedApplicationLayerLog] AS TABLE
     [IsArchived] [bit] NULL,
     [IsDeleted] [bit] NULL,
     [ModifiedByUserGuid] [uniqueidentifier] NULL,
-    [ModifiedByUserName] [varchar] (50) NULL
+    [ModifiedByUserName] [varchar] (50) NULL,
+    [__ClientKey] [uniqueidentifier] NULL,
+    [__ChangeState] [int] NULL
 )
 
 

@@ -1,4 +1,5 @@
 ﻿using BPUA.Application.Contracts;
+using BPUA.Application.NonFunctionalContracts;
 using BPUA.Core;
 
 using PocoDataSet.IData;
@@ -42,9 +43,27 @@ namespace BPUA.InfrastructureServer.DAL
         /// </summary>
         protected override async Task ProcessRequestAsync()
         {
+            if (RequestTransitionContext == null)
+            {
+                return;
+            }
+
             GetConnectionString();
             SqlDataAdapter adapter = new SqlDataAdapter(ConnectionString);
-            await adapter.FillAsync("FindDnsRecordByListOfApplicationLayerFullNames", false, null, null, null, null);
+/*
+            IDataTable hostedApplicationLayerTable = RequestTransitionContext.Tables[typeof(IHostedApplicationLayer).Name];
+            Microsoft.Data.SqlClient.SqlParameter hostedApplicationLayerParameter = adapter.CreateTableValuedParameter("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
+            Microsoft.Data.SqlClient.SqlParameter[] sqlParameters = new Microsoft.Data.SqlClient.SqlParameter[1];
+            sqlParameters[0] = hostedApplicationLayerParameter;
+            
+            await adapter.FillAsync(
+                "[HostedApplicationLayer].[FindHostedApplicationLayersByIdentifiers]",
+                false,
+                sqlParameters,
+                null,
+                null,
+                RequestTransitionContext);
+*/
         }
         #endregion
     }

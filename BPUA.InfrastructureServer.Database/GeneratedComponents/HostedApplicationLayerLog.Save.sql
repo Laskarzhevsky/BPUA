@@ -8,11 +8,44 @@ create procedure [HostedApplicationLayerLog].[Save]
 as
 begin
     -- Create
-    declare @InsertedRecords ListOfLong
-    insert into dbo.HostedApplicationLayerLog
+    declare @InsertedRecords [dbo].[ListOfLong]
+    merge into dbo.HostedApplicationLayerLog as destination
+    using
+    (
+        select
+            [Id],
+            [ApplicationLayerName],
+            [DomainName],
+            [Url],
+            [UseCaseName],
+            [LoggedEntityId],
+            [LoggedEntityBusinessGuid],
+            [LoggedEntityBusinessStringRepresentation],
+            [LoggedEntityCreatedByUserGuid],
+            [LoggedEntityCreatedByUserName],
+            [LoggedEntityDateOfCreation],
+            [LoggedEntityDateOfModification],
+            [LoggedEntityGuid],
+            [LoggedEntityIsArchived],
+            [LoggedEntityIsDeleted],
+            [LoggedEntityModifiedByUserGuid],
+            [LoggedEntityModifiedByUserName],
+            [LoggedEntityStringRepresentation],
+            [BusinessGuid],
+            [BusinessStringRepresentation],
+            [__ClientKey]
+        from @HostedApplicationLayerLog
+        where __ChangeState = 1
+    ) as source
+    on 1 = 0
+    when not matched then
+    insert
     (
         [ApplicationLayerName],
         [DomainName],
+        [Url],
+        [UseCaseName],
+        [LoggedEntityId],
         [LoggedEntityBusinessGuid],
         [LoggedEntityBusinessStringRepresentation],
         [LoggedEntityCreatedByUserGuid],
@@ -20,42 +53,36 @@ begin
         [LoggedEntityDateOfCreation],
         [LoggedEntityDateOfModification],
         [LoggedEntityGuid],
-        [LoggedEntityId],
         [LoggedEntityIsArchived],
         [LoggedEntityIsDeleted],
         [LoggedEntityModifiedByUserGuid],
         [LoggedEntityModifiedByUserName],
         [LoggedEntityStringRepresentation],
-        [Url],
-        [UseCaseName],
         [BusinessGuid],
-        [BusinessStringRepresentation]
-    ) output inserted.Id, inserted.CreatedByUserName, inserted.DateOfCreation, inserted.Id into @InsertedRecords
-
-    select 
-        [ApplicationLayerName],
-        [DomainName],
-        [LoggedEntityBusinessGuid],
-        [LoggedEntityBusinessStringRepresentation],
-        [LoggedEntityCreatedByUserGuid],
-        [LoggedEntityCreatedByUserName],
-        [LoggedEntityDateOfCreation],
-        [LoggedEntityDateOfModification],
-        [LoggedEntityGuid],
-        [LoggedEntityId],
-        [LoggedEntityIsArchived],
-        [LoggedEntityIsDeleted],
-        [LoggedEntityModifiedByUserGuid],
-        [LoggedEntityModifiedByUserName],
-        [LoggedEntityStringRepresentation],
-        [Url],
-        [UseCaseName],
-        [BusinessGuid],
-        [BusinessStringRepresentation]
-    from @HostedApplicationLayerLog
-    where
-        IsDeleted = 0 and
-        Id < 0
+        [BusinessStringRepresentation]    )
+    values
+    (
+        source.[ApplicationLayerName],
+        source.[DomainName],
+        source.[Url],
+        source.[UseCaseName],
+        source.[LoggedEntityId],
+        source.[LoggedEntityBusinessGuid],
+        source.[LoggedEntityBusinessStringRepresentation],
+        source.[LoggedEntityCreatedByUserGuid],
+        source.[LoggedEntityCreatedByUserName],
+        source.[LoggedEntityDateOfCreation],
+        source.[LoggedEntityDateOfModification],
+        source.[LoggedEntityGuid],
+        source.[LoggedEntityIsArchived],
+        source.[LoggedEntityIsDeleted],
+        source.[LoggedEntityModifiedByUserGuid],
+        source.[LoggedEntityModifiedByUserName],
+        source.[LoggedEntityStringRepresentation],
+        source.[BusinessGuid],
+        source.[BusinessStringRepresentation]
+    )
+    output inserted.Id, inserted.CreatedByUserName, inserted.DateOfCreation, source.Id, convert(varchar(50), source.__ClientKey) into @InsertedRecords;
 
     -- Update
     update destination set
@@ -85,8 +112,7 @@ begin
         destination.ModifiedByUserName  = case when @UserName is null then source.[ModifiedByUserName] else @UserName end
     from [dbo].[HostedApplicationLayerLog] destination, @HostedApplicationLayerLog source, @HostedApplicationLayerLogNullableColumn condition
     where
-        source.IsDeleted = 0 and
-        source.Id > 0 and
+        source.__ChangeState = 2 and
         destination.Id = source.Id
 
     -- Delete
@@ -97,8 +123,7 @@ begin
         destination.ModifiedByUserName  = case when @UserName is null then source.[ModifiedByUserName] else @UserName end
     from [dbo].[HostedApplicationLayerLog] destination, @HostedApplicationLayerLog source
     where
-        source.IsDeleted = 1 and
-        source.Id > 0 and
+        source.__ChangeState = 3 and
         destination.Id = source.Id
 
     -- Return identifiers of created records
