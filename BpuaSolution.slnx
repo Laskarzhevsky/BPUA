@@ -43,4 +43,8 @@
     <Project Path="BPUA.Application.TestInfrastructure/BPUA.Application.TestInfrastructure.csproj" Id="d1726330-baea-49c8-8108-248a9f4f3529" />
     <Project Path="BPUA.InfrastructureServer.Tests/BPUA.InfrastructureServer.Tests.csproj" Id="a5a3d3a6-8553-4923-bdc3-aec25050892e" />
   </Folder>
+  <Project Path="../PocoDataSet/PocoDataSet.Data/PocoDataSet.Data.csproj" />
+  <Project Path="../PocoDataSet/PocoDataSet.Extensions/PocoDataSet.Extensions.csproj" />
+  <Project Path="../PocoDataSet/PocoDataSet.IData/PocoDataSet.IData.csproj" />
+  <Project Path="../PocoDataSet/PocoDataSet.SqlServerDataAdapter/PocoDataSet.SqlServerDataAdapter.csproj" />
 </Solution>

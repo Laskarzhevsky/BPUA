@@ -8,6 +8,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PocoDataSet\PocoDataSet.SqlServerDataAdapter\PocoDataSet.SqlServerDataAdapter.csproj" />
     <ProjectReference Include="..\BPUA.Application.DataAccessLogic\BPUA.Application.DataAccessLogic.csproj" />
     <ProjectReference Include="..\BPUA.Application.Contracts\BPUA.Application.Contracts.csproj" />
     <ProjectReference Include="..\BPUA.Application.NonFunctionalContracts\BPUA.Application.NonFunctionalContracts.csproj" />

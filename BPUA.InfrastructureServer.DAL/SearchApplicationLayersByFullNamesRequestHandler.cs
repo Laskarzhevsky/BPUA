@@ -50,9 +50,9 @@ namespace BPUA.InfrastructureServer.DAL
 
             GetConnectionString();
             SqlDataAdapter adapter = new SqlDataAdapter(ConnectionString);
-/*
+
             IDataTable hostedApplicationLayerTable = RequestTransitionContext.Tables[typeof(IHostedApplicationLayer).Name];
-            Microsoft.Data.SqlClient.SqlParameter hostedApplicationLayerParameter = adapter.CreateTableValuedParameter("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
+            Microsoft.Data.SqlClient.SqlParameter hostedApplicationLayerParameter = await adapter.CreateTableValuedParameterAsync("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
             Microsoft.Data.SqlClient.SqlParameter[] sqlParameters = new Microsoft.Data.SqlClient.SqlParameter[1];
             sqlParameters[0] = hostedApplicationLayerParameter;
             
@@ -62,8 +62,7 @@ namespace BPUA.InfrastructureServer.DAL
                 sqlParameters,
                 null,
                 null,
-                RequestTransitionContext);
-*/
+                ResponseTransitionContext);
         }
         #endregion
     }

@@ -7,14 +7,6 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets application layer full name
-        /// </summary>
-        string? ApplicationLayerFullName
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Gets or sets application layer name
         /// </summary>
         string? ApplicationLayerName
@@ -34,7 +26,7 @@
         /// Gets or sets host URL for the hosted application layer.
         /// This is the URL on which the hosted application layer is accessible by remote hosts (callers).
         /// </summary>
-        string? HostUrl
+        string? Url
         {
             get; set;
         }

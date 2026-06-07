@@ -71,16 +71,33 @@ namespace BPUA.Application.Boot
             }
 
             ActivationCoreInvoker activationCoreInvoker = new ActivationCoreInvoker(this, identifier, serviceRegistry);
-            Lazy<UseCaseActivationResult> newLazyResult = new Lazy<UseCaseActivationResult>(
-                activationCoreInvoker.Invoke,
-                true);
-
+            Lazy<UseCaseActivationResult> newLazyResult = new Lazy<UseCaseActivationResult>(activationCoreInvoker.Invoke, true);
             Lazy<UseCaseActivationResult> lazyResult = _singleFlight.GetOrAdd(normalizedActivationKey, newLazyResult);
+
+            // To debug use case activation
+            // 1. Anlize currentLazyWasUsed, lazyValueAlreadyCreated, and normalizedActivationKey
+            bool currentLazyWasUsed = object.ReferenceEquals(lazyResult, newLazyResult);
+            bool lazyValueAlreadyCreated = lazyResult.IsValueCreated;
 
             UseCaseActivationResult activationResult;
             try
             {
-                activationResult = lazyResult.Value;
+                System.Diagnostics.Debugger.Break();
+                Console.WriteLine("Boot assembly location = " + typeof(ActivationCoreInvoker).Assembly.Location);
+                // If you need to go deeper with debugging, temporarily comment the following line:
+//                activationResult = lazyResult.Value;
+
+                // 2. Uncomment the folloing if/else block
+                // 3. Set a breakpoint inside ActivateCore method.
+                if (object.ReferenceEquals(lazyResult, newLazyResult))
+                {
+                    activationResult = activationCoreInvoker.Invoke();
+                }
+                else
+                {
+                    activationResult = lazyResult.Value;
+                }
+
             }
             catch (Exception exception)
             {
@@ -138,6 +155,7 @@ namespace BPUA.Application.Boot
         /// <returns>A result object describing success or failure of the activation operation.</returns>
         public UseCaseActivationResult ActivateCore(IBpuIdentifier identifier, IServiceRegistry serviceRegistry)
         {
+            System.Diagnostics.Debugger.Break();
             string pluginRoot = string.Empty;
             string useCaseFolder = string.Empty;
             string relativeAssemblyPath = string.Empty;

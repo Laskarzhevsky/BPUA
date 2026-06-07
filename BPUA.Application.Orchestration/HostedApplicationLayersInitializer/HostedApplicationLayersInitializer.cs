@@ -85,7 +85,7 @@ namespace BPUA.Application.Orchestration
                 hostedApplicationLayer.ApplicationLayerName = bpuIdentifier.ApplicationLayerName;
                 hostedApplicationLayer.DomainName = bpuIdentifier.DomainName;
                 hostedApplicationLayer.UseCaseName = bpuIdentifier.UseCaseName;
-                hostedApplicationLayer.HostUrl = hostUrl;
+                hostedApplicationLayer.Url = hostUrl;
 
                 string? isApplicationUseCaseLayer = ConfigurationReader.GetOptionalValue(configuredHostedApplicationLayer, "IsApplicationUseCaseLayer");
                 if (!string.IsNullOrWhiteSpace(isApplicationUseCaseLayer) && bool.TryParse(isApplicationUseCaseLayer, out bool isApplicationUseCaseLayerValue))
