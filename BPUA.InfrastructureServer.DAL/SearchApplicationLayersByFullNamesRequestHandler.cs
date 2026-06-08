@@ -5,6 +5,7 @@ using BPUA.Core;
 using PocoDataSet.IData;
 using PocoDataSet.SqlServerDataAdapter;
 
+using System;
 using System.Threading.Tasks;
 
 namespace BPUA.InfrastructureServer.DAL
@@ -50,7 +51,8 @@ namespace BPUA.InfrastructureServer.DAL
 
             GetConnectionString();
             SqlDataAdapter adapter = new SqlDataAdapter(ConnectionString);
-
+            Console.WriteLine(typeof(Microsoft.Data.SqlClient.SqlConnection).Assembly.Location);
+            Console.WriteLine(typeof(Microsoft.Data.SqlClient.SqlConnection).Assembly.FullName);
             IDataTable hostedApplicationLayerTable = RequestTransitionContext.Tables[typeof(IHostedApplicationLayer).Name];
             Microsoft.Data.SqlClient.SqlParameter hostedApplicationLayerParameter = await adapter.CreateTableValuedParameterAsync("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
             Microsoft.Data.SqlClient.SqlParameter[] sqlParameters = new Microsoft.Data.SqlClient.SqlParameter[1];

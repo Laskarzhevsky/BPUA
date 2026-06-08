@@ -50,6 +50,14 @@ namespace BPUA.Application.Orchestration
         {
             get; set;
         } = default!;
+
+        /// <summary>
+        /// Gets or sets the last use case activation result.
+        /// </summary>
+        UseCaseActivationResult? LastUseCaseActivationResult
+        {
+            get; set;
+        }
         #endregion
 
         #region Finalizers
@@ -63,6 +71,7 @@ namespace BPUA.Application.Orchestration
             ResponseTransitionContext = default!;
             RequestRoute = default!;
             RequestHandler = default!;
+            LastUseCaseActivationResult = default!;
         }
         #endregion
     }

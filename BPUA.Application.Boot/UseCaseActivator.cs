@@ -80,39 +80,23 @@ namespace BPUA.Application.Boot
             bool lazyValueAlreadyCreated = lazyResult.IsValueCreated;
 
             UseCaseActivationResult activationResult;
-            try
+            activationResult = activationCoreInvoker.Invoke();
+
+            // If you need to go deeper with debugging, temporarily comment the following line:
+//            activationResult = lazyResult.Value;
+
+            // 2. Uncomment the folloing if/else block
+            // 3. Set a breakpoint inside ActivateCore method.
+/*
+            if (object.ReferenceEquals(lazyResult, newLazyResult))
             {
-                System.Diagnostics.Debugger.Break();
-                Console.WriteLine("Boot assembly location = " + typeof(ActivationCoreInvoker).Assembly.Location);
-                // If you need to go deeper with debugging, temporarily comment the following line:
-//                activationResult = lazyResult.Value;
-
-                // 2. Uncomment the folloing if/else block
-                // 3. Set a breakpoint inside ActivateCore method.
-                if (object.ReferenceEquals(lazyResult, newLazyResult))
-                {
-                    activationResult = activationCoreInvoker.Invoke();
-                }
-                else
-                {
-                    activationResult = lazyResult.Value;
-                }
-
+                activationResult = activationCoreInvoker.Invoke();
             }
-            catch (Exception exception)
+            else
             {
-                _singleFlight.TryRemove(normalizedActivationKey, out _);
-                throw new InvalidOperationException(
-                    BuildActivationDiagnosticMessage(
-                        "Use case activation failed while executing the single-flight activation operation.",
-                        identifier,
-                        string.Empty,
-                        string.Empty,
-                        string.Empty,
-                        normalizedActivationKey),
-                    exception);
+                activationResult = lazyResult.Value;
             }
-
+*/
             if (activationResult == null)
             {
                 _singleFlight.TryRemove(normalizedActivationKey, out _);
@@ -155,83 +139,68 @@ namespace BPUA.Application.Boot
         /// <returns>A result object describing success or failure of the activation operation.</returns>
         public UseCaseActivationResult ActivateCore(IBpuIdentifier identifier, IServiceRegistry serviceRegistry)
         {
-            System.Diagnostics.Debugger.Break();
             string pluginRoot = string.Empty;
             string useCaseFolder = string.Empty;
             string relativeAssemblyPath = string.Empty;
             string pathToDynamicAssembly = string.Empty;
 
-            try
+            IBpuaApplication application = BpuaApplication.GetInstance();
+            pluginRoot = application.PathToFolderWithDynamicAssemblies;
+            if (string.IsNullOrEmpty(pluginRoot))
             {
-                IBpuaApplication application = BpuaApplication.GetInstance();
-                pluginRoot = application.PathToFolderWithDynamicAssemblies;
-                if (string.IsNullOrEmpty(pluginRoot))
-                {
-                    return Failure("Path to folder with dynamic assemblies is not configured.");
-                }
-
-                string assemblyFileName = BuildDynamicAssemblyFileName(identifier);
-                if (string.IsNullOrEmpty(assemblyFileName))
-                {
-                    return Failure("Unable to resolve assembly file name for the requested use case layer.");
-                }
-
-                string assemblyName = Path.GetFileNameWithoutExtension(assemblyFileName);
-                if (!serviceRegistry.TryGetRegisteredDynamicAssemblyPath(assemblyName, out relativeAssemblyPath))
-                {
-                    return Failure(
-                        BuildActivationDiagnosticMessage(
-                            "Use case assembly is not registered in dynamic assemblies path index.",
-                            identifier,
-                            pluginRoot,
-                            string.Empty,
-                            string.Empty,
-                            string.Empty));
-                }
-
-                pathToDynamicAssembly = Path.Combine(pluginRoot, relativeAssemblyPath);
-                useCaseFolder = Path.GetDirectoryName(pathToDynamicAssembly) ?? string.Empty;
-
-                if (!File.Exists(pathToDynamicAssembly))
-                {
-                    return Failure("Use case assembly does not exist: " + pathToDynamicAssembly);
-                }
-
-                DynamicAssembliesLoader dynamicAssembliesLoader = new DynamicAssembliesLoader();
-                List<Assembly> localLoadedAssemblies = new List<Assembly>();
-                Assembly? loadedAssembly = dynamicAssembliesLoader.LoadDynamicAssembly(
-                    pathToDynamicAssembly,
-                    serviceRegistry,
-                    localLoadedAssemblies,
-                    ListOfAssemblyProcessors);
-                if (loadedAssembly == null)
-                {
-                    return Failure("Failed to load use case assembly: " + pathToDynamicAssembly);
-                }
-
-                dynamicAssembliesLoader.LoadDynamicRouteHandlerAssembliesFromFolder(
-                    useCaseFolder,
-                    serviceRegistry,
-                    localLoadedAssemblies,
-                    ListOfAssemblyProcessors);
-
-                UseCaseActivationResult successResult = new UseCaseActivationResult();
-                successResult.Succeeded = true;
-                successResult.NoAdditionalAssembliesWereLoaded = false;
-                successResult.DefaultRoute = ComputeDefaultRoute(identifier);
-                return successResult;
+                return Failure("Path to folder with dynamic assemblies is not configured.");
             }
-            catch (Exception exception)
+
+            string assemblyFileName = BuildDynamicAssemblyFileName(identifier);
+            if (string.IsNullOrEmpty(assemblyFileName))
+            {
+                return Failure("Unable to resolve assembly file name for the requested use case layer.");
+            }
+
+            string assemblyName = Path.GetFileNameWithoutExtension(assemblyFileName);
+            if (!serviceRegistry.TryGetRegisteredDynamicAssemblyPath(assemblyName, out relativeAssemblyPath))
             {
                 return Failure(
                     BuildActivationDiagnosticMessage(
-                        "Activation failed. " + exception,
+                        "Use case assembly is not registered in dynamic assemblies path index.",
                         identifier,
                         pluginRoot,
-                        useCaseFolder,
-                        relativeAssemblyPath,
+                        string.Empty,
+                        string.Empty,
                         string.Empty));
             }
+
+            pathToDynamicAssembly = Path.Combine(pluginRoot, relativeAssemblyPath);
+            useCaseFolder = Path.GetDirectoryName(pathToDynamicAssembly) ?? string.Empty;
+
+            if (!File.Exists(pathToDynamicAssembly))
+            {
+                return Failure("Use case assembly does not exist: " + pathToDynamicAssembly);
+            }
+
+            DynamicAssembliesLoader dynamicAssembliesLoader = new DynamicAssembliesLoader();
+            List<Assembly> localLoadedAssemblies = new List<Assembly>();
+            Assembly? loadedAssembly = dynamicAssembliesLoader.LoadDynamicAssembly(
+                pathToDynamicAssembly,
+                serviceRegistry,
+                localLoadedAssemblies,
+                ListOfAssemblyProcessors);
+            if (loadedAssembly == null)
+            {
+                return Failure("Failed to load use case assembly: " + pathToDynamicAssembly);
+            }
+
+            dynamicAssembliesLoader.LoadDynamicRouteHandlerAssembliesFromFolder(
+                useCaseFolder,
+                serviceRegistry,
+                localLoadedAssemblies,
+                ListOfAssemblyProcessors);
+
+            UseCaseActivationResult successResult = new UseCaseActivationResult();
+            successResult.Succeeded = true;
+            successResult.NoAdditionalAssembliesWereLoaded = false;
+            successResult.DefaultRoute = ComputeDefaultRoute(identifier);
+            return successResult;
         }
 
         /// <summary>

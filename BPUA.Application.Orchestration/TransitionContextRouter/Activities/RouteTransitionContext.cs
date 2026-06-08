@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using BPUA.Core;
+
+using System;
+using System.Threading.Tasks;
 
 namespace BPUA.Application.Orchestration
 {
@@ -9,26 +12,39 @@ namespace BPUA.Application.Orchestration
     {
         #region Private Methods
         /// <summary>
-        /// Routes the transition context
+        /// Routes the transition context.
         /// </summary>
-        /// <param name="requestTransitionContext">Request transition context</param>
         async Task RouteTransitionContext()
         {
             InitializeTransitionContextRouter();
-            if (HostedApplicationLayerRegistered())
+
+            if (!HostedApplicationLayerRegistered())
             {
-                if (await UseCaseActivated())
-                {
-                    if (await TransitionContextPreparedForRedirection())
-                    {
-                        if (RequestHandlerRegistered())
-                        {
-                            await RedirectTransitionContextToRequestHandler();
-                            RequestRoute.ProcessResponseTransitionContext(ResponseTransitionContext!);
-                        }
-                    }
-                }
+                string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName);
+                throw new InvalidOperationException("Hosted application layer is not registered. Key='" + hostedApplicationLayerKey + "'.");
             }
+
+            await UseCaseActivated();
+
+            if (!await PrepareTransitionContextForRedirection())
+            {
+                if (LastUseCaseActivationResult != null && !UseCaseActivationSucceeded(LastUseCaseActivationResult))
+                {
+                    string activationFailureMessage = BuildUseCaseActivationFailureMessage(LastUseCaseActivationResult);
+                    throw new InvalidOperationException(activationFailureMessage);
+                }
+
+                throw new InvalidOperationException("Transition context was not prepared for redirection.");
+            }
+
+            if (!RequestHandlerRegistered())
+            {
+                string requestHandlerTypeKey = KeyCompiler.CompileRequestHandlerKey(BpuIdentifier.DomainName, BpuIdentifier.UseCaseName, BpuIdentifier.ApplicationLayerName, BpuIdentifier.StateName, BpuIdentifier.TransitionName);
+                throw new InvalidOperationException("Request handler is not registered. Key='" + requestHandlerTypeKey + "'.");
+            }
+
+            await RedirectTransitionContextToRequestHandler();
+            RequestRoute.ProcessResponseTransitionContext(ResponseTransitionContext!);
         }
         #endregion
     }

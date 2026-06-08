@@ -21,10 +21,11 @@ namespace BPUA.Application.Boot
             catch (BadImageFormatException)
             {
                 // Not a valid .NET assembly — ignore
+                LoadedAssembly = null;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine($"[AssemblyLoader] Failed to load {PathToDynamicAssembly}: {ex.GetType().Name} - {ex.Message}");
+                throw new InvalidOperationException("Failed to load dynamic assembly. Path: " + PathToDynamicAssembly, exception);
             }
         }
         #endregion

@@ -110,6 +110,7 @@ namespace BPUA.Application.TestInfrastructure
             catch
             {
                 // Best-effort cleanup only.
+                int i = 0;
             }
         }
         #endregion

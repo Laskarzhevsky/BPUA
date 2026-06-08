@@ -28,14 +28,7 @@ namespace BPUA.Application.Boot
                 throw new ArgumentNullException(nameof(loadedAssembly));
             }
 
-            try
-            {
-                return loadedAssembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException reflectionTypeLoadException)
-            {
-                throw CreateDetailedReflectionTypeLoadException(loadedAssembly, reflectionTypeLoadException);
-            }
+            return loadedAssembly.GetTypes();
         }
         #endregion
     }
