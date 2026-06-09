@@ -16,6 +16,7 @@ namespace BPUA.Application.Boot
         {
             try
             {
+                DynamicAssemblyDependencyResolver.RegisterDynamicAssemblyPath(PathToDynamicAssembly);
                 LoadedAssembly = Assembly.LoadFrom(PathToDynamicAssembly);
             }
             catch (BadImageFormatException)

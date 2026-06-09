@@ -5,6 +5,8 @@ using BPUA.Application.Orchestration;
 using BPUA.Application.TestInfrastructure;
 using BPUA.Core;
 
+using Microsoft.Data.SqlClient;
+
 using PocoDataSet.BpuaExtensions;
 using PocoDataSet.Extensions;
 using PocoDataSet.IData;
@@ -21,6 +23,9 @@ namespace BPUA.InfrastructureServer.Tests
         [Fact]
         public async Task RegisteringHostTransitionExecutionTest()
         {
+
+//            SqlConnection connection = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true");
+
             /*
                         // Required for usage outide of Visual Studio
                         AppContext.SetSwitch("Switch.Microsoft.Data.SqlClient.UseManagedSNIOnWindows", true);
