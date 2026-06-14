@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 namespace BPUA.InfrastructureServer.DPL
 {
     /// <summary>
-    /// RegisteringHost service handler
+    /// SearchApplicationLayersByFullNames service handler
     /// </summary>
-    public partial class RegisteringHostRequestHandler
+    public partial class SearchApplicationLayersByFullNamesRequestHandler
     {
         #region Private Methods
         /// <summary>

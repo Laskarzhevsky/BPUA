@@ -15,7 +15,7 @@ namespace BPUA.InfrastructureServer.DAL
     /// RegisteringHost service handler
     /// </summary>
     [RegisterAsBpuaService]
-    public partial class SearchApplicationLayersByFullNamesRequestHandler : BPUA.Application.DataAccessLogic.DataAccessLogicRequestHandler
+    public partial class RegisteringHostRequestHandler : BPUA.Application.DataAccessLogic.DataAccessLogicRequestHandler
     {
         #region Identification
         /// <summary>
@@ -25,7 +25,7 @@ namespace BPUA.InfrastructureServer.DAL
         {
             get
             {
-                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames);
+                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -34,7 +34,7 @@ namespace BPUA.InfrastructureServer.DAL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestHandler() : base(ServiceKey)
+        public RegisteringHostRequestHandler() : base(ServiceKey)
         {
         }
         #endregion
@@ -54,17 +54,15 @@ namespace BPUA.InfrastructureServer.DAL
             SqlDataAdapter adapter = new SqlDataAdapter(ConnectionString);
 
             IDataTable hostedApplicationLayerTable = RequestTransitionContext.Tables[typeof(IHostedApplicationLayer).Name];
-            Microsoft.Data.SqlClient.SqlParameter hostedApplicationLayerParameter = await adapter.CreateTableValuedParameterAsync("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
-            Microsoft.Data.SqlClient.SqlParameter[] sqlParameters = new Microsoft.Data.SqlClient.SqlParameter[1];
-            sqlParameters[0] = hostedApplicationLayerParameter;
-            
-            await adapter.FillAsync(
-                "[HostedApplicationLayer].[FindHostedApplicationLayersByIdentifiers]",
-                false,
-                sqlParameters,
-                null,
-                null,
-                ResponseTransitionContext);
+            SqlTableValuedParameterInfo sqlTableValuedParameterInfo = new SqlTableValuedParameterInfo("@HostedApplicationLayer", "dbo.HostedApplicationLayer", hostedApplicationLayerTable);
+            SqlTableValuedParameterInfo[] sqlTableValuedParameterInfos = new SqlTableValuedParameterInfo[1];
+            sqlTableValuedParameterInfos[0] = sqlTableValuedParameterInfo;
+
+            await adapter.ExecuteNonQueryAsync(
+                "[HostedApplicationLayer].[SynchronizeHostedApplicationLayers]",
+                true,
+                sqlTableValuedParameterInfos,
+                null);
         }
         #endregion
     }

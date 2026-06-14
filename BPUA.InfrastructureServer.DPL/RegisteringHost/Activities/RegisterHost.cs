@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using BPUA.InfrastructureServer.Contracts;
+
+using System.Threading.Tasks;
 
 namespace BPUA.InfrastructureServer.DPL
 {
@@ -9,11 +11,11 @@ namespace BPUA.InfrastructureServer.DPL
     {
         #region Private Methods
         /// <summary>
-        /// Saves merged application layers
+        /// Registers host
         /// </summary>
-        async Task SaveMergedApplicationLayers()
+        async Task RegisteringHost()
         {
-            await RaiseServiceRequestEventAsync(BPUA.InfrastructureServer.Contracts.RequestNames.SAVE_MERGED_APPLICATION_LAYERS);
+            await RaiseServiceRequestEventAsync(RequestNames.REGISTER_HOST);
         }
         #endregion
     }

@@ -11,8 +11,8 @@
         public static string REGISTERING_HOST = "RegisteringHost";
 
         /// <summary>
-        /// SearchApplicationLayersByFullNames transition name
+        /// SearchingApplicationLayersByFullNames transition name
         /// </summary>
-        public const string SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES = "SearchApplicationLayersByFullNames";
+        public const string SEARCHING_APPLICATION_LAYERS_BY_FULL_NAMES = "SearchingApplicationLayersByFullNames";
     }
 }

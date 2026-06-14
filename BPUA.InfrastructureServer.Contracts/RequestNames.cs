@@ -6,9 +6,9 @@
     public class RequestNames : BPUA.Application.Contracts.RequestNames
     {
         /// <summary>
-        /// SaveMergedApplicationLayers request name
+        /// RegisterHost request name
         /// </summary>
-        public const string SAVE_MERGED_APPLICATION_LAYERS = "SaveMergedApplicationLayers";
+        public const string REGISTER_HOST = "RegisterHost";
 
         /// <summary>
         /// SearchApplicationLayersByFullNames request name

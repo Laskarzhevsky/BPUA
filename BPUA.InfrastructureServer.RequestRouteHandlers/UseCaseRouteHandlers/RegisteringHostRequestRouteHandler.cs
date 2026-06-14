@@ -10,7 +10,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
     /// Provides RegisteringHost endpoint functionality
     /// </summary>
     [RegisterAsRequestRoute]
-    public class SearchApplicationLayersByFullNamesRequestRouteHandler : RequestRouteHandler
+    public class RegisteringHostRequestRouteHandler : RequestRouteHandler
     {
         #region Identification
         /// <summary>
@@ -20,7 +20,7 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         {
             get
             {
-                return KeyCompiler.CompileRequestRouteKey(BPUA.InfrastructureServer.Contracts.RequestNames.SEARCH_APPLICATION_LAYERS_BY_FULL_NAMES, BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.SearchingApplicationLayersByFullNames);
+                return KeyCompiler.CompileRequestRouteKey(BPUA.InfrastructureServer.Contracts.RequestNames.REGISTER_HOST, BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.RegisteringHost);
             }
         }
         #endregion
@@ -29,9 +29,9 @@ namespace BPUA.InfrastructureServer.RequestRouteHandlers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SearchApplicationLayersByFullNamesRequestRouteHandler() : base(RequestRouteKey)
+        public RegisteringHostRequestRouteHandler() : base(RequestRouteKey)
         {
-            TargetRequestHandlerBpuIdentifier = BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.SearchApplicationLayersByFullNames;
+            TargetRequestHandlerBpuIdentifier = BPUA.InfrastructureServer.Contracts.DAL.RequestHandlers.BpuIdentifiers.RegisteringHost;
         }
         #endregion
 

@@ -9,7 +9,7 @@ namespace BPUA.InfrastructureServer.DPL
     /// RegisteringHost service handler
     /// </summary>
     [RegisterAsBpuaService]
-    public partial class RegisteringHostRequestHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicRequestHandler
+    public partial class SearchApplicationLayersByFullNamesRequestHandler : BPUA.Application.DataProcessingLogic.DataProcessingLogicRequestHandler
     {
         #region Identification
         /// <summary>
@@ -19,7 +19,7 @@ namespace BPUA.InfrastructureServer.DPL
         {
             get
             {
-                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.RegisteringHost);
+                return KeyCompiler.CompileRequestHandlerKey(BPUA.InfrastructureServer.Contracts.DPL.RequestHandlers.BpuIdentifiers.SearchingApplicationLayersByFullNames);
             }
         }
         #endregion
@@ -28,7 +28,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegisteringHostRequestHandler() : base(ServiceKey)
+        public SearchApplicationLayersByFullNamesRequestHandler() : base(ServiceKey)
         {
         }
         #endregion
@@ -39,7 +39,7 @@ namespace BPUA.InfrastructureServer.DPL
         /// </summary>
         protected override async Task ProcessRequestAsync()
         {
-            await RegisteringHost();
+            await SearchApplicationLayersByFullNames();
         }
         #endregion
     }
