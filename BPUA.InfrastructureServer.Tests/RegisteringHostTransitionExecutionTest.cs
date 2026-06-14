@@ -23,18 +23,6 @@ namespace BPUA.InfrastructureServer.Tests
         [Fact]
         public async Task RegisteringHostTransitionExecutionTest()
         {
-
-//            SqlConnection connection = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true");
-
-            /*
-                        // Required for usage outide of Visual Studio
-                        AppContext.SetSwitch("Switch.Microsoft.Data.SqlClient.UseManagedSNIOnWindows", true);
-                        if (AppContext.TryGetSwitch("Switch.Microsoft.Data.SqlClient.UseManagedSNIOnWindows", out bool isManaged))
-                        {
-                            Console.WriteLine($"Using Managed SNI: {isManaged}");
-                        }
-            */
-
             try
             {
                 // Boot BPUA platform
