@@ -1,0 +1,30 @@
+databaseType = "PostgreSql"
+id = "7c9905be-8e78-45e6-ab33-2359b29dc24f"
+name = "InfrastructureServer"
+
+[environments.local]
+url = "jdbc:postgresql://localhost:5432/bpua_infrastructure_server"
+schemas = [ "public" ]
+
+[flyway]
+callbackLocations = [ "filesystem:callbacks" ]
+defaultSchema = "public"
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+[flywayDesktop]
+developmentEnvironment = "development"
+shadowEnvironment = "shadow"
+showDeploymentDecision = true
+
+[redgateCompare]
+filterFile = "filter.rgf"
+
+[redgateCompare.postgresql.options.behavior]
+detectRenames = "identical-only"
+
+[redgateCompare.postgresql.options.ignores]
+ignoreNewlinesInTextObjects = "off"

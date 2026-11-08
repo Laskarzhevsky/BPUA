@@ -69,7 +69,7 @@ namespace BPUA.InfrastructureServer.Tests
             }
             catch (Exception ex)
             {
-                Assert.False(true, $"An exception occurred during the test execution: {ex}");
+                Assert.Fail($"An exception occurred during the test execution: {ex}");
             }
         }
     }
