@@ -1,4 +1,5 @@
 ﻿using BPUA.Application.Orchestration;
+using BPUA.Application.Contracts;
 
 namespace BPUA.Application.Boot
 {
@@ -13,7 +14,9 @@ namespace BPUA.Application.Boot
         /// </summary>
         void InitializeApplication()
         {
-            BpuaApplication.GetInstance().Initialize(ApplicationConfiguration, PathToFolderWithDynamicAssemblies);
+            BpuaApplication application = new BpuaApplication();
+            application.Initialize(ApplicationConfiguration, PathToFolderWithDynamicAssemblies);
+            ManagementSystem.Initialize(application);
         }
         #endregion
     }

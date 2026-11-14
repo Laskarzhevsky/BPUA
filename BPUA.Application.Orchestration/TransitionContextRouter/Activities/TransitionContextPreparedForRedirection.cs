@@ -27,7 +27,7 @@ namespace BPUA.Application.Orchestration
             }
 
             BpuIdentifier = RequestTransitionContext.GetCurrentBpuIdentifier()!;
-            UseCaseActivationResult useCaseActivationResult = await ((BpuaApplication)BpuaApplication!).ActivateUseCaseAsync(BpuIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await BpuaApplication!.ActivateUseCaseAsync(BpuIdentifier);
             if (!useCaseActivationResult.Succeeded || useCaseActivationResult.Errors.Count > 0)
             {
                 string message = "Use case activation failed." + Environment.NewLine + string.Join(Environment.NewLine, useCaseActivationResult.Errors);

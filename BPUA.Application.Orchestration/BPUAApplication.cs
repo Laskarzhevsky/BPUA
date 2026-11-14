@@ -17,11 +17,6 @@ namespace BPUA.Application.Orchestration
     {
         #region Data Fields
         /// <summary>
-        /// Holds reference to BPUA application
-        /// </summary>
-        static BpuaApplication? _bppApplication = null;
-
-        /// <summary>
         /// Holds state machines for activated use cases. Key is BPU identifier key.
         /// </summary>
         readonly Dictionary<string, StateMachine> _stateMachines = new Dictionary<string, StateMachine>();
@@ -29,8 +24,9 @@ namespace BPUA.Application.Orchestration
 
         #region Constructors
         /// <summary>
-        /// Default constructor
-        BpuaApplication()
+        /// Creates the runtime application. The bootstrapper publishes it through ManagementSystem.
+        /// </summary>
+        public BpuaApplication()
         {
             ServiceRegistry = new ServiceRegistry();
         }
@@ -96,12 +92,7 @@ namespace BPUA.Application.Orchestration
         /// <returns>BPUA application</returns>
         public static IBpuaApplication GetInstance()
         {
-            if (_bppApplication == null)
-            {
-                _bppApplication = new BpuaApplication();
-            }
-
-            return _bppApplication;
+            return ManagementSystem.Instance;
         }
 
         /// <summary>

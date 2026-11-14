@@ -12,6 +12,9 @@ namespace BPUA.Application.Contracts
     public interface IBpuaApplication
     {
         #region Methods
+        /// <summary>Activates a use case through the runtime implementation.</summary>
+        Task<UseCaseActivationResult> ActivateUseCaseAsync(IBpuIdentifier bpuIdentifier);
+
         /// <summary>
         /// Executes transition
         /// </summary>

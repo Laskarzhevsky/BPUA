@@ -14,7 +14,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void BuildDynamicAssembliesPathIndex()
         {
-            IBpuaApplication application = BpuaApplication.GetInstance();
+            IBpuaApplication application = ManagementSystem.Instance;
             DynamicAssemblyPathIndexBuilder.BuildAssemblyPathIndex(application.PathToFolderWithDynamicAssemblies, application.ServiceRegistry);
         }
         #endregion

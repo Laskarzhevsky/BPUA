@@ -31,7 +31,7 @@ namespace BPUA.Application.Orchestration
         /// <returns>A task that completes once all handlers have processed the event.</returns>
         public static async Task Dispatch<TEvent>(TEvent e, IServiceRegistry serviceRegistry) where TEvent : EventArgs
         {
-            IBpuaApplication app = BpuaApplication.GetInstance();
+            IBpuaApplication app = ManagementSystem.Instance;
 
             // Enumerate all registered types
             IEnumerable<KeyValuePair<string, Type>> allTypes = serviceRegistry.EnumerateTypesByPrefix(string.Empty);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -144,7 +144,7 @@ namespace BPUA.Application.Boot
             string relativeAssemblyPath = string.Empty;
             string pathToDynamicAssembly = string.Empty;
 
-            IBpuaApplication application = BpuaApplication.GetInstance();
+            IBpuaApplication application = ManagementSystem.Instance;
             pluginRoot = application.PathToFolderWithDynamicAssemblies;
             if (string.IsNullOrEmpty(pluginRoot))
             {

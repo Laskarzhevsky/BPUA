@@ -1,7 +1,7 @@
 ﻿using System;
 
 using BPUA.Application.Contracts;
-using BPUA.Application.Orchestration;
+
 
 namespace BPUA.Application.Boot
 {
@@ -16,8 +16,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void ThrowIfAlreadyBootstrapped()
         {
-            IBpuaApplication application = BpuaApplication.GetInstance();
-            if (!string.IsNullOrWhiteSpace(application.PathToFolderWithDynamicAssemblies))
+            if (ManagementSystem.IsInitialized)
             {
                 throw new InvalidOperationException("BPUA platform has already been bootstrapped.");
             }

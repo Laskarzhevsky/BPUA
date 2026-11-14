@@ -19,7 +19,7 @@ namespace BPUA.Application.Orchestration
         /// <returns>True if the use case is activated; otherwise, false.</returns>
         async Task<bool> UseCaseActivated()
         {
-            UseCaseActivationResult useCaseActivationResult = await ((BpuaApplication)BpuaApplication!).ActivateUseCaseAsync(BpuIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await BpuaApplication!.ActivateUseCaseAsync(BpuIdentifier);
             LastUseCaseActivationResult = useCaseActivationResult;
 
             if (!UseCaseActivationSucceeded(useCaseActivationResult))

@@ -1,5 +1,4 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.Orchestration;
 using BPUA.Core;
 
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace BPUA.Application.Extensions.Services
         /// <returns>BPUA application</returns>
         public static IBpuaApplication GetBpuaApplication()
         {
-            IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
+            IBpuaApplication bpuaApplication = ManagementSystem.Instance;
             return bpuaApplication;
         }
 
@@ -34,11 +33,11 @@ namespace BPUA.Application.Extensions.Services
                 return null;
             }
 
-            IBpuaApplication bppApplication = BpuaApplication.GetInstance();
+            IBpuaApplication bppApplication = ManagementSystem.Instance;
 
             bpuaServicekey = bpuaServicekey.Trim('/');
             IBpuIdentifier bpuIdentifier = new BpuIdentifier(bpuaServicekey);
-            UseCaseActivationResult useCaseActivationResult = await ((BpuaApplication)bppApplication).ActivateUseCaseAsync(bpuIdentifier);
+            UseCaseActivationResult useCaseActivationResult = await bppApplication.ActivateUseCaseAsync(bpuIdentifier);
             if (useCaseActivationResult.Succeeded)
             {
                 return bppApplication.GetRequestHandler(bpuaServicekey);
