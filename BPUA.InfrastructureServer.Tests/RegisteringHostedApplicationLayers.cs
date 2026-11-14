@@ -58,7 +58,7 @@ namespace BPUA.InfrastructureServer.Tests
             BpuaPlatformBootstrapper bootstrapper = new BpuaPlatformBootstrapper();
             await bootstrapper.BootBpuaPlatform(scope.RootPath);
 
-            IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
+            IBpuaApplication bpuaApplication = BPUA.Application.Contracts.BpuaApplication.Instance;
 
             IEnumerable<HostedApplicationLayer> hostedApplicationLayers = bpuaApplication.ServiceRegistry.EnumerateObjectsByType<HostedApplicationLayer>();
             List<HostedApplicationLayer> hostedApplicationLayersList = new List<HostedApplicationLayer>(hostedApplicationLayers);

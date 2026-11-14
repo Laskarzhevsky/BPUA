@@ -16,7 +16,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void ProcessStaticAssemblies()
         {
-            IServiceRegistry serviceRegistry = ManagementSystem.Instance.ServiceRegistry;
+            IServiceRegistry serviceRegistry = BPUA.Application.Contracts.BpuaApplication.Instance.ServiceRegistry;
 
             for (int i = 0; i < ListOfLoadedAssemblies.Count; i++)
             {

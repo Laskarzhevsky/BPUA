@@ -85,7 +85,7 @@ namespace BPUA.Application.Orchestration
             var instance = Activator.CreateInstance(type) as IBpuaService;
             if (instance != null)
             {
-                instance.InitializeComponent(ManagementSystem.Instance);
+                instance.InitializeComponent(BPUA.Application.Contracts.BpuaApplication.Instance);
             }
             return instance;
         }

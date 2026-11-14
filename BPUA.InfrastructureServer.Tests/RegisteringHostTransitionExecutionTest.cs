@@ -60,7 +60,7 @@ namespace BPUA.InfrastructureServer.Tests
                 RouteTransitionContextEventArgs routeTransitionContextEventArgs = new RouteTransitionContextEventArgs(requestTransitionContext);
                 ServiceRequestEventArgs serviceRequestEventArgs = new ServiceRequestEventArgs(routeTransitionContextEventArgs);
 
-                IBpuaApplication bpuaApplication = BpuaApplication.GetInstance();
+                IBpuaApplication bpuaApplication = BPUA.Application.Contracts.BpuaApplication.Instance;
                 await bpuaApplication.RequestHandler_RequestServiceEvent(null, serviceRequestEventArgs);
 
                 // To be continued: Verify that the hosted application layer was registered successfully.

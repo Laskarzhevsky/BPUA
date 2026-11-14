@@ -13,7 +13,7 @@ namespace BPUA.Application.Orchestration
     /// Represents the runtime application coordinator that listens to service requests
     /// and dispatches them to the appropriate event bus handler.
     /// </summary>
-    public class BpuaApplication : IBpuaApplication, IBpuaHostServices
+    public class BpuaApplication : BPUA.Application.Contracts.BpuaApplication
     {
         #region Data Fields
         /// <summary>
@@ -24,7 +24,7 @@ namespace BPUA.Application.Orchestration
 
         #region Constructors
         /// <summary>
-        /// Creates the runtime application. The bootstrapper publishes it through ManagementSystem.
+        /// Creates the runtime application. The bootstrapper publishes it through the Contracts BpuaApplication.
         /// </summary>
         public BpuaApplication()
         {
@@ -39,7 +39,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="bpuIdentifier">BPU identifier</param>
         /// <returns>Use case activation result</returns>
-        public async Task<UseCaseActivationResult> ActivateUseCaseAsync(IBpuIdentifier bpuIdentifier)
+        public override async Task<UseCaseActivationResult> ActivateUseCaseAsync(IBpuIdentifier bpuIdentifier)
         {
             IUseCaseActivator useCaseActivator = ServiceRegistry.GetObject<IUseCaseActivator>(typeof(IUseCaseActivator).Name);
             UseCaseActivationResult useCaseActivationResult = await useCaseActivator.ActivateAsync(bpuIdentifier, ServiceRegistry);
@@ -51,7 +51,7 @@ namespace BPUA.Application.Orchestration
         /// IBpuaApplication interface implementation
         /// </summary>
         /// <param name="bpuIdentifier">BPU identifier</param>
-        public async Task ExecuteTransition(IBpuIdentifier bpuIdentifier)
+        public override async Task ExecuteTransition(IBpuIdentifier bpuIdentifier)
         {
             string stateMachineKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName);
             StateMachine? stateMachine = null;
@@ -74,7 +74,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="bpuIdentifier">BPU identifier</param>
         /// <returns>Connection string</returns>
-        public string GetConnectionString(IBpuIdentifier bpuIdentifier)
+        public override string GetConnectionString(IBpuIdentifier bpuIdentifier)
         {
             string hostedApplicationLayerKey = KeyCompiler.CompileHostedApplicationLayerKey(bpuIdentifier.DomainName, bpuIdentifier.UseCaseName, bpuIdentifier.ApplicationLayerName);
             string? connectionString = ApplicationConfiguration.GetConnectionString(hostedApplicationLayerKey);
@@ -92,7 +92,7 @@ namespace BPUA.Application.Orchestration
         /// <returns>BPUA application</returns>
         public static IBpuaApplication GetInstance()
         {
-            return ManagementSystem.Instance;
+            return BPUA.Application.Contracts.BpuaApplication.Instance;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="requesthandlerKey">Request handler key</param>
         /// <returns>Request handler</returns>
-        public IRequestHandler? GetRequestHandler(string requesthandlerKey)
+        public override IRequestHandler? GetRequestHandler(string requesthandlerKey)
         {
             IRequestHandler? requestHandler = (IRequestHandler?)ServiceRegistry.GetBpuaService(requesthandlerKey);
             return requestHandler;
@@ -114,7 +114,7 @@ namespace BPUA.Application.Orchestration
         /// <typeparam name="T">Value type</typeparam>
         /// <param name="key">Value key</param>
         /// <returns>Value from application configuration</returns>
-        public T? GetValueFromApplicationConfiguration<T>(string key)
+        public override T? GetValueFromApplicationConfiguration<T>(string key) where T : default
         {
             T? value = ApplicationConfiguration.GetValue<T>(key);
             return value;
@@ -125,7 +125,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="applicationConfiguration">Application configuration</param>
         /// <param name="pathToFolderWithDynamicAssemblies">Path to folder with dynamic assemblies</param>
-        public void Initialize(IConfiguration applicationConfiguration, string pathToFolderWithDynamicAssemblies)
+        public override void Initialize(IConfiguration applicationConfiguration, string pathToFolderWithDynamicAssemblies)
         {
             ApplicationConfiguration = applicationConfiguration;
             PathToFolderWithDynamicAssemblies = pathToFolderWithDynamicAssemblies;
@@ -136,7 +136,7 @@ namespace BPUA.Application.Orchestration
         /// Initializes hosted application layers
         /// IBpuaApplication interface implementation
         /// </summary>
-        public async Task InitializeHostedApplicationLayers()
+        public override async Task InitializeHostedApplicationLayers()
         {
             await HostedApplicationLayersInitializer.Initialize(this);
         }
@@ -147,7 +147,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="useCaseKey">Use case key</param>
         /// <returns>Flag indicating whether use case activated</returns>
-        public bool IsUseCaseActivated(string useCaseKey)
+        public override bool IsUseCaseActivated(string useCaseKey)
         {
             // TODO
             return true;
@@ -157,7 +157,7 @@ namespace BPUA.Application.Orchestration
         /// Signs in to request handler request service event
         /// </summary>
         /// <param name="requestHandler">Request handler</param>
-        public void SignInToRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
+        public override void SignInToRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
         {
             requestHandler.ServiceRequestEvent += RequestHandler_RequestServiceEvent;
         }
@@ -166,7 +166,7 @@ namespace BPUA.Application.Orchestration
         /// Signs out from request handler request service event
         /// </summary>
         /// <param name="requestHandler">Request handler</param>
-        public void SignOutFromRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
+        public override void SignOutFromRequestHandlerRequestServiceEvent(IRequestHandler requestHandler)
         {
             requestHandler.ServiceRequestEvent -= RequestHandler_RequestServiceEvent;
         }
@@ -177,27 +177,27 @@ namespace BPUA.Application.Orchestration
         /// Gets application configuration
         /// IBpuaApplication interface implementation
         /// </summary>
-        public IConfiguration ApplicationConfiguration
+        public override IConfiguration ApplicationConfiguration
         {
-            get; private set;
+            get; protected set;
         } = default!;
 
         /// <summary>
         /// Gets path to folder with dynamic assemblies
         /// IBpuaApplication interface implementation
         /// </summary>
-        public string PathToFolderWithDynamicAssemblies
+        public override string PathToFolderWithDynamicAssemblies
         {
-            get; private set;
+            get; protected set;
         } = default!;
 
         /// <summary>
         /// Gets service registry 
         /// IBpuaApplication interface implementation
         /// </summary>
-        public IServiceRegistry ServiceRegistry
+        public override IServiceRegistry ServiceRegistry
         {
-            get; private set;
+            get; protected set;
         }
         #endregion
 
@@ -208,7 +208,7 @@ namespace BPUA.Application.Orchestration
         /// </summary>
         /// <param name="eventSource">Event source</param>
         /// <param name="args">Event arguments</param>
-        public async Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args)
+        public override async Task RequestHandler_RequestServiceEvent(object? eventSource, ServiceRequestEventArgs args)
         {
             EventArgs eventArguments = args.EventArguments;
             IBpuaService? bppService = ServiceRegistry.GetBpuaService(eventArguments);

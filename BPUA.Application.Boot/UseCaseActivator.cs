@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 using BPUA.Application.Contracts;
-using BPUA.Application.Orchestration;
 using BPUA.Core;
 
 namespace BPUA.Application.Boot
@@ -144,7 +143,7 @@ namespace BPUA.Application.Boot
             string relativeAssemblyPath = string.Empty;
             string pathToDynamicAssembly = string.Empty;
 
-            IBpuaApplication application = ManagementSystem.Instance;
+            IBpuaApplication application = BPUA.Application.Contracts.BpuaApplication.Instance;
             pluginRoot = application.PathToFolderWithDynamicAssemblies;
             if (string.IsNullOrEmpty(pluginRoot))
             {

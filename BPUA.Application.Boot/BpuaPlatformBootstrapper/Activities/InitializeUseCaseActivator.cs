@@ -18,7 +18,7 @@ namespace BPUA.Application.Boot
             useCaseActivator.ListOfAssemblyProcessors = ListOfAssemblyProcessors;
             useCaseActivator.PathToFolderWithDynamicAssemblies = PathToFolderWithDynamicAssemblies;
 
-            IServiceRegistry serviceRegistry = ManagementSystem.Instance.ServiceRegistry;
+            IServiceRegistry serviceRegistry = BPUA.Application.Contracts.BpuaApplication.Instance.ServiceRegistry;
             serviceRegistry.RegisterObject(typeof(IUseCaseActivator).Name, useCaseActivator);
         }
         #endregion

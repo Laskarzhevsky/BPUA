@@ -16,7 +16,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         async Task InitializeHostedApplicationLayers()
         {
-            IBpuaApplication application = ManagementSystem.Instance;
+            IBpuaApplication application = BPUA.Application.Contracts.BpuaApplication.Instance;
             await application.InitializeHostedApplicationLayers();
         }
         #endregion

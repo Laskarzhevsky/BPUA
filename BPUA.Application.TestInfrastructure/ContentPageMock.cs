@@ -1,5 +1,4 @@
 ﻿using BPUA.Application.Contracts;
-using BPUA.Application.Extensions.Services;
 
 using System.Threading.Tasks;
 
@@ -36,7 +35,7 @@ namespace BPUA.Application.TestInfrastructure
         /// </summary>
         public async Task OnInitializedAsync()
         {
-            object? locatedBpuaService = await BpuaServiceLocator.GetBpuaServiceAsync(CurrentPath);
+            object? locatedBpuaService = await BPUA.Application.Contracts.BpuaApplication.GetBpuaServiceAsync(CurrentPath);
             if (locatedBpuaService != null && locatedBpuaService is IStateHandler)
             {
                 StateHandler = (IStateHandler)locatedBpuaService;

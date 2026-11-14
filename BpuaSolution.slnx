@@ -32,7 +32,6 @@
   </Folder>
   <Folder Name="/BPUA.Application/UseCases/" />
   <Folder Name="/Framework/">
-    <Project Path="BPUA.Application.Extensions.Services/BPUA.Application.Extensions.Services.csproj" />
     <Project Path="BPUA.Core/BPUA.Core.csproj" />
     <Project Path="PocoDataSet.BpuaExtensions/PocoDataSet.BpuaExtensions.csproj" Id="2739bf15-9f72-4107-9248-4167dcb24b22" />
   </Folder>

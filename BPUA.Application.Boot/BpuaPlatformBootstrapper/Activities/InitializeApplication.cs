@@ -14,9 +14,9 @@ namespace BPUA.Application.Boot
         /// </summary>
         void InitializeApplication()
         {
-            BpuaApplication application = new BpuaApplication();
+            BPUA.Application.Orchestration.BpuaApplication application = new BPUA.Application.Orchestration.BpuaApplication();
             application.Initialize(ApplicationConfiguration, PathToFolderWithDynamicAssemblies);
-            ManagementSystem.Initialize(application);
+            BPUA.Application.Contracts.BpuaApplication.Initialize(application);
         }
         #endregion
     }

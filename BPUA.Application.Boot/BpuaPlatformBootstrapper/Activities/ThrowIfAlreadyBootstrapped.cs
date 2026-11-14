@@ -16,7 +16,7 @@ namespace BPUA.Application.Boot
         /// </summary>
         void ThrowIfAlreadyBootstrapped()
         {
-            if (ManagementSystem.IsInitialized)
+            if (BPUA.Application.Contracts.BpuaApplication.IsInitialized)
             {
                 throw new InvalidOperationException("BPUA platform has already been bootstrapped.");
             }
